@@ -18,7 +18,6 @@ use App\GeoRegion;
 use App\RequestCredit;
 use App\RequestUsedcarCredit;
 use App\RequestTradeIn;
-use App\CatalogUsedCar;
 use App\Callback;
 use Intervention\Image\Facades\Image as ImageInt;
 
@@ -26,97 +25,7 @@ class FrontendController extends Controller
 {
     public function index(Request $request)
     {
-        $marks = CarMark::selectRaw('car_marks.id,car_marks.name,car_marks.slug,count(catalog_used_cars.id) as countusedcars')
-            ->where('car_marks.published', 1)
-            ->leftJoin('catalog_used_cars', 'car_marks.name', 'like', 'catalog_used_cars.mark')
-            ->groupBy('car_marks.id')
-            ->orderBy('car_marks.name')
-            ->take(23)
-            ->get();
-
-        $numberCars = CatalogUsedCar::where('published', 1)
-            ->count();
-
-        $soldLastWeek = CatalogUsedCar::where('published', 0)
-            ->count();
-
-        $specialOffer = CatalogUsedCar::where('published', 1)
-            ->where('special', 1)
-            ->orderByRaw('RAND()')
-            ->take(7)
-            ->get();
-
-        $newCars = CatalogUsedCar::where('published', 1)
-            ->orderBy('created_at')
-            ->paginate(10);
-
-        $mark_search = CarMark::select(['id', 'name'])
-            ->where('published', 1)
-            ->orderBy('name')
-            ->get()
-            ->toArray();
-
-        $mark_options[null] = 'Марка';
-
-        foreach ($mark_search  as $mark) {
-            $mark_options[$mark['id']] = $mark['name'];
-        }
-
-        $models_options[null] = 'Модель';
-
-        if (isset($request->mark)) {
-            $models_search = CarModel::where('published', 1)
-                ->where('id_car_mark', $request->mark)
-                ->get()
-                ->toArray();
-
-            foreach ($models_search  as $model) {
-                $models_options[$model['id']] = $model['name'];
-            }
-        }
-
-        $year = null;
-
-        if (isset($request->model)) {
-            $min_year = CarModification::selectRaw('MIN(year_begin)')
-                ->where('id_car_model', $request->model)
-                ->get()
-                ->toArray();
-
-            $max_year = CarModification::selectRaw('MAX(year_end)')
-                ->where('id_car_model', $request->model)
-                ->get()
-                ->toArray();
-
-            $year = ['from' => $min_year[0]["MIN(year_begin)"], 'to' => $max_year[0]["MAX(year_end)"]];
-        }
-
-        $usedcars = null;
-
-        if (isset($request->search)) {
-
-            if ($request->mark) $mark_search = CarMark::select(['name'])->where('id', $request->mark)->first()->toArray();
-            if ($request->model) $model_search = CarModel::select(['name'])->where('id', $request->model)->first()->toArray();
-
-            if ((isset($request->price_from) && $request->price_from) and (isset($request->price_to) && $request->price_to)) {
-                $usedcars = CatalogUsedCar::where('published', 1)
-                    ->where('mark', isset($request->mark) && $request->mark ? 'like' : 'not like', isset($request->mark) && $request->mark ? $mark_search['name'] : '')
-                    ->where('model', isset($request->model) && $request->model ? 'like' : 'not like',  isset($request->model) && $request->model ? $model_search['name'] : '')
-                    ->where('gearbox', isset($request->gearbox) && $request->gearbox ? 'like' : 'not like', isset($request->gearbox) && $request->gearbox ? $request->gearbox : '')
-                    ->where('year', isset($request->year) && $request->year ? '>' : 'not like', isset($request->year) && $request->year ? $request->year : '')
-                    ->whereBetween('price', [$request->price_from, $request->price_to])
-                    ->paginate(5);
-            } else {
-                $usedcars = CatalogUsedCar::where('published', 1)
-                    ->where('mark', isset($request->mark) && $request->mark ? 'like' : 'not like', isset($request->mark) && $request->mark ? $mark_search['name'] : '')
-                    ->where('model', isset($request->model) && $request->model ? 'like' : 'not like',  isset($request->model) && $request->model ? $model_search['name'] : '')
-                    ->where('gearbox', isset($request->gearbox) && $request->gearbox ? 'like' : 'not like', isset($request->gearbox) && $request->gearbox ? $request->gearbox : '')
-                    ->where('year', isset($request->year) && $request->year ? '>' : 'not like', isset($request->year) && $request->year ? $request->year : '')
-                    ->paginate(5);
-            }
-        }
-
-        return view('frontend.index', compact('marks', 'numberCars', 'soldLastWeek', 'specialOffer', 'newCars', 'mark_options', 'request', 'models_options', 'year', 'usedcars'))->with('title', 'Главная');
+        return view('frontend.index')->with('title', 'Главная');
     }
 
     public function components()
