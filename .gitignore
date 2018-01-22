@@ -1,0 +1,16 @@
+/vendor
+/node_modules
+/public/storage
+/uploads/avatars
+/uploads/images
+/uploads/mark
+/uploads/usedcars
+/uploads/tardein
+/uploads/model
+Homestead.yaml
+Homestead.json
+.env
+/nbproject/private/
+/.idea
+/nbproject
+/config/database.php
