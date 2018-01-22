@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'support@' . $_SERVER['SERVER_NAME'], 'name' => 'support'],
+    'from' => ['address' => 'support@domen.ru', 'name' => 'support'],
 
     /*
     |--------------------------------------------------------------------------
