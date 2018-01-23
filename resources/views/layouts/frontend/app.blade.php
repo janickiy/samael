@@ -30,15 +30,17 @@
 
     @include('layouts.frontend.includes.header')
 
-
     @include('layouts.frontend.includes.notifications')
+
+    <div class="main_banner"></div>
+
+    @yield('marks')
+
+    @yield('breadcrumbs')
+
+
     @yield('content')
 
-
-
-    <div class="bottom_map">
-
-    </div>
 
     @include('layouts.frontend.includes.footer')
 

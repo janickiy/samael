@@ -21,9 +21,16 @@ use Intervention\Image\Facades\Image as ImageInt;
 
 class FrontendController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return $this
+     */
     public function index(Request $request)
     {
-        return view('frontend.index')->with('title', 'Главная');
+        $marks = CarMark::all();
+        $news = Page::published()->post()->take(3)->get();
+
+        return view('frontend.index', compact('marks', 'news'))->with('title', 'Главная');
     }
 
     public function components()
@@ -98,9 +105,10 @@ class FrontendController extends Controller
      * @param string $slug
      * @return $this
      */
-    public function post($slug = '')
+    public function news($slug = '')
     {
         $post = Page::whereSlug($slug)->published()->post()->get()->first();
+
         if ($post) {
             return view('frontend.post')->with(compact('post'));
         }
@@ -109,15 +117,28 @@ class FrontendController extends Controller
     }
 
     /**
+     * @return $this
+     */
+    public function allNews()
+    {
+        $news = Page::published()->published()->post()->paginate(10);
+
+        return view('frontend.allnews', compact('news'))->with('Все новости');
+    }
+
+    /**
      * @param string $slug
      * @return $this
      */
     public function staticPages($slug = '')
     {
+        $marks = CarMark::all();
+        $news = Page::published()->post()->take(3)->get();
+
         $page = Page::whereSlug($slug)->published()->page()->get()->first();
 
         if ($page) {
-            return view('frontend.page')->with(compact('page'));
+            return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
         }
 
         abort(404);

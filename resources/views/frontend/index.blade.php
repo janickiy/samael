@@ -9,165 +9,30 @@
 @section('css')
 
 
-
 @endsection
 
 @section('marks')
     @include('layouts.frontend.includes.mark_list')
 @endsection
 
+@section('breadcrumbs')
+
+@endsection
+
 @section('content')
 
 
-    <div class="main_banner"></div>
-    <div class="index_marks">
-        <div class="main_width">
-            <ul class="row">
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Hyundai.png" /></div>
-                        <span>Hyundai</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Renault.png" /></div>
-                        <span>Renault</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Lada.png" /></div>
-                        <span>Lada</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Kia.png" /></div>
-                        <span>Kia</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Nissan.png" /></div>
-                        <span>Nissan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Toyota.png" /></div>
-                        <span>Toyota</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Skoda.png" /></div>
-                        <span>Skoda</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Datsun.png" /></div>
-                        <span>Datsun</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Mitsubishi.png" /></div>
-                        <span>Mitsubishi</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Lifan.png" /></div>
-                        <span>Lifan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Ssangyong.png" /></div>
-                        <span>Ssangyong</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/UAZ.png" /></div>
-                        <span>UAZ</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/GreatWall.png" /></div>
-                        <span>Great Wall</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Ravon.png" /></div>
-                        <span>Ravon</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Geely.png" /></div>
-                        <span>Geely</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Ford.png" /></div>
-                        <span>Ford</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Mazda.png" /></div>
-                        <span>Mazda</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Haval.png" /></div>
-                        <span>Haval</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Suzuki.png" /></div>
-                        <span>Suzuki</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Chery.png" /></div>
-                        <span>Chery</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Changan.png" /></div>
-                        <span>Changan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <div><img src="images/marks/Volksvagen.png" /></div>
-                        <span>Volksvagen</span>
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-    </div>
     <div class="index_page">
         <div class="main_width">
             <div class="presents_block row container">
+
                 <div class="present_item_container">
                     <div class="present_item">
                         <div><img src="/images/p_1.png" /></div>
                         <div>Зимняя резина<br/>в подарок</div>
                     </div>
                 </div>
+
                 <div class="present_item_container">
                     <div class="present_item">
                         <div><img src="/images/p_2.png" /></div>
@@ -272,35 +137,23 @@
                 <div class="soc_block">
                     <h2>Мы в соцсетях</h2>
                     <ul>
+
+                        @foreach($news as $new)
+
                         <li>
                             <div class="article row">
-                                <a href="">
+                                <a href="{{ url('/news/' . $new->slug) }}">
                                     <div class="cs_mark"></div>
                                     <div class="article_image" style="background-image:url(/images/a_1.jpg);"></div>
-                                    <p>Знаешь, у тебя красивое имя, изящные формы и пылкий характер. Каждый раз тембр твоего мотора все сильнее разжигает пламя в моем сердце и поток чистых эмоций</p>
+                                    <p>{!! $new->content !!}</p>
                                 </a>
                             </div>
                         </li>
-                        <li>
-                            <div class="article row">
-                                <a href="">
-                                    <div class="cs_mark"></div>
-                                    <div class="article_image" style="background-image:url(/images/a_2.jpg);"></div>
-                                    <p>Встречайте #Nissan #Qashqai Quantum Edition – дебютанта в обновленном модельном ряду легендарного кроссовера! Новинка представлена в версиях QE и QE+… зависимости от комплектации оснащена системой «ЭРА-ГЛОНАСС»</p>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="article row">
-                                <a href="">
-                                    <div class="cs_mark"></div>
-                                    <div class="article_image" style="background-image:url(/images/a_1.jpg);"></div>
-                                    <p>Знаешь, у тебя красивое имя, изящные формы и пылкий характер. Каждый раз тембр твоего мотора все сильнее разжигает пламя в моем сердце и поток чистых эмоций</p>
-                                </a>
-                            </div>
-                        </li>
+
+                        @endforeach
+
                     </ul>
-                    <a href="" class="btn">Еще новости</a>
+                    <a href="{{ url('/news') }}" class="btn">Еще новости</a>
                 </div>
                 <div class="review_block">
                     <h2>Отзывы</h2>
@@ -337,6 +190,11 @@
                 <a href="" class="btn">Получить скидку</a>
             </div>
         </div>
+    </div>
+
+
+    <div class="bottom_map">
+
     </div>
 
 

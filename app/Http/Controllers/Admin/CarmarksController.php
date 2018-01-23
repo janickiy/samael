@@ -109,7 +109,7 @@ class CarmarksController extends Controller
                 $constraint->aspectRatio();
             })->save($logo_path . $filename);
 
-            $carmark->logo = $logo_path . $filename;
+            $carmark->logo = PATH_MARK . $filename;
         }
 
         $carmark->save();

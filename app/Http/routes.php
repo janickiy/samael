@@ -74,6 +74,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/contacts', 'FrontendController@contact');
     Route::post('/contacts', 'FrontendController@contactUsSubmit');
     Route::get('/page/{slug}', 'FrontendController@staticPages');
+    Route::get('/news}', 'FrontendController@allNews');
+    Route::get('/news/{slug}', 'FrontendController@news');
+    Route::get('/{slug}', 'FrontendController@staticPages');
     Route::any('/ajax', 'FrontendController@ajax');
 
 });

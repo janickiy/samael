@@ -11,12 +11,26 @@
 @endsection
 
 @section('marks')
-
-@section('content')
-
+    @include('layouts.frontend.includes.mark_list')
 @endsection
 
-@endsection
+
+<div class="inset_page">
+    <div class="main_width">
+        @section('breadcrumbs')
+            @include('layouts.frontend.includes.breadcrumbs')
+        @endsection
+        <div class="inset_page_content">
+            @section('content')
+                <h1>{!! $page->title !!}</h1>
+                {!! $page->content !!}
+                @include('layouts.frontend.includes.bottom_page_content')
+            @endsection
+
+        </div>
+    </div>
+</div>
+
 
 @section('js')
     <script type="text/javascript">
