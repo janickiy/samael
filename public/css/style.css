@@ -1,39 +1,39 @@
 @font-face {
     font-family: FontAwesome; 
     src: local("FontAwesome.otf"),
-         url(fonts/FontAwesome.otf); }
+         url(/fonts/FontAwesome.otf); }
 @font-face {
     font-family: rouble; 
     src: local("rouble.otf"),
-         url(fonts/rouble.otf); }
+         url(/fonts/rouble.otf); }
 		 @font-face {
 font-family: GloberBold; 
     src: local("GloberBold.otf"),
-         url(fonts/GloberBold.otf); }
+         url(/fonts/GloberBold.otf); }
 @font-face {
     font-family: Glober; 
     src: local("GloberRegular.otf"),
-         url(fonts/GloberRegular.otf); }
+         url(/fonts/GloberRegular.otf); }
 @font-face {
     font-family: RobotoBold; 
     src: local("RobotoBold.ttf"),
-         url(fonts/RobotoBold.ttf); }
+         url(/fonts/RobotoBold.ttf); }
 @font-face {
     font-family: MartaItalic; 
     src: local("MartaItalic.otf"),
-         url(fonts/MartaItalic.otf); }	 
+         url(/fonts/MartaItalic.otf); }
 @font-face {
     font-family: OpenSans-BoldItalic; 
     src: local("OpenSans-BoldItalic.ttf	"),
-         url(fonts/OpenSans-BoldItalic.ttf	); }		
+         url(/fonts/OpenSans-BoldItalic.ttf	); }
 @font-face {
     font-family: OpenSans-SemiboldItalic; 
     src: local("OpenSans-SemiboldItalic.ttf	"),
-         url(fonts/OpenSans-SemiboldItalic.ttf	); }		 
+         url(/fonts/OpenSans-SemiboldItalic.ttf	); }
 @font-face {
     font-family: BebasNeueBold; 
     src: local("BebasNeueBold.ttf	"),
-         url(fonts/BebasNeueBold.ttf	); }		 
+         url(/fonts/BebasNeueBold.ttf	); }
 		 
 input, textarea, button, select {outline:none;vertical-align: middle;}
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
@@ -86,12 +86,12 @@ a.logo {display:inline-block;float:left;}
 .nav_wrapper:after {position:absolute;display:block;content:'';width:100%;height:5px;left:0;bottom:-5px;background:rgba(17, 17, 17, 0.25);}
 .nav_wrapper nav ul {margin-left:-15px;margin-right:-15px;}
 .nav_wrapper nav ul li {float:left;padding: 0 13px 0 14px;position:relative;}
-.nav_wrapper nav ul li:before {content:'';display:block;width:1px; height:20px;background:url(images/nav_border.png);position:absolute;    top: 0;left: 0;}
+.nav_wrapper nav ul li:before {content:'';display:block;width:1px; height:20px;background:url(/images/nav_border.png);position:absolute;    top: 0;left: 0;}
 .nav_wrapper nav ul li:first-of-type {padding-left:17px;}
 .nav_wrapper nav ul li:first-of-type:before  {display:none;}
 .nav_wrapper nav ul li a {color:#fff;font-size:16px;line-height:20px;}
 
-.main_banner {background-image:url(images/main_banner.jpg);background-position: top center; background-repeat: no-repeat;height:335px;}
+.main_banner {background-image:url(/images/main_banner.jpg);background-position: top center; background-repeat: no-repeat;height:335px;}
 .index_marks {position:relative;}
 .index_marks:after {position:absolute;display:block;content:'';width:100%;height:5px;left:0;bottom:-5px;background:rgba(17, 17, 17, 0.25); z-index: 1;}
 .index_marks ul li {float:left;width:9%;text-align:center;height:60px;margin: 10px 0 5px;}
@@ -101,7 +101,7 @@ a.logo {display:inline-block;float:left;}
 
 .index_page {background:#ecf0f3;}
 .present_item_container {width:25%;float:left;padding:0 10px;}
-.present_item{background:url(images/present_bg.jpg) top center no-repeat;height:100px;padding:15px 10px;font-family:RobotoBold;color:#fff;font-size:16px;box-shadow: #afb2b4 0px 5px 5px;}
+.present_item{background:url(/images/present_bg.jpg) top center no-repeat;height:100px;padding:15px 10px;font-family:RobotoBold;color:#fff;font-size:16px;box-shadow: #afb2b4 0px 5px 5px;}
 .present_item div { display: table-cell;vertical-align: middle;min-width:75px; height: 65px;text-align:center;line-height: 20px;}
 .present_item div+div {text-align:left;}
 
@@ -125,7 +125,7 @@ a.logo {display:inline-block;float:left;}
 .review_item .review_date{font-family: Glober;color:#808890;font-size:12px;float:right;margin-top: -25px;}
 .review_item  p {line-height: 20px;max-height:103px;overflow:hidden;margin:0px;font-size:16px; font-family: MartaItalic; }
 
-.action_block {background-image:url(images/action_block_bg.jpg);background-position: top center; background-repeat: no-repeat;height:370px;}
+.action_block {background-image:url(/images/action_block_bg.jpg);background-position: top center; background-repeat: no-repeat;height:370px;}
 .action_conditions {font-family: OpenSans-BoldItalic;line-height: 45px;width:50%;float:right;padding:50px 10px 25px;}
 .action_conditions .action_title_black {font-size:41px;color:#000;}
 .action_conditions .action_title_white {font-size:45px;color:#fff;}
@@ -135,7 +135,7 @@ a.logo {display:inline-block;float:left;}
 .eTimer.custom_timer .etUnit .etSign {font-size:22px;font-family: OpenSans-SemiboldItalic;}
 .eTimer.custom_timer .etTitle {display:none;}
 
-.bottom_map {background-image:url(images/footer_map.jpg);background-position: top center; background-repeat: no-repeat;height:380px;}
+.bottom_map {background-image:url(/images/footer_map.jpg);background-position: top center; background-repeat: no-repeat;height:380px;}
 
 footer {padding:15px 0; line-height: 20px;background:#231f20;color:#808890;}
 footer a.default_phone{color:#808890;}
