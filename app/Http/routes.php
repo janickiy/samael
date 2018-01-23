@@ -31,12 +31,9 @@ use App\UserReview;
 use App\CarMark;
 use App\CarModel;
 use App\CarModification;
-use App\CatalogUsedCar;
 use App\Image;
 use App\RequestCredit;
 use App\RequestTradeIn;
-use App\RequestUsedcarCredit;
-use App\Callback;
 
 Route::model('users', User::class);
 Route::model('settings', Setting::class);
@@ -47,12 +44,11 @@ Route::model('reviews', UserReview::class);
 Route::model('carmarks',CarMark::class);
 Route::model('carmodels',CarModel::class);
 Route::model('carmodifications',CarModification::class);
-Route::model('catalogusedcars', CatalogUsedCar::class);
 Route::model('images', Image::class);
 Route::model('requestcredits', RequestCredit::class);
 Route::model('requesttradeins', RequestTradeIn::class);
 Route::model('requestusedcarcredits', RequestUsedcarCredit::class);
-Route::model('callbacks', Callback::class);
+
 
 Route::group(['prefix' => ''], function() {
     define('PATH_AVATARS','/uploads/avatars');
@@ -61,8 +57,6 @@ Route::group(['prefix' => ''], function() {
     define('PATH_MARK','/uploads/mark/');
     define('PATH_MODEL','/uploads/model/');
     define('PATH_SETTINGS','/uploads/settings');
-    define('PATH_SMALL_USEDCARS','/uploads/usedcars/small/');
-    define('PATH_BIG_USEDCARS','/uploads/usedcars/big/');
     define('PATH_SMALL_TRADEIN','/uploads/tardein/small/');
     define('PATH_BIG_TRADEIN','/uploads/tardein/big/');
 });
@@ -70,21 +64,15 @@ Route::group(['prefix' => ''], function() {
 Route::group(['middleware' => ['web']], function () {
 
     Route::any('/', 'FrontendController@index');
-    Route::get('/auto/used', 'FrontendController@allUsedAuto');
-    Route::any('/auto/used/allmarks', 'FrontendController@allmarks');
-    Route::get('/auto/used/detail/{id}', 'FrontendController@usedAutoDetail');
-    Route::get('/auto/used/{mark}', 'FrontendController@usedAuto');
-    Route::get('/auto/used/{mark}/{model}', 'FrontendController@usedAutoModel');
+    Route::get('/auto', 'FrontendController@allAuto');
     Route::get('/credit', 'FrontendController@credit');
     Route::post('/request-credit', 'FrontendController@requestCredit');
-    Route::post('/usedcar-request-credit', 'FrontendController@requestUsedCarCredit');
     Route::get('/tradein', 'FrontendController@tradeIn');
     Route::post('/request-tradein', 'FrontendController@requestTradein');
     Route::get('/reviews', 'FrontendController@reviews');
     Route::post('/reviews', 'FrontendController@reviewsSubmit');
     Route::get('/contacts', 'FrontendController@contact');
     Route::post('/contacts', 'FrontendController@contactUsSubmit');
-    Route::post('/callback', 'FrontendController@callback');
     Route::get('/page/{slug}', 'FrontendController@staticPages');
     Route::any('/ajax', 'FrontendController@ajax');
 
@@ -123,12 +111,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('carmarks', 'Admin\CarmarksController');
         Route::resource('carmodels', 'Admin\CarmodelsController');
         Route::resource('carmodifications', 'Admin\CarmodificationsController');
-        Route::resource('catalogusedcars', 'Admin\CatalogUsedCarsController');
         Route::resource('images', 'Admin\ImagesController');
         Route::resource('requestcredits', 'Admin\RequestCreditsController');
         Route::resource('requestusedcarcredits', 'Admin\RequestUsedcarCreditsController');
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
-        Route::resource('callbacks', 'Admin\CallbacksController');
     });
 
     /**

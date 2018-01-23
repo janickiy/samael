@@ -7,7 +7,6 @@ use App\Http\Requests;
 use App\Http\Requests\RequestCreditsRequest;
 use App\Http\Requests\RequestTradeInsRequest;
 use App\Http\Requests\UserReviewsRequest;
-use App\Http\Requests\RequestUsedcarCreditsRequest;
 use App\Http\Requests\CallbacksRequest;
 use App\Page;
 use App\CarMark;
@@ -16,7 +15,6 @@ use App\CarModification;
 use App\UserReview;
 use App\GeoRegion;
 use App\RequestCredit;
-use App\RequestUsedcarCredit;
 use App\RequestTradeIn;
 use App\Callback;
 use Intervention\Image\Facades\Image as ImageInt;
@@ -306,12 +304,9 @@ class FrontendController extends Controller
         return redirect('/reviews')->with(['success' => 'Ваш коментарий отправлен. После проверки модератора он будет доступен!']);
     }
 
-    public function allUsedAuto()
+    public function allAuto()
     {
-        $usedCars = CatalogUsedCar::where('published', 1)
-            ->paginate(12);
-
-        return view('frontend.auto', compact('usedCars'))->with('title', 'Автомобили с пробегом');
+        return view('frontend.auto')->with('title', 'Автомобили с пробегом');
     }
 
     /**
@@ -386,27 +381,6 @@ class FrontendController extends Controller
         $requestCredit->ip = getIP();
         $requestCredit->save();
         return redirect('/credit')->with('success', 'Ваша заявка на автокредит отправлена. Мы свяжемся с Вами в ближайшее время!');
-    }
-
-    /**
-     * @param RequestUsedcarCreditsRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function requestUsedCarCredit(RequestUsedcarCreditsRequest $request)
-    {
-        $usedCar = CatalogUsedCar::where('published', 1)
-                    ->where('id', $request->id_car)
-                    ->get()
-                    ->first();
-
-        if ($usedCar) {
-            $requestCredit = RequestUsedcarCredit::create($request->except('_token'));
-            $requestCredit->ip = getIP();
-            $requestCredit->save();
-            return redirect('/auto/used/detail/' . $request->id_car)->with('success', 'Ваша заявка на автокредит отправлена. Мы свяжемся с Вами в ближайшее время!');
-        }
-
-        abort(500);
     }
 
     /**
@@ -532,69 +506,5 @@ class FrontendController extends Controller
             ->get();
 
         return view('frontend.allmarks', compact('marks'))->with('title', 'Все марки');
-    }
-
-    /**
-     * @param $mark
-     * @return $this
-     */
-    public function usedAuto($mark)
-    {
-        $models = CarModel::select(['car_models.name', 'car_models.slug as model', 'car_marks.slug as mark'])
-                    ->where('car_models.published', 1)
-                    ->join('car_marks', 'car_marks.id', '=', 'car_models.id_car_mark')
-                    ->where('car_marks.slug', $mark)
-                    ->get();
-
-        $model_list = CatalogUsedCar::where('mark', 'like', $mark)
-            ->where('published', 1)
-            ->paginate(10);
-
-        return view('frontend.usedauto.mark', compact('models', 'model_list'))->with('title', 'Все модели: ' . $mark);
-    }
-
-    /**
-     * @param $mark
-     * @param $model
-     * @return $this
-     */
-    public function usedAutoModel($model)
-    {
-        $modifications = CarModel::select(['car_modifications.id','car_modifications.name','car_modifications.body_type'])
-            ->join('car_modifications', 'car_models.id', '=', 'car_modifications.id_car_model')
-            ->where('car_models.slug', $model)
-            ->where('car_models.published', 1)
-            ->get();
-
-        $model_list = CarModel::where('slug', $model)
-            ->where('published', 1)
-            ->paginate(10);
-
-        return view('frontend.usedauto.model', compact('modifications','model_list'))->with('title', 'Автомобили с пробегом');
-    }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function usedAutoDetail($id)
-    {
-        $detail = CatalogUsedCar::where('id', $id)->get()->first();
-
-        if ($detail) {
-            $similarCars = CatalogUsedCar::where('published', 1)
-                ->where('mark', 'like', $detail->mark)
-                ->where('model', 'like', '%' . $detail->model . '%')
-                ->orderByRaw('RAND()')
-                ->take(5)
-                ->get();
-
-            $equipments = unserialize($detail->equipment);
-            $images = unserialize($detail->image);
-
-            return view('frontend.usedauto.detail', compact('detail','similarCars', 'equipments', 'images'))->with('title', $detail->mark . ' ' . $detail->model);
-        }
-
-        abort(404);
     }
 }

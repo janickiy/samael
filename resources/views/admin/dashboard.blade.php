@@ -127,21 +127,7 @@
                             </div>
                         </div><!-- ./col -->
 
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-orange">
-                                <div class="inner">
-                                    <h3>{{ $catalogusedcars }}</h3>
-                                    <p>Автомобили с пробегом</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-automobile"></i>
-                                </div>
-                                <a href="{{ url('admin/catalogusedcars') }}" class="small-box-footer">подробно
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><!-- ./col -->
+
 
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->

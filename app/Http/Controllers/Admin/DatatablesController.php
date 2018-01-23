@@ -256,42 +256,6 @@ class DatatablesController extends Controller
     /**
      * @return mixed
      */
-    public function getCatalogusedcars()
-    {
-        $catalogUsedCar = CatalogUsedCar::all();
-
-        return Datatables::of($catalogUsedCar)
-            ->addColumn('status', function ($catalogUsedCar) {
-                return $catalogUsedCar->published ? 'опубликован' : 'не опубликован';
-            })
-
-            ->addColumn('has_images', function ($catalogUsedCar) {
-                return unserialize($catalogUsedCar->image) ? 'да' : 'нет';
-            })
-
-            ->addColumn('special', function ($catalogUsedCar) {
-                return $catalogUsedCar->special ? 'да' : 'нет';
-            })
-
-            ->addColumn('verified', function ($catalogUsedCar) {
-                return $catalogUsedCar->verified ? 'да' : 'нет';
-            })
-
-            ->addColumn('tradein', function ($catalogUsedCar) {
-                return $catalogUsedCar->tradein ? 'да' : 'нет';
-            })
-
-            ->addColumn('actions', function ($catalogUsedCar) {
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogusedcars/' . $catalogUsedCar->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogusedcars/' . $catalogUsedCar->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
-                return $editBtn . $deleteBtn;
-            })
-            ->make(true);
-    }
-
-    /**
-     * @return mixed
-     */
     public function getImages()
     {
         $image = Image::all();
@@ -352,27 +316,6 @@ class DatatablesController extends Controller
             })->make(true);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRequestusedcarcredits()
-    {
-        $requestUsedcarCredit = RequestUsedcarCredit::select(['catalog_used_cars.mark', 'catalog_used_cars.model', 'request_usedcar_credits.id', 'request_usedcar_credits.name', 'request_usedcar_credits.name', 'request_usedcar_credits.age', 'request_usedcar_credits.phone','request_usedcar_credits.fee', 'request_usedcar_credits.ip', 'request_usedcar_credits.registration', 'request_usedcar_credits.status', 'request_usedcar_credits.created_at', 'request_usedcar_credits.updated_at'])
-                                 ->join('catalog_used_cars', 'catalog_used_cars.id', '=', 'request_usedcar_credits.id_car')
-                                 ->get();
-
-        return Datatables::of($requestUsedcarCredit)
-
-            ->addColumn('status', function ($requestUsedcarCredit) {
-                return $requestUsedcarCredit->status ? 'да' : 'нет';
-            })
-
-            ->addColumn('actions', function ($requestUsedcarCredit) {
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/requestusedcarcredits/' . $requestUsedcarCredit->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/requestusedcarcredits/' . $requestUsedcarCredit->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
-                return $editBtn . $deleteBtn;
-            })->make(true);
-    }
 
     /**
      * @return mixed

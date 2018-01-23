@@ -11,7 +11,6 @@ use App\UserReview;
 use App\Image;
 use App\RequestCredit;
 use App\RequestTradeIn;
-use App\CatalogUsedCar;
 use App\CarMark;
 use App\CarModel;
 use App\CarModification;
@@ -40,9 +39,8 @@ class DashboardController extends Controller
         $requesttradeins = RequestTradeIn::all()->count();
         $reviews = UserReview::all()->count();
         $carmarks = CarMark::all()->count();
-        $catalogusedcars = CatalogUsedCar::all()->count();
 
-        return view('admin.dashboard')->with(compact('users', 'packages', 'features', 'pages', 'posts', 'reviews', 'images', 'requestcredits', 'requesttradeins', 'catalogusedcars', 'carmarks'));
+        return view('admin.dashboard')->with(compact('users', 'packages', 'features', 'pages', 'posts', 'reviews', 'images', 'requestcredits', 'requesttradeins', 'carmarks'));
     }
 
     /**

@@ -23,9 +23,9 @@ class CreateRequestTradeInTable extends Migration
             $table->integer('year')->nullable()->comment('год');
             $table->integer('mileage')->comment('пробег');
             $table->string('gearbox')->comment('кпп');
-            $table->string('trade_in_mark')->comment('марка новый автомобиль');
-            $table->string('trade_in_model')->comment('модель новый автомобиль');
-            $table->string('photo')->comment('фото');
+            $table->text('photo')->comment('фото');
+            $table->integer('trade_in_mark')->index('trade_in_mark')->comment('марка новый автомобиль');
+            $table->integer('trade_in_model')->index('trade_in_model')->comment('модель новый автомобиль');
             $table->timestamps();
         });
     }
