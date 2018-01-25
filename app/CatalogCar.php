@@ -4,7 +4,7 @@ namespace App;
 
 use App\BaseModel;
 
-class CatalogCars extends BaseModel {
+class CatalogCar extends BaseModel {
 
     /**
      * The attributes that aren't mass assignable.

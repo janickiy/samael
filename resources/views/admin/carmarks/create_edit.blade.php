@@ -17,7 +17,7 @@
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
         <li><a href="{{ url('admin/carmarks') }}"><i class="fa fa-folder-open-o"></i> Марки</a></li>
         <li class="active"><i class="fa {{ isset($carmark) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($carmark) ? 'Редактировать' : 'Добавить' }}
-            марка
+            марку
         </li>
     </ol>
 </section>
@@ -44,69 +44,6 @@
                     {!! Form::label('name', 'Название марки *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::text('name', old('name', isset($carmark) ? $carmark->name : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название марки']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('name_rus', 'Название марки кирилицей*', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('name_rus', old('name_rus', isset($carmark) ? $carmark->name_rus : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название марки кирилицей']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('slug', 'Slug*', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('slug', old('slug', isset($carmark) ? $carmark->slug : null), ['class' => 'form-control validate[required]', 'placeholder'=>'slug']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('logo', 'Фото (jpeg, png, gif)', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::file('logo') !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('meta_title', 'meta title', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('meta_title', old('meta_title', isset($carmark) ? $carmark->meta_title : null), ['class' => 'form-control', 'placeholder'=>'meta title']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('meta_keywords', 'meta keywords', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('meta_keywords', old('meta_keywordse', isset($carmark) ? $carmark->meta_keywords : null), ['class' => 'form-control', 'placeholder'=>'meta keywords']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('meta_description', 'meta description', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::textarea('meta_description', old('message', isset($carmark) ? $carmark->meta_description : null), ['class' => 'form-control', 'placeholder'=>'meta description', 'rows' => 2]) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($carmark))
-                               {!! Form::checkbox('published',1,  old('published' , (isset($carmark) && ($carmark->getOriginal('published') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('published',1,  old('published' , true),['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
-                    </div>
-                </div>
-
-                <div class="form-group"><div class="col-md-8 col-md-offset-2">
-                    @if (isset($carmark) && (file_exists(public_path() . $carmark->logo)) )
-                        <img src="{!! $carmark->logo !!}">
-                    @endif
                     </div>
                 </div>
 

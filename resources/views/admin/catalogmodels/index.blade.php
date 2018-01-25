@@ -17,21 +17,20 @@
         <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-list-alt"></i> Модификации
+        <i class="fa fa-list-alt"></i> Марка
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li class="active"><i class="fa fa-list-alt"></i> Модификации</li>
+        <li class="active"><i class="fa fa-list-alt"></i> Марка</li>
     </ol>
 </section>
-
 <!-- Main content -->
 <section class="content">
-    <p><a class="btn btn-success" href="/admin/carmodifications/create/{{ $id }}"> + Добавить модификацию </a></p>
     <!-- Default box -->
+
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Список модификаций</h3>
+            <h3 class="box-title">Автомобильные марки</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i>
@@ -43,10 +42,8 @@
             <table id="data_table" class="table datatable dt-responsive" style="width:100%;">
                 <thead>
                 <tr>
-                    <th>Модификация</th>
-                    <th>Тип кузова</th>
-                    <th>Начало выпуска</th>
-                    <th>Конец выпуска</th>
+                    <th>Название</th>
+                    <th>Статус</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -68,9 +65,8 @@
 
 @endsection
 
-
 @section('js')
-        <!-- DataTables -->
+<!-- DataTables -->
 {!! Html::script('assets/dist/js/datatable/jquery.dataTables.min.js') !!}
 
 {!! Html::script('assets/dist/js/datatable/dataTables.bootstrap.min.js') !!}
@@ -84,12 +80,10 @@
         var table = $("#data_table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url("admin/datatables/carmodifications/{$id}") !!}',
+            ajax: '{!! url("admin/datatables/carmodels/{$id}") !!}',
             columns: [
                 {data: 'name', name: 'name'},
-                {data: 'body_type', name: 'body_type'},
-                {data: 'year_begin', name: 'year_begin'},
-                {data: 'year_end', name: 'year_end'},
+                {data: 'status', name: 'status'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

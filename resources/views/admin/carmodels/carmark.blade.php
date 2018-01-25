@@ -14,7 +14,9 @@
 
 
 @section('content')
-        <!-- Content Header (Page header) -->
+
+<!-- Content Header (Page header) -->
+
 <section class="content-header">
     <h1>
         <i class="fa fa-list-alt"></i> Модели {{ $carmark->name }}
@@ -24,7 +26,6 @@
         <li class="active"><i class="fa fa-list-alt"></i> Модели</li>
     </ol>
 </section>
-
 
 <!-- Main content -->
 <section class="content">
@@ -46,13 +47,10 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Фото</th>
-                    <th>Статус</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
-
 
                 </tbody>
             </table>
@@ -69,7 +67,6 @@
 @include('layouts.admin.includes.message_boxes', ['item' => 'Menu', 'delete' => true])
 
 @endsection
-
 
 @section('js')
         <!-- DataTables -->
@@ -90,8 +87,6 @@
             ajax: '{!! url("admin/datatables/carmarkmodels/$carmark->id") !!}',
             columns: [
                 {data: 'modification', name: 'modification'},
-                {data: 'image', name: 'image'},
-                {data: 'status', name: 'status'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

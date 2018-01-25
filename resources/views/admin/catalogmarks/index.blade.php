@@ -1,9 +1,11 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Марки')
+@section('title', 'Производители')
 
 @section('css')
-        <!-- DataTables -->
+
+<!-- DataTables -->
+
 {!! Html::style('assets/dist/css/datatable/dataTables.bootstrap.min.css') !!}
 
 {!! Html::style('assets/dist/css/datatable/responsive.bootstrap.min.css') !!}
@@ -17,11 +19,11 @@
         <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-folder-open-o"></i> Марка
+        <i class="fa fa-folder-open-o"></i> Производители
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li class="active"><i class="fa fa-folder-open-o"></i> Марка</li>
+        <li class="active"><i class="fa fa-folder-open-o"></i> Производители</li>
     </ol>
 </section>
 
@@ -43,6 +45,7 @@
                 <thead>
                 <tr>
                     <th>Название</th>
+                    <th>Статус</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -80,9 +83,10 @@
         var table = $("#data_table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url("admin/datatables/carmarks") !!}',
+            ajax: '{!! url("admin/datatables/catalogmarks") !!}',
             columns: [
-                {data: 'carmodel', name: 'carmodel'},
+                {data: 'carmark', name: 'carmark'},
+                {data: 'status', name: 'status'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Марки')
+@section('title', 'Модели')
 
 @section('css')
         <!-- DataTables -->
@@ -17,20 +17,23 @@
         <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-folder-open-o"></i> Марка
+        <i class="fa fa-list-alt"></i> Модели {{ $carmark->name }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li class="active"><i class="fa fa-folder-open-o"></i> Марка</li>
+        <li class="active"><i class="fa fa-list-alt"></i> Модели</li>
     </ol>
 </section>
+
 
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
+    <p><a class="btn btn-success" href="/admin/carmodels/create/{{ $carmark->id }}"> + Добавить модель </a></p>
+
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Автомобильные марки</h3>
+            <h3 class="box-title">Модели</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i>
@@ -43,10 +46,13 @@
                 <thead>
                 <tr>
                     <th>Название</th>
+                    <th>Фото</th>
+                    <th>Статус</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
+
 
                 </tbody>
             </table>
@@ -77,16 +83,20 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
         var table = $("#data_table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url("admin/datatables/carmarks") !!}',
+            ajax: '{!! url("admin/datatables/carmarkmodels/$carmark->id") !!}',
             columns: [
-                {data: 'carmodel', name: 'carmodel'},
+                {data: 'modification', name: 'modification'},
+                {data: 'image', name: 'image'},
+                {data: 'status', name: 'status'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });
         //table.column('0:visible').order('desc').draw();
     });
+
 </script>
 @endsection

@@ -30,10 +30,13 @@ use App\Menu;
 use App\UserReview;
 use App\CarMark;
 use App\CarModel;
-use App\CarModification;
 use App\Image;
 use App\RequestCredit;
 use App\RequestTradeIn;
+
+use App\CatalogMark;
+
+use App\CatalogModel;
 
 Route::model('users', User::class);
 Route::model('settings', Setting::class);
@@ -43,11 +46,15 @@ Route::model('menus', Menu::class);
 Route::model('reviews', UserReview::class);
 Route::model('carmarks',CarMark::class);
 Route::model('carmodels',CarModel::class);
-Route::model('carmodifications',CarModification::class);
 Route::model('images', Image::class);
 Route::model('requestcredits', RequestCredit::class);
 Route::model('requesttradeins', RequestTradeIn::class);
-Route::model('requestusedcarcredits', RequestUsedcarCredit::class);
+
+Route::model('catalogmarks', CatalogMark::class);
+
+Route::model('catalogmodels', CatalogModel::class);
+
+
 
 
 Route::group(['prefix' => ''], function() {
@@ -98,10 +105,13 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/dashboard', 'Admin\DashboardController@index');
         Route::get('carmodels/carmark/{id}', 'Admin\CarmodelsController@carmark');
         Route::any('carmodels/create/{id}', 'Admin\CarmodelsController@create');
-        Route::get('carmodifications/model/{id}', 'Admin\CarmodificationsController@index');
-        Route::get('carmodifications/create/{id}', 'Admin\CarmodificationsController@create');
         Route::get('carmarks/import', 'Admin\CarmarksController@import');
         Route::post('carmarks/imporcarmarks', 'Admin\CarmarksController@importCarmarks');
+
+        Route::get('catalogmodels/catalogmark/{id}', 'Admin\CatalogmodelsController@catalogmark');
+        Route::any('catalogmodels/create/{id}', 'Admin\CatalogmodelsController@create');
+
+
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
@@ -113,11 +123,16 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('reviews', 'Admin\ReviewsController');
         Route::resource('carmarks', 'Admin\CarmarksController');
         Route::resource('carmodels', 'Admin\CarmodelsController');
-        Route::resource('carmodifications', 'Admin\CarmodificationsController');
         Route::resource('images', 'Admin\ImagesController');
         Route::resource('requestcredits', 'Admin\RequestCreditsController');
-        Route::resource('requestusedcarcredits', 'Admin\RequestUsedcarCreditsController');
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
+
+
+        Route::resource('catalogmarks', 'Admin\CatalogmarksController');
+
+        Route::resource('catalogmodels', 'Admin\CatalogmodelsController');
+
+
     });
 
     /**

@@ -52,7 +52,7 @@
 
             <li class="treeview {{ Request::is('admin/carmark*') ? 'active': '' || Request::is('admin/carmodel*') ? 'active': '' || Request::is('admin/carmodification*') ? 'active': '' }}">
                 <a href="#">
-                    <i class="fa fa-folder-open-o"></i> <span>Марки и модели</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-folder-open-o"></i> <span>Каталог производителей<br> и моделей</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/carmarks') ? 'active': '' }}">
@@ -76,20 +76,20 @@
                 </ul>
             </li>
 
-            <li class="treeview {{ Request::is('admin/catalogusedcar*')? 'active': '' }}">
+            <li class="treeview {{ Request::is('admin/catalogcar*')? 'active': '' }}">
                 <a href="#">
-                    <i class="fa fa-automobile"></i> <span>Автомобили с пробегом</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-automobile"></i> <span>Автомобили</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ Request::is('admin/catalogusedcars')? 'active': '' }}">
-                        <a href="{{ url('admin/catalogusedcars') }}">
-                            <i class="fa fa-list"></i> <span>Администрирование</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::is('admin/catalogusedcars/create')? 'active': '' }}">
-                        <a href="{{ url('admin/catalogusedcars/create') }}">
-                            <i class="fa fa-plus"></i> <span>Добавить автомобиль</span>
-                        </a>
+                    <li class="{{ Request::is('admin/catalogmark*')? 'active': '' }}">
+                        <a href="#"><i class="fa fa-key"></i> Список производителей <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="{{ Request::is('admin/catalogmarks')? 'active': '' }}"><a
+                                        href="{{ url('admin/catalogmarks') }}"><i class="fa fa-list"></i> Администрирование</a></li>
+                            <li class="{{ Request::is('admin/catalogmarks/create')? 'active' : '' }}"><a
+                                        href="{{ url('admin/catalogmarks/create') }}"><i class="fa fa-plus"></i> Добавить производителя</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

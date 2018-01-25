@@ -4,7 +4,7 @@ namespace App;
 
 use App\BaseModel;
 
-class CatalogModels extends BaseModel {
+class CatalogMark extends BaseModel {
 
     /**
      * The attributes that aren't mass assignable.

@@ -43,7 +43,6 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Статус</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -83,7 +82,6 @@
             ajax: '{!! url("admin/datatables/carmodels/{$id}") !!}',
             columns: [
                 {data: 'name', name: 'name'},
-                {data: 'status', name: 'status'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

@@ -3,11 +3,8 @@
 @section('title', 'Марки')
 
 @section('css')
-
-<!-- iCheck for checkboxes and radio inputs -->
-
+        <!-- iCheck for checkboxes and radio inputs -->
 {!! Html::style('assets/plugins/iCheck/all.css') !!}
-
 @endsection
 
 @section('content')
@@ -25,12 +22,9 @@
     </ol>
 </section>
 
-
 <!-- Main content -->
 <section class="content">
-    <a href="{{ url('/admin/carmodels/carmark/' . (isset($carmodel->id_car_mark) ? $carmodel->id_car_mark : $id_car_mark)) }}">Назад
-
-        <!-- Default box -->
+    <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Форма данных модели</h3>
@@ -39,15 +33,14 @@
                     <i class="fa fa-minus"></i>
                 </button>
             </div>
-
         </div>
-
-       </a>
         <div class="box-body">
             <p>* - обязательные поля</p>
             {!! Form::open(['url' => isset($carmodel) ? URL::to('admin/carmodels/' . $carmodel->id )  :  URL::to('admin/carmodels') , 'method' => isset($carmodel) ? 'put': 'post', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
 
-            {!! Form::hidden('id_car_mark', isset($carmodel->id_car_mark) ? $carmodel->id_car_mark : $id_car_mark ) !!}
+            @if(isset($id_car_mark)) {!! Form::hidden('id_car_mark', $id_car_mark) !!} @endif
+
+            {!! Form::hidden('id_car_type', 1) !!}
 
             <div class="col-md-12">
 
@@ -55,6 +48,41 @@
                     {!! Form::label('name', 'Название модели *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::text('name', old('name', isset($carmodel) ? $carmodel->name : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название модели']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('message', 'Название модели кирилицей*', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        {!! Form::text('name_rus', old('name_rus', isset($carmodel) ? $carmodel->name_rus : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название марки кирилицей']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('image', 'Фото (jpeg, png, gif)', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        {!! Form::file('image') !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        <label class="check">
+                            @if(isset($carmodel))
+
+                            {!! Form::checkbox('published',1,  old('published' , (isset($carmodel) && ($carmodel->getOriginal('published') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
+                            @else
+                                {!! Form::checkbox('published',1,  old('published' , true) ,['class'=>'minimal']) !!}
+                            @endif
+                            Да</label>
+                    </div>
+                </div>
+
+                <div class="form-group"><div class="col-md-8 col-md-offset-2">
+                        @if (isset($carmodel) && (file_exists(public_path() . $carmodel->image)) )
+                            <img src="{!! $carmodel->image !!}">
+                        @endif
                     </div>
                 </div>
 
@@ -75,8 +103,7 @@
 
 @section('js')
 
-<!-- iCheck 1.0.1 -->
-
+        <!-- iCheck 1.0.1 -->
 {!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
 
 {!! Html::script('assets/plugins/validationengine/languages/jquery.validationEngine-ru.js') !!}

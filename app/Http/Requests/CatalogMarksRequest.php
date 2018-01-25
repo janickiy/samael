@@ -32,8 +32,8 @@ class CatalogMarksRequest extends Request
                 return [
                     'name' => 'required',
                     'name_rus' => 'required',
-                    'slug' => 'required|unique:car_marks',
-                    'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'slug' => 'required|unique:catalog_marks',
+                    'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1048',
                 ];
             }
             case 'PUT':
@@ -41,8 +41,8 @@ class CatalogMarksRequest extends Request
                 return [
                     'name' => 'required',
                     'name_rus' => 'required',
-                    'slug' => 'required|unique:car_marks,slug,' . $this->input('mark_id'),
-                    'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'slug' => 'required|unique:catalog_marks,slug,' . $this->input('mark_id'),
+                    'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1048',
                 ];
             }
             default:
