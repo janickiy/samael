@@ -5,7 +5,7 @@
         @foreach($marks as $mark)
             @if($i == 0) <ul class="row"> @endif
             <li>
-                <a href="">
+                <a href="{!! url('/auto/' . $mark->slug) !!}">
                     <div><img style="height: 23px" src="{!! $mark->logo !!}" /></div>
                     <span>{!! $mark->name !!}</span>
                 </a>

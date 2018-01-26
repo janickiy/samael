@@ -10,30 +10,42 @@
 
 @endsection
 
+@section('banner')
+
+@endsection
+
 @section('marks')
+
     @include('layouts.frontend.includes.mark_list')
+    
 @endsection
 
 
-<div class="inset_page">
-    <div class="main_width">
-        @section('breadcrumbs')
-            @include('layouts.frontend.includes.breadcrumbs')
-        @endsection
-        <div class="inset_page_content">
-            @section('content')
-                <h1>{!! $page->title !!}</h1>
-                {!! $page->content !!}
-                @include('layouts.frontend.includes.bottom_page_content')
-            @endsection
+@section('content')
 
+    <div class="inset_page">
+        <div class="main_width">
+
+           @include('layouts.frontend.includes.breadcrumbs')
+
+            <div class="inset_page_content">
+                <h1>{{ $page->title }}</h1>
+
+                {!! $page->content !!}
+
+            </div>
         </div>
     </div>
-</div>
 
+@endsection
+
+@section('bottom_page_content')
+
+   @include('layouts.frontend.includes.bottom_page_content')
+
+@endsection
 
 @section('js')
-    <script type="text/javascript">
 
-    </script>
+
 @endsection

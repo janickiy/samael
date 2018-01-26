@@ -16,8 +16,11 @@
     <title> {{ getSetting('SITE_TITLE') }} | @yield('title') </title>
 
     {!! Html::script('js/jquery-1.11.1.min.js') !!}
+
     {!! Html::script('js/select.js') !!}
+
     {!! Html::script('js/jquery.maskedinput.js') !!}
+
     {!! Html::script('js/jquery.fancybox.js') !!}
 
     @yield('css')
@@ -32,14 +35,14 @@
 
     @include('layouts.frontend.includes.notifications')
 
-    <div class="main_banner"></div>
+    @yield('banner')
 
     @yield('marks')
 
-    @yield('breadcrumbs')
-
 
     @yield('content')
+
+    @yield('bottom_page_content')
 
 
     @include('layouts.frontend.includes.footer')

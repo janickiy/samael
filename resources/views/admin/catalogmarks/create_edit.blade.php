@@ -62,11 +62,84 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('logo', 'Фото (jpeg, png, gif)', ['class' => 'control-label col-md-2']) !!}
+                    {!! Form::label('annotation', 'Аннотация', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        {!! Form::text('annotation', old('annotation', isset($catalogmark) ? $catalogmark->annotation : null), ['class' => 'form-control', 'placeholder' => 'annotation']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('content', 'Контент', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        {!! Form::textarea('content', old('content', isset($catalogmark) ? $catalogmark->content : null), ['class' => 'form-control', 'placeholder' => 'content', 'rows' => 2]) !!}
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    {!! Form::label('logo', 'Логотип (jpeg, png, gif, размер не более 1Мб)', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::file('logo') !!}
                     </div>
                 </div>
+
+                <div class="form-group">
+                    {!! Form::label('autocredit', 'Автокредит', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        <label class="check">
+                            @if(isset($catalogmark))
+                                {!! Form::checkbox('autocredit',1,  old('autocredit' , (isset($catalogmark) && ($catalogmark->getOriginal('autocredit') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
+                            @else
+                                {!! Form::checkbox('autocredit',1,  old('autocredit' , true),['class'=>'minimal']) !!}
+                            @endif
+
+                            Да</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('autocredit', 'Зимняя резина в подарок', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        <label class="check">
+                            @if(isset($catalogmark))
+                                {!! Form::checkbox('winterwheels',1, old('winterwheels' , (isset($catalogmark) && ($catalogmark->getOriginal('winterwheels') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
+                            @else
+                                {!! Form::checkbox('winterwheels',1, old('winterwheels' , true), ['class'=>'minimal']) !!}
+                            @endif
+
+                            Да</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('waypaid', 'Дорога до Москвы за наш счет', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        <label class="check">
+                            @if(isset($catalogmark))
+                                {!! Form::checkbox('waypaid',1, old('waypaid' , (isset($catalogmark) && ($catalogmark->getOriginal('waypaid') == 1) ) ? true : false ) ,['class' => 'minimal']) !!}
+                            @else
+                                {!! Form::checkbox('waypaid',1, old('waypaid' , true), ['class'=>'minimal']) !!}
+                            @endif
+
+                            Да</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('cascogift', 'КАСКО в подарок', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        <label class="check">
+                            @if(isset($catalogmark))
+                                {!! Form::checkbox('cascogift',1, old('cascogift' , (isset($catalogmark) && ($catalogmark->getOriginal('cascogift') == 1) ) ? true : false ) ,['class' => 'minimal']) !!}
+                            @else
+                                {!! Form::checkbox('cascogift',1, old('cascogift' , true), ['class'=>'minimal']) !!}
+                            @endif
+
+                            Да</label>
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     {!! Form::label('meta_title', 'meta title', ['class' => 'control-label col-md-2']) !!}

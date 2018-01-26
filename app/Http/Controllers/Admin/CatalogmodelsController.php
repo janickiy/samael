@@ -11,7 +11,7 @@ use App\CatalogModel;
 use App\CatalogMark;
 use Intervention\Image\Facades\Image as ImageInt;
 
-class CarmodelsController extends Controller
+class CatalogmodelsController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -51,15 +51,15 @@ class CarmodelsController extends Controller
      * @param $id
      * @return $this
      */
-    public function carmark($id)
+    public function catalogmark($id)
     {
-        $carmark = CatalogMark::where('id', $id)->first();
-        return view('admin.catalogmodels.carmark', compact('catalogmodels'))->with(compact('catalogmark'));
+        $catalogmark = CatalogMark::where('id', $id)->first();
+        return view('admin.catalogmodels.catalogmark', compact('catalogmodels'))->with(compact('catalogmark'));
     }
 
     /**
      * @param CatalogModelsRequest $request
-     * @param CatalogModel $carModel
+     * @param CatalogModel $catalogModel
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CatalogModelsRequest $request, CatalogModel $catalogModel)

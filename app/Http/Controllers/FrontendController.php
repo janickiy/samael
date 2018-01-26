@@ -9,9 +9,8 @@ use App\Http\Requests\RequestTradeInsRequest;
 use App\Http\Requests\UserReviewsRequest;
 use App\Http\Requests\CallbacksRequest;
 use App\Page;
-use App\CarMark;
+use App\CatalogMark;
 use App\CarModel;
-use App\CarModification;
 use App\UserReview;
 use App\GeoRegion;
 use App\RequestCredit;
@@ -27,7 +26,7 @@ class FrontendController extends Controller
      */
     public function index(Request $request)
     {
-        $marks = CarMark::all();
+        $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
 
         return view('frontend.index', compact('marks', 'news'))->with('title', 'Главная');
@@ -36,33 +35,6 @@ class FrontendController extends Controller
     public function components()
     {
         return view('frontend.components');
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function contactUsSubmit(Request $request)
-    {
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $subject = $request->input('subject');
-        $form_message = $request->input('message');
-        $to_email = \Config::get('app.contact_email');
-
-        \Mail::send('emails.contact',
-            [
-                'name' => $name,
-                'email' => $email,
-                'subject' => $subject,
-                'form_message' => $form_message
-            ],
-            function ($message) use ($to_email) {
-                $message->to($to_email, getSetting('SITE_TITLE') . ' Поддержка')->subject('Сообщение из формы контактов');
-            }
-        );
-
-        return redirect('/login')->with(['success' => 'Спасибо что связались с нами!']);
     }
 
     /**
@@ -132,7 +104,7 @@ class FrontendController extends Controller
      */
     public function staticPages($slug = '')
     {
-        $marks = CarMark::all();
+        $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
 
         $page = Page::whereSlug($slug)->published()->page()->get()->first();
@@ -330,6 +302,13 @@ class FrontendController extends Controller
         return view('frontend.auto')->with('title', 'Автомобили с пробегом');
     }
 
+    public function mark($mark)
+    {
+        $marks = CatalogMark::all();
+
+        return view('frontend.auto.mark', compact('marks'))->with('title', 'Все модели: ' . $mark);
+    }
+
     /**
      * @param Request $request
      * @return $this
@@ -506,26 +485,7 @@ class FrontendController extends Controller
 
     public function contact()
     {
-        $marks = CarMark::selectRaw('car_marks.id,car_marks.name,car_marks.slug,count(catalog_used_cars.id) as countusedcars')
-            ->where('car_marks.published', 1)
-            ->leftJoin('catalog_used_cars', 'car_marks.name', 'like', 'catalog_used_cars.mark')
-            ->groupBy('car_marks.id')
-            ->orderBy('car_marks.name')
-            ->take(23)
-            ->get();
-
+        $marks = CatalogMark::all();
         return view('frontend.contact', compact('marks'))->with('title', 'Контакты');
-    }
-
-    public function allmarks()
-    {
-        $marks = CarMark::selectRaw('car_marks.id,car_marks.name,car_marks.slug,count(catalog_used_cars.id) as countusedcars')
-            ->where('car_marks.published', 1)
-            ->leftJoin('catalog_used_cars', 'car_marks.name', 'like', 'catalog_used_cars.mark')
-            ->groupBy('car_marks.id')
-            ->orderBy('car_marks.name')
-            ->get();
-
-        return view('frontend.allmarks', compact('marks'))->with('title', 'Все марки');
     }
 }

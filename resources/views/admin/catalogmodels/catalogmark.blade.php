@@ -3,7 +3,8 @@
 @section('title', 'Модели')
 
 @section('css')
-        <!-- DataTables -->
+
+<!-- DataTables -->
 {!! Html::style('assets/dist/css/datatable/dataTables.bootstrap.min.css') !!}
 
 {!! Html::style('assets/dist/css/datatable/responsive.bootstrap.min.css') !!}
@@ -17,7 +18,7 @@
         <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-list-alt"></i> Модели {{ $carmark->name }}
+        <i class="fa fa-list-alt"></i> Модели {{ $catalogmark->name }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
@@ -29,8 +30,9 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <p><a class="btn btn-success" href="/admin/carmodels/create/{{ $carmark->id }}"> + Добавить модель </a></p>
+    <p><a class="btn btn-success" href="/admin/catalogmodels/create/{{ $catalogmark->id }}"> + Добавить модель </a></p>
 
+    <a href="{{ url('/admin/catalogmarks') }}">назад</a>
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Модели</h3>
@@ -72,7 +74,8 @@
 
 
 @section('js')
-        <!-- DataTables -->
+
+<!-- DataTables -->
 {!! Html::script('assets/dist/js/datatable/jquery.dataTables.min.js') !!}
 
 {!! Html::script('assets/dist/js/datatable/dataTables.bootstrap.min.js') !!}
@@ -87,7 +90,7 @@
         var table = $("#data_table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url("admin/datatables/carmarkmodels/$carmark->id") !!}',
+            ajax: '{!! url("admin/datatables/catalogmarkmodels/$catalogmark->id") !!}',
             columns: [
                 {data: 'modification', name: 'modification'},
                 {data: 'image', name: 'image'},

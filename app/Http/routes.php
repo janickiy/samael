@@ -33,9 +33,7 @@ use App\CarModel;
 use App\Image;
 use App\RequestCredit;
 use App\RequestTradeIn;
-
 use App\CatalogMark;
-
 use App\CatalogModel;
 
 Route::model('users', User::class);
@@ -49,13 +47,8 @@ Route::model('carmodels',CarModel::class);
 Route::model('images', Image::class);
 Route::model('requestcredits', RequestCredit::class);
 Route::model('requesttradeins', RequestTradeIn::class);
-
 Route::model('catalogmarks', CatalogMark::class);
-
 Route::model('catalogmodels', CatalogModel::class);
-
-
-
 
 Route::group(['prefix' => ''], function() {
     define('PATH_AVATARS','/uploads/avatars');
@@ -72,6 +65,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::any('/', 'FrontendController@index');
     Route::get('/auto', 'FrontendController@allAuto');
+    Route::get('/auto/{mark}', 'FrontendController@mark');
     Route::get('/credit', 'FrontendController@credit');
     Route::post('/request-credit', 'FrontendController@requestCredit');
     Route::get('/tradein', 'FrontendController@tradeIn');
@@ -79,8 +73,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/reviews', 'FrontendController@reviews');
     Route::post('/reviews', 'FrontendController@reviewsSubmit');
     Route::get('/contacts', 'FrontendController@contact');
-    Route::post('/contacts', 'FrontendController@contactUsSubmit');
-    Route::get('/page/{slug}', 'FrontendController@staticPages');
     Route::get('/news}', 'FrontendController@allNews');
     Route::get('/news/{slug}', 'FrontendController@news');
     Route::get('/{slug}', 'FrontendController@staticPages');
@@ -107,11 +99,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::any('carmodels/create/{id}', 'Admin\CarmodelsController@create');
         Route::get('carmarks/import', 'Admin\CarmarksController@import');
         Route::post('carmarks/imporcarmarks', 'Admin\CarmarksController@importCarmarks');
-
         Route::get('catalogmodels/catalogmark/{id}', 'Admin\CatalogmodelsController@catalogmark');
         Route::any('catalogmodels/create/{id}', 'Admin\CatalogmodelsController@create');
-
-
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
@@ -126,12 +115,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('images', 'Admin\ImagesController');
         Route::resource('requestcredits', 'Admin\RequestCreditsController');
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
-
-
         Route::resource('catalogmarks', 'Admin\CatalogmarksController');
-
         Route::resource('catalogmodels', 'Admin\CatalogmodelsController');
-
 
     });
 

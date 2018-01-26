@@ -18,6 +18,11 @@ class CreateCatalogMarksTable extends Migration
             $table->string('name_rus')->nullable();
             $table->string('slug')->index('slug');
             $table->string('logo');
+            $table->string('annotation');
+            $table->text('content');
+            $table->boolean('autocredit');
+            $table->boolean('winterwheels');
+            $table->boolean('cascogift');
             $table->boolean('published')->default(1);
             $table->string('meta_title')->nullable();
             $table->string('meta_keywords')->nullable();

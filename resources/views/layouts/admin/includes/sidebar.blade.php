@@ -76,7 +76,7 @@
                 </ul>
             </li>
 
-            <li class="treeview {{ Request::is('admin/catalogcar*')? 'active': '' }}">
+            <li class="treeview {{ Request::is('admin/catalogcar*')? 'active': '' || Request::is('admin/catalogmark*')? 'active': '' }}">
                 <a href="#">
                     <i class="fa fa-automobile"></i> <span>Автомобили</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>

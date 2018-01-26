@@ -13,6 +13,7 @@ use App\Role;
 use App\UserReview;
 use App\CarMark;
 use App\CarModel;
+use App\CatalogModel;
 use App\Image;
 use App\RequestTradeIn;
 use App\RequestCredit;
@@ -338,4 +339,25 @@ class DatatablesController extends Controller
             ->make(true);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCatalogmarkmodels($id)
+    {
+        $catalogModels = CatalogModel::where('id_car_mark', $id)->get();
+
+        return Datatables::of($catalogModels)
+
+            ->addColumn('modification', function ($catalogModels) {
+                return $catalogModels->name;
+            })
+
+            ->addColumn('actions', function ($catalogModels) {
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodels/' . $catalogModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodels/' . $catalogModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                return $editBtn . $deleteBtn;
+            })
+            ->make(true);
+    }
 }

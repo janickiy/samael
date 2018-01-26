@@ -11,13 +11,15 @@
 
 @endsection
 
+
+@section('banner')
+    <div class="main_banner"></div>
+@endsection
+
 @section('marks')
     @include('layouts.frontend.includes.mark_list')
 @endsection
 
-@section('breadcrumbs')
-
-@endsection
 
 @section('content')
 
