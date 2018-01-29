@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\CatalogMark;
+use App\CatalogModifications;
 use App\Http\Controllers\Controller;
 use App\Menu;
 use App\Page;
@@ -349,13 +350,40 @@ class DatatablesController extends Controller
 
         return Datatables::of($catalogModels)
 
-            ->addColumn('modification', function ($catalogModels) {
-                return $catalogModels->name;
+            ->addColumn('image', function ($catalogModels) {
+                return file_exists(public_path() . $catalogModels->image) ? '<a class="btn btn-default btn-xs" target="_blank" href="' . url($catalogModels->image). '" title="Просмотр"><span class="fa fa-eye"></span></a>' : '';
+            })
+
+            ->addColumn('status', function ($catalogModels) {
+                return $catalogModels->published ? 'опубликован' : 'не опубликован';
             })
 
             ->addColumn('actions', function ($catalogModels) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodels/' . $catalogModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodels/' . $catalogModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+
+                $items = '<br><a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/bodies') . '" title="Кузова"><span class="fa fa-th-list"> Кузова</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/modifications') . '" title="Модификации"><span class="fa fa-th-list"> Модификации</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/complectations') . '" title="Комплектации"><span class="fa fa-th-list"> Комплектации</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/packs') . '" title="Цены"><span class="fa fa-th-list"> Цены</span></a>';
+
+                return $editBtn . $deleteBtn . $items;
+            })
+            ->make(true);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCatalogmodifications($id)
+    {
+        $catalogModifications = CatalogModifications::where('model', $id)->get();
+
+        return Datatables::of($catalogModifications)
+            ->addColumn('actions', function ($catalogModifications) {
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodifications/' . $catalogModifications->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodifications/' . $catalogModifications->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogModifications;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -44,7 +45,8 @@ class CatalogmodelsController extends Controller
      */
     public function edit(CatalogModel $catalogmodel)
     {
-        return view('admin.catalogmodels.create_edit')->with(compact('carmodel'));
+        $id_car_mark = $catalogmodel->id_car_mark;
+        return view('admin.catalogmodels.create_edit')->with(compact('catalogmodel', 'id_car_mark'));
     }
 
     /**
@@ -65,7 +67,6 @@ class CatalogmodelsController extends Controller
     public function update(CatalogModelsRequest $request, CatalogModel $catalogModel)
     {
         $catalogModel->name = $request->input('name');
-        $catalogModel->id_car_type = 1;
         $catalogModel->name_rus = trim($request->input('name_rus'));
 
         if ($request->hasFile('image')) {
@@ -82,6 +83,13 @@ class CatalogmodelsController extends Controller
             $catalogModel->image = PATH_MODEL . $filename;
         }
 
+        $catalogModel->annotation = trim($request->input('annotation'));
+        $catalogModel->content = trim($request->input('content'));
+        $catalogModel->parametersContent = trim($request->input('parametersContent'));
+        $catalogModel->galleryContent = trim($request->input('galleryContent'));
+        $catalogModel->meta_title = trim($request->input('meta_title'));
+        $catalogModel->meta_keywords = trim($request->input('meta_keywords'));
+        $catalogModel->meta_description = trim($request->input('meta_description'));
         $catalogModel->published = $request->input('published');
         $catalogModel->updated_at = \Carbon::now();
         $catalogModel->save();
@@ -96,9 +104,31 @@ class CatalogmodelsController extends Controller
     public function store(CatalogModelsRequest $request)
     {
         $catalogmodel = CatalogModel::create($request->except('_token'));
+
+        $catalogmodel->published = 0;
+
+        if ($request->input('published')) {
+            $catalogmodel->published = 1;
+        }
+
+        if ($request->hasFile('image')) {
+            $image_path = public_path() . PATH_MODEL;
+            $image = $request->file('image');
+
+            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ? : 'png';
+            $img = ImageInt::make($image);
+
+            $img->resize(600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($image_path . $filename);
+
+            $catalogmodel->image = PATH_MODEL . $filename;
+        }
+
+
         $catalogmodel->save();
 
-        return redirect('admin/catalogmodels/carmark/' . $request->id_car_mark)->with('success', ' добавлена');
+        return redirect('admin/catalogmodels/catalogmark/' . $request->id_car_mark)->with('success', ' добавлена');
     }
 
     /**
@@ -118,5 +148,29 @@ class CatalogmodelsController extends Controller
         } else {
             return 'Ошибка веб приложения! Действия не были выполнены.';
         }
+    }
+
+    public function bodies($id)
+    {
+
+    }
+
+    public function modifications($id)
+    {
+        $modifications = CatalogModifications::where('model', $id)
+                        ->get();
+
+        return view('admin.catalogmodifications.index', compact('modifications'))->with('id', $id);;
+    }
+
+    public function complectations($id)
+    {
+
+
+    }
+
+    public function packs($id)
+    {
+
     }
 }

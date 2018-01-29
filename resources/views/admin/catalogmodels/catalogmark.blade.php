@@ -47,9 +47,12 @@
             <table id="data_table" class="table datatable dt-responsive" style="width:100%;">
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Название</th>
                     <th>Фото</th>
                     <th>Статус</th>
+                    <th>Созданно</th>
+                    <th>Обновлено</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -92,9 +95,12 @@
             serverSide: true,
             ajax: '{!! url("admin/datatables/catalogmarkmodels/$catalogmark->id") !!}',
             columns: [
-                {data: 'modification', name: 'modification'},
+                {data: 'id', name: 'id'},
+                {data: 'name', name: 'name'},
                 {data: 'image', name: 'image'},
                 {data: 'status', name: 'status'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

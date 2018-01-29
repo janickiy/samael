@@ -14,11 +14,15 @@ class CreateCatalogModelsTable extends Migration
     {
         Schema::create('catalog_models', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_car_mark')->index('id_car_mark');
-            $table->string('name')->index('name');
-            $table->string('name_rus')->nullable();
-            $table->string('slug')->index('slug');
-            $table->string('image')->index('slug');
+            $table->integer('id_car_mark')->index('id_car_mark')->comment('id марки');
+            $table->string('name')->index('name')->comment('название');
+            $table->string('name_rus')->nullable()->comment('название кирилицей');
+            $table->string('slug')->index('slug')->comment('url');
+            $table->text('annotation')->nullable()->comment('аннотация');
+            $table->text('content')->nullable()->comment('Контент');
+            $table->text('parametersContent')->nullable()->comment('Текст для вкладки характеристик');
+            $table->text('galleryContent')->nullable()->comment('Текст для вкладки галлерея');
+            $table->string('image')->comment('логотип');
             $table->boolean('published')->default(1);
             $table->string('meta_title')->nullable();
             $table->string('meta_keywords')->nullable();
