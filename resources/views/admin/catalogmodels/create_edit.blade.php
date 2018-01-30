@@ -41,6 +41,7 @@
         <div class="box-body">
 
             <p>* - обязательные поля</p>
+
             {!! Form::open(['url' => isset($catalogmodel) ? URL::to('admin/catalogmodels/' . $catalogmodel->id )  :  URL::to('admin/carmodels') , 'method' => isset($catalogmodel) ? 'put': 'post', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
 
             {!! Form::hidden('id_car_mark', $id_car_mark) !!}
@@ -48,84 +49,72 @@
             {!! Form::hidden('model_id', isset($catalogmodel) ? $catalogmodel->id: null) !!}
 
             <div class="col-md-12">
-
                 <div class="form-group">
                     {!! Form::label('name', 'Название модели *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::text('name', old('name', isset($catalogmodel) ? $catalogmodel->name : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название модели']) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('name_rus', 'Название модели кирилицей*', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::text('name_rus', old('name_rus', isset($catalogmodel) ? $catalogmodel->name_rus : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название марки кирилицей']) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('slug', 'URL*', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::text('slug', old('slug', isset($catalogmodel) ? $catalogmodel->slug : null), ['class' => 'form-control validate[required]', 'placeholder'=>'URL']) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('image', 'Фото (jpeg, png, gif)', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::file('image') !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('annotation', 'Аннотация', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::textarea('annotation', old('annotation', isset($catalogmodel) ? $catalogmodel->annotation : null), ['class' => 'form-control', 'placeholder' => 'Аннотация', 'rows' => 2]) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('content', 'Контент', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::textarea('content', old('content', isset($catalogmodel) ? $catalogmodel->content : null), ['class' => 'form-control', 'placeholder' => 'Контент', 'rows' => 5]) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('parametersContent', 'Текст для вкладки характеристик', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::textarea('parametersContent', old('parametersContent', isset($catalogmodel) ? $catalogmodel->parametersContent : null), ['class' => 'form-control', 'placeholder' => 'Текст для вкладки характеристик', 'rows' => 5]) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('galleryContent', 'Текст для вкладки галлерея', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::textarea('galleryContent', old('galleryContent', isset($catalogmodel) ? $catalogmodel->galleryContent : null), ['class' => 'form-control', 'placeholder' => 'Текст для вкладки галлерея', 'rows' => 5]) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('meta_title', 'meta title', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::text('meta_title', old('meta_title', isset($catalogmodel) ? $catalogmodel->meta_title : null), ['class' => 'form-control', 'placeholder'=>'meta title']) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('meta_keywords', 'meta keywords', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::text('meta_keywords', old('meta_keywordse', isset($catalogmodel) ? $catalogmodel->meta_keywords : null), ['class' => 'form-control', 'placeholder'=>'meta keywords']) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('meta_description', 'meta description', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::textarea('meta_description', old('meta_description', isset($catalogmodel) ? $catalogmodel->meta_description : null), ['class' => 'form-control', 'placeholder'=>'meta description', 'rows' => 2]) !!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
@@ -139,14 +128,12 @@
                             Да</label>
                     </div>
                 </div>
-
                 <div class="form-group"><div class="col-md-8 col-md-offset-2">
                         @if (isset($catalogmodel) && (file_exists(public_path() . $catalogmodel->image)) )
                             <img src="{!! $catalogmodel->image !!}">
                         @endif
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-2">
                         {!! Form::submit( (isset($catalogmodel) ? 'Обновить': 'Добавить') . '', ['class'=>'btn btn-primary']) !!}

@@ -14,7 +14,7 @@ class CreateCatalogModificationsTable extends Migration
     {
         Schema::create('catalog_modifications', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('model')->index('model')->comment('');
+            $table->integer('id_model')->index('id_model')->comment('');
             $table->string('name')->comment('название');
             $table->string('body_type')->comment('тип кузова');
             $table->integer('length')->comment('Длина, мм');

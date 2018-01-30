@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\CatalogModifications;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Requests\CatalogModelsRequest;
 use App\Http\Controllers\Controller;
 use App\CatalogModel;
 use App\CatalogMark;
+use App\CatalogModification;
 use Intervention\Image\Facades\Image as ImageInt;
 
 class CatalogmodelsController extends Controller
@@ -157,16 +156,15 @@ class CatalogmodelsController extends Controller
 
     public function modifications($id)
     {
-        $modifications = CatalogModifications::where('model', $id)
+        $modifications = CatalogModification::where('id_model', $id)
                         ->get();
 
-        return view('admin.catalogmodifications.index', compact('modifications'))->with('id', $id);;
+        return view('admin.catalogmodifications.index', compact('modifications'))->with('id', $id);
     }
 
     public function complectations($id)
     {
-
-
+        return view('admin.catalogcomplectations.index', compact('modifications'))->with('id', $id);
     }
 
     public function packs($id)

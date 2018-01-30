@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\CatalogMark;
-use App\CatalogModifications;
+
 use App\Http\Controllers\Controller;
 use App\Menu;
 use App\Page;
@@ -18,6 +17,9 @@ use App\CatalogModel;
 use App\Image;
 use App\RequestTradeIn;
 use App\RequestCredit;
+use App\CatalogMark;
+use App\CatalogModification;
+use App\CatalogComplectation;
 use App\Callback;
 
 
@@ -378,12 +380,43 @@ class DatatablesController extends Controller
      */
     public function getCatalogmodifications($id)
     {
-        $catalogModifications = CatalogModifications::where('model', $id)->get();
+        $catalogModifications = CatalogModification::where('id_model', $id)->get();
 
         return Datatables::of($catalogModifications)
+
+            ->addColumn('status', function ($catalogModifications) {
+                return $catalogModifications->published ? 'опубликован' : 'не опубликован';
+            })
+
+            ->addColumn('bodyType', function ($catalogModifications) {
+                return bodyType($catalogModifications->body_type);
+            })
+
             ->addColumn('actions', function ($catalogModifications) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodifications/' . $catalogModifications->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodifications/' . $catalogModifications->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                return $editBtn . $deleteBtn;
+            })
+            ->make(true);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCatalogcomplectations($id)
+    {
+        $catalogComplectations = CatalogComplectation::where('id_model', $id)->get();
+
+        return Datatables::of($catalogComplectations)
+
+            ->addColumn('status', function ($catalogComplectations) {
+                return $catalogComplectations->published ? 'опубликован' : 'не опубликован';
+            })
+
+            ->addColumn('actions', function ($catalogComplectations) {
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodifications/' . $catalogComplectations->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodifications/' . $catalogComplectations->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);

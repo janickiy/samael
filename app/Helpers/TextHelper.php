@@ -167,3 +167,85 @@ function slug($text)
     $text = str_replace(' ', '-', $text);
     return $text;
 }
+
+function engineType($str)
+{
+    $types = [
+        'petrol' => 'Бензиновый',
+        'petrol_turbo' => 'Бензиновый турбированный',
+        'diesel' => 'Дизельный',
+        'diesel_turbo' => 'Дизельный турбированный',
+        'electric' => 'Электродвигатель',
+        'hybrid' => 'Гибрид'
+    ];
+
+    $str = trim(strtolower($str));
+
+    if ($str != '' && isset($types[$str]))
+        return $types[$str];
+    else
+        return $str;
+}
+
+function driveType($str)
+{
+    $types = [
+        'front' => 'Передний',
+        'rear' => 'Заднийй',
+        'four' => 'Полный'
+    ];
+
+    $str = trim(strtolower($str));
+
+    if ($str != '' && isset($types[$str]))
+        return $types[$str];
+    else
+        return $str;
+}
+
+function gearboxType($str)
+{
+    $types = [
+        'mt' => 'Механическая',
+        'at' => 'Автоматическая',
+        'rgt' => 'Роботизированная',
+        'cvt' => 'Вариатор',
+        'amt' => 'Автоматизированная механическая'
+    ];
+
+    $str = trim(strtolower($str));
+
+    if ($str != '' && isset($types[$str]))
+        return $types[$str];
+    else
+        return $str;
+}
+
+function bodyType($str)
+{
+    $types = [
+        'hatchback_5' => 'Хэтчбек 5D',
+        'hatchback_3' => 'Хэтчбек 3D',
+        'liftback' => 'Лифтбек',
+        'sedan' => 'Седан',
+        'wagon' => 'Универсал',
+        'wagon_5' => 'Универсал 5 мест',
+        'wagon_7' => 'Универсал 7 мест',
+        'coupe' => 'Купе',
+        'suv' => 'Внедорожник',
+        'suv_3' => 'Внедорожник 3',
+        'suv_5' => 'Внедорожник 5D',
+        'crossover' => 'Кроссовер',
+        'truck' => 'Грузовик',
+        'pickup' => 'Пикап',
+        'van' => 'Минивен',
+        'convertible' => 'Кабриолет'
+    ];
+
+    $str = trim(strtolower($str));
+
+    if ($str != '' && isset($types[$str]))
+        return $types[$str];
+    else
+        return $str;
+}

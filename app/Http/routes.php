@@ -35,6 +35,8 @@ use App\RequestCredit;
 use App\RequestTradeIn;
 use App\CatalogMark;
 use App\CatalogModel;
+use App\CatalogModification;
+use App\CatalogComplectation;
 
 Route::model('users', User::class);
 Route::model('settings', Setting::class);
@@ -49,6 +51,8 @@ Route::model('requestcredits', RequestCredit::class);
 Route::model('requesttradeins', RequestTradeIn::class);
 Route::model('catalogmarks', CatalogMark::class);
 Route::model('catalogmodels', CatalogModel::class);
+Route::model('catalogmodifications', CatalogModification::class);
+Route::model('catalogcomplectations', CatalogComplectation::class);
 
 Route::group(['prefix' => ''], function() {
     define('PATH_AVATARS','/uploads/avatars');
@@ -113,7 +117,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('catalogmodels/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
 
 
-
+        Route::get('catalogmodifications/create/{id}', 'Admin\CatalogmodificationsController@create');
 
 
         Route::any('/ajax', 'Admin\DashboardController@ajax');
@@ -132,6 +136,11 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
         Route::resource('catalogmarks', 'Admin\CatalogmarksController');
         Route::resource('catalogmodels', 'Admin\CatalogmodelsController');
+        Route::resource('catalogmodifications', 'Admin\CatalogmodificationsController');
+
+        Route::resource('catalogcomplectations', 'Admin\CatalogcomplectationsController');
+
+
 
     });
 
