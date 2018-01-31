@@ -37,13 +37,13 @@
                     <div class="cars_list">
                         <ul class="row item_list container">
 
-                            @foreach($model_list as $car)
+                            @foreach($models_list as $car)
 
                             <li>
                                 <div class="list_item">
-                                    <a href="">
-                                        <div class="item_image"><img src="images/item_1.jpg"></div>
-                                        <div class="item_name">{!! $car->name !!}</div>
+                                    <a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug) !!}">
+                                        <div class="item_image"><img src="{!! $car->image !!}"></div>
+                                        <div class="item_name">{!! $car->mark !!} {{ $car->model }}</div>
                                         <div class="item_price">от <span>657 000</span> руб.</div>
                                     </a>
                                 </div>
@@ -51,11 +51,14 @@
 
                             @endforeach
 
-
                         </ul>
                     </div>
-                    <div class="presents_block sidebar">
 
+                    <div class="pager">
+                        {{ $models_list->render() }}
+                    </div>
+
+                    <div class="presents_block sidebar">
 
                         <div class="present_item_container">
                             <div class="present_item">

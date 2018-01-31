@@ -395,7 +395,6 @@ function get_mime_type($ext)
     }
 }
 
-
 function getIP() {
     if (getenv("HTTP_CLIENT_IP") and strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
         $ip = getenv("HTTP_CLIENT_IP");

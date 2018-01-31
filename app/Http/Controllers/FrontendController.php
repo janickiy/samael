@@ -285,14 +285,45 @@ class FrontendController extends Controller
 
     public function allAuto()
     {
-        return view('frontend.auto')->with('title', 'Автомобили с пробегом');
+        $marks = CatalogMark::all();
+
+        $newcars = CatalogModel::select(['catalog_models.id', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+                    ->where('catalog_models.published', 1)
+                    ->leftJoin('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+                    ->groupBy('catalog_models.id')
+                    ->paginate(8);
+
+        return view('frontend.auto', compact('marks', 'newcars'))->with('title', 'Новые автомобили');
     }
 
+    /**
+     * @param $mark
+     * @return $this
+     */
     public function mark($mark)
     {
         $marks = CatalogMark::all();
 
-        return view('frontend.auto.mark', compact('marks'))->with('title', 'Все модели: ' . $mark);
+        $models_list = CatalogModel::select(['catalog_models.id', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+                        ->where('catalog_models.published', 1)
+                        ->where('catalog_marks.slug', '=', $mark)
+                        ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+                        ->groupBy('catalog_models.id')
+                        ->orderBy('catalog_models.id')
+                        ->paginate(10);
+
+        if ($models_list) {
+            return view('frontend.auto.mark', compact('marks', 'models_list'))->with('title', '');
+        }
+
+        abort(404);
+    }
+
+    public function model($model)
+    {
+        $marks = CatalogMark::all();
+
+        return view('frontend.auto.model',  compact('marks'))->with('title', '');
     }
 
     /**
