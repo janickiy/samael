@@ -58,10 +58,6 @@ class CatalogmarksController extends Controller
         $catalogMark->slug = $request->input('slug');
         $catalogMark->annotation = trim($request->input('annotation'));
         $catalogMark->content = trim($request->input('content'));
-        $catalogMark->autocredit = $request->input('autocredit');
-        $catalogMark->winterwheels = $request->input('winterwheels');
-        $catalogMark->waypaid = $request->input('waypaid');
-        $catalogMark->cascogift = $request->input('cascogift');
 
         if ($request->hasFile('logo')) {
             $logo_path = public_path() . PATH_MARK;
@@ -96,30 +92,6 @@ class CatalogmarksController extends Controller
 
         if ($request->input('published')) {
             $catalogmark->published = 1;
-        }
-
-        $catalogmark->autocredit = 0;
-
-        if ($request->input('autocredit')) {
-            $catalogmark->autocredit = 1;
-        }
-
-        $catalogmark->winterwheels = 0;
-
-        if ($request->input('winterwheels')) {
-            $catalogmark->winterwheels = 1;
-        }
-
-        $catalogmark->waypaid = 0;
-
-        if ($request->input('waypaid')) {
-            $catalogmark->waypaid = 1;
-        }
-
-        $catalogmark->cascogift = 0;
-
-        if ($request->input('cascogift')) {
-            $catalogmark->cascogift = 1;
         }
 
         if ($request->hasFile('logo')) {

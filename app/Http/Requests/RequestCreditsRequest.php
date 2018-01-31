@@ -32,14 +32,12 @@ class RequestCreditsRequest extends Request
                 return [
                     'mark' => 'required',
                     'model' => 'required',
-                    'modification' => 'required',
+                    'complectation' => 'required',
                     'fee' => 'required|numeric',
                     'name' => 'required',
                     'age' => 'required|numeric',
                     'registration' => 'required',
                     'phone' => 'required',
-                    'email' => 'email',
-                    'confirmation' => 'required',
                     'agree' => 'required',
                 ];
             }
@@ -48,7 +46,7 @@ class RequestCreditsRequest extends Request
                 return [
                     'mark' => 'required',
                     'model' => 'required',
-                    'modification' => 'required',
+                    'complectation' => 'required',
                     'fee' => 'required|numeric',
                     'name' => 'required',
                     'age' => 'required|numeric',

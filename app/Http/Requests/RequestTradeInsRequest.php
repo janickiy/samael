@@ -32,15 +32,13 @@ class RequestTradeInsRequest extends Request
                 return [
                     'name'  => 'required',
                     'phone' => 'required',
-                    'email' => 'email',
-                    'mark'  => 'required',
-                    'model' => 'required',
+                    'mark'  => 'mark',
+                    'model' => 'model',
                     'year'  => 'required|numeric',
                     'mileage' => 'required|numeric',
-                    'gearbox' => 'required',
-                    'trade_in_mark'  => 'required',
-                    'trade_in_model' => 'required',
-                    'confirmation' => 'required',
+                    'trade_in_mark'  => 'required|numeric',
+                    'trade_in_model' => 'required|numeric',
+                    'trade_in_complectation' => 'required|numeric',
                     'agree' => 'required',
                 ];
             }
@@ -49,14 +47,13 @@ class RequestTradeInsRequest extends Request
                 return [
                     'name'  => 'required',
                     'phone' => 'required',
-                    'email' => 'email',
-                    'mark'  => 'required',
-                    'model' => 'required',
+                    'mark'  => 'mark',
+                    'model' => 'model',
                     'year'  => 'required|numeric',
                     'mileage' => 'required|numeric',
-                    'gearbox' => 'required',
-                    'trade_in_mark'  => 'required',
-                    'trade_in_model' => 'required',
+                    'trade_in_mark'  => 'required|numeric',
+                    'trade_in_model' => 'required|numeric',
+                    'trade_in_complectation' => 'required|numeric',
                 ];
             }
             default:

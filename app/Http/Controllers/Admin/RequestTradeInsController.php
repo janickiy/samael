@@ -49,15 +49,13 @@ class RequestTradeInsController extends Controller
     public function update(RequestTradeInsRequest $request, RequestTradeIn $requestTradeIn)
     {
         $requestTradeIn->name = trim($request->input('name'));
-        $requestTradeIn->phone = trim($request->input('phone'));
-        $requestTradeIn->email = trim($request->input('email'));
         $requestTradeIn->mark = trim($request->input('mark'));
         $requestTradeIn->model = trim($request->input('model'));
         $requestTradeIn->year = trim($request->input('year'));
         $requestTradeIn->mileage = trim($request->input('mileage'));
-        $requestTradeIn->gearbox = trim($request->input('gearbox'));
-        $requestTradeIn->trade_in_mark = trim($request->input('trade_in_mark'));
-        $requestTradeIn->trade_in_model = trim($request->input('trade_in_model'));
+        $requestTradeIn->trade_in_mark = $request->input('trade_in_mark');
+        $requestTradeIn->trade_in_model = $request->input('trade_in_model');
+        $requestTradeIn->trade_in_complectation = $request->input('trade_in_complectation');
         $requestTradeIn->updated_at = \Carbon::now();
         $requestTradeIn->save();
 
@@ -72,13 +70,6 @@ class RequestTradeInsController extends Controller
     public function destroy(Request $request, RequestTradeIn $requestTradeIn)
     {
         if ($request->ajax()) {
-            if ($requestTradeIn->photo) {
-                $photo = unserialize($requestTradeIn->photo);
-
-                if (file_exists(public_path() . $photo['small'])) @unlink(public_path() . $photo['small']);
-                if (file_exists(public_path() . $photo['big'])) @unlink(public_path() . $photo['big']);
-            }
-
             $requestTradeIn->delete();
             return response()->json(['success' => 'Заявка на Trade-in удалена']);
         } else {

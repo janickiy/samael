@@ -46,7 +46,6 @@
                     <th>Модель</th>
                     <th>Год выпуска</th>
                     <th>Пробег</th>
-                    <th>КПП</th>
                     <th>ФИО</th>
                     <th>Телефон</th>
                     <th>IP</th>
@@ -93,11 +92,10 @@
                 {data: 'model', name: 'model'},
                 {data: 'year', name: 'year'},
                 {data: 'mileage', name: 'mileage'},
-                {data: 'gearbox', name: 'gearbox'},
                 {data: 'name', name: 'name'},
                 {data: 'phone', name: 'phone'},
                 {data: 'ip', name: 'ip'},
-                {data: 'request_car', name: 'trade_in_mark'},
+                {data: 'request_car', name: 'request_car'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]

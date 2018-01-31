@@ -35,7 +35,6 @@ class RequestCreditsController extends Controller
      */
     public function edit(RequestCredit $requestcredit)
     {
-       /// dd($review);
         return view('admin.requestcredits.car.create_edit')->with(compact('requestcredit'));
     }
 
@@ -49,11 +48,10 @@ class RequestCreditsController extends Controller
         $requestCredit->name = trim($request->input('name'));
         $requestCredit->age = $request->input('age');
         $requestCredit->phone = trim($request->input('phone'));
-        $requestCredit->email = trim($request->input('email'));
         $requestCredit->registration = trim($request->input('registration'));
         $requestCredit->mark = trim($request->input('mark'));
         $requestCredit->model = trim($request->input('model'));
-        $requestCredit->modification = trim($request->input('modification'));
+        $requestCredit->complectation = trim($request->input('complectation'));
         $requestCredit->fee = $request->input('fee');
         $requestCredit->updated_at = \Carbon::now();
 

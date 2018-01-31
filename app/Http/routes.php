@@ -79,8 +79,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/contacts', 'FrontendController@contact');
     Route::get('/news}', 'FrontendController@allNews');
     Route::get('/news/{slug}', 'FrontendController@news');
-    Route::get('/{slug}', 'FrontendController@staticPages');
     Route::any('/ajax', 'FrontendController@ajax');
+    Route::get('/{slug}', 'FrontendController@staticPages');
 
 });
 
@@ -105,21 +105,11 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('carmarks/imporcarmarks', 'Admin\CarmarksController@importCarmarks');
         Route::get('catalogmodels/catalogmark/{id}', 'Admin\CatalogmodelsController@catalogmark');
         Route::any('catalogmodels/create/{id}', 'Admin\CatalogmodelsController@create');
-
-
         Route::get('catalogmodels/model/{id}/bodies', 'Admin\CatalogmodelsController@bodies');
-
         Route::get('catalogmodels/model/{id}/modifications', 'Admin\CatalogmodelsController@modifications');
-
         Route::get('catalogmodels/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
-
-
         Route::get('catalogmodels/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
-
-
         Route::get('catalogmodifications/create/{id}', 'Admin\CatalogmodificationsController@create');
-
-
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
@@ -137,10 +127,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('catalogmarks', 'Admin\CatalogmarksController');
         Route::resource('catalogmodels', 'Admin\CatalogmodelsController');
         Route::resource('catalogmodifications', 'Admin\CatalogmodificationsController');
-
         Route::resource('catalogcomplectations', 'Admin\CatalogcomplectationsController');
-
-
 
     });
 

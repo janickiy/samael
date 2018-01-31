@@ -10,6 +10,12 @@ use App\Http\Requests\UserReviewsRequest;
 use App\Http\Requests\CallbacksRequest;
 use App\Page;
 use App\CatalogMark;
+use App\CatalogModel;
+use App\CatalogModification;
+
+use App\CarMark;
+
+
 use App\CarModel;
 use App\UserReview;
 use App\GeoRegion;
@@ -173,7 +179,7 @@ class FrontendController extends Controller
 
                 case 'get_modifications':
 
-                    $modifications = CarModification::where('id_car_model', $request->id_car_model)
+                    $modifications = CatalogModification::where('id_model', $request->id_model)
                         ->get();
 
                     $rows = [];
@@ -182,9 +188,6 @@ class FrontendController extends Controller
                         $rows[] = [
                             "id" => $modification->id,
                             "name" => $modification->name,
-                            "body_type" => $modification->body_type,
-                            "year_begin" => $modification->year_begin,
-                            "year_end" => $modification->year_end,
                         ];
                     }
 
@@ -194,7 +197,7 @@ class FrontendController extends Controller
 
                 case 'get_models':
 
-                    $models = CarModel::where('published', 1)
+                    $models = CatalogModel::where('published', 1)
                         ->where('id_car_mark', $request->id_car_mark)
                         ->get();
 
@@ -234,23 +237,6 @@ class FrontendController extends Controller
 
                     break;
 
-                case 'get_year':
-
-                    $id_car_model = $request->id_car_model;
-
-                    $min_year = CarModification::selectRaw('MIN(year_begin)')
-                                ->where('id_car_model', $id_car_model)
-                                ->get()
-                                ->toArray();
-
-                    $max_year = CarModification::selectRaw('MAX(year_end)')
-                                ->where('id_car_model', $id_car_model)
-                                ->get()
-                                ->toArray();
-
-                    return response()->json(['min' => $min_year[0]["MIN(year_begin)"], 'max' => $max_year[0]["MAX(year_end)"]]);
-
-                break;
 
                 case 'get_model_info':
 
@@ -315,15 +301,9 @@ class FrontendController extends Controller
      */
     public function credit(Request $request)
     {
-        $marks = CarMark::selectRaw('car_marks.id,car_marks.name,car_marks.slug,count(catalog_used_cars.id) as countusedcars')
-            ->where('car_marks.published', 1)
-            ->leftJoin('catalog_used_cars', 'car_marks.name', 'like', 'catalog_used_cars.mark')
-            ->groupBy('car_marks.id')
-            ->orderBy('car_marks.name')
-            ->take(23)
-            ->get();
+        $marks = CatalogMark::all();
 
-        $mark_search = CarMark::select(['id', 'name'])
+        $mark_search = CatalogMark::select(['id', 'name'])
             ->where('published', 1)
             ->orderBy('name')
             ->get()
@@ -335,32 +315,22 @@ class FrontendController extends Controller
             $mark_options[$mark['id']] = $mark['name'];
         }
 
-        $models_options[null] = 'Модель';
+        $model_options[null] = 'Модель';
 
-        if (isset($request->mark)) {
-            $models_search = CarModel::where('published', 1)
+        if (isset($request->trade_in_mark)) {
+            $models_search = CatalogModel::where('published', 1)
                 ->where('id_car_mark', $request->mark)
                 ->get()
                 ->toArray();
 
             foreach ($models_search  as $model) {
-                $models_options[$model['id']] = $model['name'];
+                $model_options[$model['id']] = $model['name'];
             }
         }
 
-        $models_modification[null] = 'Комлектация';
+        $complectation_options[null] = 'Комплектация';
 
-        if (isset($request->model)) {
-            $modifications_search = CarModification::where('id_car_model', $request->model)
-                ->get()
-                ->toArray();
-
-            foreach ($modifications_search as $modification) {
-                $models_modification[$modification['name']] = $modification['name'];
-            }
-        }
-
-        return view('frontend.credit', compact('marks', 'mark_options', 'models_options', 'models_modification'))->with('title', 'Автокредит');
+        return view('frontend.credit', compact('marks', 'mark_options', 'model_options', 'complectation_options'))->with('title', 'Заявка на автокредит');
     }
 
     /**
@@ -369,7 +339,6 @@ class FrontendController extends Controller
      */
     public function requestCredit(RequestCreditsRequest $request)
     {
-        $request->request->remove('confirmation');
         $request->request->remove('agree');
 
         $mark = CarMark::select(['name'])->where('id', $request->mark)->first()->toArray();
@@ -389,16 +358,37 @@ class FrontendController extends Controller
      */
     public function tradeIn(Request $request)
     {
-        $marks = CarMark::selectRaw('car_marks.id,car_marks.name,car_marks.slug,count(catalog_used_cars.id) as countusedcars')
-            ->where('car_marks.published', 1)
-            ->leftJoin('catalog_used_cars', 'car_marks.name', 'like', 'catalog_used_cars.mark')
-            ->groupBy('car_marks.id')
-            ->orderBy('car_marks.name')
-            ->take(23)
-            ->get();
+        $marks = CatalogMark::all();
+
+        $mark_search = CatalogMark::select(['id', 'name'])
+            ->where('published', 1)
+            ->orderBy('name')
+            ->get()
+            ->toArray();
+
+        $trade_in_mark_options[null] = 'Марка';
+
+        foreach ($mark_search  as $mark) {
+            $trade_in_mark_options[$mark['id']] = $mark['name'];
+        }
+
+        $trade_in_model_options[null] = 'Модель';
+
+        if (isset($request->trade_in_mark)) {
+            $models_search = CatalogModel::where('published', 1)
+                ->where('id_car_mark', $request->mark)
+                ->get()
+                ->toArray();
+
+            foreach ($models_search  as $model) {
+                $trade_in_model_options[$model['id']] = $model['name'];
+            }
+        }
+
+        $trade_in_complectation_options[null] = 'Комплектация';
+
 
         $mark_search = CarMark::select(['id', 'name'])
-            ->where('published', 1)
             ->orderBy('name')
             ->get()
             ->toArray();
@@ -409,36 +399,19 @@ class FrontendController extends Controller
             $mark_options[$mark['id']] = $mark['name'];
         }
 
-        $models_options[null] = 'Модель';
+        $model_options[null] = 'Модель';
 
         if (isset($request->mark)) {
-            $models_search = CarModel::where('published', 1)
-                ->where('id_car_mark', $request->mark)
+            $models_search = CarModel::where('id_car_mark', $request->mark)
                 ->get()
                 ->toArray();
 
             foreach ($models_search  as $model) {
-                $models_options[$model['id']] = $model['name'];
+                $model_options[$model['id']] = $model['name'];
             }
         }
 
-        $year = null;
-
-        if (isset($request->model)) {
-            $min_year = CarModification::selectRaw('MIN(year_begin)')
-                ->where('id_car_model', $request->model)
-                ->get()
-                ->toArray();
-
-            $max_year = CarModification::selectRaw('MAX(year_end)')
-                ->where('id_car_model', $request->model)
-                ->get()
-                ->toArray();
-
-            $year = ['from' => $min_year[0]["MIN(year_begin)"], 'to' => $max_year[0]["MAX(year_end)"]];
-        }
-
-        return view('frontend.tradein', compact('marks', 'mark_options', 'models_options', 'year'))->with('title', 'Trade-in');
+        return view('frontend.tradein', compact('marks', 'trade_in_mark_options', 'trade_in_model_options', 'trade_in_complectation_options', 'mark_options', 'model_options'))->with('title', 'Заявка на Trade-in');
     }
 
     /**
@@ -447,38 +420,13 @@ class FrontendController extends Controller
      */
     public function requestTradein(RequestTradeInsRequest $request)
     {
-        $request->request->remove('confirmation');
         $request->request->remove('agree');
-
         $mark = CarMark::select(['name'])->where('id', $request->mark)->first()->toArray();
         $model = CarModel::select(['name'])->where('id', $request->model)->first()->toArray();
-
-        $image = [];
-
-        if ($request->hasFile('photo')) {
-            $small_path = public_path() . PATH_SMALL_TRADEIN;
-            $big_path = public_path() . PATH_BIG_TRADEIN;
-            $file = $request->file('photo');
-
-            $filename = str_random(20) . '.' . $file->getClientOriginalExtension() ? : 'png';
-            $img = ImageInt::make($file);
-
-            $img->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($small_path . $filename);
-
-            $img->resize(1000, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($big_path . $filename);
-
-            $image = ['small' => PATH_SMALL_TRADEIN . $filename, 'big' => PATH_BIG_TRADEIN . $filename, 'name' => $file->getClientOriginalName()];
-        }
-
         $requestTradeIn = RequestTradeIn::create($request->except('_token'));
         $requestTradeIn->mark = $mark['name'];
         $requestTradeIn->model = $model['name'];
         $requestTradeIn->ip = getIP();
-        $requestTradeIn->photo = !empty($image) ? serialize($image) : '';
         $requestTradeIn->save();
         return redirect('/tradein')->with('success', 'Ваша заявка на Trade-In отправлена. Мы свяжемся с Вами в ближайшее время!');
     }

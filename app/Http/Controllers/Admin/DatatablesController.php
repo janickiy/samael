@@ -257,8 +257,8 @@ class DatatablesController extends Controller
 
         return Datatables::of($requestTradeIn)
             ->addColumn('request_car', function ($requestTradeIn) {
-                $mark = CarMark::select(['name'])->where('id', $requestTradeIn->trade_in_mark)->first()->toArray();
-                $model = CarModel::select(['name'])->where('id', $requestTradeIn->trade_in_model)->first()->toArray();
+                $mark = CatalogMark::select(['name'])->where('id', $requestTradeIn->trade_in_mark)->first()->toArray();
+                $model = CatalogModel::select(['name'])->where('id', $requestTradeIn->trade_in_model)->first()->toArray();
 
                 return $mark['name'] . ' ' . $model['name'];
             })

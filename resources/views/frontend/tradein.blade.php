@@ -1,6 +1,6 @@
 @extends('layouts.frontend.app')
 
-@section('title', 'Trade-in' )
+@section('title', 'Заявка на Trade-in' )
 
 @section('meta_desc', '')
 
@@ -19,113 +19,107 @@
 @endsection
 
 @section('content')
-    <section>
-        <h1>Заявка на Trade-in</h1>
-        <div class="row">
-            <div class="tradein">
-                <h2>Ваш автомобиль</h2>
+    <div class="inset_page">
+        <div class="main_width">
+            @section('breadcrumbs')
+                @include('layouts.frontend.includes.breadcrumbs')
+            @endsection
+            <div class="row">
+                <div class="request_page_content">
+                    <h1>Заявка на Trade-in</h1>
+                    <div class="tradein_request_form ">
+                        <h2>Новый автомобиль</h2>
 
-                {!! Form::open(['url' => '/request-tradein', 'method' => 'post', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
+                        {!! Form::open(['url' => '/request-tradein', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
 
-                <div class="select">
-                    {!! Form::select('mark', $mark_options, isset($request->mark) ? $request->mark : 'Марка', ['class' => 'select2 validate[required]', 'id' => 'mark']) !!}
-                </div>
+                        <div class="select">
+                            {!! Form::select('trade_in_mark', $trade_in_mark_options, isset($request->trade_in_mark) ? $request->trade_in_mark : 'Марка', ['class' => 'form_control select2 validate[required]', 'id' => 'trade_in_mark']) !!}
+                        </div>
 
-                <div class="select">
-                    {!! Form::select('model', $models_options, isset($request->model) ? $request->model : 'Модель', ['class' => 'select2 validate[required]', 'id' => 'model', !isset($request->model) ? 'disabled' : '']) !!}
-                </div>
+                        <div class="select">
+                            {!! Form::select('trade_in_model', $trade_in_model_options, isset($request->trade_in_model) ? $request->trade_in_mode : 'Модель', ['class' => 'select2 validate[required]', 'id' => 'trade_in_model', !isset($request->trade_in_model) ? 'disabled' : '']) !!}
+                        </div>
 
-                <div class="select">
-                    <div class="select">
-                        @if(isset($request->year))
-                            {!! Form::selectYear('year', isset($year['from']) ? $year['from'] : null, isset($year['to']) ? $year['to'] : null, isset($request->year) ? $request->year : null, ['class' => 'select2 validate[required]', 'id' => 'year', 'placeholder' => 'Год от']) !!}
-                        @else
-                            {!! Form::select('year', [], 'Год выпуска', ['class' => 'select2 validate[required]', 'id' => 'year', 'disabled', 'placeholder' => 'Год выпуска']) !!}
-                        @endif
+                        <div class="select">
+                            {!! Form::select('trade_in_complectation', $trade_in_complectation_options, isset($request->trade_in_complectation) ? $request->trade_in_complectation : 'Комплектация', ['class' => 'select2 validate[required]', 'id' => 'trade_in_complectation', !isset($request->trade_in_complectation) ? 'disabled' : '']) !!}
+                        </div>
+
+                        <h2>Ваш автомобиль</h2>
+
+                        <div class="select">
+                            {!! Form::select('mark', $mark_options, isset($request->mark) ? $request->mark : 'Марка', ['class' => 'form_control select2 validate[required]', 'id' => 'mark']) !!}
+                        </div>
+
+                        <div class="select">
+                            {!! Form::select('model', $model_options, isset($request->model) ? $request->model : 'Модель', ['class' => 'form_control select2 validate[required]', 'id' => 'model', !isset($request->model) ? 'disabled' : '']) !!}
+                        </div>
+
+                        {{ Form::selectYear('year', date('Y'), date('Y')-50, isset($request->year) ? $request->year : null, ['class' => 'form_control select2', 'placeholder' => 'Год выпуска']) }}
+
+                        {!! Form::text('mileage', old('mileage'), ['class' => 'form_control validate[required,custom[integer]]', 'placeholder'=>'Пробег']) !!}
+
+                        {!! Form::text('name', old('name'), ['class' => 'form_control validate[required,custom[integer]]', 'placeholder'=>'Ф.И.О.']) !!}
+
+                        {!! Form::text('phone', old('phone'), ['class' => 'form_control form_phone validate[required,custom[phone]]', 'placeholder' => '+7 (___) ___ - __ - __']) !!}
+
+                        <div class="compliance_check">
+
+                            {!! Form::checkbox('agree', null, null, ['class' => 'checkbox validate[required[alertTextCheckboxe]]', 'id' => 'tradein_check']) !!}
+
+                            {!! Form::label('tradein_check', 'Согласен с обработкой персональных данных', ['class' => 'control-label col-md-2']) !!}
+
+                        </div>
+
+                        {!! Form::submit('Отправить заявку', ['class'=>'btn']) !!}
+
+                        {!! Form::close() !!}
+
+                    </div>
+                    <div class="request_desc">
+                        <div class="request_text">
+                            <h2>Trade-in - это удобно</h2>
+                            <p>Вы доставляете автомобиль<br/>с пакетом необходимых документов.</p>
+                            <p>Перед выкупом авто менеджер проводит осмотр Вашего автомобиля.</p>
+                            <p>Эксперт по оценке автомобилей предлагает цену за Ваш автомобиль.</p>
+                            <p>Мы оформляем все необходимые документы. Вы получаете деньги наличными.</p>
+                            <p>Вы получаете скидку в размере стоимости Вашего старого автомобиля и дополнительную скидку от нашего салона.</p>
+                        </div>
                     </div>
                 </div>
-
-                <div class="select">
-                    <div class="select">
-                        {!! Form::text('mileage', old('mileage'), ['class' => 'form_control validate[required,custom[onlyNumberSp]]', 'placeholder' => 'Пробег (тыс. км)']) !!}
+                <div class="presents_block sidebar sidebar2">
+                    <div class="present_item_container present_image_container">
+                        <div class="present_item">
+                            <img src="images/present.jpg" />
+                        </div>
                     </div>
-                </div>
-
-                <div class="select">
-                    <div class="select">
-                        {!! Form::select('gearbox', [
-                         null => 'КПП',
-                        'Механическая' => 'Механическая',
-                        'Автоматическая' => 'Автоматическая',
-                        'Роботизированная' => 'Роботизированная',
-                        'Вариатор' => 'Вариатор',
-                        'Автоматизированная механическая' => 'Автоматизированная механическая'], isset($request->gearbox) ? $request->gearbox : 'Коробка', ['class' => 'select2 validate[required]]'])
-                        !!}
+                    <div class="present_item_container">
+                        <div class="present_item">
+                            <div><img src="images/p_1.png" /></div>
+                            <div>Зимняя резина<br/>в подарок</div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="select">
-                    <div class="file-upload">
-                        <label>
-
-                            {{ Form::file('photo', ['class' => 'field', 'onchange' => 'getFileParam();', 'id' => 'uploaded-file1']) }}
-
-                            <span>Выберите файл</span><br />
-                        </label>
+                    <div class="present_item_container">
+                        <div class="present_item">
+                            <div><img src="images/p_1.png" /></div>
+                            <div>Зимняя резина<br/>в подарок</div>
+                        </div>
                     </div>
-                    <div id="preview1">&nbsp;</div>
-                    <div id="file-name1" class="disp_n">&nbsp;</div>
-                    <div id="file-size1" class="disp_n">&nbsp;</div>
-                </div>
-
-            </div>
-            <div class="tradein">
-
-                <h2>Новый автомобиль</h2>
-                <div class="select">
-                    <div class="select">
-                        {!! Form::select('trade_in_mark', $mark_options, isset($request->trade_in_mark) ? $request->trade_in_mark : 'Марка', ['class' => 'select2 validate[required]', 'id' => 'trade_in_mark']) !!}
+                    <div class="present_item_container">
+                        <div class="present_item">
+                            <div><img src="images/p_2.png" /></div>
+                            <div>Дорога<br/>до Москвы<br/>за наш счет</div>
+                        </div>
                     </div>
-                </div>
-                <div class="select">
-                    <div class="select">
-                        {!! Form::select('trade_in_model', $models_options, isset($request->trade_in_model) ? $request->trade_in_model : 'Модель', ['class' => 'select2 validate[required]', 'id' => 'trade_in_model', !isset($request->trade_in_model) ? 'disabled' : '']) !!}
+                    <div class="present_item_container">
+                        <div class="present_item">
+                            <div><img src="images/p_3.png" /></div>
+                            <div>КАСКО<br/>в подарок</div>
+                        </div>
                     </div>
-                </div>
-                <div class="select">
-                    <img id="model_img" src="/images/car_bg.png" height="380">
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="tradein">
-                <div class="select">
-                    {!! Form::text('name', old('name'), ['class' => 'form_control validate[required]', 'placeholder' => 'ФИО']) !!}
-                </div>
-                <div class="checkboxes">
-                    <div class="row">
-                        {!! Form::checkbox('confirmation', null, null, ['class' => 'checkbox validate[required[alertTextCheckboxe]]', 'id' => 'confirmation']) !!}
-                        {!! Form::label('confirmation', 'Я понимаю, что автосалон находится в Москве') !!}
-                    </div>
-                    <div class="row">
-                        {!! Form::checkbox('agree', null, null, ['class' => 'checkbox  validate[required[alertTextCheckboxe]]', 'id' => 'agree']) !!}
-                        {!! Form::label('agree', 'Я даю согласие на обработку моих персональных данных') !!}
-                    </div>
-                </div>
-            </div>
-            <div class="tradein">
-                <div class="select">
-                      {!! Form::text('phone', old('phone'), ['class' => 'form_control form_phone validate[required,custom[phone]]', 'placeholder' => 'Телефон']) !!}
-                </div>
-
-                {!! Form::submit('отправить заявку', ['class'=>'btn']) !!}
-
-            </div>
-
-            {!! Form::close() !!}
-
-        </div>
-    </section>
+    </div>
 @endsection
 
 @section('js')
@@ -142,7 +136,7 @@
 
         $(function(){
 
-            $("#mark").on("change keyup input click", function() {
+            $("#trade_in_mark").on("change keyup input click", function() {
 
                 var idMark = this.value;
 
@@ -164,11 +158,11 @@
                         console.log(html);
 
                         if (data.item.length > 0) {
-                            $('#model').prop('disabled',false);
-                            $("#model").html(html).fadeIn();
+                            $("#trade_in_model").prop('disabled',false);
+                            $("#trade_in_model").html(html).fadeIn();
                         } else {
-                            $("#model").html(html).fadeIn();
-                            $('#model').prop('disabled',true);
+                            $("#trade_in_model").html(html).fadeIn();
+                            $("#trade_in_model").prop('disabled',true);
                         }
 
                         $(".select2").select2({
@@ -178,30 +172,32 @@
                 }
             })
 
-            $(document).on('change keyup input click','#model',function(){
+            $(document).on('change keyup input click','#trade_in_model',function(){
                 var idModel = this.value;
 
                 if (idModel != null) {
                     var request = $.ajax({
-                        url: './ajax?action=get_year&id_car_model=' + idModel,
+                        url: './ajax?action=get_modifications&id_model=' + idModel,
                         method: "GET",
                         dataType: "json"
                     });
 
                     request.done(function (data) {
 
-                        var html = '<option>Год выпуска</option>';
+                        var html = '<option>Комплектация</option>';
 
-                        for (var i = data.min; i < data.max; i++) {
-                            html += '<option value="' + i + '">' + i + '</option>';
+                        for (var i = 0; i < data.item.length; i++) {
+                            html += '<option value="' + data.item[i].id + '">' + data.item[i].name + '</option>';
                         }
 
-                        if (data.min != null || data.max != null) {
-                            $('#year').prop('disabled',false);
-                            $("#year").html(html).fadeIn();
+                        console.log(html);
+
+                        if (data.item.length > 0) {
+                            $("#trade_in_model").prop('disabled',false);
+                            $("#trade_in_model").html(html).fadeIn();
                         } else {
-                            $("#year").html(html).fadeIn();
-                            $('#year').prop('disabled',true);
+                            $("#trade_in_model").html(html).fadeIn();
+                            $("#trade_in_model").prop('disabled',true);
                         }
 
                         $(".select2").select2({
