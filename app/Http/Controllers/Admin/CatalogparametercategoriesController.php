@@ -16,7 +16,7 @@ class CatalogparametercategoriesController extends Controller
      */
     public function index()
     {
-        return view('admin.carmarks.index');
+        return view('admin.catalog.parametercategories.index');
     }
 
     /**
@@ -31,69 +31,58 @@ class CatalogparametercategoriesController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($id)
+    public function create()
     {
-        return view('admin.carmodels.create_edit')->with('id_car_mark', $id);
+        return view('admin.catalog.parametercategories.create_edit');
     }
 
     /**
-     * @param CarModel $carmodel
+     * @param CatalogParameterCategory $parametercategory
      * @return $this
      */
-    public function edit(CarModel $carmodel)
+    public function edit(CatalogParameterCategory $parametercategory)
     {
-        return view('admin.carmodels.create_edit')->with(compact('carmodel'));
+        return view('admin.catalog.parametercategories.create_edit')->with(compact('parametercategory'));
     }
 
     /**
-     * @param $id
-     * @return $this
-     */
-    public function carmark($id)
-    {
-        $carmark = CarMark::where('id', $id)->first();
-
-        return view('admin.carmodels.carmark', compact('carmodels'))->with(compact('carmark'));
-    }
-
-    /**
-     * @param CarModelsRequest $request
-     * @param CarModel $carModel
+     * @param CatalogParameterCategoryRequest $request
+     * @param CatalogParameterCategory $parameterCategory
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CarModelsRequest $request, CarModel $carModel)
+    public function update(CatalogParameterCategoryRequest $request, CatalogParameterCategory $parameterCategory)
     {
-        $carModel->name = $request->input('name');
-        $carModel->updated_at = \Carbon::now();
-        $carModel->save();
+        $parameterCategory->name = $request->input('name');
+        $parameterCategory->updated_at = \Carbon::now();
+        $parameterCategory->save();
 
-        return redirect('admin/carmodels/' . $carModel->id . '/edit')->with('success', 'Данные обнавлены');
+        return redirect('admin/catalog/parametercategories/' . $parameterCategory->id . '/edit')->with('success', 'Данные обнавлены');
     }
 
     /**
-     * @param CarModelsRequest $request
+     * @param CatalogParameterCategoryRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CarModelsRequest $request)
+    public function store(CatalogParameterCategoryRequest $request)
     {
-        $carmodel = CarModel::create($request->except('_token'));
-        $carmodel->save();
+        $parameterCategory = CatalogParameterCategory::create($request->except('_token'));
+        $parameterCategory->save();
 
-        return redirect('admin/carmodels/carmark/' . $request->id_car_mark)->with('success', ' добавлена');
+        return redirect('admin/catalog/parametercategories/')->with('success', ' добавлена');
     }
 
     /**
      * @param Request $request
-     * @param CarModel $carModel
+     * @param CatalogParameterCategory $parameterCategory
      * @return \Illuminate\Http\JsonResponse|string
      */
-    public function destroy(Request $request, CarModel $carModel)
+    public function destroy(Request $request, CatalogParameterCategory $parameterCategory)
     {
         if ($request->ajax()) {
 
-            $carModel->delete();
+            $parameterCategory->delete();
 
-            return response()->json(['success' => 'Модель удалена']);
+            return response()->json(['success' => 'Категория удалена']);
         } else {
             return 'Ошибка веб приложения! Действия не были выполнены.';
         }

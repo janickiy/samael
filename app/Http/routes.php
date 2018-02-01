@@ -114,6 +114,13 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('catalog/models/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
         Route::get('catalog/models/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
         Route::get('catalog/modifications/create/{id}', 'Admin\CatalogmodificationsController@create');
+
+
+        Route::get('catalog/complectations/create/{id}', 'Admin\CatalogcomplectationsController@create');
+
+
+
+
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
@@ -128,20 +135,14 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('images', 'Admin\ImagesController');
         Route::resource('requestcredits', 'Admin\RequestCreditsController');
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
-     //   Route::resource('catalogmarks', 'Admin\CatalogmarksController');
-       // Route::resource('catalogmodels', 'Admin\CatalogmodelsController');
-      //  Route::resource('catalogmodifications', 'Admin\CatalogmodificationsController');
-      //  Route::resource('catalogcomplectations', 'Admin\CatalogcomplectationsController');
-
-      //  Route::resource('parametercategories', 'Admin\CatalogcomplectationsController');
 
         Route::group(['prefix' => 'catalog', 'middleware' => 'admin'], function () {
             Route::resource('marks', 'Admin\CatalogmarksController');
             Route::resource('models', 'Admin\CatalogmodelsController');
             Route::resource('modifications', 'Admin\CatalogmodificationsController');
+
             Route::resource('complectations', 'Admin\CatalogcomplectationsController');
-            Route::resource('complectations', 'Admin\CatalogcomplectationsController');
-            Route::resource('parametercategories', 'Admin\CatalogcomplectationsController');
+            Route::resource('parametercategories', 'Admin\CatalogparametercategoriesController');
         });
 
 

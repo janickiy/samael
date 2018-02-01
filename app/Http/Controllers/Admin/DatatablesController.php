@@ -21,6 +21,7 @@ use App\CatalogMark;
 use App\CatalogModification;
 use App\CatalogComplectation;
 use App\Callback;
+use App\CatalogParameterCategory;
 
 
 class DatatablesController extends Controller
@@ -417,6 +418,23 @@ class DatatablesController extends Controller
             ->addColumn('actions', function ($catalogComplectations) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/modifications/' . $catalogComplectations->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/modifications/' . $catalogComplectations->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                return $editBtn . $deleteBtn;
+            })
+            ->make(true);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParametercategories()
+    {
+        $parameterCategories = CatalogParameterCategory::all();
+
+        return Datatables::of($parameterCategories)
+
+            ->addColumn('actions', function ($parameterCategories) {
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/parametercategories/' . $parameterCategories->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/parametercategories/' . $parameterCategories->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);

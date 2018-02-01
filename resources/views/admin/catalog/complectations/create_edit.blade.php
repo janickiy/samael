@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Производители')
+@section('title', 'Комплектации')
 
 @section('css')
 <!-- iCheck for checkboxes and radio inputs -->
@@ -11,13 +11,13 @@
         <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-folder-open-o"></i> {{ isset($catalogmark) ? 'Редактировать' : 'Добавить' }} производителя
+        <i class="fa fa-folder-open-o"></i> {{ isset($catalogmark) ? 'Редактировать' : 'Добавить' }} комплектацию
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li><a href="{{ url('admin/catalog/marks') }}"><i class="fa fa-folder-open-o"></i> Производители</a></li>
-        <li class="active"><i class="fa {{ isset($catalogmark) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($catalogmark) ? 'Редактировать' : 'Добавить' }}
-            марка
+        <li><a href="{{ url('admin/catalog/marks') }}"><i class="fa fa-folder-open-o"></i> Комплектации</a></li>
+        <li class="active"><i class="fa {{ isset($catalogcomplectation) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($catalogcomplectation) ? 'Редактировать' : 'Добавить' }}
+            комплектацию
         </li>
     </ol>
 </section>
@@ -36,156 +36,54 @@
         </div>
         <div class="box-body">
             <p>* - обязательные поля</p>
-            {!! Form::open(['url' => isset($catalogmark) ? URL::to('admin/catalog/marks/' . $catalogmark->id )  :  URL::to('admin/catalogmarks') , 'method' => isset($catalogmark) ? 'put': 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'id'=>'validate']) !!}
-            {!! Form::hidden('mark_id', isset($catalogmark) ? $catalogmark->id: null) !!}
+            {!! Form::open(['url' => isset($catalogcomplectation) ? URL::to('admin/catalog/complectations/' . $catalogcomplectation->id )  :  URL::to('admin/catalog/complectations') , 'method' => isset($catalogcomplectation) ? 'put': 'post', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
+
+            {!! Form::hidden('id_model', $id_model) !!}
+
             <div class="col-md-12">
 
                 <div class="form-group">
-                    {!! Form::label('name', 'Название марки *', ['class' => 'control-label col-md-2']) !!}
+                    {!! Form::label('name', 'Название *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
-                        {!! Form::text('name', old('name', isset($catalogmark) ? $catalogmark->name : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название марки']) !!}
+                        {!! Form::text('name', old('name', isset($catalogcomplectation) ? $catalogcomplectation->name : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название']) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('name_rus', 'Название кирилицей*', ['class' => 'control-label col-md-2']) !!}
+                    {!! Form::label('name', 'Параметры *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
-                        {!! Form::text('name_rus', old('name_rus', isset($catalogmark) ? $catalogmark->name_rus : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название марки кирилицей']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('slug', 'Slug*', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('slug', old('slug', isset($catalogmark) ? $catalogmark->slug : null), ['class' => 'form-control validate[required]', 'placeholder'=>'slug']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('annotation', 'Аннотация', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('annotation', old('annotation', isset($catalogmark) ? $catalogmark->annotation : null), ['class' => 'form-control', 'placeholder' => 'annotation']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('content', 'Контент', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::textarea('content', old('content', isset($catalogmark) ? $catalogmark->content : null), ['class' => 'form-control', 'placeholder' => 'content', 'rows' => 2]) !!}
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    {!! Form::label('logo', 'Логотип (jpeg, png, gif, размер не более 1Мб)', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::file('logo') !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('autocredit', 'Автокредит', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('autocredit',1,  old('autocredit' , (isset($catalogmark) && ($catalogmark->getOriginal('autocredit') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('autocredit',1,  old('autocredit' , true),['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('autocredit', 'Зимняя резина в подарок', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('winterwheels',1, old('winterwheels' , (isset($catalogmark) && ($catalogmark->getOriginal('winterwheels') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('winterwheels',1, old('winterwheels' , true), ['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('waypaid', 'Дорога до Москвы за наш счет', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('waypaid',1, old('waypaid' , (isset($catalogmark) && ($catalogmark->getOriginal('waypaid') == 1) ) ? true : false ) ,['class' => 'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('waypaid',1, old('waypaid' , true), ['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('cascogift', 'КАСКО в подарок', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('cascogift',1, old('cascogift' , (isset($catalogmark) && ($catalogmark->getOriginal('cascogift') == 1) ) ? true : false ) ,['class' => 'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('cascogift',1, old('cascogift' , true), ['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
+                        {!! Form::text('name', old('name', isset($catalogcomplectation) ? $catalogcomplectation->name : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Название']) !!}
                     </div>
                 </div>
 
 
                 <div class="form-group">
-                    {!! Form::label('meta_title', 'meta title', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('meta_title', old('meta_title', isset($catalogmark) ? $catalogmark->meta_title : null), ['class' => 'form-control', 'placeholder'=>'meta title']) !!}
-                    </div>
-                </div>
+                        {!! Form::label('name', 'Новые параметры*', ['class' => 'control-label col-md-2']) !!}
+                        <div class="col-md-4" id="headerslist">
+                            <input class="btn btn-default" id="add_field" type="button" value="+ Добавить поле">
+                        </div>
+
+                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('meta_keywords', 'meta keywords', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('meta_keywords', old('meta_keywordse', isset($catalogmark) ? $catalogmark->meta_keywords : null), ['class' => 'form-control', 'placeholder'=>'meta keywords']) !!}
+                    {!! Form::label('name', 'Пакеты*', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4" id="packlist">
+                        <input class="btn btn-default" id="add_field_pack" type="button" value="+ Добавить поле">
                     </div>
+
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('meta_description', 'meta description', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::textarea('meta_description', old('message', isset($catalogmark) ? $catalogmark->meta_description : null), ['class' => 'form-control', 'placeholder'=>'meta description', 'rows' => 2]) !!}
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                               {!! Form::checkbox('published',1,  old('published' , (isset($catalogmark) && ($catalogmark->getOriginal('published') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('published',1,  old('published' , true),['class'=>'minimal']) !!}
-                            @endif
 
-                            Да</label>
-                    </div>
-                </div>
 
-                <div class="form-group"><div class="col-md-8 col-md-offset-2">
-                    @if (isset($catalogmark) && (file_exists(public_path() . $catalogmark->logo)) )
-                        <img height="30" src="{!! $catalogmark->logo !!}">
-                    @endif
-                    </div>
-                </div>
+
+
+
+
 
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-2">
-                        {!! Form::submit( (isset($catalogmark) ? 'Обновить': 'Добавить') . '', ['class'=>'btn btn-primary']) !!}
+                        {!! Form::submit( (isset($catalogcomplectation) ? 'Обновить': 'Добавить') . '', ['class'=>'btn btn-primary']) !!}
                     </div>
                 </div>
             </div><!-- .col-md-12 -->
@@ -208,7 +106,80 @@
 
 <script type="text/javascript">
 
+    $(document).on( "click", '#add_field', function() {
+        var html = '<div class="additional_field"><div class="form-group">';
+        html += '<div class="col-lg-12">';
+        html += '<div class="form-group">';
+        html += '{!! Form::label('newparameters_category[]', 'Категория', ['class' => 'col-lg-2 control-label']) !!}';
+        html += '<div class="col-lg-7">';
+        html +=  '{!! Form::select('newparameters_category[]', $category_options, 'Категория', ['class' => 'form_control select2']) !!}';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12">';
+        html += '<div class="form-group">';
+        html += '{!! Form::label('newparameters_name[]', 'Название', ['class' => 'col-lg-2 control-label']) !!}';
+        html += '<div class="col-lg-7"> {!! Form::text('newparameters_name[]', null, ['class' => 'form-control', 'placeholder'=>'Название']) !!} </div>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12">';
+        html += '<div class="form-group">';
+        html += '{!! Form::label('newparameters_price[]', 'Цена', ['class' => 'col-lg-2 control-label']) !!}';
+        html += '<div class="col-lg-7"> {!! Form::text('newparameters_price[]', null, ['class' => 'form-control', 'placeholder'=>'Цена']) !!} </div>';
+        html += '<div class="col-lg-3"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#headerslist').prepend(html);
+        $(".select2").select2();
+
+    });
+
+    $(document).on( "click", '#add_field_pack', function() {
+        var html = '<div class="additional_field"><div class="form-group">';
+        html += '<div class="col-lg-12">';
+        html += '<div class="form-group">';
+        html += '{!! Form::label('pack_name[]', 'Название *', ['class' => 'col-lg-2 control-label']) !!}';
+
+        html += '<div class="col-lg-7"> {!! Form::text('pack_name[]', null, ['class' => 'form-control', 'placeholder'=>'Название']) !!} </div>';
+
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12">';
+        html += '<div class="form-group">';
+        html += '{!! Form::label('pack_price[]', 'Цена *', ['class' => 'col-lg-2 control-label']) !!}';
+        html += '<div class="col-lg-7"> {!! Form::text('pack_price[]', null, ['class' => 'form-control', 'placeholder'=>'Название']) !!} </div>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12">';
+        html += '<div class="form-group">';
+        html += '{!! Form::label('parameter_pack[]', 'Параметры *', ['class' => 'col-lg-2 control-label']) !!}';
+        html +=  '{!! Form::select('newparameters_price[]', $category_options, 'Параметры', ['class' => 'form_control select2']) !!}';
+        html += '<div class="col-lg-3"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#packlist').prepend(html);
+        $(".select2").select2();
+
+    });
+
+    $(document).on( "click", '.removeBlock', function() {
+        var parent = $(this).closest('div[class^="additional_field"]');
+        parent.remove();
+    });
+
     $(document).ready(function () {
+
+        $('#js-example-basic-hide-search-multi').select2();
+
+        $('#js-example-basic-hide-search-multi').on('select2:opening select2:closing', function( event ) {
+            var $searchfield = $(this).parent().find('.select2-search__field');
+            //$searchfield.prop('disabled', true);
+        });
 
         $('input[type="checkbox"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue'

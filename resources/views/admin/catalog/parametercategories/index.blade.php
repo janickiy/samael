@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Комплектации')
+@section('title', 'Категории параметров')
 
 @section('css')
 
@@ -19,21 +19,20 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-folder-open-o"></i> Комплектации
+        <i class="fa fa-folder-open-o"></i> Категории параметров
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li class="active"><i class="fa fa-folder-open-o"></i> Комплектации</li>
+        <li class="active"><i class="fa fa-folder-open-o"></i> Категории параметров</li>
     </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
-    <p><a class="btn btn-success" href="{{ url('/admin/catalog/complectations/create/' . $id) }}"> + Добавить комплектацию </a></p>
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Комплектации</h3>
+            <h3 class="box-title">Категории параметров</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i>
@@ -46,7 +45,8 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Статус</th>
+                    <th>Создано</th>
+                    <th>Обновлено</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -84,10 +84,11 @@
         var table = $("#data_table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url("admin/datatables/catalogcomplectations/{$id}") !!}',
+            ajax: '{!! url("admin/datatables/parametercategories") !!}',
             columns: [
                 {data: 'name', name: 'name'},
-                {data: 'status', name: 'status'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

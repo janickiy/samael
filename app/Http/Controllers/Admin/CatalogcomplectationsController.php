@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Requests\CatalogCatalogComplectationsRequest;
+use App\Http\Requests\CatalogComplectationsRequest;
 use App\Http\Controllers\Controller;
 use App\CatalogComplectation;
+use App\CatalogParameterCategory;
 
 class CatalogcomplectationsController extends Controller
 {
@@ -15,7 +16,7 @@ class CatalogcomplectationsController extends Controller
      */
     public function index($id)
     {
-        return view('admin.catalog.modifications.index')->with('id', $id);
+        return view('admin.catalog.complectations.index')->with('id_model', $id);
     }
 
     /**
@@ -32,74 +33,54 @@ class CatalogcomplectationsController extends Controller
      */
     public function create($id)
     {
-        return view('admin.catalog.modifications.create_edit')->with('id_model', $id);
+        $category_options[null] = 'Категория';
+        $parameterCategories = CatalogParameterCategory::get()->toArray();
+
+        foreach ($parameterCategories as $category) {
+            $category_options[$category['id']] = $category['name'];
+        }
+
+        return view('admin.catalog.complectations.create_edit', compact('category_options'))->with('id_model', $id);
     }
 
     /**
-     * @param CatalogModification $catalogmodification
+     * @param CatalogComplectation $catalogcomplectation
      * @return $this
      */
-    public function edit(CatalogModification $catalogmodification)
+    public function edit(CatalogComplectation $catalogcomplectation)
     {
-        return view('admin.catalog.modifications.create_edit')->with(compact('catalogmodification'));
+        $id_model = $catalogcomplectation->id_model;
+
+        $category_options[null] = 'Категория';
+        $parameterCategories = CatalogParameterCategory::get()->toArray();
+
+        foreach ($parameterCategories as $category) {
+            $category_options[$category['id']] = $category['name'];
+        }
+
+        return view('admin.catalog.complectations.create_edit')->with(compact('catalogcomplectation', 'id_model', 'category_options'));
     }
 
     /**
-     * @param CatalogModificationsRequest $request
-     * @param CatalogModification $catalogModification
+     * @param CatalogComplectationsRequest $request
+     * @param CatalogComplectation $catalogComplectation
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CatalogModificationsRequest $request, CatalogModification $catalogModification)
+    public function update(CatalogComplectationsRequest $request, CatalogComplectation $catalogComplectation)
     {
-       // $modification = CarModification::where('id', $carModification->id)->first();
+        $catalogComplectation->name = $request->input('name');
+        $catalogComplectation->save();
 
-        $catalogModification->name = $request->input('name');
-        $catalogModification->id_model = $request->input('id_model');
-        $catalogModification->name = trim($request->input('name'));
-        $catalogModification->body_type = trim($request->input('body_type'));
-        $catalogModification->length = trim($request->input('length'));
-        $catalogModification->width = trim($request->input('width'));
-        $catalogModification->height = trim($request->input('height'));
-        $catalogModification->wheel_base = trim($request->input('wheel_base'));
-        $catalogModification->front_rut = trim($request->input('front_rut'));
-        $catalogModification->back_rut = trim($request->input('back_rut'));
-        $catalogModification->front_overhang = trim($request->input('front_overhang'));
-        $catalogModification->back_overhang = trim($request->input(''));
-        $catalogModification->trunk_volume_min = trim($request->input('trunk_volume_min'));
-        $catalogModification->trunk_volume_max = trim($request->input('trunk_volume_max'));
-        $catalogModification->tank_volume = trim($request->input('tank_volume'));
-        $catalogModification->front_brakes = trim($request->input('front_brakes'));
-        $catalogModification->back_brakes = trim($request->input('back_brakes'));
-        $catalogModification->front_suspension = trim($request->input('front_suspension'));
-        $catalogModification->back_suspension = trim($request->input('back_suspension'));
-        $catalogModification->engine_displacement = trim($request->input('engine_displacement'));
-        $catalogModification->engine_displacement_working_value = trim($request->input('engine_displacement_working_value'));
-        $catalogModification->engine_type = trim($request->input('engine_type'));
-        $catalogModification->gearbox = trim($request->input('gearbox'));
-        $catalogModification->gears = trim($request->input('gears'));
-        $catalogModification->drive = trim($request->input('drive'));
-        $catalogModification->power = trim($request->input('power'));
-        $catalogModification->consume_city = trim($request->input('consume_city'));
-        $catalogModification->consume_track = trim($request->input('consume_track'));
-        $catalogModification->consume_mixed = trim($request->input('consume_mixed'));
-        $catalogModification->acceleration_100km = trim($request->input('acceleration_100km'));
-        $catalogModification->max_speed = trim($request->input('max_speed'));
-        $catalogModification->clearance = trim($request->input('clearance'));
-        $catalogModification->min_mass = trim($request->input('min_mass'));
-        $catalogModification->max_mass = trim($request->input('max_mass'));
-        $catalogModification->trailer_mass = trim($request->input('trailer_mass'));
-        $catalogModification->save();
-
-        return redirect('admin/catalog/models/model/' . $catalogModification->id_model . '/modifications')->with('success', 'Данные обнавлены');
+        return redirect('admin/catalog/models/model/' . $catalogComplectation->id_model . '/complectations')->with('success', 'Данные обнавлены');
     }
 
     /**
-     * @param CatalogModificationsRequest $request
+     * @param CatalogComplectationsRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CatalogModificationsRequest $request)
+    public function store(CatalogComplectationsRequest $request)
     {
-        $carModification = CatalogModification::create($request->except('_token'));
+        $carModification = CatalogComplectation::create($request->except('_token'));
         $carModification->save();
 
         return redirect('admin/catalog/models/model/' . $carModification->id_model . '/modifications')->with('success', ' добавлена');
@@ -107,14 +88,14 @@ class CatalogcomplectationsController extends Controller
 
     /**
      * @param Request $request
-     * @param CatalogModification $catalogModification
+     * @param CatalogComplectation $catalogComplectation
      * @return \Illuminate\Http\JsonResponse|string
      */
-    public function destroy(Request $request, CatalogModification $catalogModification)
+    public function destroy(Request $request, CatalogComplectation $catalogComplectation)
     {
         if ($request->ajax()) {
-            $catalogModification->delete();
-            return response()->json(['success' => 'Модификация удалена']);
+            $catalogComplectation->delete();
+            return response()->json(['success' => 'Комплектация удалена']);
         } else {
             return 'Ошибка веб приложения! Действия не были выполнены.';
         }
