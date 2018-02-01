@@ -18,7 +18,7 @@ class CatalogmodelsController extends Controller
      */
     public function index()
     {
-        return view('admin.catalogmarks.index');
+        return view('admin.catalog.marks.index');
     }
 
     /**
@@ -35,7 +35,7 @@ class CatalogmodelsController extends Controller
      */
     public function create($id)
     {
-        return view('admin.catalogmodels.create_edit')->with('id_car_mark', $id);
+        return view('admin.catalog.models.create_edit')->with('id_car_mark', $id);
     }
 
     /**
@@ -45,7 +45,7 @@ class CatalogmodelsController extends Controller
     public function edit(CatalogModel $catalogmodel)
     {
         $id_car_mark = $catalogmodel->id_car_mark;
-        return view('admin.catalogmodels.create_edit')->with(compact('catalogmodel', 'id_car_mark'));
+        return view('admin.catalog.models.create_edit')->with(compact('catalogmodel', 'id_car_mark'));
     }
 
     /**
@@ -55,7 +55,7 @@ class CatalogmodelsController extends Controller
     public function catalogmark($id)
     {
         $catalogmark = CatalogMark::where('id', $id)->first();
-        return view('admin.catalogmodels.catalogmark', compact('catalogmodels'))->with(compact('catalogmark'));
+        return view('admin.catalog.models.catalogmark', compact('catalogmodels'))->with(compact('catalogmark'));
     }
 
     /**
@@ -93,7 +93,7 @@ class CatalogmodelsController extends Controller
         $catalogModel->updated_at = \Carbon::now();
         $catalogModel->save();
 
-        return redirect('admin/catalogmodels/' . $catalogModel->id . '/edit')->with('success', 'Данные обнавлены');
+        return redirect('admin/catalog/models/' . $catalogModel->id . '/edit')->with('success', 'Данные обнавлены');
     }
 
     /**
@@ -127,7 +127,7 @@ class CatalogmodelsController extends Controller
 
         $catalogmodel->save();
 
-        return redirect('admin/catalogmodels/catalogmark/' . $request->id_car_mark)->with('success', ' добавлена');
+        return redirect('admin/catalog/models/mark/' . $request->id_car_mark)->with('success', ' добавлена');
     }
 
     /**
@@ -159,12 +159,12 @@ class CatalogmodelsController extends Controller
         $modifications = CatalogModification::where('id_model', $id)
                         ->get();
 
-        return view('admin.catalogmodifications.index', compact('modifications'))->with('id', $id);
+        return view('admin.catalog.modifications.index', compact('modifications'))->with('id', $id);
     }
 
     public function complectations($id)
     {
-        return view('admin.catalogcomplectations.index', compact('modifications'))->with('id', $id);
+        return view('admin.catalog.complectations.index', compact('modifications'))->with('id', $id);
     }
 
     public function packs($id)

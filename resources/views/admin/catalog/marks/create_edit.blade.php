@@ -15,7 +15,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li><a href="{{ url('admin/catalogmarks') }}"><i class="fa fa-folder-open-o"></i> Производители</a></li>
+        <li><a href="{{ url('admin/catalog/marks') }}"><i class="fa fa-folder-open-o"></i> Производители</a></li>
         <li class="active"><i class="fa {{ isset($catalogmark) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($catalogmark) ? 'Редактировать' : 'Добавить' }}
             марка
         </li>
@@ -36,7 +36,7 @@
         </div>
         <div class="box-body">
             <p>* - обязательные поля</p>
-            {!! Form::open(['url' => isset($catalogmark) ? URL::to('admin/catalogmarks/' . $catalogmark->id )  :  URL::to('admin/catalogmarks') , 'method' => isset($catalogmark) ? 'put': 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'id'=>'validate']) !!}
+            {!! Form::open(['url' => isset($catalogmark) ? URL::to('admin/catalog/marks/' . $catalogmark->id )  :  URL::to('admin/catalogmarks') , 'method' => isset($catalogmark) ? 'put': 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'id'=>'validate']) !!}
             {!! Form::hidden('mark_id', isset($catalogmark) ? $catalogmark->id: null) !!}
             <div class="col-md-12">
 
@@ -76,67 +76,10 @@
                 </div>
 
 
-
                 <div class="form-group">
                     {!! Form::label('logo', 'Логотип (jpeg, png, gif, размер не более 1Мб)', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::file('logo') !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('autocredit', 'Автокредит', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('autocredit',1,  old('autocredit' , (isset($catalogmark) && ($catalogmark->getOriginal('autocredit') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('autocredit',1,  old('autocredit' , true),['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('autocredit', 'Зимняя резина в подарок', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('winterwheels',1, old('winterwheels' , (isset($catalogmark) && ($catalogmark->getOriginal('winterwheels') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('winterwheels',1, old('winterwheels' , true), ['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('waypaid', 'Дорога до Москвы за наш счет', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('waypaid',1, old('waypaid' , (isset($catalogmark) && ($catalogmark->getOriginal('waypaid') == 1) ) ? true : false ) ,['class' => 'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('waypaid',1, old('waypaid' , true), ['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('cascogift', 'КАСКО в подарок', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        <label class="check">
-                            @if(isset($catalogmark))
-                                {!! Form::checkbox('cascogift',1, old('cascogift' , (isset($catalogmark) && ($catalogmark->getOriginal('cascogift') == 1) ) ? true : false ) ,['class' => 'minimal']) !!}
-                            @else
-                                {!! Form::checkbox('cascogift',1, old('cascogift' , true), ['class'=>'minimal']) !!}
-                            @endif
-
-                            Да</label>
                     </div>
                 </div>
 

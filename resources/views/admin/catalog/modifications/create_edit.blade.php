@@ -15,7 +15,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li><a href="{{ url('admin/catalogmodels/model/' . (isset($catalogmodification) ? $catalogmodification->model : $id_model) . '/modifications' ) }}"><i class="fa fa-list-alt"></i> Модификации</a></li>
+        <li><a href="{{ url('admin/catalog/models/model/' . (isset($catalogmodification) ? $catalogmodification->model : $id_model) . '/modifications' ) }}"><i class="fa fa-list-alt"></i> Модификации</a></li>
         <li class="active"><i class="fa {{ isset($catalogmodification) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($catalogmodification) ? 'Редактировать' : 'Добавить' }}
            модификацию
         </li>
@@ -36,7 +36,7 @@
         </div>
         <div class="box-body">
             <p>* - обязательные поля</p>
-            {!! Form::open(['url' => isset($catalogmodification) ? URL::to('admin/catalogmodifications/' . $catalogmodification->id )  :  URL::to('admin/catalogmodifications/') , 'method' => isset($catalogmodification) ? 'put': 'post', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
+            {!! Form::open(['url' => isset($catalogmodification) ? URL::to('admin/catalog/modifications/' . $catalogmodification->id )  :  URL::to('admin/catalogmodifications/') , 'method' => isset($catalogmodification) ? 'put': 'post', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
             <div class="col-md-12">
                 {!! Form::hidden('id_model', $id_model) !!}
                 <div class="form-group">

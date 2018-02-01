@@ -50,7 +50,7 @@
                 </ul>
             </li>
 
-            <li class="treeview {{ Request::is('admin/carmark*') ? 'active': '' || Request::is('admin/carmodel*') ? 'active': '' || Request::is('admin/carmodification*') ? 'active': '' }}">
+            <li class="treeview {{ Request::is('admin/carmark*') ? 'active': '' || Request::is('admin/carmodel*') ? 'active': '' || Request::is('admin/carmodification*') ? 'active': '' || Request::is('admin/parametercategories*') ? 'active': '' }}">
                 <a href="#">
                     <i class="fa fa-folder-open-o"></i> <span>Каталог производителей<br> и моделей</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -91,6 +91,21 @@
                             </li>
                         </ul>
                     </li>
+
+
+                    <li class="{{ Request::is('admin/parametercategories*')? 'active': '' }}">
+                        <a href="#"><i class="fa fa-key"></i> Категории параметров <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="{{ Request::is('admin/parametercategories')? 'active': '' }}"><a
+                                        href="{{ url('admin/parametercategories') }}"><i class="fa fa-list"></i> Администрирование</a></li>
+                            <li class="{{ Request::is('admin/parametercategories/create')? 'active' : '' }}"><a
+                                        href="{{ url('admin/parametercategories/create') }}"><i class="fa fa-plus"></i> Добавить категорию</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
                 </ul>
             </li>
 

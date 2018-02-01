@@ -1,9 +1,10 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Автомобили с пробеогом')
+@section('title', 'Модификации')
 
 @section('css')
-        <!-- DataTables -->
+
+<!-- DataTables -->
 {!! Html::style('assets/dist/css/datatable/dataTables.bootstrap.min.css') !!}
 
 {!! Html::style('assets/dist/css/datatable/responsive.bootstrap.min.css') !!}
@@ -14,46 +15,40 @@
 
 
 @section('content')
-        <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-automobile"></i> Автомобили с пробеогом
+        <i class="fa fa-list-alt"></i> Модификации
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li class="active"><i class="fa fa-automobile"></i> Автомобили с пробеогом</li>
+        <li class="active"><i class="fa fa-list-alt"></i> Модификации</li>
     </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
+    <p><a class="btn btn-success" href="{{ url('/admin/catalog/modifications/create/' . $id) }}"> + Добавить модификацию </a></p>
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Автомобили с пробеогом</h3>
+            <h3 class="box-title">Список модификаций</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i>
                 </button>
             </div>
         </div>
+
         <div class="box-body">
             <table id="data_table" class="table datatable dt-responsive" style="width:100%;">
                 <thead>
                 <tr>
-                    <th>Марка</th>
-                    <th>Модель</th>
-                    <th>Цена</th>
-                    <th>Год</th>
-                    <th>Пробег</th>
-                    <th>КПП</th>
-                    <th>Привод</th>
-                    <th>Кузов</th>
-                    <th>Фото</th>
-                    <th>Спец. предложение</th>
-                    <th>Проверено</th>
-                    <th>Trade-in</th>
-                    <th>Статус</th>
+                    <th>Название</th>
+                    <th>Тип кузова</th>
+                    <th>Опубликован</th>
+                    <th>Создано</th>
+                    <th>Обновлено</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -77,7 +72,8 @@
 
 
 @section('js')
-        <!-- DataTables -->
+
+<!-- DataTables -->
 {!! Html::script('assets/dist/js/datatable/jquery.dataTables.min.js') !!}
 
 {!! Html::script('assets/dist/js/datatable/dataTables.bootstrap.min.js') !!}
@@ -91,21 +87,13 @@
         var table = $("#data_table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url("admin/datatables/catalogusedcars") !!}',
+            ajax: '{!! url("admin/datatables/catalogmodifications/{$id}") !!}',
             columns: [
-                {data: 'mark', name: 'mark'},
-                {data: 'model', name: 'model'},
-                {data: 'price', name: 'price'},
-                {data: 'year', name: 'year'},
-                {data: 'mileage', name: 'mileage'},
-                {data: 'gearbox', name: 'gearbox'},
-                {data: 'drive', name: 'drive'},
-                {data: 'body', name: 'body'},
-                {data: 'has_images', name: 'has_images'},
-                {data: 'special', name: 'special'},
-                {data: 'verified', name: 'verified'},
-                {data: 'tradein', name: 'tradein'},
+                {data: 'name', name: 'name'},
+                {data: 'bodyType', name: 'bodyType'},
                 {data: 'status', name: 'status'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

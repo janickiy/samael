@@ -16,7 +16,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li><a href="{{ url('admin/carmodels') }}"><i class="fa fa-list-alt"></i> Модели</a></li>
+        <li><a href="{{ url('admin/catalog/models') }}"><i class="fa fa-list-alt"></i> Модели</a></li>
         <li class="active"><i class="fa {{ isset($catalogmodel) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($catalogmodel) ? 'Редактировать' : 'Добавить' }}
             модель
         </li>
@@ -27,7 +27,7 @@
 <section class="content">
     <!-- Default box -->
 
-    <a href="{!! url('/admin/catalogmodels/catalogmark/' . $id_car_mark) !!}">назад</a>
+    <a href="{!! url('/admin/catalog/models/mark/' . $id_car_mark) !!}">назад</a>
 
     <div class="box">
         <div class="box-header with-border">
@@ -42,7 +42,7 @@
 
             <p>* - обязательные поля</p>
 
-            {!! Form::open(['url' => isset($catalogmodel) ? URL::to('admin/catalogmodels/' . $catalogmodel->id )  :  URL::to('admin/carmodels') , 'method' => isset($catalogmodel) ? 'put': 'post', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
+            {!! Form::open(['url' => isset($catalogmodel) ? URL::to('admin/catalog/models/' . $catalogmodel->id )  :  URL::to('admin/catalog/models') , 'method' => isset($catalogmodel) ? 'put': 'post', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
 
             {!! Form::hidden('id_car_mark', $id_car_mark) !!}
 

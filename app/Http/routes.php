@@ -37,6 +37,7 @@ use App\CatalogMark;
 use App\CatalogModel;
 use App\CatalogModification;
 use App\CatalogComplectation;
+use App\CatalogParameterCategory;
 
 Route::model('users', User::class);
 Route::model('settings', Setting::class);
@@ -49,10 +50,12 @@ Route::model('carmodels',CarModel::class);
 Route::model('images', Image::class);
 Route::model('requestcredits', RequestCredit::class);
 Route::model('requesttradeins', RequestTradeIn::class);
-Route::model('catalogmarks', CatalogMark::class);
-Route::model('catalogmodels', CatalogModel::class);
-Route::model('catalogmodifications', CatalogModification::class);
-Route::model('catalogcomplectations', CatalogComplectation::class);
+Route::model('marks', CatalogMark::class);
+Route::model('models', CatalogModel::class);
+Route::model('modifications', CatalogModification::class);
+Route::model('complectations', CatalogComplectation::class);
+Route::model('parametercategories', CatalogParameterCategory::class);
+
 
 Route::group(['prefix' => ''], function() {
     define('PATH_AVATARS','/uploads/avatars');
@@ -104,13 +107,13 @@ Route::group(['middleware' => 'web'], function () {
         Route::any('carmodels/create/{id}', 'Admin\CarmodelsController@create');
         Route::get('carmarks/import', 'Admin\CarmarksController@import');
         Route::post('carmarks/imporcarmarks', 'Admin\CarmarksController@importCarmarks');
-        Route::get('catalogmodels/catalogmark/{id}', 'Admin\CatalogmodelsController@catalogmark');
-        Route::any('catalogmodels/create/{id}', 'Admin\CatalogmodelsController@create');
-        Route::get('catalogmodels/model/{id}/bodies', 'Admin\CatalogmodelsController@bodies');
-        Route::get('catalogmodels/model/{id}/modifications', 'Admin\CatalogmodelsController@modifications');
-        Route::get('catalogmodels/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
-        Route::get('catalogmodels/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
-        Route::get('catalogmodifications/create/{id}', 'Admin\CatalogmodificationsController@create');
+        Route::get('catalog/models/mark/{id}', 'Admin\CatalogmodelsController@catalogmark');
+        Route::any('catalog/models/create/{id}', 'Admin\CatalogmodelsController@create');
+        Route::get('catalog/models/model/{id}/bodies', 'Admin\CatalogmodelsController@bodies');
+        Route::get('catalog/models/model/{id}/modifications', 'Admin\CatalogmodelsController@modifications');
+        Route::get('catalog/models/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
+        Route::get('catalog/models/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
+        Route::get('catalog/modifications/create/{id}', 'Admin\CatalogmodificationsController@create');
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
@@ -125,10 +128,22 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('images', 'Admin\ImagesController');
         Route::resource('requestcredits', 'Admin\RequestCreditsController');
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
-        Route::resource('catalogmarks', 'Admin\CatalogmarksController');
-        Route::resource('catalogmodels', 'Admin\CatalogmodelsController');
-        Route::resource('catalogmodifications', 'Admin\CatalogmodificationsController');
-        Route::resource('catalogcomplectations', 'Admin\CatalogcomplectationsController');
+     //   Route::resource('catalogmarks', 'Admin\CatalogmarksController');
+       // Route::resource('catalogmodels', 'Admin\CatalogmodelsController');
+      //  Route::resource('catalogmodifications', 'Admin\CatalogmodificationsController');
+      //  Route::resource('catalogcomplectations', 'Admin\CatalogcomplectationsController');
+
+      //  Route::resource('parametercategories', 'Admin\CatalogcomplectationsController');
+
+        Route::group(['prefix' => 'catalog', 'middleware' => 'admin'], function () {
+            Route::resource('marks', 'Admin\CatalogmarksController');
+            Route::resource('models', 'Admin\CatalogmodelsController');
+            Route::resource('modifications', 'Admin\CatalogmodificationsController');
+            Route::resource('complectations', 'Admin\CatalogcomplectationsController');
+            Route::resource('complectations', 'Admin\CatalogcomplectationsController');
+            Route::resource('parametercategories', 'Admin\CatalogcomplectationsController');
+        });
+
 
     });
 

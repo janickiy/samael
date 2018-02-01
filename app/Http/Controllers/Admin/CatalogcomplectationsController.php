@@ -15,7 +15,7 @@ class CatalogcomplectationsController extends Controller
      */
     public function index($id)
     {
-        return view('admin.catalogmodifications.index')->with('id', $id);
+        return view('admin.catalog.modifications.index')->with('id', $id);
     }
 
     /**
@@ -32,7 +32,7 @@ class CatalogcomplectationsController extends Controller
      */
     public function create($id)
     {
-        return view('admin.catalogmodifications.create_edit')->with('id_model', $id);
+        return view('admin.catalog.modifications.create_edit')->with('id_model', $id);
     }
 
     /**
@@ -41,7 +41,7 @@ class CatalogcomplectationsController extends Controller
      */
     public function edit(CatalogModification $catalogmodification)
     {
-        return view('admin.catalogmodifications.create_edit')->with(compact('catalogmodification'));
+        return view('admin.catalog.modifications.create_edit')->with(compact('catalogmodification'));
     }
 
     /**
@@ -90,7 +90,7 @@ class CatalogcomplectationsController extends Controller
         $catalogModification->trailer_mass = trim($request->input('trailer_mass'));
         $catalogModification->save();
 
-        return redirect('admin/catalogmodels/model/' . $catalogModification->id_model . '/modifications')->with('success', 'Данные обнавлены');
+        return redirect('admin/catalog/models/model/' . $catalogModification->id_model . '/modifications')->with('success', 'Данные обнавлены');
     }
 
     /**
@@ -102,7 +102,7 @@ class CatalogcomplectationsController extends Controller
         $carModification = CatalogModification::create($request->except('_token'));
         $carModification->save();
 
-        return redirect('admin/catalogmodels/model/' . $carModification->id_model . '/modifications')->with('success', ' добавлена');
+        return redirect('admin/catalog/models/model/' . $carModification->id_model . '/modifications')->with('success', ' добавлена');
     }
 
     /**

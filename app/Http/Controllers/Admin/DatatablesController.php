@@ -320,7 +320,7 @@ class DatatablesController extends Controller
         return Datatables::of($catalogMarks)
 
             ->addColumn('carmark', function ($catalogMarks) {
-                $carmark = '<a href="' . url('admin/catalogmodels/catalogmark/' . $catalogMarks->id . '/') .'">' . $catalogMarks->name . '</a>';
+                $carmark = '<a href="' . url('admin/catalog/models/mark/' . $catalogMarks->id . '/') .'">' . $catalogMarks->name . '</a>';
 
                 if (file_exists(public_path() . $catalogMarks->logo)) $carmark .= ' <img height="23" src="' . $catalogMarks->logo . '">';
 
@@ -334,8 +334,8 @@ class DatatablesController extends Controller
 
             ->addColumn('actions', function ($catalogMarks) {
 
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmarks/' . $catalogMarks->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmarks/' . $catalogMarks->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/marks/' . $catalogMarks->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/marks/' . $catalogMarks->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
 
                 return $editBtn . $deleteBtn;
             })
@@ -362,12 +362,12 @@ class DatatablesController extends Controller
 
             ->addColumn('actions', function ($catalogModels) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodels/' . $catalogModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodels/' . $catalogModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/models/' . $catalogModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
 
-                $items = '<br><a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/bodies') . '" title="Кузова"><span class="fa fa-th-list"> Кузова</span></a><br>';
-                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/modifications') . '" title="Модификации"><span class="fa fa-th-list"> Модификации</span></a><br>';
-                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/complectations') . '" title="Комплектации"><span class="fa fa-th-list"> Комплектации</span></a><br>';
-                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalogmodels/model/' . $catalogModels->id . '/packs') . '" title="Цены"><span class="fa fa-th-list"> Цены</span></a>';
+                $items = '<br><a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/bodies') . '" title="Кузова"><span class="fa fa-th-list"> Кузова</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/modifications') . '" title="Модификации"><span class="fa fa-th-list"> Модификации</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/complectations') . '" title="Комплектации"><span class="fa fa-th-list"> Комплектации</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/packs') . '" title="Цены"><span class="fa fa-th-list"> Цены</span></a>';
 
                 return $editBtn . $deleteBtn . $items;
             })
@@ -393,8 +393,8 @@ class DatatablesController extends Controller
             })
 
             ->addColumn('actions', function ($catalogModifications) {
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodifications/' . $catalogModifications->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodifications/' . $catalogModifications->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/modifications/' . $catalogModifications->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/modifications/' . $catalogModifications->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);
@@ -415,8 +415,8 @@ class DatatablesController extends Controller
             })
 
             ->addColumn('actions', function ($catalogComplectations) {
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodifications/' . $catalogComplectations->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/catalogmodifications/' . $catalogComplectations->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/modifications/' . $catalogComplectations->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/modifications/' . $catalogComplectations->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);

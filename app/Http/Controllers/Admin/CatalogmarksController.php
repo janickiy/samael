@@ -16,7 +16,7 @@ class CatalogmarksController extends Controller
      */
     public function index()
     {
-        return view('admin.catalogmarks.index');
+        return view('admin.catalog.marks.index');
     }
 
     /**
@@ -33,7 +33,7 @@ class CatalogmarksController extends Controller
      */
     public function create()
     {
-        return view('admin.catalogmarks.create_edit');
+        return view('admin.catalog.marks.create_edit');
     }
 
     /**
@@ -42,7 +42,7 @@ class CatalogmarksController extends Controller
      */
     public function edit(CatalogMark $catalogmark)
     {
-        return view('admin.catalogmarks.create_edit')->with(compact('catalogmark'));
+        return view('admin.catalog.marks.create_edit')->with(compact('catalogmark'));
     }
 
     /**
@@ -78,7 +78,7 @@ class CatalogmarksController extends Controller
         $catalogMark->updated_at = \Carbon::now();
         $catalogMark->save();
 
-        return redirect('admin/catalogmarks')->with('success', 'Данные обнавлены');
+        return redirect('admin/catalog/marks')->with('success', 'Данные обнавлены');
     }
 
     /**
@@ -110,7 +110,7 @@ class CatalogmarksController extends Controller
 
         $catalogmark->save();
 
-        return redirect('admin/catalogmarks')->with('success', 'Марка ' . $catalogmark->name . ' успешно добавлена');
+        return redirect('admin/catalog/marks')->with('success', 'Марка ' . $catalogmark->name . ' успешно добавлена');
     }
 
     /**

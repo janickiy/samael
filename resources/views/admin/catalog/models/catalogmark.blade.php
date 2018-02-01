@@ -30,9 +30,9 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <p><a class="btn btn-success" href="/admin/catalogmodels/create/{{ $catalogmark->id }}"> + Добавить модель </a></p>
+    <p><a class="btn btn-success" href="/admin/catalog/models/create/{{ $catalogmark->id }}"> + Добавить модель </a></p>
 
-    <a href="{{ url('/admin/catalogmarks') }}">назад</a>
+    <a href="{{ url('/admin/catalog/marks') }}">назад</a>
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Модели</h3>
