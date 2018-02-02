@@ -55,7 +55,7 @@ class CatalogmodelsController extends Controller
     public function catalogmark($id)
     {
         $catalogmark = CatalogMark::where('id', $id)->first();
-        return view('admin.catalog.models.catalogmark', compact('catalogmodels'))->with(compact('catalogmark'));
+        return view('admin.catalog.models.catalogmark')->with(compact('catalogmark'));
     }
 
     /**

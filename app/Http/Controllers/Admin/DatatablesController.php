@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Controllers\Controller;
 use App\Menu;
 use App\Page;
@@ -22,6 +21,7 @@ use App\CatalogModification;
 use App\CatalogComplectation;
 use App\Callback;
 use App\CatalogParameterCategory;
+use App\CatalogParameterValue;
 
 
 class DatatablesController extends Controller
@@ -432,9 +432,27 @@ class DatatablesController extends Controller
 
         return Datatables::of($parameterCategories)
 
+            ->addColumn('parameter', function ($parameterCategories) {
+                return '<a href="' . url('admin/catalog/parametervalues/category/' . $parameterCategories->id . '/') .'">' . $parameterCategories->name . '</a>';
+            })
+
             ->addColumn('actions', function ($parameterCategories) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/parametercategories/' . $parameterCategories->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/parametercategories/' . $parameterCategories->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                return $editBtn . $deleteBtn;
+            })
+            ->make(true);
+    }
+
+    public function getParametervalues($id)
+    {
+        $catalogParameterValues = CatalogParameterValue::where('id_category', $id)->get();
+
+        return Datatables::of($catalogParameterValues)
+
+            ->addColumn('actions', function ($catalogParameterValues) {
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/parametervalues/' . $catalogParameterValues->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/parametervalues/' . $catalogParameterValues->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);

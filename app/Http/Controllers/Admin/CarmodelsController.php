@@ -54,7 +54,7 @@ class CarmodelsController extends Controller
     {
         $carmark = CarMark::where('id', $id)->first();
 
-        return view('admin.carmodels.carmark', compact('carmodels'))->with(compact('carmark'));
+        return view('admin.carmodels.carmark')->with(compact('carmark'));
     }
 
     /**
