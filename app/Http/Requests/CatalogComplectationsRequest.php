@@ -32,6 +32,7 @@ class CatalogComplectationsRequest extends Request
                 return [
                    'name'  => 'required',
                    'id_model' => 'required|numeric',
+                   'id_modification' => 'required|numeric',
                 ];
             }
             case 'PUT':
@@ -39,6 +40,7 @@ class CatalogComplectationsRequest extends Request
                 return [
                     'name'  => 'required',
                     'id_model' => 'required|numeric',
+                    'id_modification' => 'required|numeric',
                 ];
             }
             default:

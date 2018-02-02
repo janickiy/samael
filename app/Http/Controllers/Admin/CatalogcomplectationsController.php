@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogModification;
+use App\CatalogParameterValue;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CatalogComplectationsRequest;
@@ -33,6 +35,13 @@ class CatalogcomplectationsController extends Controller
      */
     public function create($id)
     {
+        $modification_options[null] = 'Модификация';
+        $modifications = CatalogModification::where('published', 1)->get()->toArray();
+
+        foreach ($modifications as $modification) {
+            $modification_options[$modification['id']] = $modification['name'];
+        }
+
         $category_options[null] = 'Категория';
         $parameterCategories = CatalogParameterCategory::get()->toArray();
 
@@ -40,7 +49,15 @@ class CatalogcomplectationsController extends Controller
             $category_options[$category['id']] = $category['name'];
         }
 
-        return view('admin.catalog.complectations.create_edit', compact('category_options'))->with('id_model', $id);
+        $equipment_options = [];
+        $equipments = CatalogParameterValue::get()->toArray();
+
+
+        foreach ($equipments as $equipment) {
+            $equipment_options[$equipment['id']] = $equipment['name'];
+        }
+
+        return view('admin.catalog.complectations.create_edit', compact('category_options', 'modification_options', 'equipment_options'))->with('id_model', $id);
     }
 
     /**
@@ -49,8 +66,14 @@ class CatalogcomplectationsController extends Controller
      */
     public function edit(CatalogComplectation $catalogcomplectation)
     {
-        $id_model = $catalogcomplectation->id_model;
+        $modification_options[null] = 'Модификация';
+        $modifications = CatalogModification::where('published', 1)->get()->toArray();
 
+        foreach ($modifications as $modification) {
+            $modification_options[$modification['id']] = $modification['name'];
+        }
+
+        $id_model = $catalogcomplectation->id_model;
         $category_options[null] = 'Категория';
         $parameterCategories = CatalogParameterCategory::get()->toArray();
 
@@ -58,7 +81,7 @@ class CatalogcomplectationsController extends Controller
             $category_options[$category['id']] = $category['name'];
         }
 
-        return view('admin.catalog.complectations.create_edit')->with(compact('catalogcomplectation', 'id_model', 'category_options'));
+        return view('admin.catalog.complectations.create_edit')->with(compact('catalogcomplectation', 'id_model', 'category_options', 'modification_options'));
     }
 
     /**
@@ -80,7 +103,19 @@ class CatalogcomplectationsController extends Controller
      */
     public function store(CatalogComplectationsRequest $request)
     {
+        $request->merge(['equipment' => serialize($request->equipment)]);
+        $request->merge(['pack' => serialize($request->equipment)]);
+
         $carModification = CatalogComplectation::create($request->except('_token'));
+
+
+
+
+
+
+
+
+
         $carModification->save();
 
         return redirect('admin/catalog/models/model/' . $carModification->id_model . '/modifications')->with('success', ' добавлена');

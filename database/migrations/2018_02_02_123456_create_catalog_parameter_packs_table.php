@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCatalogComplectationsTable extends Migration
+class CreateCatalogParameterPacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateCatalogComplectationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_complectations', function (Blueprint $table) {
+        Schema::create('catalog_parameter_packs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_model')->index('id_model');
-            $table->integer('id_modification')->index('id_modification');
+            $table->integer('id_complectation')->index('id_complectation');
             $table->string('name');
-            $table->text('equipment');
-            $table->text('pack');
-            $table->boolean('published');
+            $table->integer('price');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateCatalogComplectationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('catalog_complectations');
+        Schema::drop('catalog_parameter_packs');
     }
 }

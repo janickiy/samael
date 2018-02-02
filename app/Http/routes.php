@@ -117,6 +117,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('catalog/modifications/create/{id}', 'Admin\CatalogmodificationsController@create');
         Route::get('catalog/parametervalues/category/{id}', 'Admin\CatalogparametervaluesController@category');
         Route::any('catalog/parametervalues/create/{id}', 'Admin\CatalogparametervaluesController@create');
+        Route::any('catalog/complectations/create/{id}', 'Admin\CatalogcomplectationsController@create');
+
+
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
