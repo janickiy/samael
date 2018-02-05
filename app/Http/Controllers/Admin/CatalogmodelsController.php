@@ -161,13 +161,22 @@ class CatalogmodelsController extends Controller
         return view('admin.catalog.modifications.index', compact('modifications'))->with('id', $id);
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function complectations($id)
     {
         return view('admin.catalog.complectations.index', compact('modifications'))->with('id', $id);
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function packs($id)
     {
 
+        return view('admin.catalog.packs.index', compact('modifications'))->with('id', $id);
     }
 }

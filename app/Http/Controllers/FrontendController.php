@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CatalogParameterValue;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\RequestCreditsRequest;
@@ -120,6 +121,33 @@ class FrontendController extends Controller
         }
 
         abort(404);
+    }
+
+    public function about()
+    {
+        $marks = CatalogMark::all();
+        $news = Page::published()->post()->take(3)->get();
+        $page = Page::whereSlug('about')->published()->page()->get()->first();
+
+        return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
+    }
+
+    public function documents()
+    {
+        $marks = CatalogMark::all();
+        $news = Page::published()->post()->take(3)->get();
+        $page = Page::whereSlug('documents')->published()->page()->get()->first();
+
+        return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
+    }
+
+    public function our_clients()
+    {
+        $marks = CatalogMark::all();
+        $news = Page::published()->post()->take(3)->get();
+        $page = Page::whereSlug('our_clients')->published()->page()->get()->first();
+
+        return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
     }
 
     /**
@@ -248,6 +276,16 @@ class FrontendController extends Controller
                     return response()->json($model);
 
                 break;
+
+
+                case 'get_parameters':
+
+
+
+
+
+
+                break;
             }
         }
     }
@@ -319,6 +357,10 @@ class FrontendController extends Controller
         abort(404);
     }
 
+    /**
+     * @param $model
+     * @return $this
+     */
     public function model($model)
     {
         $marks = CatalogMark::all();

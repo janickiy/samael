@@ -82,10 +82,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/reviews', 'FrontendController@reviews');
     Route::post('/reviews', 'FrontendController@reviewsSubmit');
     Route::get('/contacts', 'FrontendController@contact');
-    Route::get('/news}', 'FrontendController@allNews');
+    Route::get('/news', 'FrontendController@allNews');
     Route::get('/news/{slug}', 'FrontendController@news');
+    Route::get('/page/{slug}', 'FrontendController@staticPages');
     Route::any('/ajax', 'FrontendController@ajax');
-    //Route::get('/{slug}/', 'FrontendController@staticPages');
+    Route::get('/about', 'FrontendController@about');
+    Route::get('/documents', 'FrontendController@documents');
+    Route::get('/our_clients', 'FrontendController@our_clients');
 
 });
 
@@ -110,7 +113,6 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('carmarks/imporcarmarks', 'Admin\CarmarksController@importCarmarks');
         Route::get('catalog/models/mark/{id}', 'Admin\CatalogmodelsController@catalogmark');
         Route::any('catalog/models/create/{id}', 'Admin\CatalogmodelsController@create');
-        Route::get('catalog/models/model/{id}/bodies', 'Admin\CatalogmodelsController@bodies');
         Route::get('catalog/models/model/{id}/modifications', 'Admin\CatalogmodelsController@modifications');
         Route::get('catalog/models/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
         Route::get('catalog/models/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
@@ -118,7 +120,6 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('catalog/parametervalues/category/{id}', 'Admin\CatalogparametervaluesController@category');
         Route::any('catalog/parametervalues/create/{id}', 'Admin\CatalogparametervaluesController@create');
         Route::any('catalog/complectations/create/{id}', 'Admin\CatalogcomplectationsController@create');
-
 
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
@@ -142,10 +143,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('complectations', 'Admin\CatalogcomplectationsController');
             Route::resource('parametercategories', 'Admin\CatalogparametercategoriesController');
             Route::resource('parametervalues', 'Admin\CatalogparametervaluesController');
-
         });
-
-
     });
 
     /**

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 02 2018 г., 16:20
+-- Время создания: Фев 05 2018 г., 16:05
 -- Версия сервера: 10.1.28-MariaDB
 -- Версия PHP: 7.1.10
 
@@ -6106,14 +6106,20 @@ CREATE TABLE `catalog_cars` (
 CREATE TABLE `catalog_complectations` (
   `id` int(11) NOT NULL,
   `id_model` int(11) NOT NULL,
-  `id_modification` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `equipment` text NOT NULL,
-  `pack` text NOT NULL,
   `published` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_complectations`
+--
+
+INSERT INTO `catalog_complectations` (`id`, `id_model`, `name`, `published`, `created_at`, `updated_at`) VALUES
+(10, 1, 'Access ', 0, '2018-02-05 11:37:32', '2018-02-05 11:37:32'),
+(11, 1, 'Confort', 0, '2018-02-05 12:04:29', '2018-02-05 12:04:29'),
+(12, 1, 'Privilege', 0, '2018-02-05 12:04:39', '2018-02-05 12:04:59');
 
 -- --------------------------------------------------------
 
@@ -6249,9 +6255,10 @@ CREATE TABLE `catalog_modifications` (
 --
 
 INSERT INTO `catalog_modifications` (`id`, `id_model`, `name`, `body_type`, `length`, `width`, `height`, `wheel_base`, `front_rut`, `back_rut`, `front_overhang`, `back_overhang`, `trunk_volume_min`, `trunk_volume_max`, `tank_volume`, `front_brakes`, `back_brakes`, `front_suspension`, `back_suspension`, `engine_displacement`, `engine_displacement_working_value`, `engine_type`, `gearbox`, `gears`, `drive`, `power`, `consume_city`, `consume_track`, `consume_mixed`, `acceleration_100km`, `max_speed`, `clearance`, `min_mass`, `max_mass`, `trailer_mass`, `published`, `created_at`, `updated_at`) VALUES
-(1, 1, '1.6 РКП5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, '', '', '', '', 2, 1598, 'petrol', 'rgt', 5, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 0, 1, '2018-01-30 09:00:29', '2018-01-30 09:00:29'),
-(2, 1, '1.6 РКП5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, '', '', '', '', 2, 1598, 'petrol', 'rgt', 5, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 0, 1, '2018-01-30 09:00:48', '2018-01-30 09:00:48'),
-(3, 1, '1.6 РКП5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, '', '', '', '', 2, 1598, 'petrol', 'rgt', 5, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 0, 1, '2018-01-30 09:02:38', '2018-01-30 09:02:38');
+(4, 1, '1.6 РКП5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1598, 'petrol', 'mt', 0, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 555, 1, '2018-02-05 11:17:01', '2018-02-05 11:17:01'),
+(5, 1, '1.6 МТ5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1598, 'petrol', 'mt', 5, 'front', 82, 9.8, 5.8, 7.2, 11.9, 172, 155, 1560, 1560, 565, 1, '2018-02-05 11:21:02', '2018-02-05 11:21:02'),
+(6, 1, '1.6 АКП4 (102 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1594, 'petrol', 'mt', 4, 'front', 102, 10.9, 6.6, 8.3, 11.7, 171, 155, 1151, 1590, 0, 1, '2018-02-05 11:24:10', '2018-02-05 11:24:10'),
+(7, 1, '1.6 МКП5 (113 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 0, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1598, 'petrol', 'mt', 0, 'front', 113, 8.5, 5.6, 6.6, 10.7, 177, 155, 1119, 1525, 0, 1, '2018-02-05 11:27:19', '2018-02-05 11:27:19');
 
 -- --------------------------------------------------------
 
@@ -6307,6 +6314,72 @@ CREATE TABLE `catalog_parameter_complectation` (
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `catalog_parameter_complectation`
+--
+
+INSERT INTO `catalog_parameter_complectation` (`id`, `id_complectation`, `id_parameter`, `price`) VALUES
+(1, 1, 1, 0),
+(2, 1, 28, 0),
+(3, 1, 32, 0),
+(4, 2, 1, 0),
+(5, 2, 28, 0),
+(6, 2, 32, 0),
+(7, 3, 1, 0),
+(8, 3, 28, 0),
+(9, 3, 32, 0),
+(10, 4, 1, 0),
+(11, 4, 28, 0),
+(12, 4, 32, 0),
+(13, 6, 2, 0),
+(14, 6, 4, 0),
+(15, 7, 2, 0),
+(16, 7, 4, 0),
+(17, 8, 1, 0),
+(18, 9, 1, 0),
+(19, 9, 3, 0),
+(20, 9, 4, 0),
+(21, 10, 1, 0),
+(22, 10, 2, 0),
+(23, 10, 3, 0),
+(24, 10, 4, 0),
+(25, 10, 5, 0),
+(26, 10, 6, 0),
+(27, 10, 7, 0),
+(28, 10, 8, 0),
+(29, 10, 13, 0),
+(30, 10, 14, 0),
+(31, 10, 19, 0),
+(32, 10, 20, 0),
+(33, 10, 21, 0),
+(34, 10, 23, 0),
+(35, 10, 25, 0),
+(36, 10, 28, 0),
+(37, 10, 31, 0),
+(38, 10, 32, 0),
+(39, 10, 35, 0),
+(40, 11, 1, 0),
+(41, 11, 2, 0),
+(42, 11, 4, 0),
+(43, 11, 14, 0),
+(44, 11, 15, 0),
+(45, 11, 16, 0),
+(46, 11, 17, 0),
+(47, 12, 1, 0),
+(48, 12, 2, 0),
+(49, 12, 4, 0),
+(50, 12, 14, 0),
+(51, 12, 15, 0),
+(52, 12, 16, 0),
+(53, 12, 17, 0),
+(54, 13, 1, 0),
+(55, 13, 2, 0),
+(56, 13, 4, 0),
+(57, 13, 14, 0),
+(58, 13, 15, 0),
+(59, 13, 16, 0),
+(60, 13, 17, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -6321,6 +6394,14 @@ CREATE TABLE `catalog_parameter_pack` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_parameter_pack`
+--
+
+INSERT INTO `catalog_parameter_pack` (`id`, `id_complectation`, `name`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Пакет безопасности:', 15000, '2018-02-05 05:27:41', '2018-02-05 05:27:41'),
+(2, 11, 'Пакет \"Зимний\" для двигателя 1.6', 14000, '2018-02-05 12:04:30', '2018-02-05 12:04:30');
 
 -- --------------------------------------------------------
 
@@ -26236,8 +26317,7 @@ ALTER TABLE `catalog_cars`
 --
 ALTER TABLE `catalog_complectations`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_model` (`id_model`),
-  ADD KEY `id_modification` (`id_modification`);
+  ADD KEY `id_model` (`id_model`);
 
 --
 -- Индексы таблицы `catalog_marks`
@@ -26429,7 +26509,7 @@ ALTER TABLE `catalog_cars`
 -- AUTO_INCREMENT для таблицы `catalog_complectations`
 --
 ALTER TABLE `catalog_complectations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_marks`
@@ -26447,7 +26527,7 @@ ALTER TABLE `catalog_models`
 -- AUTO_INCREMENT для таблицы `catalog_modifications`
 --
 ALTER TABLE `catalog_modifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_packs`
@@ -26462,10 +26542,16 @@ ALTER TABLE `catalog_parameter_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT для таблицы `catalog_parameter_complectation`
+--
+ALTER TABLE `catalog_parameter_complectation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
 -- AUTO_INCREMENT для таблицы `catalog_parameter_pack`
 --
 ALTER TABLE `catalog_parameter_pack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_values`

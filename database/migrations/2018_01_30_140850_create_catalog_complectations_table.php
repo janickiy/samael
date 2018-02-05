@@ -15,10 +15,7 @@ class CreateCatalogComplectationsTable extends Migration
         Schema::create('catalog_complectations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_model')->index('id_model');
-            $table->integer('id_modification')->index('id_modification');
             $table->string('name');
-            $table->text('equipment');
-            $table->text('pack');
             $table->boolean('published');
             $table->timestamps();
         });

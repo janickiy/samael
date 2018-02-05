@@ -174,14 +174,15 @@ class CatalogcomplectationsController extends Controller
             }
         }
 
-
         $catalogComplectation->name = trim($request->input('name'));
         $catalogComplectation->id_model = $request->input('id_model');
-        $catalogComplectation->id_modification = $request->input('id_modification');
         $catalogComplectation->updated_at = \Carbon::now();
         $id_complectation = $request->input('id_complectation');
 
         if ($catalogComplectation->save()) {
+
+            CatalogParameterComplectation::query()->where('id_complectation', $id_complectation)->delete();
+            CatalogParameterPack::query()->join('catalog_parameter_pack_parameter', 'catalog_parameter_pack_parameter.id_pack', '=', 'catalog_parameter_pack.id')->where('catalog_parameter_pack.id_complectation', $id_complectation)->delete();
 
             foreach ($equipments as $equipment) {
                 $parameterComplectation = new CatalogParameterComplectation;
@@ -252,6 +253,7 @@ class CatalogcomplectationsController extends Controller
             $parameterPack->price = trim($price);
 
             if ($parameterPack->save()) {
+
                 foreach ($parameters as $parameter) {
                     $packParameter = new CatalogParameterPackParameter;
                     $packParameter->id_parameter = $parameter;

@@ -3,12 +3,14 @@
 @section('title', 'Комплектации')
 
 @section('css')
+
 <!-- iCheck for checkboxes and radio inputs -->
 {!! Html::style('assets/plugins/iCheck/all.css') !!}
 @endsection
 
 @section('content')
-        <!-- Content Header (Page header) -->
+
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         <i class="fa fa-folder-open-o"></i> {{ isset($catalogmark) ? 'Редактировать' : 'Добавить' }} комплектацию
@@ -24,6 +26,9 @@
 
 <!-- Main content -->
 <section class="content">
+
+    <a href="{!! url('admin/catalog/models/model/' . $id_model . '/complectations') !!}">назад</a>
+
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
@@ -31,9 +36,11 @@
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i>
+
                 </button>
             </div>
         </div>
+
         <div class="box-body">
             <p>* - обязательные поля</p>
 
@@ -42,13 +49,6 @@
             {!! Form::hidden('id_model', $id_model) !!}
 
             <div class="col-md-12">
-
-                <div class="form-group">
-                    {!! Form::label('id_modification', 'Модификация *', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::select('id_modification', $modification_options, isset($catalogcomplectation) ? $catalogcomplectation->id_modification : 'Модификация', ['class' => 'select2 validate[required]']) !!}
-                    </div>
-                </div>
 
                 <div class="form-group">
                     {!! Form::label('name', 'Название *', ['class' => 'control-label col-md-2']) !!}
@@ -62,6 +62,7 @@
                     <div class="col-md-4">
                         {!! Form::select('equipment[]', $equipment_options, isset($catalogcomplectation) ? $catalogcomplectation->equipment : null, ['class' => 'select2 form-control validate[required]','multiple' => true, 'id' => 'equipment',]) !!}
                     </div>
+
                 </div>
 
                 <div class="form-group">
@@ -110,14 +111,6 @@
                     </div>
                 </div>
 
-
-
-
-
-
-
-
-
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-2">
                         {!! Form::submit( (isset($catalogcomplectation) ? 'Обновить': 'Добавить') . '', ['class'=>'btn btn-primary']) !!}
@@ -142,12 +135,6 @@
 {!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
 
 <script type="text/javascript">
-
-    $(document).ready(function () {
-        $(".select2").select2({
-            width: '100%'
-        });
-    })
 
     $(document).on( "click", '#add_field', function() {
         var html = '<div class="additional_field"><div class="form-group">';
@@ -184,15 +171,18 @@
                 prettySelect: true,
                 usePrefix: prefix
             });
-
     });
 
     $(document).on( "click", '#add_field_pack', function() {
+
+        var lengthBlock = $('div.row_block').length;
+
+
         var html = '<div class="additional_field"><div class="form-group">';
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
         html += '{!! Form::label('pack_name[]', 'Название *', ['class' => 'col-lg-3 control-label']) !!}';
-        html += '<div class="col-lg-7"> {!! Form::text('pack_name[]', null, ['class' => 'form-control validate[required]', 'placeholder'=>'Название']) !!} </div>';
+        html += '<div class="col-lg-7"> {!! Form::text('pack_name[]', null, ['class' => 'pack_field form-control validate[required]', 'placeholder'=>'Название']) !!} </div>';
         html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12">';
@@ -204,7 +194,7 @@
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
         html += '{!! Form::label('parameter_pack[]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}';
-        html += '<div class="col-lg-7">{!! Form::select('parameter_pack[][]', $equipment_options, null, ['class' => 'form_control select2 validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>';
+        html += '<div class="col-lg-7">{!! Form::select("parameter_pack[]", $equipment_options, null, ['class' => 'form_control select2 validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>';
         html += '<div class="col-lg-2"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>';
         html += '</div>';
         html += '</div>';
@@ -212,7 +202,6 @@
         html += '</div>';
 
         $('#packlist').prepend(html);
-
 
         $(".select2").select2({
             width: '100%'
@@ -231,11 +220,12 @@
     $(document).on( "click", '.removeBlock', function() {
         var parent = $(this).closest('div[class^="additional_field"]');
         parent.remove();
+
     });
 
     $(document).ready(function () {
 
-        $('#equipment').select2();
+
         $('#equipment').on('select2:opening select2:closing', function( event ) {
             var $searchfield = $(this).parent().find('.select2-search__field');
             //$searchfield.prop('disabled', true);
