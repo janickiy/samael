@@ -12,5 +12,5 @@ class CatalogParameterPackParameter extends BaseModel
      * @var array
      */
     protected $table = 'catalog_parameter_pack_parameter';
-
+    public $timestamps = false;
 }

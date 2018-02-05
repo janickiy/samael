@@ -12,5 +12,5 @@ class CatalogParameterPack extends BaseModel {
      * @var array
      */
     protected $guarded = ['id'];
-
+    protected $table = 'catalog_parameter_pack';
 }

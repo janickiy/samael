@@ -46,7 +46,7 @@
                 <div class="form-group">
                     {!! Form::label('id_modification', 'Модификация *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
-                        {!! Form::select('id_modification', $modification_options, isset($catalogcomplectation->id_modification) ? $catalogcomplectation->id_modification : 'Модификация', ['class' => 'select2 validate[required]']) !!}
+                        {!! Form::select('id_modification', $modification_options, isset($catalogcomplectation) ? $catalogcomplectation->id_modification : 'Модификация', ['class' => 'select2 validate[required]']) !!}
                     </div>
                 </div>
 
@@ -74,6 +74,38 @@
                 <div class="form-group">
                     {!! Form::label('name', 'Пакеты*', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4" id="packlist">
+
+                        @if(isset($packs))
+
+                        @foreach($packs as $pack)
+                            <div class="additional_field">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            {!! Form::label('pack_name[]', 'Название *', ['class' => 'col-lg-3 control-label']) !!}
+                                            <div class="col-lg-7"> {!! Form::text('pack_name[]', $pack['name'], ['class' => 'form-control validate[required]', 'placeholder'=>'Название']) !!} </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            {!! Form::label('pack_price[]', 'Цена *', ['class' => 'col-lg-3 control-label']) !!}
+                                            <div class="col-lg-7"> {!! Form::text('pack_price[]', $pack['price'], ['class' => 'form-control validate[required,custom[onlyNumberSp]]', 'placeholder'=>'Цена']) !!} </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            {!! Form::label('parameter_pack[]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}
+                                            <div class="col-lg-7">{!! Form::select('parameter_pack[][]', $equipment_options, isset($pack['equipment']) ? $pack['equipment'] : null , ['class' => 'form_control select2 validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>
+                                            <div class="col-lg-2"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div>
+
+                        @endforeach
+
+                        @endif
+
                         <input class="btn btn-default" id="add_field_pack" type="button" value="+ Добавить поле">
                     </div>
                 </div>
@@ -160,9 +192,7 @@
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
         html += '{!! Form::label('pack_name[]', 'Название *', ['class' => 'col-lg-3 control-label']) !!}';
-
         html += '<div class="col-lg-7"> {!! Form::text('pack_name[]', null, ['class' => 'form-control validate[required]', 'placeholder'=>'Название']) !!} </div>';
-
         html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12">';
@@ -174,7 +204,7 @@
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
         html += '{!! Form::label('parameter_pack[]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}';
-        html += '<div class="col-lg-7">{!! Form::select('parameter_pack[]', $equipment_options, null, ['class' => 'form_control select2 validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>';
+        html += '<div class="col-lg-7">{!! Form::select('parameter_pack[][]', $equipment_options, null, ['class' => 'form_control select2 validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>';
         html += '<div class="col-lg-2"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>';
         html += '</div>';
         html += '</div>';

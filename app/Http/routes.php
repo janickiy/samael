@@ -85,7 +85,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/news}', 'FrontendController@allNews');
     Route::get('/news/{slug}', 'FrontendController@news');
     Route::any('/ajax', 'FrontendController@ajax');
-    Route::get('/{slug}', 'FrontendController@staticPages');
+    //Route::get('/{slug}/', 'FrontendController@staticPages');
 
 });
 

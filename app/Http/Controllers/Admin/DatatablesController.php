@@ -362,7 +362,7 @@ class DatatablesController extends Controller
             })
 
             ->addColumn('actions', function ($catalogModels) {
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalogmodels/' . $catalogModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/models/' . $catalogModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/models/' . $catalogModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
 
                 $items = '<br><a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/bodies') . '" title="Кузова"><span class="fa fa-th-list"> Кузова</span></a><br>';
@@ -416,8 +416,8 @@ class DatatablesController extends Controller
             })
 
             ->addColumn('actions', function ($catalogComplectations) {
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/modifications/' . $catalogComplectations->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/modifications/' . $catalogComplectations->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/complectations/' . $catalogComplectations->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/complectations/' . $catalogComplectations->id . '/edit/') . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);

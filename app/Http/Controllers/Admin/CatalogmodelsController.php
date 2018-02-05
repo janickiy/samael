@@ -149,11 +149,10 @@ class CatalogmodelsController extends Controller
         }
     }
 
-    public function bodies($id)
-    {
-
-    }
-
+    /**
+     * @param $id
+     * @return $this
+     */
     public function modifications($id)
     {
         $modifications = CatalogModification::where('id_model', $id)

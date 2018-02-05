@@ -13,5 +13,5 @@ class CatalogParameterComplectation extends BaseModel
      */
     protected $guarded = ['id'];
     protected $table = 'catalog_parameter_complectation';
-
+    public $timestamps = false;
 }
