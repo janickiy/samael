@@ -39,6 +39,7 @@ use App\CatalogModification;
 use App\CatalogComplectation;
 use App\CatalogParameterCategory;
 use App\CatalogParameterValue;
+use App\CatalogColor;
 
 Route::model('users', User::class);
 Route::model('settings', Setting::class);
@@ -57,6 +58,7 @@ Route::model('modifications', CatalogModification::class);
 Route::model('complectations', CatalogComplectation::class);
 Route::model('parametercategories', CatalogParameterCategory::class);
 Route::model('parametervalues', CatalogParameterValue::class);
+Route::model('colors', CatalogColor::class);
 
 Route::group(['prefix' => ''], function() {
     define('PATH_AVATARS','/uploads/avatars');
@@ -67,6 +69,8 @@ Route::group(['prefix' => ''], function() {
     define('PATH_SETTINGS','/uploads/settings');
     define('PATH_SMALL_TRADEIN','/uploads/tardein/small/');
     define('PATH_BIG_TRADEIN','/uploads/tardein/big/');
+    define('PATH_COLOR','/uploads/color/');
+    define('PATH_CARS','/uploads/cars/');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -116,15 +120,23 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('catalog/models/model/{id}/modifications', 'Admin\CatalogmodelsController@modifications');
         Route::get('catalog/models/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
         Route::get('catalog/models/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
+        Route::get('catalog/models/model/{id}/colors', 'Admin\CatalogmodelsController@colors');
         Route::get('catalog/modifications/create/{id}', 'Admin\CatalogmodificationsController@create');
+        Route::get('catalog/colors/create/{id}', 'Admin\CatalogcolorsController@create');
         Route::get('catalog/parametervalues/category/{id}', 'Admin\CatalogparametervaluesController@category');
         Route::any('catalog/parametervalues/create/{id}', 'Admin\CatalogparametervaluesController@create');
-        Route::any('catalog/complectations/create/{id}', 'Admin\CatalogcomplectationsController@create');
-
+        Route::any('catalog/complectations/create/{id}', 'Admin\CatalogcolorsController@create');
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
         Route::get('settings/download/{settings}', ['as' => 'admin.settings.download', 'uses' => 'Admin\SettingsController@fileDownload']);
+
+        Route::get('catalog/image-gallery/model/{id}', 'Admin\ImageGalleryController@index');
+        Route::post('catalog/image-gallery', 'Admin\ImageGalleryController@upload');
+        Route::delete('catalog/image-gallery/{id}', 'Admin\ImageGalleryController@destroy');
+
+
+
         Route::resource('settings', 'Admin\SettingsController');
         Route::resource('roles', 'Admin\RolesController');
         Route::resource('pages', 'Admin\PagesController');
@@ -137,12 +149,15 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
 
         Route::group(['prefix' => 'catalog', 'middleware' => 'admin'], function () {
+
             Route::resource('marks', 'Admin\CatalogmarksController');
             Route::resource('models', 'Admin\CatalogmodelsController');
             Route::resource('modifications', 'Admin\CatalogmodificationsController');
             Route::resource('complectations', 'Admin\CatalogcomplectationsController');
             Route::resource('parametercategories', 'Admin\CatalogparametercategoriesController');
             Route::resource('parametervalues', 'Admin\CatalogparametervaluesController');
+            Route::resource('colors', 'Admin\CatalogcolorsController');
+
         });
     });
 

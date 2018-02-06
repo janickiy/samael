@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Производители')
+@section('title', 'Цвета')
 
 @section('css')
 
@@ -16,23 +16,27 @@
 
 
 @section('content')
-        <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-folder-open-o"></i> Производители
+        <i class="fa fa-folder-open-o"></i> Цвета
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li class="active"><i class="fa fa-folder-open-o"></i> Производители</li>
+        <li class="active"><i class="fa fa-folder-open-o"></i> Цвета</li>
     </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
+
     <!-- Default box -->
+    <p><a class="btn btn-success" href="{{ url('admin/catalog/colors/create/' . $id) }}"> + Добавить цвет </a></p>
+
+    <a href="{!! url('admin/catalog/models/mark/' . $id) !!}">назад</a>
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Автомобильные марки</h3>
+            <h3 class="box-title">Цвета</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i>
@@ -45,7 +49,11 @@
                 <thead>
                 <tr>
                     <th>Название</th>
+                    <th>Код</th>
+                    <th>Изображение</th>
                     <th>Статус</th>
+                    <th>Создано</th>
+                    <th>Обновлено</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -69,7 +77,8 @@
 
 
 @section('js')
-        <!-- DataTables -->
+
+<!-- DataTables -->
 {!! Html::script('assets/dist/js/datatable/jquery.dataTables.min.js') !!}
 
 {!! Html::script('assets/dist/js/datatable/dataTables.bootstrap.min.js') !!}
@@ -83,10 +92,14 @@
         var table = $("#data_table").DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url("admin/datatables/catalogmarks") !!}',
+            ajax: '{!! url("admin/datatables/catalogcolors/{$id}") !!}',
             columns: [
-                {data: 'carmark', name: 'carmark'},
+                {data: 'name', name: 'name'},
+                {data: 'color', name: 'color'},
+                {data: 'pic', name: 'pic'},
                 {data: 'status', name: 'status'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false}
             ]
         });

@@ -24,6 +24,9 @@
         {!! Html::style('assets/dist/css/skins/_all-skins.min.css') !!}
 
 		{!! Html::style('assets/dist/css/custom.css') !!}
+
+        {!! Html::style('css/fancybox/jquery.fancybox.min.css') !!}
+
         @yield('css')
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,6 +91,8 @@
         {!! Html::script('assets/plugins/noty/packaged/jquery.noty.packaged.js') !!}
         <!-- custom scripts -->
         {!! Html::script('assets/dist/js/custom.js') !!}
+
+        {!! Html::script('css/fancybox/jquery.fancybox.min.js') !!}
 
         @yield('js')
 

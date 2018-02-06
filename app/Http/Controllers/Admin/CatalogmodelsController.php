@@ -104,7 +104,6 @@ class CatalogmodelsController extends Controller
     public function store(CatalogModelsRequest $request)
     {
         $catalogmodel = CatalogModel::create($request->except('_token'));
-
         $catalogmodel->published = 0;
 
         if ($request->input('published')) {
@@ -124,7 +123,6 @@ class CatalogmodelsController extends Controller
 
             $catalogmodel->image = PATH_MODEL . $filename;
         }
-
 
         $catalogmodel->save();
 
@@ -168,7 +166,6 @@ class CatalogmodelsController extends Controller
      */
     public function complectations($id)
     {
-
         return view('admin.catalog.complectations.index', compact('modifications'))->with('id', $id);
     }
 
@@ -182,5 +179,14 @@ class CatalogmodelsController extends Controller
         $complectations = CatalogComplectation::where('id_model', $id)->get();
 
         return view('admin.catalog.packs.index', compact('modifications', 'complectations'))->with('id', $id);
+    }
+
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function colors($id)
+    {
+        return view('admin.catalog.colors.index')->with('id', $id);
     }
 }

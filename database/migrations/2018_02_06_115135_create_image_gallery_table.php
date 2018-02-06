@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCatalogColorsTable extends Migration
+class CreateImageGalleryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateCatalogColorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_colors', function (Blueprint $table) {
+        Schema::create('image_gallery', function (Blueprint $table) {
+
             $table->increments('id');
             $table->integer('id_model');
-            $table->string('name');
-            $table->string('hex', 16);
-            $table->text('image');
-            $table->boolean('published');
+            $table->string('title');
+            $table->string('image');
             $table->timestamps();
+
         });
     }
 
@@ -30,6 +30,6 @@ class CreateCatalogColorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('catalog_colors');
+        Schema::drop('image_gallery');
     }
 }

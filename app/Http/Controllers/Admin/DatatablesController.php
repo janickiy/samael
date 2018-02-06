@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogColor;
 use App\Http\Controllers\Controller;
 use App\Menu;
 use App\Page;
@@ -291,7 +292,6 @@ class DatatablesController extends Controller
             })->make(true);
     }
 
-
     /**
      * @return mixed
      */
@@ -365,8 +365,9 @@ class DatatablesController extends Controller
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/models/' . $catalogModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/models/' . $catalogModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
 
-
-                $items = '<br><a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/modifications') . '" title="Модификации"><span class="fa fa-th-list"> Модификации</span></a><br>';
+                $items = '<br><a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/colors') . '" title="Цвета"><span class="fa fa-th-list"> Цвета</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalog/image-gallery/model/' . $catalogModels->id . '/') . '" title="Фотогаллерея"><span class="fa fa-th-list"> Фотогаллерея</span></a><br>';
+                $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/modifications') . '" title="Модификации"><span class="fa fa-th-list"> Модификации</span></a><br>';
                 $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/complectations') . '" title="Комплектации"><span class="fa fa-th-list"> Комплектации</span></a><br>';
                 $items .= '<a class="btn btn-default btn-sm" href="' . url('admin/catalog/models/model/' . $catalogModels->id . '/packs') . '" title="Цены"><span class="fa fa-th-list"> Цены</span></a>';
 
@@ -444,6 +445,10 @@ class DatatablesController extends Controller
             ->make(true);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getParametervalues($id)
     {
         $catalogParameterValues = CatalogParameterValue::where('id_category', $id)->get();
@@ -453,6 +458,36 @@ class DatatablesController extends Controller
             ->addColumn('actions', function ($catalogParameterValues) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/parametervalues/' . $catalogParameterValues->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/parametervalues/' . $catalogParameterValues->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
+                return $editBtn . $deleteBtn;
+            })
+            ->make(true);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCatalogcolors($id)
+    {
+        $catalogColors = CatalogColor::where('id_model', $id)->get();
+
+        return Datatables::of($catalogColors)
+
+            ->addColumn('status', function ($catalogColors) {
+                return $catalogColors->published ? 'опубликован' : 'не опубликован';
+            })
+
+            ->addColumn('color', function ($catalogColors) {
+                return '<span style="background:#' . $catalogColors->hex . '; width: 34px; height: 34px; border: 2px solid transparent;"></span>';
+            })
+
+            ->addColumn('pic', function ($catalogColors) {
+                return file_exists(public_path() . $catalogColors->image) ? '<a class="btn btn-default btn-xs" target="_blank" href="' . url($catalogColors->image). '" title="Просмотр"><span class="fa fa-eye"></span></a>' : '';
+            })
+
+            ->addColumn('actions', function ($catalogColors) {
+                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/colors/' . $catalogColors->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
+                $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/colors/' . $catalogColors->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $editBtn . $deleteBtn;
             })
             ->make(true);
