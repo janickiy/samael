@@ -397,7 +397,26 @@ a.mobile_nav_ico{position: absolute; top: -2px; left: 10px;}
 .bottom_map {display:none;}
 .contacts{display:none;}
 .inset_page.mobile_contacts {background:#ecf0f3;padding-top:20px;}
+.model_colors_block {width: 100%;float: none;}
+.colors_block li span {width: 45px;}
+.price_block {width: 100%;padding: 45px 10px 0 10px;font-size: 16px; float: none; margin-top: 15px;text-align: center;position:relative;}
+.discount{width: 100%;background: #26aae2;color: #fff;font-size: 14px;height: 30px;padding: 2px 0;position: absolute;top: 0;left:0;}
+.discount br {display:none;}
+.discount span {font-size: 18px;}
+.inform_banner {display:none;}
 
+.specialty_tabs .tabs li{    width: auto;font-size: 12px;padding: 5px; text-align: center;font-family: Roboto;}
+
+.specialty_content_block {width: 100%;float: none;}
+.model_characteristics_tab .sort, .model_characteristics_tab .KPP, .model_characteristics_tab .power, .model_characteristics_tab .print_link{display:none;}
+.model_characteristics .model_title {text-align:center;}
+.model_characteristics_tab .complectation_name, .model_characteristics_tab .price {width: 35%;}
+.sort_results .price span {font-size: 14px;}
+.complectation_name .checkbox, .complectation_name label:before, .complectation_name label:after {display:none;}
+.complectation_name .checkbox:not(checked) + label {padding:0;}
+.model_characteristics_tab .buy_link {width: 30%;}
+.model_characteristics_tab .buy_link .btn {width: 100%;font-size: 10px;line-height: 20px;}
+.model_characteristics_tab>.btn {display:none;}
 .documents_block {float:none;width:100%;padding: 0 40px;font-size:12px;}
 .documents_block .btn {width:100%;font-size: 12px;}
 .credits ul li {width: 33%;}
