@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CatalogColor;
+use App\CatalogPack;
 use App\CatalogParameterValue;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -358,14 +360,42 @@ class FrontendController extends Controller
     }
 
     /**
+     * @param $mark
      * @param $model
      * @return $this
      */
-    public function model($model)
+    public function model($mark, $model)
     {
         $marks = CatalogMark::all();
 
-        return view('frontend.auto.model',  compact('marks'))->with('title', '');
+        $car = CatalogModel::select(['catalog_models.id', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+            ->where('catalog_models.slug', $model)
+            ->where('catalog_models.published', 1)
+            ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+            ->first();
+
+        if ($car) {
+            $colors = CatalogColor::where('id_model', $car->id)->get();
+
+            $min_price = CatalogPack::selectRaw('MIN(price)')
+                ->where('id_model', $car->id)
+                ->get()
+                ->toArray();
+
+            $min_prevprice = CatalogPack::selectRaw('MIN(prev_price)')
+                ->where('id_model', $car->id)
+                ->get()
+                ->toArray();
+
+            $price = $min_price[0]["MIN(price)"];
+            $prev_price = $min_prevprice[0]["MIN(prev_price)"];
+
+
+
+            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price'))->with('title', '');
+        }
+
+        abort(404);
     }
 
     /**

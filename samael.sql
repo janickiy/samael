@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 06 2018 г., 14:19
+-- Время создания: Фев 06 2018 г., 15:51
 -- Версия сервера: 10.1.28-MariaDB
 -- Версия PHP: 7.1.10
 
@@ -6298,6 +6298,7 @@ INSERT INTO `catalog_modifications` (`id`, `id_model`, `name`, `body_type`, `len
 
 CREATE TABLE `catalog_packs` (
   `id` int(11) NOT NULL,
+  `id_model` int(11) NOT NULL,
   `id_modification` int(11) NOT NULL,
   `id_complectation` int(11) NOT NULL,
   `price` int(11) NOT NULL,
@@ -6311,8 +6312,8 @@ CREATE TABLE `catalog_packs` (
 -- Дамп данных таблицы `catalog_packs`
 --
 
-INSERT INTO `catalog_packs` (`id`, `id_modification`, `id_complectation`, `price`, `prev_price`, `best_price`, `created_at`, `updated_at`) VALUES
-(1, 4, 11, 12300, 1345, 1, NULL, NULL);
+INSERT INTO `catalog_packs` (`id`, `id_model`, `id_modification`, `id_complectation`, `price`, `prev_price`, `best_price`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 11, 12300, 1345, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 

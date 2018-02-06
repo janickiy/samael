@@ -14,6 +14,7 @@ class CreateCatalogPacksTable extends Migration
     {
         Schema::create('catalog_packs', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_model')->index('id_model');
             $table->integer('id_modification')->index('id_modification');
             $table->integer('id_complectation')->index('id_complectation');
             $table->integer('price')->comment('Цена');

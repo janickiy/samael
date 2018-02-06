@@ -26,45 +26,41 @@
         <div class="model_page row">
             <div class="main_width">
                 <div class="breadcrumbs">
-                    <a href="/">Главная</a> - <a href="">Новые автомобили</a> - <a href="/">Hyundai</a> - <span>Hyundai Creta</span>
+                    <a href="/">Главная</a> - <a href="{!! url('/auto') !!}">Новые автомобили</a> - <a href="{!! url('/auto/' . $car->mark_slug) !!}">{!! $car->mark !!}</a> - <span>{!! $car->model !!}</span>
                 </div>
                 <div class="page_content detail_page row">
-                    <h1>Hyundai Creta</h1>
+                    <h1>{!! $car->model !!}</h1>
                     <div class="model_colors_block">
                         <div class="model_images">
-                            <div class="model_sigle_color">
-                                <div class="model_image" style=""></div>
-                                <div class="color_name">Цвет:<strong></strong></div>
-                            </div>
-                            <div class="model_sigle_color active">
-                                <div class="model_image" style="background-image:url(images/model_orange.png);"></div>
-                                <div class="color_name">Цвет:<strong>оранжевый металик</strong></div>
-                            </div>
-                            <div class="model_sigle_color">
-                                <div class="model_image" style=""></div>
-                                <div class="color_name">Цвет:<strong></strong></div>
-                            </div>
-                            <div class="model_sigle_color">
-                                <div class="model_image" style=""></div>
-                                <div class="color_name">Цвет:<strong></strong></div>
-                            </div>
-                            <div class="model_sigle_color">
-                                <div class="model_image" style=""></div>
-                                <div class="color_name">Цвет:<strong></strong></div>
-                            </div>
-                            <div class="model_sigle_color">
-                                <div class="model_image" style="background-image:url(images/model_blue.png);"></div>
-                                <div class="color_name">Цвет:<strong>синий металик</strong></div>
-                            </div>
+
+                            @if (isset($colors))
+
+                                @foreach($colors as $color)
+
+                                <div class="model_sigle_color">
+                                    <div class="model_image" style="background-image:url({!! $color->image !!});"></div>
+                                    <div class="color_name">Цвет:<strong>{!! $color->name !!}</strong></div>
+                                </div>
+
+                                @endforeach
+
+                            @endif
+
                         </div>
+
+                        @if (isset($colors))
+
                         <ul class="colors_block row">
-                            <li id="red"><span style="background:#c3092e"></span></li>
-                            <li class="active" id="orange"><span style="background:#f8580b"></span></li>
-                            <li id="grey"><span style="background:#9c9c9c"></span></li>
-                            <li id="white"><span style="background:#ffffff"></span></li>
-                            <li id="black"><span style="background:#070707"></span></li>
-                            <li id="blue"><span style="background:#0a6fa8"></span></li>
+
+                            @foreach($colors as $color)
+
+                                <li id="color_{!! $color->id !!}"><span style="background:#{!! $color->hex !!}"></span></li>
+
+                            @endforeach
+
                         </ul>
+
+                        @endif
                         <script>
                             (function($) {
                                 $(function() {
@@ -80,8 +76,8 @@
                     </div>
                     <div class="price_block">
                         Цена:
-                        <div class="old_price"><del>от <span>1 219 900</span> руб.</del></div>
-                        <div class="new_price">от <span>3 224 000</span> руб.</div>
+                        @if($prev_price)<div class="old_price"><del>от <span>{!! number_format($prev_price,0,'',' ') !!}</span> руб.</del></div>@endif
+                        <div class="new_price">от <span>{!! number_format($price,0,'',' ') !!}</span> руб.</div>
                         <div class="discount">Скидка в феврале<br/>до <span>123 000</span> руб.</div>
                     </div>
                     <div class="request_form_block">
@@ -215,7 +211,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                             <li>
@@ -225,7 +221,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                             <li>
@@ -235,7 +231,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                             <li>
@@ -265,13 +261,13 @@
                                 <img src="/images/logo.png" />
                             </div>
                             <div class="banner_phones">
-                                <a href="tel:8 (495) 225-35-45">8 (495) 225-35-45</a>
-                                <a href="tel:8 (800) 707-11-68" class="free_phone">8 (800) 707-11-68</a>
+                                <a href="tel:{!! getSetting('TELEPHONE_1') !!}">{!! getSetting('TELEPHONE_1') !!}5</a>
+                                <a href="tel:{!! getSetting('TELEPHONE_2') !!}" class="free_phone">{!! getSetting('TELEPHONE_2') !!}</a>
                                 <b>(Звонок по России бесплатный)</b>
                             </div>
                             <div class="banner_info">
                                 <div class="times">с <span>9-00</span> до <span>20-00</span>, без выходных</div>
-                                <div class="addresses">г. Москва,<br/>ул. Вавилова, д. 13А</div>
+                                <div class="addresses">{!! getSetting('FRONTEND_ADDRESS') !!}</div>
                             </div>
                             <a href="" class="btn">Обраный звонок</a>
                         </div>
