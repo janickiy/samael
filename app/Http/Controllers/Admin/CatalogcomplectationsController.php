@@ -59,8 +59,6 @@ class CatalogcomplectationsController extends Controller
             $equipment_options[$equipment['id']] = $equipment['name'];
         }
 
-
-
         return view('admin.catalog.complectations.create_edit', compact('category_options', 'modification_options', 'equipment_options'))->with('id_model', $id);
     }
 

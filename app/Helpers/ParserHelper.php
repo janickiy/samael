@@ -421,3 +421,25 @@ function mainBigPic($images)
     $images = unserialize($images);
     return  $images[0]['big'];
 }
+
+function getPrice($id_modification, $id_complectation)
+{
+    if (is_numeric($id_modification) && is_numeric($id_complectation)) {
+        $row = \App\CatalogPack::where('id_modification', $id_modification)->where('id_complectation', $id_complectation)->first();
+
+        return $row->price;
+    } else
+        return 0;
+}
+
+function getPrevPrice($id_modification, $id_complectation)
+{
+    if (is_numeric($id_modification) && is_numeric($id_complectation)) {
+        $row = \App\CatalogPack::where('id_modification', $id_modification)->where('id_complectation', $id_complectation)->first();
+
+
+
+       // return $row->prev_price;
+    } else
+        return 0;
+}

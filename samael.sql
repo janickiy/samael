@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 05 2018 г., 16:05
--- Версия сервера: 10.1.28-MariaDB
--- Версия PHP: 7.1.10
+-- Время создания: Фев 06 2018 г., 01:16
+-- Версия сервера: 10.1.21-MariaDB
+-- Версия PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -6100,6 +6098,23 @@ CREATE TABLE `catalog_cars` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `catalog_colors`
+--
+
+CREATE TABLE `catalog_colors` (
+  `id` int(11) NOT NULL,
+  `id_model` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `hex` varchar(16) NOT NULL,
+  `image` text NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `catalog_complectations`
 --
 
@@ -6117,9 +6132,9 @@ CREATE TABLE `catalog_complectations` (
 --
 
 INSERT INTO `catalog_complectations` (`id`, `id_model`, `name`, `published`, `created_at`, `updated_at`) VALUES
-(10, 1, 'Access ', 0, '2018-02-05 11:37:32', '2018-02-05 11:37:32'),
-(11, 1, 'Confort', 0, '2018-02-05 12:04:29', '2018-02-05 12:04:29'),
-(12, 1, 'Privilege', 0, '2018-02-05 12:04:39', '2018-02-05 12:04:59');
+(10, 1, 'Access ', 1, '2018-02-05 11:37:32', '2018-02-05 11:37:32'),
+(11, 1, 'Confort', 1, '2018-02-05 12:04:29', '2018-02-05 12:04:29'),
+(12, 1, 'Privilege', 1, '2018-02-05 12:04:39', '2018-02-05 12:04:59');
 
 -- --------------------------------------------------------
 
@@ -6276,6 +6291,13 @@ CREATE TABLE `catalog_packs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_packs`
+--
+
+INSERT INTO `catalog_packs` (`id`, `id_modification`, `id_complectation`, `price`, `prev_price`, `best_price`, `created_at`, `updated_at`) VALUES
+(1, 4, 11, 12300, 1345, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -26313,6 +26335,13 @@ ALTER TABLE `catalog_cars`
   ADD KEY `model` (`model`);
 
 --
+-- Индексы таблицы `catalog_colors`
+--
+ALTER TABLE `catalog_colors`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_model` (`id_model`);
+
+--
 -- Индексы таблицы `catalog_complectations`
 --
 ALTER TABLE `catalog_complectations`
@@ -26486,145 +26515,126 @@ ALTER TABLE `user_reviews`
 --
 ALTER TABLE `callbacks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT для таблицы `car_marks`
 --
 ALTER TABLE `car_marks`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
-
 --
 -- AUTO_INCREMENT для таблицы `car_models`
 --
 ALTER TABLE `car_models`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5749;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_cars`
 --
 ALTER TABLE `catalog_cars`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT для таблицы `catalog_colors`
+--
+ALTER TABLE `catalog_colors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `catalog_complectations`
 --
 ALTER TABLE `catalog_complectations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_marks`
 --
 ALTER TABLE `catalog_marks`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_models`
 --
 ALTER TABLE `catalog_models`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_modifications`
 --
 ALTER TABLE `catalog_modifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_packs`
 --
 ALTER TABLE `catalog_packs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_categories`
 --
 ALTER TABLE `catalog_parameter_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_complectation`
 --
 ALTER TABLE `catalog_parameter_complectation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_pack`
 --
 ALTER TABLE `catalog_parameter_pack`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_values`
 --
 ALTER TABLE `catalog_parameter_values`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
 --
 -- AUTO_INCREMENT для таблицы `geo_cities`
 --
 ALTER TABLE `geo_cities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17590;
-
 --
 -- AUTO_INCREMENT для таблицы `geo_countries`
 --
 ALTER TABLE `geo_countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
-
 --
 -- AUTO_INCREMENT для таблицы `geo_regions`
 --
 ALTER TABLE `geo_regions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1612;
-
 --
 -- AUTO_INCREMENT для таблицы `images`
 --
 ALTER TABLE `images`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT для таблицы `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
 -- AUTO_INCREMENT для таблицы `pages`
 --
 ALTER TABLE `pages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT для таблицы `request_credits`
 --
 ALTER TABLE `request_credits`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT для таблицы `request_trade_ins`
 --
 ALTER TABLE `request_trade_ins`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT для таблицы `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
 --
 -- AUTO_INCREMENT для таблицы `user_reviews`
 --
 ALTER TABLE `user_reviews`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
-
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
@@ -26634,7 +26644,6 @@ ALTER TABLE `user_reviews`
 --
 ALTER TABLE `geo_regions`
   ADD CONSTRAINT `geo_regions_ibfk_1` FOREIGN KEY (`id_country`) REFERENCES `geo_countries` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

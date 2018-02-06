@@ -1,10 +1,11 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Цены')
+@section('title', 'Производители')
 
 @section('css')
 
 <!-- DataTables -->
+
 {!! Html::style('assets/dist/css/datatable/dataTables.bootstrap.min.css') !!}
 
 {!! Html::style('assets/dist/css/datatable/responsive.bootstrap.min.css') !!}
@@ -15,24 +16,23 @@
 
 
 @section('content')
-<!-- Content Header (Page header) -->
+        <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <i class="fa fa-list-alt"></i> Цены
+        <i class="fa fa-folder-open-o"></i> Производители
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li class="active"><i class="fa fa-list-alt"></i> Цены</li>
+        <li class="active"><i class="fa fa-folder-open-o"></i> Производители</li>
     </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
-    <p><a class="btn btn-success" href="{{ url('/admin/catalog/modifications/create/' . $id) }}"> + Добавить модификацию </a></p>
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title"></h3>
+            <h3 class="box-title">Автомобильные марки</h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i>
@@ -44,30 +44,22 @@
             <table id="data_table" class="table datatable dt-responsive" style="width:100%;">
                 <thead>
                 <tr>
-                    <th>Комлектация</th>
-                    @foreach($modifications as $modification)
-                        <th>{!! $modification->name !!}</th>
-                    @endforeach
+                    <th>Название</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
 
-                @foreach($complectations as $complectation)
-                <tr>
-                    <td class="title">{!! $complectation->name !!}</td>
-                    @foreach($modifications as $modification)
-                        <th>
-                            Цена <input type="text" name="price" value="{!! getPrice($modification->id, $complectation->id) !!}"> <br>
-                            Старая цена <input type="text" name="prev_price" value="{!! getPrevPrice($modification->id, $complectation->id) !!}"> <br>
-                            Лучшая цена <input type="checkbox" name="best_price">
-                        </th>
-                    @endforeach
-                </tr>
-                @endforeach
                 </tbody>
             </table>
         </div><!-- /.box-body -->
-
+        <div class="box-footer">
+            <p class="text-muted small">
+                <i class="fa fa-pencil"></i> Редактировать |
+                <i class="fa fa-remove"></i> Удалить
+            </p>
+        </div><!-- /.box-footer-->
     </div><!-- /.box -->
 </section><!-- /.content -->
 
@@ -77,9 +69,8 @@
 
 
 @section('js')
-
-<!-- DataTables -->
-
+        <!-- DataTables -->
+{!! Html::script('assets/dist/js/datatable/jquery.dataTables.min.js') !!}
 
 {!! Html::script('assets/dist/js/datatable/dataTables.bootstrap.min.js') !!}
 
@@ -88,6 +79,18 @@
 {!! Html::script('assets/dist/js/datatable/responsive.bootstrap.min.js') !!}
 
 <script type="text/javascript">
-
+    $(document).ready(function () {
+        var table = $("#data_table").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! url("admin/datatables/catalogmarks") !!}',
+            columns: [
+                {data: 'carmark', name: 'carmark'},
+                {data: 'status', name: 'status'},
+                {data: 'actions', name: 'actions', orderable: false, searchable: false}
+            ]
+        });
+        //table.column('0:visible').order('desc').draw();
+    });
 </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogComplectation;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CatalogModelsRequest;
@@ -167,6 +168,7 @@ class CatalogmodelsController extends Controller
      */
     public function complectations($id)
     {
+
         return view('admin.catalog.complectations.index', compact('modifications'))->with('id', $id);
     }
 
@@ -176,7 +178,9 @@ class CatalogmodelsController extends Controller
      */
     public function packs($id)
     {
+        $modifications = CatalogModification::select(['name','body_type', 'id'])->where('id_model', $id)->get();
+        $complectations = CatalogComplectation::where('id_model', $id)->get();
 
-        return view('admin.catalog.packs.index', compact('modifications'))->with('id', $id);
+        return view('admin.catalog.packs.index', compact('modifications', 'complectations'))->with('id', $id);
     }
 }
