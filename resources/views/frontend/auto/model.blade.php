@@ -140,7 +140,7 @@
                             <li>Характеристики</li>
                             <li>Фотогалерея</li>
                         </ul>
-                        <div class="tradein_banner"><img src="images/tradein_banner.png" /></div>
+                        <div class="tradein_banner"><img src="/images/tradein_banner.png" /></div>
                     </div>
                     <div class="row">
                         <div class="specialty_content_block">
@@ -162,7 +162,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                             <li>
@@ -172,7 +172,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                             <li>
@@ -182,7 +182,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                             <li>
@@ -192,7 +192,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                         </ul>
@@ -245,7 +245,7 @@
                                                     <div class="power">100 л.с.</div>
                                                     <div class="price">от <span>520 000<span> руб</div>
                                                     <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="images/print_ico.png" /></a></div>
+                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
                                         </ul>
@@ -262,7 +262,7 @@
                         </div>
                         <div class="inform_banner">
                             <div class="banner_logo">
-                                <img src="images/logo.png" />
+                                <img src="/images/logo.png" />
                             </div>
                             <div class="banner_phones">
                                 <a href="tel:8 (495) 225-35-45">8 (495) 225-35-45</a>
@@ -297,7 +297,7 @@
                     <li>
                         <div class="list_item">
                             <a href="">
-                                <div class="item_image"><img src="images/item_1.jpg" /></div>
+                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
                                 <div class="item_name">Huyndai i30 Седан</div>
                                 <div class="item_price">от <span>657 000</span> руб.</div>
                             </a>
@@ -306,7 +306,7 @@
                     <li>
                         <div class="list_item">
                             <a href="">
-                                <div class="item_image"><img src="images/item_2.jpg" /></div>
+                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
                                 <div class="item_name">Huyndai i30 Седан</div>
                                 <div class="item_price">от <span>657 000</span> руб.</div>
                             </a>
@@ -315,7 +315,7 @@
                     <li>
                         <div class="list_item">
                             <a href="">
-                                <div class="item_image"><img src="images/item_1.jpg" /></div>
+                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
                                 <div class="item_name">Huyndai i30 Седан</div>
                                 <div class="item_price">от <span>657 000</span> руб.</div>
                             </a>
@@ -324,25 +324,7 @@
                     <li>
                         <div class="list_item">
                             <a href="">
-                                <div class="item_image"><img src="images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="images/item_2.jpg" /></div>
+                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
                                 <div class="item_name">Huyndai i30 Седан</div>
                                 <div class="item_price">от <span>657 000</span> руб.</div>
                             </a>
@@ -361,6 +343,24 @@
                         <div class="list_item">
                             <a href="">
                                 <div class="item_image"><img src="images/item_2.jpg" /></div>
+                                <div class="item_name">Huyndai i30 Седан</div>
+                                <div class="item_price">от <span>657 000</span> руб.</div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list_item">
+                            <a href="">
+                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
+                                <div class="item_name">Huyndai i30 Седан</div>
+                                <div class="item_price">от <span>657 000</span> руб.</div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list_item">
+                            <a href="">
+                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
                                 <div class="item_name">Huyndai i30 Седан</div>
                                 <div class="item_price">от <span>657 000</span> руб.</div>
                             </a>
