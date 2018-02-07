@@ -250,10 +250,38 @@
                                 </div>
                             </div>
                             <div class="specialty_content">
-                                Раздел находится в разработке...
+
+
+
+
+
+
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th> Параметры</th>
+                                        @foreach($modifications as $modification)
+                                            <th>{!! $modification['name'] !!}</th>
+                                        @endforeach
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($options as $key => $value)
+                                        <tr>
+                                            <td>{!! $value !!}</td>
+                                            @foreach($modifications as $modification)
+                                                <td>{!! $modification[$key] !!}</td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                {!! $car->parametersContent !!}
+
+
                             </div>
                             <div class="specialty_content">
-                                Раздел находится в разработке...
+                                {!! $car->galleryContent !!}
                             </div>
                         </div>
                         <div class="inform_banner">

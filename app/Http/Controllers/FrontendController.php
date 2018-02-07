@@ -368,7 +368,7 @@ class FrontendController extends Controller
     {
         $marks = CatalogMark::all();
 
-        $car = CatalogModel::select(['catalog_models.id', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+        $car = CatalogModel::select(['catalog_models.id', 'catalog_models.annotation', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
             ->where('catalog_models.slug', $model)
             ->where('catalog_models.published', 1)
             ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
@@ -390,9 +390,44 @@ class FrontendController extends Controller
             $price = $min_price[0]["MIN(price)"];
             $prev_price = $min_prevprice[0]["MIN(prev_price)"];
 
+            $modifications = CatalogModification::where('published', 1)->where('id_model', $car->id)->get()->toArray();
+
+            $options = ['length' => 'Длина, мм',
+                        'width' => 'Ширина, мм',
+                        'height' => 'Высота, мм',
+                        'wheel_base' => 'Колесная база, мм',
+                        'front_rut' => 'Передняя колея колес, мм',
+                        'back_rut' => 'Задняя колея колес, мм',
+                        'front_overhang' => 'Передний свес, мм',
+                        'back_overhang' => 'Задний свес, мм',
+                        'trunk_volume_min' => 'Минимальный объем багажного отделения, л',
+                        'trunk_volume_max' => 'Максимальный объем багажного отделения, л',
+                        'tank_volume' => 'Объем топливного бака, л',
+                        'front_brakes' => 'Передние тормоза (тип, размер)',
+                        'back_brakes' => 'Задние тормоза (тип, размер)',
+                        'front_suspension' => 'Передняя подвеска',
+                        'back_suspension' => 'Задняя подвеска',
+                        'engine_displacement' => 'Объем двигателя, л',
+                        'engine_displacement_working_value' => 'Рабочий объем двигателя, см3',
+                        'engine_type' => 'Тип двигателя',
+                        'gearbox' => 'Коробка передач',
+                        'gears' => 'Количество передач',
+                        'drive' => 'Тип привода',
+                        'power' => 'Мощность, л.с.',
+                        'consume_city' => 'Расход топлива в городе, л/100 км',
+                        'consume_track' => 'Расход топлива на трассе, л/100 км',
+                        'consume_mixed' => 'Смешанный расход топлива, л/100 км',
+                        'acceleration_100km' => 'Разгон от 0 до 100 км/ч, сек.',
+                        'max_speed' => 'Максимальная скорость, км/ч',
+                        'clearance' => 'Дорожный просвет, мм',
+                        'min_mass' => 'Минимальная масса, кг',
+                        'max_mass' => 'Максимальная масса, кг',
+                        'trailer_mass' => 'Допустимая масса прицепа без тормозов, кг',
+                        ];
 
 
-            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price'))->with('title', '');
+
+            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options'))->with('title', '');
         }
 
         abort(404);

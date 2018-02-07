@@ -41,7 +41,8 @@ class CatalogmodificationsController extends Controller
      */
     public function edit(CatalogModification $catalogmodification)
     {
-        return view('admin.catalog.modifications.create_edit')->with(compact('catalogmodification'));
+        $id_model = $catalogmodification->id_model;
+        return view('admin.catalog.modifications.create_edit')->with(compact('catalogmodification', 'id_model'));
     }
 
     /**
