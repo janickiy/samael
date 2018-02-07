@@ -302,6 +302,17 @@ a.logo {display:inline-block;float:left;}
 .banner_info .addresses:before{content: "\f041";}
 .banner_info .times:before{content: "\f017";top:1px;}
 .inform_banner .btn {background: #ffbb03;color: #111;font-size: 14px;line-height: 35px;width: 100%;font-family: RobotoBold; }
+.mentions_list {width:700px;float:left;padding-top: 20px;}
+.mentions_list ul li.review_item {position:relative;border-bottom:1px solid #b6b6b6; padding-bottom:20px;margin-bottom:20px;color:#595959;}
+.mention_pic{ float: left;width: 220px; margin-right: 20px;}
+.mention_text{display: inline-block;width: 460px;}
+.mention_title {font-size:18px;margin-bottom:15px;line-height: 16px;height: 25px;width:380px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;}
+.mention_date {position:absolute;right:0;top:0;font-size:12px;line-height: 16px;}
+.pager {text-align:center;}
+.pager ul li {display:inline;}
+.pager a, .pager span {display:inline-block;background:#3a3a3a;color:#fff;text-align:center;width:48px;line-height:48px;margin:5px;border-radius:5px;}
+.pager .active span {background:#26aae2;}
+.sidebar {width: 220px;float: right;}
 
 .request_page_content {background:#fff;padding:20px;border-radius:10px;box-shadow:#afb2b4 0px 0px 10px;width: 700px; float: left;margin-top:10px;margin-bottom:20px;}
 .request_page_content h1 {text-align:center;font-family:RobotoBold;}
