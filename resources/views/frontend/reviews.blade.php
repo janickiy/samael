@@ -65,7 +65,7 @@
 
 
                     <div class="sidebar">
-                        <div class="feedback_form">
+                        <div class="feedback_form request_form">
                             <div class="form_title">Напишите свой отзыв</div>
 
                             {!! Form::open(['url' =>  '/reviews', 'method' => 'post', 'id'=>'validate']) !!}

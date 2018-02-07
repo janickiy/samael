@@ -20,15 +20,6 @@
 
     {!! Html::style('css/fancybox/jquery.fancybox.css') !!}
 
-    <style>
-
-        .select2-container .select2-selection--single {height: 52px;width: 100%; border-radius:4px;}
-        .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 50px; }
-        .select2-container--default .select2-selection--single .select2-selection__arrow {height: 50px;}
-        .select2-container--default .select2-selection--single .select2-selection__rendered {color: #747474;}
-        .select2-container--default .select2-results__option--highlighted[aria-selected] {background-color: #ee8116;}
-
-    </style>
     
 @endsection
 
@@ -106,7 +97,7 @@
 
 
                                 @for($i=0; $i<count($colors); $i++)
-                                <div class="model_sigle_color">
+                                <div class="model_sigle_color @if($i == 0) active @endif " >
                                     <div class="model_image" style="background-image:url({!! $colors[$i]['image'] !!});"></div>
                                     <div class="color_name">Цвет:<strong>{!! $colors[$i]['name'] !!}</strong></div>
                                 </div>
@@ -359,7 +350,7 @@
                                 <img src="/images/logo.png" />
                             </div>
                             <div class="banner_phones">
-                                <a href="tel:{!! getSetting('TELEPHONE_1') !!}">{!! getSetting('TELEPHONE_1') !!}5</a>
+                                <a href="tel:{!! getSetting('TELEPHONE_1') !!}">{!! getSetting('TELEPHONE_1') !!}</a>
                                 <a href="tel:{!! getSetting('TELEPHONE_2') !!}" class="free_phone">{!! getSetting('TELEPHONE_2') !!}</a>
                                 <b>(Звонок по России бесплатный)</b>
                             </div>

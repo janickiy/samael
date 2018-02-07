@@ -30,7 +30,6 @@ use App\Menu;
 use App\UserReview;
 use App\CarMark;
 use App\CarModel;
-use App\Image;
 use App\RequestCredit;
 use App\RequestTradeIn;
 use App\CatalogMark;
@@ -50,7 +49,6 @@ Route::model('menus', Menu::class);
 Route::model('reviews', UserReview::class);
 Route::model('carmarks',CarMark::class);
 Route::model('carmodels',CarModel::class);
-Route::model('images', Image::class);
 Route::model('requestcredits', RequestCredit::class);
 Route::model('requesttradeins', RequestTradeIn::class);
 Route::model('marks', CatalogMark::class);
@@ -96,6 +94,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/documents', 'FrontendController@documents');
     Route::get('/our_clients', 'FrontendController@our_clients');
     Route::post('/callback', 'FrontendController@callback');
+
 });
 
 Route::group(['middleware' => 'web'], function () {
@@ -143,13 +142,11 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('reviews', 'Admin\ReviewsController');
         Route::resource('carmarks', 'Admin\CarmarksController');
         Route::resource('carmodels', 'Admin\CarmodelsController');
-        Route::resource('images', 'Admin\ImagesController');
         Route::resource('requestcredits', 'Admin\RequestCreditsController');
         Route::resource('requesttradeins', 'Admin\RequestTradeInsController');
         Route::resource('callbacks', 'Admin\CallbacksController');
 
         Route::group(['prefix' => 'catalog', 'middleware' => 'admin'], function () {
-
             Route::resource('marks', 'Admin\CatalogmarksController');
             Route::resource('models', 'Admin\CatalogmodelsController');
             Route::resource('modifications', 'Admin\CatalogmodificationsController');
@@ -157,7 +154,6 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('parametercategories', 'Admin\CatalogparametercategoriesController');
             Route::resource('parametervalues', 'Admin\CatalogparametervaluesController');
             Route::resource('colors', 'Admin\CatalogcolorsController');
-
         });
     });
 
@@ -199,4 +195,5 @@ Route::group(['middleware' => 'web'], function () {
 		return $sitemap->render('xml');
 
 	});
+
 });
