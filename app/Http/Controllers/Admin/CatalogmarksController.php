@@ -58,6 +58,7 @@ class CatalogmarksController extends Controller
         $catalogMark->slug = $request->input('slug');
         $catalogMark->annotation = trim($request->input('annotation'));
         $catalogMark->content = trim($request->input('content'));
+        $catalogMark->bannerText = trim($request->input('bannerText'));
 
         if ($request->hasFile('logo')) {
             $logo_path = public_path() . PATH_MARK;

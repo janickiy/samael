@@ -26,12 +26,12 @@
     <div class="inset_page">
         <div class="main_width">
 
-           @include('layouts.frontend.includes.breadcrumbs')
+            <a href="/">Главная</a> - <a href="{!! url('/auto') !!}">Новые автомобили</a> - <a href="{!! url('/auto/' . $mark->slug) !!}">{!! $mark->name !!}</a>
 
             <div class="auto_page_content mark_page">
                 <div class="row mark_page_title">
-                    <h1>Hyundai</h1>
-                    <div class="advertising_flag"><div>Скидка <span>до</span> 123 000 <span>руб.</span> <span class="fs14">до 12 февраля</span></div></div>
+                    <h1>{!! $mark->name !!}</h1>
+                    @if(isset($mark->bannerText) && !empty($mark->bannerText))<div class="advertising_flag">{!! $mark->bannerText !!}</div>@endif
                 </div>
                 <div class="row">
                     <div class="cars_list">
@@ -44,7 +44,7 @@
                                     <a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug) !!}">
                                         <div class="item_image"><img src="{!! $car->image !!}"></div>
                                         <div class="item_name">{!! $car->mark !!} {{ $car->model }}</div>
-                                        <div class="item_price">от <span>657 000</span> руб.</div>
+                                        <div class="item_price">от <span>{!! $car->price !!}</span> руб.</div>
                                     </a>
                                 </div>
                             </li>

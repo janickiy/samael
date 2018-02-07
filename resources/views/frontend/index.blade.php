@@ -82,7 +82,7 @@
 
         </div>
     </div>
-    <div class="index_page_2">
+    <div class="bottom_page_content">
         <div class="main_width">
             <div class="container row">
                 <div class="soc_block">
@@ -142,7 +142,28 @@
             </div>
         </div>
     </div>
-
+<div class="mobile_contacts">
+		<h3>Контакты</h3>
+		<div class="addresses">
+			<img src="/images/address_ico.png">
+			<div>{!! getSetting('FRONTEND_ADDRESS') !!}</div>
+		</div>
+		<div class="times">
+			<img src="/images/times_ico.png">
+			<div>{!! getSetting('FRONTEND_TIMES') !!}</div>
+		</div>
+		<div class="mobile_phones">
+			<img src="/images/mobile_phone_ico.png">
+			<div>
+				<div class="free_phone">
+					<a href="tel:{!! getSetting('TELEPHONE_1') !!}">{!! getSetting('TELEPHONE_1') !!}</a>
+					<span>бесплатная линия</span>
+				</div>	
+				<a class="moscow_phone" href="tel:{!! getSetting('TELEPHONE_2') !!}">{!! getSetting('TELEPHONE_2') !!}</a>
+				<span>звонок по Москве</span>
+            </div>
+		</div>
+    </div>
 
     <div class="bottom_map">
 

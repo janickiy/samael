@@ -10,16 +10,6 @@
 
     {!! Html::style('css/fancybox/jquery.fancybox.css') !!}
 
-    <style>
-
-        .select2-container .select2-selection--single {height: 52px;width: 100%; border-radius:4px;}
-        .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 50px; }
-        .select2-container--default .select2-selection--single .select2-selection__arrow {height: 50px;}
-        .select2-container--default .select2-selection--single .select2-selection__rendered {color: #747474;}
-        .select2-container--default .select2-results__option--highlighted[aria-selected] {background-color: #ee8116;}
-
-    </style>
-
 @endsection
 
 @section('marks')
@@ -29,8 +19,8 @@
 @section('content')
 
     <!-- hidden inline form -->
-    <div id="inline">
-        <h2>Отправка сообщения</h2>
+    <div id="inline" class="popup_form">
+        <h3>Заказать обратный звонок</h3>
 
         {!! Form::open(['url' => '/callback', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
 
@@ -42,40 +32,42 @@
             {!! Form::text('phone', old('phone'), ['class' => 'form_control form_phone validate[required,custom[phone]]', 'placeholder'=>'Ваше телефон']) !!}
         </div>
 
-        <div class="form_field">
-            Удобное время звонка
-            {!! Form::select('from_time', [
-                '9:00' => '9:00',
-                '10:00' => '10:00',
-                '11:00' => '11:00',
-                '12:00' => '12:00',
-                '13:00' => '13:00',
-                '14:00' => '14:00',
-                '15:00' => '15:00',
-                '16:00' => '16:00',
-                '17:00' => '17:00',
-                '18:00' => '18:00',
-                '19:00' => '19:00',
-                ], '9:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
-                )
-            !!}
-
-            {!! Form::select('to_time', [
-               '9:00' => '9:00',
-               '10:00' => '10:00',
-               '11:00' => '11:00',
-               '12:00' => '12:00',
-               '13:00' => '13:00',
-               '14:00' => '14:00',
-               '15:00' => '15:00',
-               '16:00' => '16:00',
-               '17:00' => '17:00',
-               '18:00' => '18:00',
-               '19:00' => '19:00',
-               ], '19:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
-               )
-           !!}
-
+        <div class="form_field call_time">
+				<label>Удобное время звонка:</label>
+				<div class="fl_l">
+					{!! Form::select('from_time', [
+						'9:00' => '9:00',
+						'10:00' => '10:00',
+						'11:00' => '11:00',
+						'12:00' => '12:00',
+						'13:00' => '13:00',
+						'14:00' => '14:00',
+						'15:00' => '15:00',
+						'16:00' => '16:00',
+						'17:00' => '17:00',
+						'18:00' => '18:00',
+						'19:00' => '19:00',
+						], '9:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
+						)
+					!!}
+				</div>	
+				<div class="fl_l">
+					{!! Form::select('to_time', [
+					   '9:00' => '9:00',
+					   '10:00' => '10:00',
+					   '11:00' => '11:00',
+					   '12:00' => '12:00',
+					   '13:00' => '13:00',
+					   '14:00' => '14:00',
+					   '15:00' => '15:00',
+					   '16:00' => '16:00',
+					   '17:00' => '17:00',
+					   '18:00' => '18:00',
+					   '19:00' => '19:00',
+					   ], '19:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
+					   )
+				   !!}
+				</div> 
         </div>
 
         {!! Form::submit('Отправить', ['class'=>'btn']) !!}
@@ -84,7 +76,7 @@
     </div>
 
 
-<div class="inset_page white_bg">
+<div class="inset_page white_bg contacts">
     <div class="main_width">
         @section('breadcrumbs')
             @include('layouts.frontend.includes.breadcrumbs')
@@ -124,10 +116,32 @@
                 </div>
             </div>
 
-
+		</div>
     </div>
 </div>
-
+<div class="mobile_contacts">
+		<h3>Контакты</h3>
+		<div class="addresses">
+			<img src="/images/address_ico.png">
+			<div>{!! getSetting('FRONTEND_ADDRESS') !!}</div>
+		</div>
+		<div class="times">
+			<img src="/images/times_ico.png">
+			<div>{!! getSetting('FRONTEND_TIMES') !!}</div>
+		</div>
+		<div class="mobile_phones">
+			<img src="/images/mobile_phone_ico.png">
+			<div>
+				<div class="free_phone">
+					<a href="tel:{!! getSetting('TELEPHONE_1') !!}">{!! getSetting('TELEPHONE_1') !!}</a>
+					<span>бесплатная линия</span>
+				</div>	
+				<a class="moscow_phone" href="tel:{!! getSetting('TELEPHONE_2') !!}">{!! getSetting('TELEPHONE_2') !!}</a>
+				<span>звонок по Москве</span>
+            </div>
+		</div>
+		 <a href="#inline" class="btn recall_link modalbox">Обратный звонок</a>
+    </div>
 @endsection
 
 @section('js')

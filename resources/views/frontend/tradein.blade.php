@@ -7,11 +7,7 @@
 @section('meta_keywords', '')
 
 @section('css')
-    <style>
 
-    .select2-container .select2-selection--single {height: 52px;width: 100%; border-radius:4px;}.select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 50px; }.select2-container--default .select2-selection--single .select2-selection__arrow {height: 50px;}.select2-container--default .select2-selection--single .select2-selection__rendered {color: #747474;}.select2-container--default .select2-results__option--highlighted[aria-selected] {background-color: #ee8116;}
-
-    </style>
 @endsection
 
 @section('marks')
@@ -58,7 +54,7 @@
 
                         {!! Form::text('mileage', old('mileage'), ['class' => 'form_control validate[required,custom[integer]]', 'placeholder'=>'Пробег']) !!}
 
-                        {!! Form::text('name', old('name'), ['class' => 'form_control validate[required,custom[integer]]', 'placeholder'=>'Ф.И.О.']) !!}
+                        {!! Form::text('name', old('name'), ['class' => 'form_control validate[required]', 'placeholder'=>'Ф.И.О.']) !!}
 
                         {!! Form::text('phone', old('phone'), ['class' => 'form_control form_phone validate[required,custom[phone]]', 'placeholder' => '+7 (___) ___ - __ - __']) !!}
 
@@ -193,11 +189,11 @@
                         console.log(html);
 
                         if (data.item.length > 0) {
-                            $("#trade_in_model").prop('disabled',false);
-                            $("#trade_in_model").html(html).fadeIn();
+                            $("#trade_in_complectation").prop('disabled',false);
+                            $("#trade_in_complectation").html(html).fadeIn();
                         } else {
-                            $("#trade_in_model").html(html).fadeIn();
-                            $("#trade_in_model").prop('disabled',true);
+                            $("#trade_in_complectation").html(html).fadeIn();
+                            $("#trade_in_complectation").prop('disabled',true);
                         }
 
                         $(".select2").select2({
@@ -207,14 +203,14 @@
                 }
             })
 
-            $("#trade_in_mark").on("change keyup input click", function() {
+            $("#mark").on("change keyup input click", function() {
 
                 var idMark = this.value;
 
                 if(idMark != null) {
 
                     var request = $.ajax({
-                        url: './ajax?action=get_models&id_car_mark=' + idMark,
+                        url: './ajax?action=get_car_models&id_car_mark=' + idMark,
                         method: "GET",
                         dataType: "json"
                     });
@@ -229,11 +225,11 @@
                         console.log(html);
 
                         if (data.item.length > 0) {
-                            $('#trade_in_model').prop('disabled',false);
-                            $("#trade_in_model").html(html).fadeIn();
+                            $("#model").prop('disabled',false);
+                            $("#model").html(html).fadeIn();
                         } else {
-                            $("#trade_in_model").html(html).fadeIn();
-                            $('#trade_in_model').prop('disabled',true);
+                            $("#model").html(html).fadeIn();
+                            $("#model").prop('disabled',true);
                         }
 
                         $(".select2").select2({
@@ -243,32 +239,7 @@
                 }
             })
 
-            $("#trade_in_model").on("change keyup input click", function() {
-
-                var idModel = this.value;
-
-                if(idModel != null) {
-
-                    var request = $.ajax({
-                        url: './ajax?action=get_model_info&id=' + idModel,
-                        method: "GET",
-                        dataType: "json"
-                    });
-
-                    request.done(function (data) {
-                        if (data.image != null && data.image != '') {
-                            $('#model_img').attr("src", data.image).fadeIn();
-                        } else {
-                            $('#model_img').attr("src", "/images/car_bg.png").fadeIn();
-                        }
-                    });
-                }
-            })
-
-
             $(".form_phone").mask("+7 (999) 999-9999");
-
-
         })
 
     </script>

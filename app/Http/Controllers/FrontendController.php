@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CatalogColor;
 use App\CatalogPack;
 use App\CatalogParameterValue;
+use App\ImageGallery;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\RequestCreditsRequest;
@@ -179,8 +180,6 @@ class FrontendController extends Controller
                         $rows[] = [
                             "id" => $mark->id,
                             "name" => $mark->name,
-                            "name_rus" => $mark->name_rus,
-                            "slug" => $mark->slug,
                         ];
                     }
 
@@ -203,8 +202,6 @@ class FrontendController extends Controller
                         $rows[] = [
                             "id"   => $model->id,
                             "name" => $model->name,
-                            "name_rus" => $model->name_rus,
-                            "slug" => $model->slug,
                         ];
                     }
 
@@ -272,15 +269,20 @@ class FrontendController extends Controller
 
                     break;
 
+                case 'get_car_models':
 
-                case 'get_model_info':
+                    $models = CarModel::where('id_car_mark', $request->id_car_mark)->get();
 
-                    $model = CarModel::where('published', 1)
-                            ->where('id', $request->id)
-                            ->first()
-                            ->toArray();
+                    $rows = [];
 
-                    return response()->json($model);
+                    foreach($models as $model) {
+                        $rows[] = [
+                            "id"   => $model->id,
+                            "name" => $model->name,
+                        ];
+                    }
+
+                    return response()->json(['item' => $rows]);
 
                 break;
 
@@ -345,20 +347,22 @@ class FrontendController extends Controller
      * @param $mark
      * @return $this
      */
-    public function mark($mark)
+    public function mark($slug)
     {
         $marks = CatalogMark::all();
+        $mark = CatalogMark::where('slug', $slug)->where('published', 1)->first();
 
-        $models_list = CatalogModel::select(['catalog_models.id', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
-                        ->where('catalog_models.published', 1)
-                        ->where('catalog_marks.slug', '=', $mark)
-                        ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
-                        ->groupBy('catalog_models.id')
-                        ->orderBy('catalog_models.id')
-                        ->paginate(10);
+        if ($mark) {
+            $models_list = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.name_rus, catalog_models.slug, catalog_models.image, catalog_marks.name as mark, catalog_marks.slug as mark_slug, catalog_models.slug as model_slug, MIN(catalog_packs.price) as price')
+                ->where('catalog_models.published', 1)
+                ->where('catalog_models.id_car_mark', $mark->id)
+                ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+                ->leftJoin('catalog_packs', 'catalog_packs.id_model', '=', 'catalog_models.id')
+                ->groupBy('catalog_models.id')
+                ->orderBy('catalog_models.id')
+                ->paginate(10);
 
-        if ($models_list) {
-            return view('frontend.auto.mark', compact('marks', 'models_list'))->with('title', '');
+            return view('frontend.auto.mark', compact('marks', 'models_list', 'mark'))->with('title', '');
         }
 
         abort(404);
@@ -430,7 +434,6 @@ class FrontendController extends Controller
                         'trailer_mass' => 'Допустимая масса прицепа без тормозов, кг',
                         ];
 
-
             $similarcars = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.slug as model_slug, catalog_marks.slug as mark_slug, catalog_models.image, catalog_marks.name as mark, catalog_models.body_type, MIN(catalog_packs.price) as price')
                 ->where('catalog_models.published', 1)
                 ->where('catalog_models.id_car_mark', $car->id_car_mark)
@@ -442,8 +445,9 @@ class FrontendController extends Controller
                 ->take(8)
                 ->get();
 
+            $gallery_pics = ImageGallery::where('id_model', $car->id)->get();
 
-            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars'))->with('title', '');
+            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics'))->with('title', '');
         }
 
         abort(404);
@@ -540,7 +544,6 @@ class FrontendController extends Controller
         }
 
         $trade_in_complectation_options[null] = 'Комплектация';
-
 
         $mark_search = CarMark::select(['id', 'name'])
             ->orderBy('name')

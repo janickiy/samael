@@ -344,6 +344,13 @@
 
                             </div>
                             <div class="specialty_content">
+
+                                @foreach($gallery_pics as $pic)
+
+                                <a class="gallery" rel="group" title="{!! $pic->title !!}" href="{!! PATH_CARS . $pic->image  !!}"><img width="300px" src="{!! PATH_CARS . $pic->image  !!}" /></a>
+
+                                @endforeach
+
                                 {!! $car->galleryContent !!}
                             </div>
                         </div>
@@ -418,6 +425,7 @@
     {!! Html::script('assets/plugins/select2/select2.full.min.js') !!}
 
     <script type="text/javascript">
+
         $(document).ready(function () {
             $(".select2").select2();
         })
@@ -428,7 +436,45 @@
 
         $(document).ready(function() {
             $(".modalbox").fancybox();
+        });
 
+        $(document).ready(function() {
+            $("a.gallery, a.iframe").fancybox();
+
+            url = $("a.modalbox").attr('href').replace("for_spider","content2");
+            $("a.modalbox").attr("href", url);
+            $("a.modalbox").fancybox(
+            {
+                "frameWidth" : 400,
+                "frameHeight" : 400
+            });
+
+            $("a.gallery2").fancybox(
+            {
+                "padding" : 20,
+                "imageScale" : false,
+                "zoomOpacity" : false,
+                "zoomSpeedIn" : 1000,
+                "zoomSpeedOut" : 1000,
+                "zoomSpeedChange" : 1000,
+                "frameWidth" : 700,
+                "frameHeight" : 600,
+                "overlayShow" : true,
+                "overlayOpacity" : 0.8,
+                "hideOnContentClick" :false,
+                "centerOnScroll" : false
+            });
+
+            $("#menu a, .anim").hover( function() {
+                $(this).animate({"paddingLeft" : "10px"}, 300)},
+                function() {$(this).animate({"paddingLeft" : "0"}, 300);
+            });
+
+            $("a.iframe").fancybox(
+            {
+                "frameWidth" : 800,
+                "frameHeight" : 600
+            });
         });
 
     </script>

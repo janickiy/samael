@@ -31,7 +31,7 @@ class ImageGalleryController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $input['image'] = str_random(20) . '.' . $request->image->getClientOriginalExtension();
+        $input['image'] =  str_random(20) . '.' . $request->image->getClientOriginalExtension();
         $request->image->move(public_path() . PATH_CARS, $input['image']);
         $input['title'] = trim($request->title);
         $input['id_model'] = $request->id_model;

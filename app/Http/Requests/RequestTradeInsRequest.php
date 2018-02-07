@@ -32,8 +32,8 @@ class RequestTradeInsRequest extends Request
                 return [
                     'name'  => 'required',
                     'phone' => 'required',
-                    'mark'  => 'mark',
-                    'model' => 'model',
+                    'mark'  => 'required|numeric',
+                    'model' => 'required|numeric',
                     'year'  => 'required|numeric',
                     'mileage' => 'required|numeric',
                     'trade_in_mark'  => 'required|numeric',
@@ -47,8 +47,8 @@ class RequestTradeInsRequest extends Request
                 return [
                     'name'  => 'required',
                     'phone' => 'required',
-                    'mark'  => 'mark',
-                    'model' => 'model',
+                    'mark'  => 'required|numeric',
+                    'model' => 'required|numeric',
                     'year'  => 'required|numeric',
                     'mileage' => 'required|numeric',
                     'trade_in_mark'  => 'required|numeric',

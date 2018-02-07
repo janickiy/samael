@@ -7,15 +7,6 @@
 @section('meta_keywords', '')
 
 @section('css')
-    <style>
-
-        .select2-container .select2-selection--single {height: 52px;width: 100%; border-radius:4px;}
-        .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 50px; }
-        .select2-container--default .select2-selection--single .select2-selection__arrow {height: 50px;}
-        .select2-container--default .select2-selection--single .select2-selection__rendered {color: #747474;}
-        .select2-container--default .select2-results__option--highlighted[aria-selected] {background-color: #ee8116;}
-
-    </style>
 
 @endsection
 

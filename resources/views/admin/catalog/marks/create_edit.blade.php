@@ -36,8 +36,11 @@
         </div>
         <div class="box-body">
             <p>* - обязательные поля</p>
+
             {!! Form::open(['url' => isset($catalogmark) ? URL::to('admin/catalog/marks/' . $catalogmark->id )  :  URL::to('admin/catalogmarks') , 'method' => isset($catalogmark) ? 'put': 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'id'=>'validate']) !!}
+
             {!! Form::hidden('mark_id', isset($catalogmark) ? $catalogmark->id: null) !!}
+
             <div class="col-md-12">
 
                 <div class="form-group">
@@ -75,6 +78,12 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    {!! Form::label('bannerText', 'Текст для баннера', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        {!! Form::textarea('bannerText', old('bannerText', isset($catalogmark) ? $catalogmark->bannerText : null), ['class' => 'form-control', 'placeholder' => 'Текст для баннера', 'rows' => 2]) !!}
+                    </div>
+                </div>
 
                 <div class="form-group">
                     {!! Form::label('logo', 'Логотип (jpeg, png, gif, размер не более 1Мб)', ['class' => 'control-label col-md-2']) !!}
@@ -82,7 +91,6 @@
                         {!! Form::file('logo') !!}
                     </div>
                 </div>
-
 
                 <div class="form-group">
                     {!! Form::label('meta_title', 'meta title', ['class' => 'control-label col-md-2']) !!}

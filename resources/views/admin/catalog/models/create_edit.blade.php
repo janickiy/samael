@@ -85,6 +85,7 @@
                         {!! Form::textarea('content', old('content', isset($catalogmodel) ? $catalogmodel->content : null), ['class' => 'form-control', 'placeholder' => 'Контент', 'rows' => 5]) !!}
                     </div>
                 </div>
+
                 <div class="form-group">
                     {!! Form::label('parametersContent', 'Текст для вкладки характеристик', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
