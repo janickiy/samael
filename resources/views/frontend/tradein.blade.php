@@ -31,21 +31,16 @@
                         <div class="select">
                             {!! Form::select('trade_in_mark', $trade_in_mark_options, isset($request->trade_in_mark) ? $request->trade_in_mark : 'Марка', ['class' => 'form_control select2 validate[required]', 'id' => 'trade_in_mark']) !!}
                         </div>
-
                         <div class="select">
                             {!! Form::select('trade_in_model', $trade_in_model_options, isset($request->trade_in_model) ? $request->trade_in_mode : 'Модель', ['class' => 'select2 validate[required]', 'id' => 'trade_in_model', !isset($request->trade_in_model) ? 'disabled' : '']) !!}
                         </div>
-
                         <div class="select">
                             {!! Form::select('trade_in_complectation', $trade_in_complectation_options, isset($request->trade_in_complectation) ? $request->trade_in_complectation : 'Комплектация', ['class' => 'select2 validate[required]', 'id' => 'trade_in_complectation', !isset($request->trade_in_complectation) ? 'disabled' : '']) !!}
                         </div>
-
                         <h2>Ваш автомобиль</h2>
-
                         <div class="select">
                             {!! Form::select('mark', $mark_options, isset($request->mark) ? $request->mark : 'Марка', ['class' => 'form_control select2 validate[required]', 'id' => 'mark']) !!}
                         </div>
-
                         <div class="select">
                             {!! Form::select('model', $model_options, isset($request->model) ? $request->model : 'Модель', ['class' => 'form_control select2 validate[required]', 'id' => 'model', !isset($request->model) ? 'disabled' : '']) !!}
                         </div>
@@ -71,7 +66,7 @@
                         {!! Form::close() !!}
 
                     </div>
-                    <div class="request_desc">
+                    <div class="request_desc" id="request_desc">
                         <div class="request_text">
                             <h2>Trade-in - это удобно</h2>
                             <p>Вы доставляете автомобиль<br/>с пакетом необходимых документов.</p>
@@ -154,9 +149,12 @@
                         console.log(html);
 
                         if (data.item.length > 0) {
+                            $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $("#trade_in_model").prop('disabled',false);
                             $("#trade_in_model").html(html).fadeIn();
                         } else {
+                            $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
+                            $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $("#trade_in_model").html(html).fadeIn();
                             $("#trade_in_model").prop('disabled',true);
                         }
@@ -189,9 +187,14 @@
                         console.log(html);
 
                         if (data.item.length > 0) {
+                            if (data.image)
+                                $('#request_desc').css('background-image', 'url(' + data.image + ')');
+                            else
+                                $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $("#trade_in_complectation").prop('disabled',false);
                             $("#trade_in_complectation").html(html).fadeIn();
                         } else {
+                            $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $("#trade_in_complectation").html(html).fadeIn();
                             $("#trade_in_complectation").prop('disabled',true);
                         }

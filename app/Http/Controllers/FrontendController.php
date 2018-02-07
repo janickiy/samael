@@ -217,8 +217,8 @@ class FrontendController extends Controller
 
                 case 'get_modifications':
 
-                    $modifications = CatalogModification::where('id_model', $request->id_model)
-                        ->get();
+                    $modifications = CatalogModification::where('id_model', $request->id_model)->get();
+                    $model = CatalogModel::select(['image'])->where('id', $request->id_model)->where('published', 1)->first();
 
                     $rows = [];
 
@@ -229,7 +229,7 @@ class FrontendController extends Controller
                         ];
                     }
 
-                    return response()->json(['item' => $rows]);
+                    return response()->json(['item' => $rows, 'image' => $model->image]);
 
                     break;
 
