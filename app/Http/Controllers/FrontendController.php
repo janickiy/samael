@@ -35,6 +35,8 @@ class FrontendController extends Controller
         $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
 
+        $reviews = UserReview::where('published', 1)->take(3)->get();
+
         $specialoffers = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.slug as model_slug, catalog_marks.slug as mark_slug, catalog_models.image, catalog_marks.name as mark, catalog_models.body_type, MIN(catalog_packs.price) as price')
         ->where('catalog_models.published', 1)
             ->where('catalog_models.special', 1)
@@ -45,8 +47,7 @@ class FrontendController extends Controller
             ->take(8)
             ->get();
 
-
-        return view('frontend.index', compact('marks', 'news', 'specialoffers'))->with('title', 'Главная');
+        return view('frontend.index', compact('marks', 'news', 'specialoffers', 'reviews'))->with('title', 'Главная');
     }
 
     public function components()
@@ -137,27 +138,30 @@ class FrontendController extends Controller
     {
         $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
+        $reviews = UserReview::where('published', 1)->take(3)->get();
         $page = Page::whereSlug('about')->published()->page()->get()->first();
 
-        return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
+        return view('frontend.page', compact('page', 'marks', 'news', 'reviews'))->with('title', $page->title);
     }
 
     public function documents()
     {
         $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
+        $reviews = UserReview::where('published', 1)->take(3)->get();
         $page = Page::whereSlug('documents')->published()->page()->get()->first();
 
-        return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
+        return view('frontend.page', compact('page', 'marks', 'news', 'reviews'))->with('title', $page->title);
     }
 
     public function our_clients()
     {
         $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
+        $reviews = UserReview::where('published', 1)->take(3)->get();
         $page = Page::whereSlug('our_clients')->published()->page()->get()->first();
 
-        return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
+        return view('frontend.page', compact('page', 'marks', 'news', 'reviews'))->with('title', $page->title);
     }
 
     /**
@@ -288,12 +292,7 @@ class FrontendController extends Controller
 
                 break;
 
-
                 case 'get_parameters':
-
-
-
-
 
 
                 break;
@@ -306,16 +305,8 @@ class FrontendController extends Controller
      */
     public function reviews()
     {
-        $marks = CarMark::selectRaw('car_marks.id,car_marks.name,car_marks.slug,count(catalog_used_cars.id) as countusedcars')
-            ->where('car_marks.published', 1)
-            ->leftJoin('catalog_used_cars', 'car_marks.name', 'like', 'catalog_used_cars.mark')
-            ->groupBy('car_marks.id')
-            ->orderBy('car_marks.name')
-            ->take(23)
-            ->get();
-
-        $reviews = UserReview::where('published', 1)
-            ->paginate(5);
+        $marks = CatalogMark::all();
+        $reviews = UserReview::where('published', 1)->paginate(5);
 
         return view('frontend.reviews', compact('marks','reviews'))->with(['title' => 'Отзывы']);
     }

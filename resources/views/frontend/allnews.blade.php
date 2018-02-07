@@ -59,7 +59,7 @@
 
 @section('bottom_page_content')
 
-   @include('layouts.frontend.includes.bottom_page_content')
+
 
 @endsection
 
