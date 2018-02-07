@@ -95,9 +95,10 @@ class FrontendController extends Controller
     public function news($slug = '')
     {
         $post = Page::whereSlug($slug)->published()->post()->get()->first();
+        $marks = CatalogMark::all();
 
         if ($post) {
-            return view('frontend.post')->with(compact('post'));
+            return view('frontend.post')->with(compact('post', 'marks'));
         }
 
         abort(404);
@@ -109,8 +110,9 @@ class FrontendController extends Controller
     public function allNews()
     {
         $news = Page::published()->published()->post()->paginate(10);
+        $marks = CatalogMark::all();
 
-        return view('frontend.allnews', compact('news'))->with('Все новости');
+        return view('frontend.allnews', compact('news', 'marks'))->with('title', 'Все новости');
     }
 
     /**
