@@ -39,12 +39,12 @@
 
                                 @foreach($reviews as $review)
 
-                                    <li>
+                                    <li class="review_item">
                                         <div class="row">
                                             <div class="mention_pic"></div>
                                             <div class="mention_text">
                                                 <div class="mention_title">{{ $review->author }}</div>
-                                                <div><i>{{ $review->created_at }}</i></div>
+                                                <div class="review_date">{{ $review->created_at }}</div>
                                                 <p>{{ $review->message }}</p>
                                             </div>
                                         </div>

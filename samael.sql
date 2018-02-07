@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 07 2018 г., 10:55
+-- Время создания: Фев 07 2018 г., 16:09
 -- Версия сервера: 10.1.28-MariaDB
 -- Версия PHP: 7.1.10
 
@@ -6174,6 +6174,7 @@ CREATE TABLE `catalog_marks` (
   `logo` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `annotation` varchar(255) DEFAULT NULL,
   `content` text,
+  `bannerText` text,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `meta_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -6186,29 +6187,29 @@ CREATE TABLE `catalog_marks` (
 -- Дамп данных таблицы `catalog_marks`
 --
 
-INSERT INTO `catalog_marks` (`id`, `name`, `name_rus`, `slug`, `logo`, `annotation`, `content`, `published`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, 'Hyundai', 'Xёндай', 'hyundai', '/uploads/mark/24EGjqTnNPFCcX1JhzTI.png', '', '', 1, 'Hyundai', '', '', '2018-01-25 11:09:09', '2018-01-26 10:47:55'),
-(2, 'Renault', 'Рено', 'renault', '/uploads/mark/k12GrvyWF6BD7tbnNx16.png', '', '', 1, 'Renault', '', '', '2018-01-25 11:24:00', '2018-01-26 10:50:00'),
-(3, 'Lada', 'Лада', 'lada', '/uploads/mark/VekYKNc1UxWHqrtELcUV.png', '', '', 1, 'Lada', '', '', '2018-01-25 11:26:07', '2018-01-26 10:51:08'),
-(4, 'Kia', 'Киа', 'kia', '/uploads/mark/IheE5DIkvEWkJzByn8AI.png', NULL, NULL, 1, 'Kia', '', '', '2018-01-25 11:27:23', '2018-01-25 11:27:23'),
-(5, 'Nissan', 'Ниссан', 'nissan', '/uploads/mark/WcxPKssnnlyZrRS9vo1T.png', '', '', 1, 'Nissan', '', '', '2018-01-25 11:28:42', '2018-01-26 10:49:45'),
-(6, 'Toyota', 'Тойота', 'toyota', '/uploads/mark/HSoawzGBrxQ5xgmcEnNM.png', NULL, NULL, 1, 'Toyota', '', '', '2018-01-25 11:29:44', '2018-01-25 11:29:44'),
-(7, 'Skoda', 'Шкода', 'skoda', '/uploads/mark/6wXHqXd4CUlZelfyaiKl.png', '', '', 1, 'Skoda', '', '', '2018-01-25 11:31:19', '2018-01-26 10:50:53'),
-(8, 'Datsun', 'Датсун', 'datsun', '/uploads/mark/mPGfQdmNZ6PC9Wg5EyQz.png', '', '', 1, 'Datsun', '', '', '2018-01-25 11:33:53', '2018-01-26 10:50:42'),
-(9, 'Mitsubishi', 'Мицубиси', 'mitsubishi', '/uploads/mark/mpH90MVIWuWpiJqr0SS3.png', '', '', 1, 'Mitsubishi', '', '', '2018-01-25 11:35:06', '2018-01-26 10:50:31'),
-(10, 'Lifan', 'Лифан', 'lifan', '/uploads/mark/AkppWyx4yaR7EEzajUwC.png', '', '', 1, 'Lifan', '', '', '2018-01-25 11:35:55', '2018-01-26 10:50:23'),
-(11, 'Ssangyong', 'Санйонг', 'ssangyong', '/uploads/mark/JHkDLLDx3e5AXvwmn1Kc.png', '', '', 1, 'Ssangyong', '', '', '2018-01-25 11:37:32', '2018-01-26 10:50:11'),
-(12, 'UAZ', 'УАЗ', 'uaz', '/uploads/mark/9G19kvaWw0Q8rwURZBHL.png', '', '', 1, 'UAZ', '', '', '2018-01-25 11:38:34', '2018-01-26 10:49:26'),
-(13, 'Great Wall', 'Грейт уолл', 'great_wall', '/uploads/mark/Zv5jiuxfgnKMnegVu6zF.png', '', '', 1, 'Great Wall', '', '', '2018-01-25 11:39:40', '2018-01-26 10:49:31'),
-(14, 'Ravon', 'Равон', 'ravon', '/uploads/mark/P4aCVE0uIo3ljebppr7E.png', '', '', 1, 'Ravon', '', '', '2018-01-25 11:40:41', '2018-01-26 10:49:36'),
-(15, 'Geely', 'Джили', 'geely', '/uploads/mark/sJ79Tg1imP7vUI4qHDSK.png', '', '', 1, 'Geely', '', '', '2018-01-25 11:42:26', '2018-01-26 10:48:32'),
-(16, 'Ford', 'Форд', 'ford', '/uploads/mark/m3oVQyPMh0YZjzY6YB73.png', '', '', 1, 'Ford', '', '', '2018-01-25 11:43:22', '2018-01-26 10:48:39'),
-(17, 'Mazda', 'Мазда', 'mazda', '/uploads/mark/bAJCItidCZhibrW4AHoQ.png', NULL, NULL, 1, 'Mazda', '', '', '2018-01-25 11:44:43', '2018-01-25 11:44:43'),
-(18, 'Haval', 'Хавейл', 'haval', '/uploads/mark/UnyTss7h4eqE7AsKIlSl.png', '', '', 1, 'Haval', '', '', '2018-01-25 11:45:54', '2018-01-26 10:48:48'),
-(19, 'Suzuki', 'Cудзуки', 'suzuki', '/uploads/mark/QGm8GLb57q5L8CGxJt2w.png', '', '', 1, 'Suzuki', '', '', '2018-01-25 11:47:41', '2018-01-26 10:48:59'),
-(20, 'Chery', 'Чери', 'chery', '/uploads/mark/STAafLIs4kW5wiNKeBbB.png', '', '', 1, 'Chery', '', '', '2018-01-25 11:49:38', '2018-01-26 10:49:04'),
-(21, 'Changan', 'Чендэн', 'changan', '/uploads/mark/UinImTP5ZUiMUMYVfzVU.png', '', '', 1, 'Changan', '', '', '2018-01-25 11:52:12', '2018-01-26 10:49:11'),
-(22, 'Volksvagen', 'Фольксваген', 'volksvagen', '/uploads/mark/M6JKRmAaK7H1p9rVLqgP.png', '', '', 1, 'Volksvagen', '', '', '2018-01-25 11:53:19', '2018-01-26 10:51:17');
+INSERT INTO `catalog_marks` (`id`, `name`, `name_rus`, `slug`, `logo`, `annotation`, `content`, `bannerText`, `published`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 'Hyundai', 'Xёндай', 'hyundai', '/uploads/mark/24EGjqTnNPFCcX1JhzTI.png', '', '', '<div>Скидка <span>до</span> 123 000 <span>руб.</span> <span class=\"fs14\">до 12 февраля</span></div>', 1, 'Hyundai', '', '', '2018-01-25 11:09:09', '2018-02-07 08:37:37'),
+(2, 'Renault', 'Рено', 'renault', '/uploads/mark/k12GrvyWF6BD7tbnNx16.png', '', '', NULL, 1, 'Renault', '', '', '2018-01-25 11:24:00', '2018-01-26 10:50:00'),
+(3, 'Lada', 'Лада', 'lada', '/uploads/mark/VekYKNc1UxWHqrtELcUV.png', '', '', NULL, 1, 'Lada', '', '', '2018-01-25 11:26:07', '2018-01-26 10:51:08'),
+(4, 'Kia', 'Киа', 'kia', '/uploads/mark/IheE5DIkvEWkJzByn8AI.png', NULL, NULL, NULL, 1, 'Kia', '', '', '2018-01-25 11:27:23', '2018-01-25 11:27:23'),
+(5, 'Nissan', 'Ниссан', 'nissan', '/uploads/mark/WcxPKssnnlyZrRS9vo1T.png', '', '', NULL, 1, 'Nissan', '', '', '2018-01-25 11:28:42', '2018-01-26 10:49:45'),
+(6, 'Toyota', 'Тойота', 'toyota', '/uploads/mark/HSoawzGBrxQ5xgmcEnNM.png', NULL, NULL, NULL, 1, 'Toyota', '', '', '2018-01-25 11:29:44', '2018-01-25 11:29:44'),
+(7, 'Skoda', 'Шкода', 'skoda', '/uploads/mark/6wXHqXd4CUlZelfyaiKl.png', '', '', NULL, 1, 'Skoda', '', '', '2018-01-25 11:31:19', '2018-01-26 10:50:53'),
+(8, 'Datsun', 'Датсун', 'datsun', '/uploads/mark/mPGfQdmNZ6PC9Wg5EyQz.png', '', '', NULL, 1, 'Datsun', '', '', '2018-01-25 11:33:53', '2018-01-26 10:50:42'),
+(9, 'Mitsubishi', 'Мицубиси', 'mitsubishi', '/uploads/mark/mpH90MVIWuWpiJqr0SS3.png', '', '', NULL, 1, 'Mitsubishi', '', '', '2018-01-25 11:35:06', '2018-01-26 10:50:31'),
+(10, 'Lifan', 'Лифан', 'lifan', '/uploads/mark/AkppWyx4yaR7EEzajUwC.png', '', '', NULL, 1, 'Lifan', '', '', '2018-01-25 11:35:55', '2018-01-26 10:50:23'),
+(11, 'Ssangyong', 'Санйонг', 'ssangyong', '/uploads/mark/JHkDLLDx3e5AXvwmn1Kc.png', '', '', NULL, 1, 'Ssangyong', '', '', '2018-01-25 11:37:32', '2018-01-26 10:50:11'),
+(12, 'UAZ', 'УАЗ', 'uaz', '/uploads/mark/9G19kvaWw0Q8rwURZBHL.png', '', '', NULL, 1, 'UAZ', '', '', '2018-01-25 11:38:34', '2018-01-26 10:49:26'),
+(13, 'Great Wall', 'Грейт уолл', 'great_wall', '/uploads/mark/Zv5jiuxfgnKMnegVu6zF.png', '', '', NULL, 1, 'Great Wall', '', '', '2018-01-25 11:39:40', '2018-01-26 10:49:31'),
+(14, 'Ravon', 'Равон', 'ravon', '/uploads/mark/P4aCVE0uIo3ljebppr7E.png', '', '', NULL, 1, 'Ravon', '', '', '2018-01-25 11:40:41', '2018-01-26 10:49:36'),
+(15, 'Geely', 'Джили', 'geely', '/uploads/mark/sJ79Tg1imP7vUI4qHDSK.png', '', '', NULL, 1, 'Geely', '', '', '2018-01-25 11:42:26', '2018-01-26 10:48:32'),
+(16, 'Ford', 'Форд', 'ford', '/uploads/mark/m3oVQyPMh0YZjzY6YB73.png', '', '', NULL, 1, 'Ford', '', '', '2018-01-25 11:43:22', '2018-01-26 10:48:39'),
+(17, 'Mazda', 'Мазда', 'mazda', '/uploads/mark/bAJCItidCZhibrW4AHoQ.png', NULL, NULL, NULL, 1, 'Mazda', '', '', '2018-01-25 11:44:43', '2018-01-25 11:44:43'),
+(18, 'Haval', 'Хавейл', 'haval', '/uploads/mark/UnyTss7h4eqE7AsKIlSl.png', '', '', NULL, 1, 'Haval', '', '', '2018-01-25 11:45:54', '2018-01-26 10:48:48'),
+(19, 'Suzuki', 'Cудзуки', 'suzuki', '/uploads/mark/QGm8GLb57q5L8CGxJt2w.png', '', '', NULL, 1, 'Suzuki', '', '', '2018-01-25 11:47:41', '2018-01-26 10:48:59'),
+(20, 'Chery', 'Чери', 'chery', '/uploads/mark/STAafLIs4kW5wiNKeBbB.png', '', '', NULL, 1, 'Chery', '', '', '2018-01-25 11:49:38', '2018-01-26 10:49:04'),
+(21, 'Changan', 'Чендэн', 'changan', '/uploads/mark/UinImTP5ZUiMUMYVfzVU.png', '', '', NULL, 1, 'Changan', '', '', '2018-01-25 11:52:12', '2018-01-26 10:49:11'),
+(22, 'Volksvagen', 'Фольксваген', 'volksvagen', '/uploads/mark/M6JKRmAaK7H1p9rVLqgP.png', '', '', NULL, 1, 'Volksvagen', '', '', '2018-01-25 11:53:19', '2018-01-26 10:51:17');
 
 -- --------------------------------------------------------
 
@@ -26050,10 +26051,10 @@ CREATE TABLE `image_gallery` (
 --
 
 INSERT INTO `image_gallery` (`id`, `id_model`, `title`, `image`, `created_at`, `updated_at`) VALUES
-(1, 0, '1', '1517921076.jpeg', '2018-02-06 09:44:36', '2018-02-06 09:44:36'),
-(2, 0, '2', '1517921257.jpeg', '2018-02-06 09:47:37', '2018-02-06 09:47:37'),
-(3, 0, '3', '1517921268.jpeg', '2018-02-06 09:47:48', '2018-02-06 09:47:48'),
-(4, 0, '4', '1517921277.jpeg', '2018-02-06 09:47:57', '2018-02-06 09:47:57');
+(1, 1, '1', '1517921076.jpeg', '2018-02-06 09:44:36', '2018-02-06 09:44:36'),
+(2, 1, '2', '1517921257.jpeg', '2018-02-06 09:47:37', '2018-02-06 09:47:37'),
+(3, 1, '3', '1517921268.jpeg', '2018-02-06 09:47:48', '2018-02-06 09:47:48'),
+(4, 1, '4', '1517921277.jpeg', '2018-02-06 09:47:57', '2018-02-06 09:47:57');
 
 -- --------------------------------------------------------
 
@@ -26218,6 +26219,13 @@ CREATE TABLE `request_trade_ins` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `request_trade_ins`
+--
+
+INSERT INTO `request_trade_ins` (`id`, `name`, `phone`, `ip`, `mark`, `model`, `year`, `mileage`, `trade_in_mark`, `trade_in_model`, `trade_in_complectation`, `created_at`, `updated_at`) VALUES
+(1, 'Вася Пупкин', '+7 (676) 575-6756', '127.0.0.1', 'AC', 'Cobra, Mk IV', 2017, 3234234, 1, 1, 4, '2018-02-07 09:26:19', '2018-02-07 09:26:19');
 
 -- --------------------------------------------------------
 
@@ -26705,7 +26713,7 @@ ALTER TABLE `request_credits`
 -- AUTO_INCREMENT для таблицы `request_trade_ins`
 --
 ALTER TABLE `request_trade_ins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
