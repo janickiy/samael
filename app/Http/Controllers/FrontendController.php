@@ -377,7 +377,7 @@ class FrontendController extends Controller
             ->first();
 
         if ($car) {
-            $colors = CatalogColor::where('id_model', $car->id)->get();
+            $colors = CatalogColor::where('id_model', $car->id)->get()->toArray();
 
             $min_price = CatalogPack::selectRaw('MIN(price)')
                 ->where('id_model', $car->id)

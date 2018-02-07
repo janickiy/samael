@@ -104,14 +104,14 @@
 
                             @if (isset($colors))
 
-                                @foreach($colors as $color)
 
+                                @for($i=0; $i<count($colors); $i++)
                                 <div class="model_sigle_color">
-                                    <div class="model_image" style="background-image:url({!! $color->image !!});"></div>
-                                    <div class="color_name">Цвет:<strong>{!! $color->name !!}</strong></div>
+                                    <div class="model_image" style="background-image:url({!! $colors[$i]['image'] !!});"></div>
+                                    <div class="color_name">Цвет:<strong>{!! $colors[$i]['name'] !!}</strong></div>
                                 </div>
 
-                                @endforeach
+                                @endfor
 
                             @endif
 
@@ -121,11 +121,11 @@
 
                         <ul class="colors_block row">
 
-                            @foreach($colors as $color)
+                             @for($i=0; $i<count($colors); $i++)
 
-                                <li id="color_{!! $color->id !!}"><span style="background:#{!! $color->hex !!}"></span></li>
+                                <li @if($i == 0) class="active" @endif id="color_{!! $colors[$i]['id'] !!}"><span style="background:#{!! $colors[$i]['hex'] !!}"></span></li>
 
-                            @endforeach
+                            @endfor
 
                         </ul>
 
