@@ -15,17 +15,13 @@ use App\Page;
 use App\CatalogMark;
 use App\CatalogModel;
 use App\CatalogModification;
-
 use App\CarMark;
-
-
 use App\CarModel;
 use App\UserReview;
 use App\GeoRegion;
 use App\RequestCredit;
 use App\RequestTradeIn;
 use App\Callback;
-use Intervention\Image\Facades\Image as ImageInt;
 
 class FrontendController extends Controller
 {
@@ -38,7 +34,18 @@ class FrontendController extends Controller
         $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
 
-        return view('frontend.index', compact('marks', 'news'))->with('title', 'Главная');
+        $specialoffers = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.slug as model_slug, catalog_marks.slug as mark_slug, catalog_models.image, catalog_marks.name as mark, catalog_models.body_type, MIN(catalog_packs.price) as price')
+        ->where('catalog_models.published', 1)
+            ->where('catalog_models.special', 1)
+            ->leftJoin('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+            ->leftJoin('catalog_packs', 'catalog_packs.id_model', '=', 'catalog_models.id')
+            ->orderByRaw('RAND()')
+            ->groupBy('catalog_models.id')
+            ->take(8)
+            ->get();
+
+
+        return view('frontend.index', compact('marks', 'news', 'specialoffers'))->with('title', 'Главная');
     }
 
     public function components()
@@ -57,8 +64,6 @@ class FrontendController extends Controller
         $from_time = $request->input('from_time');
         $to_time = $request->input('to_time');
         $to_email = getSetting('CONTACT_EMAIL');
-
-
 
         /*
         \Mail::send('callback.callback',
@@ -79,7 +84,7 @@ class FrontendController extends Controller
         $callBack = Callback::create($request->except('_token'));
         $callBack->ip = getIP();
         $callBack->save();
-        return redirect('/contacts')->with('success', 'Ваша заявка на обратный звонок отправлена. Мы свяжемся с Вами в ближайшее время!');
+        return back()->with('success', 'Ваша заявка на обратный звонок отправлена. Мы свяжемся с Вами в ближайшее время!');
     }
 
     /**
@@ -368,7 +373,7 @@ class FrontendController extends Controller
     {
         $marks = CatalogMark::all();
 
-        $car = CatalogModel::select(['catalog_models.id', 'catalog_models.annotation', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+        $car = CatalogModel::select(['catalog_models.id', 'catalog_models.body_type', 'catalog_marks.id as id_car_mark', 'catalog_models.annotation', 'catalog_models.bannerText', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
             ->where('catalog_models.slug', $model)
             ->where('catalog_models.published', 1)
             ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
@@ -426,8 +431,19 @@ class FrontendController extends Controller
                         ];
 
 
+            $similarcars = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.slug as model_slug, catalog_marks.slug as mark_slug, catalog_models.image, catalog_marks.name as mark, catalog_models.body_type, MIN(catalog_packs.price) as price')
+                ->where('catalog_models.published', 1)
+                ->where('catalog_models.id_car_mark', $car->id_car_mark)
+                ->where('catalog_models.body_type', $car->body_type)
+                ->leftJoin('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+                ->leftJoin('catalog_packs', 'catalog_packs.id_model', '=', 'catalog_models.id')
+                ->orderByRaw('RAND()')
+                ->groupBy('catalog_models.id')
+                ->take(8)
+                ->get();
 
-            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options'))->with('title', '');
+
+            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars'))->with('title', '');
         }
 
         abort(404);

@@ -54,83 +54,32 @@
                     </div>
                 </div>
             </div>
+
+            @if(isset($specialoffers) && count($specialoffers) > 0)
+
             <div class="specials_block row">
                 <div class="specials_block_title">Специальные предложения</div>
                 <ul class="row item_list container">
+
+                    @foreach($specialoffers as $specialoffer)
+
                     <li>
                         <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
+                            <a href="{!! url('/auto/' . $specialoffer->mark_slug . '/' . $specialoffer->model_slug) !!}">
+                                <div class="item_image"><img src="{!! $specialoffer->image !!}" /></div>
+                                <div class="item_name">{!! $specialoffer->mark !!} {!! $specialoffer->model !!} {!! bodyType($specialoffer->body_type) !!}</div>
+                                <div class="item_price">от <span>{!! $specialoffer->price !!}</span> руб.</div>
                             </a>
                         </div>
                     </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
+
+                    @endforeach
+
                 </ul>
             </div>
+
+            @endif
+
         </div>
     </div>
     <div class="index_page_2">
@@ -146,7 +95,7 @@
                             <div class="article row">
                                 <a href="{{ url('/news/' . $new->slug) }}">
                                     <div class="cs_mark"></div>
-                                    <div class="article_image" style="background-image:url(/images/a_1.jpg);"></div>
+
                                     <p>{!! $new->content !!}</p>
                                 </a>
                             </div>

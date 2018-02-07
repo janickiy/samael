@@ -97,6 +97,14 @@
                         {!! Form::textarea('galleryContent', old('galleryContent', isset($catalogmodel) ? $catalogmodel->galleryContent : null), ['class' => 'form-control', 'placeholder' => 'Текст для вкладки галлерея', 'rows' => 5]) !!}
                     </div>
                 </div>
+
+                <div class="form-group">
+                    {!! Form::label('bannerText', 'Текст на баннер', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        {!! Form::textarea('bannerText', old('bannerText', isset($catalogmodel) ? $catalogmodel->bannerText : null), ['class' => 'form-control', 'placeholder'=>'Текст на баннер', 'rows' => 2]) !!}
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('meta_title', 'meta title', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
@@ -109,12 +117,54 @@
                         {!! Form::text('meta_keywords', old('meta_keywordse', isset($catalogmodel) ? $catalogmodel->meta_keywords : null), ['class' => 'form-control', 'placeholder'=>'meta keywords']) !!}
                     </div>
                 </div>
+
                 <div class="form-group">
                     {!! Form::label('meta_description', 'meta description', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::textarea('meta_description', old('meta_description', isset($catalogmodel) ? $catalogmodel->meta_description : null), ['class' => 'form-control', 'placeholder'=>'meta description', 'rows' => 2]) !!}
                     </div>
                 </div>
+
+                <div class="form-group">
+                    {!! Form::label('body_type', 'Тип кузова', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        {{ Form::select('body_type',
+                        [
+                        'hatchback_5' => 'Хэтчбек 5D',
+                        'hatchback_3' => 'Хэтчбек 3D',
+                        'liftback' => 'Лифтбек',
+                        'sedan' => 'Седан',
+                        'wagon' => 'Универсал',
+                        'wagon_5' => 'Универсал 5 мест',
+                        'wagon_7' => 'Универсал 7 мест',
+                        'coupe' => 'Купе',
+                        'suv' => 'Внедорожник',
+                        'suv_3' => 'Внедорожник 3',
+                        'suv_5' => 'Внедорожник 5D',
+                        'crossover' => 'Кроссовер',
+                        'truck' => 'Грузовик',
+                        'pickup' => 'Пикап',
+                        'van' => 'Минивен',
+                        'convertible' => 'Кабриолет'
+                         ], isset($catalogmodel) ? $catalogmodel->sedan : 'sedan', ['class' => 'select2']) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('special', 'Специальное предложение', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        <label class="check">
+                            @if(isset($catalogmodel))
+                                {!! Form::checkbox('special',1,  old('special' , (isset($catalogmodel) && ($catalogmodel->getOriginal('special') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
+                            @else
+                                {!! Form::checkbox('special',1,  old('special' , true) ,['class'=>'minimal']) !!}
+                            @endif
+
+                            Да</label>
+
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
@@ -128,6 +178,7 @@
                             Да</label>
                     </div>
                 </div>
+
                 <div class="form-group"><div class="col-md-8 col-md-offset-2">
                         @if (isset($catalogmodel) && (file_exists(public_path() . $catalogmodel->image)) )
                             <img src="{!! $catalogmodel->image !!}">

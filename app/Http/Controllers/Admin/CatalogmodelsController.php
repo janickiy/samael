@@ -87,10 +87,13 @@ class CatalogmodelsController extends Controller
         $catalogModel->content = trim($request->input('content'));
         $catalogModel->parametersContent = trim($request->input('parametersContent'));
         $catalogModel->galleryContent = trim($request->input('galleryContent'));
+        $catalogModel->bannerText = trim($request->input('bannerText'));
         $catalogModel->meta_title = trim($request->input('meta_title'));
         $catalogModel->meta_keywords = trim($request->input('meta_keywords'));
         $catalogModel->meta_description = trim($request->input('meta_description'));
+        $catalogModel->body_type = $request->input('body_type');
         $catalogModel->published = $request->input('published');
+        $catalogModel->special = $request->input('special');
         $catalogModel->updated_at = \Carbon::now();
         $catalogModel->save();
 

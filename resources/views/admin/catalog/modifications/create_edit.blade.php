@@ -280,31 +280,6 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('body_type', 'Тип кузова', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {{ Form::select('body_type',
-                        [
-                        'hatchback_5' => 'Хэтчбек 5D',
-                        'hatchback_3' => 'Хэтчбек 3D',
-                        'liftback' => 'Лифтбек',
-                        'sedan' => 'Седан',
-                        'wagon' => 'Универсал',
-                        'wagon_5' => 'Универсал 5 мест',
-                        'wagon_7' => 'Универсал 7 мест',
-                        'coupe' => 'Купе',
-                        'suv' => 'Внедорожник',
-                        'suv_3' => 'Внедорожник 3',
-                        'suv_5' => 'Внедорожник 5D',
-                        'crossover' => 'Кроссовер',
-                        'truck' => 'Грузовик',
-                        'pickup' => 'Пикап',
-                        'van' => 'Минивен',
-                        'convertible' => 'Кабриолет'
-                         ], isset($catalogmodification) ? $catalogmodification->sedan : 'sedan', ['class' => 'select2']) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
                     {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         <label class="check">

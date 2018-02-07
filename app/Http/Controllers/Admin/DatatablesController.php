@@ -390,10 +390,6 @@ class DatatablesController extends Controller
                 return $catalogModifications->published ? 'опубликован' : 'не опубликован';
             })
 
-            ->addColumn('bodyType', function ($catalogModifications) {
-                return bodyType($catalogModifications->body_type);
-            })
-
             ->addColumn('actions', function ($catalogModifications) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/modifications/' . $catalogModifications->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/modifications/' . $catalogModifications->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';

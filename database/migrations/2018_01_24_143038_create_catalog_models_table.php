@@ -22,7 +22,14 @@ class CreateCatalogModelsTable extends Migration
             $table->text('content')->nullable()->comment('Контент');
             $table->text('parametersContent')->nullable()->comment('Текст для вкладки характеристик');
             $table->text('galleryContent')->nullable()->comment('Текст для вкладки галлерея');
+
+            $table->text('bannerText')->nullable()->comment('Текст на баннер');
+
+
+
             $table->string('image')->comment('логотип');
+            $table->string('body_type')->comment('тип кузова');
+            $table->boolean('special')->default(1);
             $table->boolean('published')->default(1);
             $table->string('meta_title')->nullable();
             $table->string('meta_keywords')->nullable();

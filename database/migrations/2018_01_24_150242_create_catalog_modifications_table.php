@@ -16,7 +16,6 @@ class CreateCatalogModificationsTable extends Migration
             $table->increments('id');
             $table->integer('id_model')->index('id_model')->comment('');
             $table->string('name')->comment('название');
-            $table->string('body_type')->comment('тип кузова');
             $table->integer('length')->comment('Длина, мм');
             $table->integer('width')->comment('Ширина, мм');
             $table->integer('height')->comment('Высота, мм');

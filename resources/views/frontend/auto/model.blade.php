@@ -17,10 +17,79 @@
 @section('marks')
 
     @include('layouts.frontend.includes.mark_list')
+
+    {!! Html::style('css/fancybox/jquery.fancybox.css') !!}
+
+    <style>
+
+        .select2-container .select2-selection--single {height: 52px;width: 100%; border-radius:4px;}
+        .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 50px; }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {height: 50px;}
+        .select2-container--default .select2-selection--single .select2-selection__rendered {color: #747474;}
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {background-color: #ee8116;}
+
+    </style>
     
 @endsection
 
 @section('content')
+
+    <!-- hidden inline form -->
+    <div id="inline">
+        <h2>Отправка сообщения</h2>
+
+        {!! Form::open(['url' => '/callback', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
+
+        <div class="form_field">
+            {!! Form::text('name', old('name'), ['class' => 'form_control  validate[required]', 'placeholder'=>'Ваше имя']) !!}
+        </div>
+
+        <div class="form_field">
+            {!! Form::text('phone', old('phone'), ['class' => 'form_control form_phone validate[required,custom[phone]]', 'placeholder'=>'Ваше телефон']) !!}
+        </div>
+
+        <div class="form_field">
+            Удобное время звонка
+            {!! Form::select('from_time', [
+                '9:00' => '9:00',
+                '10:00' => '10:00',
+                '11:00' => '11:00',
+                '12:00' => '12:00',
+                '13:00' => '13:00',
+                '14:00' => '14:00',
+                '15:00' => '15:00',
+                '16:00' => '16:00',
+                '17:00' => '17:00',
+                '18:00' => '18:00',
+                '19:00' => '19:00',
+                ], '9:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
+                )
+            !!}
+
+            {!! Form::select('to_time', [
+               '9:00' => '9:00',
+               '10:00' => '10:00',
+               '11:00' => '11:00',
+               '12:00' => '12:00',
+               '13:00' => '13:00',
+               '14:00' => '14:00',
+               '15:00' => '15:00',
+               '16:00' => '16:00',
+               '17:00' => '17:00',
+               '18:00' => '18:00',
+               '19:00' => '19:00',
+               ], '19:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
+               )
+           !!}
+
+        </div>
+
+        {!! Form::submit('Отправить', ['class'=>'btn']) !!}
+        {!! Form::close() !!}
+
+    </div>
+
+
 
     <div class="inset_page white_bg">
         <div class="model_page row">
@@ -78,7 +147,7 @@
                         Цена:
                         @if($prev_price)<div class="old_price"><del>от <span>{!! number_format($prev_price,0,'',' ') !!}</span> руб.</del></div>@endif
                         <div class="new_price">от <span>{!! number_format($price,0,'',' ') !!}</span> руб.</div>
-                        <div class="discount">Скидка в феврале<br/>до <span>123 000</span> руб.</div>
+                        @if(isset($car->bannerText) && !empty($car->bannerText))<div class="discount">{!! $car->bannerText !!}</div>@endif
                     </div>
                     <div class="request_form_block">
                         <div class="request_form">
@@ -250,12 +319,6 @@
                                 </div>
                             </div>
                             <div class="specialty_content">
-
-
-
-
-
-
                                 <table>
                                     <thead>
                                     <tr>
@@ -276,8 +339,8 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                {!! $car->parametersContent !!}
 
+                                {!! $car->parametersContent !!}
 
                             </div>
                             <div class="specialty_content">
@@ -297,7 +360,7 @@
                                 <div class="times">с <span>9-00</span> до <span>20-00</span>, без выходных</div>
                                 <div class="addresses">{!! getSetting('FRONTEND_ADDRESS') !!}</div>
                             </div>
-                            <a href="" class="btn">Обраный звонок</a>
+                            <a href="#inline" class="btn modalbox">Обраный звонок</a>
                         </div>
                     </div>
                 </div>
@@ -315,83 +378,31 @@
                 </script>
             </div>
 
+            @if(isset($similarcars) && count($similarcars) > 0)
+
             <div class="specials_block row">
                 <h2>Похожие предложения</h2>
                 <ul class="row item_list container">
+
+                    @foreach($similarcars as $similarcar)
+
                     <li>
                         <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
+                            <a href="{!! url('/auto/' . $similarcar->mark_slug . '/' . $similarcar->model_slug) !!}">
+                                <div class="item_image"><img src="{!! $similarcar->image !!}" /></div>
+                                <div class="item_name">{!! $similarcar->mark !!} {!! $similarcar->model !!} {!! $similarcar->body_type !!}</div>
+                                <div class="item_price">от <span>{!! $similarcar->price !!}</span> руб.</div>
                             </a>
                         </div>
                     </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_1.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_item">
-                            <a href="">
-                                <div class="item_image"><img src="/images/item_2.jpg" /></div>
-                                <div class="item_name">Huyndai i30 Седан</div>
-                                <div class="item_price">от <span>657 000</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
+
+                    @endforeach
+
                 </ul>
             </div>
+
+            @endif
+
         </div>
     </div>
 
@@ -404,5 +415,22 @@
 
 @section('js')
 
+    {!! Html::script('assets/plugins/select2/select2.full.min.js') !!}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".select2").select2();
+        })
+
+        $(function(){
+            $(".form_phone").mask("+7 (999) 999-9999");
+        })
+
+        $(document).ready(function() {
+            $(".modalbox").fancybox();
+
+        });
+
+    </script>
 
 @endsection

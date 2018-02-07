@@ -45,7 +45,6 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Тип кузова</th>
                     <th>Опубликован</th>
                     <th>Создано</th>
                     <th>Обновлено</th>
@@ -90,7 +89,6 @@
             ajax: '{!! url("admin/datatables/catalogmodifications/{$id}") !!}',
             columns: [
                 {data: 'name', name: 'name'},
-                {data: 'bodyType', name: 'bodyType'},
                 {data: 'status', name: 'status'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},
