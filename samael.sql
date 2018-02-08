@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 08 2018 г., 10:40
+-- Время создания: Фев 08 2018 г., 16:04
 -- Версия сервера: 10.1.28-MariaDB
 -- Версия PHP: 7.1.10
 
@@ -46,7 +46,8 @@ CREATE TABLE `callbacks` (
 INSERT INTO `callbacks` (`id`, `name`, `phone`, `from_time`, `to_time`, `ip`, `created_at`, `updated_at`) VALUES
 (1, 'ewqe', '+7 (322) 432-4324', '11:00', '16:00', '127.0.0.1', '2018-02-07 09:44:10', '2018-02-07 06:44:10'),
 (2, 'rewrwe', '+7 (343) 243-2423', '13:00', '19:00', '127.0.0.1', '2018-02-07 09:50:55', '2018-02-07 06:50:55'),
-(3, 'werwr we', '+7 (234) 235-2345', '13:00', '19:00', '127.0.0.1', '2018-02-07 09:52:10', '2018-02-07 06:52:10');
+(3, 'werwr we', '+7 (234) 235-2345', '13:00', '19:00', '127.0.0.1', '2018-02-07 09:52:10', '2018-02-07 06:52:10'),
+(4, 'йцуйц', '+7 (324) 235-4353', '10:00', '15:00', '127.0.0.1', '2018-02-08 13:14:34', '2018-02-08 10:14:34');
 
 -- --------------------------------------------------------
 
@@ -26186,6 +26187,7 @@ CREATE TABLE `request_credits` (
   `model` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `complectation` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `registration` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'регион по прописке',
+  `tradein_available` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -26195,8 +26197,13 @@ CREATE TABLE `request_credits` (
 -- Дамп данных таблицы `request_credits`
 --
 
-INSERT INTO `request_credits` (`id`, `name`, `age`, `phone`, `fee`, `ip`, `mark`, `model`, `complectation`, `registration`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Вася Пупкин', 19, '+7 (765) 675-6756', 20, '127.0.0.1', 'Hyundai', 'Sandero New', '5', 'Москва и Московская обл.', 0, '2018-02-08 06:22:47', '2018-02-08 06:22:47');
+INSERT INTO `request_credits` (`id`, `name`, `age`, `phone`, `fee`, `ip`, `mark`, `model`, `complectation`, `registration`, `tradein_available`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Вася Пупкин', 19, '+7 (765) 675-6756', 20, '127.0.0.1', 'Hyundai', 'Sandero New', '5', 'Москва и Московская обл.', 0, 0, '2018-02-08 06:22:47', '2018-02-08 06:22:47'),
+(2, 'цукцйк', 0, '+7 (654) 646-4564', 10, '127.0.0.1', 'Hyundai', 'Sandero New', '6', 'Магаданская обл.', 0, 0, '2018-02-08 10:10:50', '2018-02-08 10:10:50'),
+(3, 'цукцйк', 0, '+7 (654) 646-4564', 10, '127.0.0.1', 'Hyundai', 'Sandero New', '6', 'екеу', 0, 0, '2018-02-08 10:13:10', '2018-02-08 10:13:10'),
+(4, 'цукцйк', 0, '+7 (654) 646-4564', 10, '127.0.0.1', 'Hyundai', 'Sandero New', '6', 'Мордовия', 0, 0, '2018-02-08 10:14:06', '2018-02-08 10:14:06'),
+(5, 'qweqweqw', 0, '+7 (345) 464-5645', 0, '127.0.0.1', 'Hyundai', 'Sandero New', '11', '', 0, 0, '2018-02-08 12:02:12', '2018-02-08 12:02:12'),
+(6, 'gfhgfh', 0, '+7 (768) 768-7687', 0, '127.0.0.1', 'Hyundai', 'Sandero New', '11', '', 0, 0, '2018-02-08 12:03:38', '2018-02-08 12:03:38');
 
 -- --------------------------------------------------------
 
@@ -26361,7 +26368,8 @@ INSERT INTO `user_reviews` (`id`, `author`, `email`, `message`, `published`, `pu
 (48, 'gfhfg', '', 'gfhgfh', 0, '0000-00-00 00:00:00', '2018-01-15 07:28:12', '2018-01-15 07:28:12'),
 (49, 'fghgf', '', 'gfhfg', 1, '2018-01-15 10:28:51', '2018-01-15 07:28:15', '2018-01-15 07:28:51'),
 (50, 'gfh', '', 'fghgf', 1, '2018-01-15 10:28:53', '2018-01-15 07:28:18', '2018-01-15 07:28:53'),
-(51, 'gfh', '', 'gfh', 1, '2018-01-15 10:28:52', '2018-01-15 07:28:20', '2018-01-15 07:28:52');
+(51, 'gfh', '', 'gfh', 1, '2018-01-15 10:28:52', '2018-01-15 07:28:20', '2018-01-15 07:28:52'),
+(52, '654645', 'werwr@weqwe.ru', 'ertet ret e', 0, '0000-00-00 00:00:00', '2018-02-08 10:14:48', '2018-02-08 10:14:48');
 
 --
 -- Индексы сохранённых таблиц
@@ -26542,7 +26550,8 @@ ALTER TABLE `password_resets`
 -- Индексы таблицы `request_credits`
 --
 ALTER TABLE `request_credits`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `complectation` (`complectation`);
 
 --
 -- Индексы таблицы `request_trade_ins`
@@ -26581,7 +26590,7 @@ ALTER TABLE `user_reviews`
 -- AUTO_INCREMENT для таблицы `callbacks`
 --
 ALTER TABLE `callbacks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `car_marks`
@@ -26707,7 +26716,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT для таблицы `request_credits`
 --
 ALTER TABLE `request_credits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `request_trade_ins`
@@ -26731,7 +26740,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT для таблицы `user_reviews`
 --
 ALTER TABLE `user_reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

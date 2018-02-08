@@ -23,6 +23,7 @@ class CreateRequestCreditsTable extends Migration
             $table->string('model')->comment('модель');
             $table->string('complectation')->comment('комплектация');
             $table->string('registration')->comment('регион по прописке');
+            $table->boolean('tradein_available');
             $table->boolean('status');
             $table->timestamps();
         });

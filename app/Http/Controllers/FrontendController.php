@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CatalogColor;
+use App\CatalogComplectation;
 use App\CatalogPack;
 use App\CatalogParameterValue;
 use App\ImageGallery;
@@ -12,6 +13,8 @@ use App\Http\Requests\RequestCreditsRequest;
 use App\Http\Requests\RequestTradeInsRequest;
 use App\Http\Requests\UserReviewsRequest;
 use App\Http\Requests\CallbacksRequest;
+use App\Http\Requests\RequestCreditsQuickRequest;
+use App\Http\Requests\RequestBuyCreditsRequest;
 use App\Page;
 use App\CatalogMark;
 use App\CatalogModel;
@@ -410,6 +413,18 @@ class FrontendController extends Controller
             ->first();
 
         if ($car) {
+
+            $complectations = CatalogModification::where('id_model', $car->id)
+                ->where('published', 1)
+                ->get()
+                ->toArray();
+
+            $complectation_options[null] = 'Комплектация';
+
+            foreach ($complectations  as $complectation) {
+                $complectation_options[$complectation['id']] = $complectation['name'];
+            }
+
             $colors = CatalogColor::where('id_model', $car->id)->get()->toArray();
 
             $min_price = CatalogPack::selectRaw('MIN(price)')
@@ -473,7 +488,9 @@ class FrontendController extends Controller
 
             $gallery_pics = ImageGallery::where('id_model', $car->id)->get();
 
-            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics'))->with('title', '');
+
+
+            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'))->with('title', $car->name);
         }
 
         abort(404);
@@ -534,6 +551,42 @@ class FrontendController extends Controller
         $requestCredit->ip = getIP();
         $requestCredit->save();
         return redirect('/credit')->with('success', 'Ваша заявка на автокредит отправлена. Мы свяжемся с Вами в ближайшее время!');
+    }
+
+    /**
+     * @param RequestCreditsQuickRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function requestCreditQuick(RequestCreditsQuickRequest $request)
+    {
+        $mark = CatalogMark::select(['name'])->where('id', $request->mark)->first()->toArray();
+        $model = CatalogModel::select(['name'])->where('id', $request->model)->first()->toArray();
+
+        $requestCredit = RequestCredit::create($request->except('_token'));
+        $requestCredit->mark = $mark['name'];
+        $requestCredit->model = $model['name'];
+        $requestCredit->ip = getIP();
+        $requestCredit->save();
+
+        return back()->with('success', 'Ваша заявка на автокредит отправлена. Мы свяжемся с Вами в ближайшее время!');
+    }
+
+    /**
+     * @param RequestBuyCreditsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function requestBuyCredit(RequestBuyCreditsRequest $request)
+    {
+        $mark = CatalogMark::select(['name'])->where('id', $request->mark)->first()->toArray();
+        $model = CatalogModel::select(['name'])->where('id', $request->model)->first()->toArray();
+
+        $requestCredit = RequestCredit::create($request->except('_token'));
+        $requestCredit->mark = $mark['name'];
+        $requestCredit->model = $model['name'];
+        $requestCredit->ip = getIP();
+        $requestCredit->save();
+
+        return back()->with('success', 'Ваша заявка на автокредит отправлена. Мы свяжемся с Вами в ближайшее время!');
     }
 
     /**

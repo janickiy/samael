@@ -80,6 +80,36 @@
 
     </div>
 
+    <!-- hidden inline form -->
+    <div id="inline_credit">
+        <h2>Узнайте о кредитовании {!! $car->mark !!}</a> - <span>{!! $car->model !!}</h2>
+        <p>Оставьте свои данные и мы попробуем подобрать для Вас лучшие условия по кредиту.</p>
+
+        {!! Form::open(['url' => '/buy_in_credit_request', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
+
+        {!! Form::hidden('mark', $car->id_car_mark) !!}
+
+        {!! Form::hidden('model', $car->id) !!}
+
+        {!! Form::hidden('complectation', null, ['id' => 'inline_credit_complectation']) !!}
+
+        <div class="form_field">
+
+            {!! Form::text('name', old('name'), ['class' => 'form_control  validate[required]', 'placeholder'=>'Ваше ФИО']) !!}
+
+        </div>
+
+        <div class="form_field">
+
+            {!! Form::text('phone', old('phone'), ['class' => 'form_control  form_phone validate[required,custom[phone]]', 'placeholder'=>'+7 (___) ___ - __ - __']) !!}
+
+        </div>
+
+        {!! Form::submit('Отправить', ['class'=>'btn']) !!}
+
+        {!! Form::close() !!}
+
+    </div>
 
 
     <div class="inset_page white_bg">
@@ -95,8 +125,8 @@
 
                             @if (isset($colors))
 
-
                                 @for($i=0; $i<count($colors); $i++)
+
                                 <div class="model_sigle_color @if($i == 0) active @endif " >
                                     <div class="model_image" style="background-image:url({!! $colors[$i]['image'] !!});"></div>
                                     <div class="color_name">Цвет:<strong>{!! $colors[$i]['name'] !!}</strong></div>
@@ -145,55 +175,50 @@
                             <div class="form_title">
                                 Заявка<br/>на автокредит от <span>0%</span>
                             </div>
-                            <select class="form_control select2">
-                                <option>Комплектация</option>
-                                <option>Ambiente 1.6 MT</option>
-                                <option>Вариант</option>
-                                <option>Вариант</option>
-                                <option>Вариант</option>
-                            </select>
 
+                            {!! Form::open(['url' => '/request-credit-quick', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
 
+                            {!! Form::hidden('mark', $car->id_car_mark) !!}
 
+                            {!! Form::hidden('model', $car->id) !!}
 
+                            {!! Form::select('complectation', $complectation_options, isset($request->complectation) ? $request->complectation : 'Комплектация', ['class' => 'select2 validate[required]']) !!}
 
+                            {!! Form::select('fee', [
+                               '0' => 'Первоначальный взнос 0%',
+                               '10' => 'Первоначальный взнос 10%',
+                               '20' => 'Первоначальный взнос 20%',
+                               '30' => 'Первоначальный взнос 30%',
+                               '40' => 'Первоначальный взнос 40%',
+                               '50' => 'Первоначальный взнос 50%',
+                               '60' => 'Первоначальный взнос 60%',
+                               '70' => 'Первоначальный взнос 70%',
+                               '80' => 'Первоначальный взнос 80%',
+                               ], 'Первоначальный взнос', ['class' => 'form_control select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'Первоначальный взнос']
+                            ) !!}
 
+                            {!! Form::text('name', old('name'), ['class' => 'form_control validate[required]', 'placeholder'=>'Ф.И.О.']) !!}
 
+                            {!! Form::text('registration', old('registration'), ['class' => 'who form_control validate[required]', 'placeholder'=>'Регион по прописке', 'autocomplete' => 'off', 'id' => 'search_registration']) !!}
 
+                            <ul class="search_result_registration search_result"></ul>
 
+                            {!! Form::text('phone', old('phone'), ['class' => 'form_control form_phone validate[required,custom[phone]]', 'placeholder' => '+7 (___) ___ - __ - __']) !!}
 
-
-
-
-                            <select class="form_control select2">
-                                <option>Первоначальный взнос</option>
-                                <option>10%</option>
-                                <option>Вариант</option>
-                                <option>Вариант</option>
-                                <option>Вариант</option>
-                            </select>
-                            <input type="text" class="form_control" placeholder="Ф.И.О." />
-                            <select class="form_control select2 region_select">
-                                <option>Регион по прописке</option>
-                                <option>Москва</option>
-                                <option>Свердловская область</option>
-                                <option>Ленинградская область</option>
-                                <option>Алтайский край</option>
-                            </select>
-                            <input type="text" class="form_control phone_form" placeholder="+7 (___) ___ - __ - __" />
                             <div class="tradein_check">
-                                <input type="checkbox" class="checkbox" id="tradein_check"></input><label for="tradein_check">Есть автомобиль в Trade-In</label>
+
+                                {!! Form::checkbox('tradein_available', null, null, ['class' => 'checkbox validate[required[alertTextCheckboxe]]', 'id' => 'tradein_check']) !!}
+
+                                {!! Form::label('tradein_check', 'Есть автомобиль в Trade-In') !!}
+
                             </div>
-                            <input type="submit" class="btn" value="Подобрать" />
+
+                            {!! Form::submit('Подобрать', ['class'=>'btn']) !!}
+
+                            {!! Form::close() !!}
+
                         </div>
-                        <script>
-                            $(document).ready(function() {
-                                jQuery(function($){
-                                    $(".select2").select2();
-                                    $(".phone_form").mask("+7 (999) 999 - 99 - 99");
-                                });
-                            });
-                        </script>
+
                     </div>
                 </div>
             </div>
@@ -215,7 +240,12 @@
                         <div class="specialty_content_block">
                             <div class="specialty_content active">
                                 <div class="model_characteristics">
-                                    <div class="model_title">1.4 6МТ</div>
+
+                                    @foreach($complectations as $complectation)
+
+                                    @if(count(getPacks($car->id, $complectation['id'])) > 0)
+
+                                    <div class="model_title">{!! $complectation['name'] !!}</div>
                                     <div class="model_characteristics_tab">
                                         <div class="sort row">
                                             <div class="complectation_name">Комплектация</div>
@@ -223,104 +253,33 @@
                                             <div class="power"><a class="sort_link minmax">Мощность</a></div>
                                             <div class="price"><a class="sort_link maxmin">Цена</a></div>
                                         </div>
+
                                         <ul class="sort_results">
+
+                                            @foreach(getPacks($car->id, $complectation['id']) as $row)
+
                                             <li>
                                                 <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_1"></input><label for="c_1">Active</label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
+                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_1"></input><label for="c_1">{!! $row['name'] !!}</label></div>
+                                                    <div class="KPP">{!! gearboxType($complectation['gearbox']) !!}</div>
+                                                    <div class="power">{!! $complectation['power'] !!}</div>
+                                                    <div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}<span> руб</div>
+                                                    <div class="buy_link"><a href="#inline_credit" data-id="{{ $row['complectation'] }}" class="btn modalbox">Купить в кредит</a></div>
                                                     <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_2"></input><label for="c_2">Active+ </label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_2"></input><label for="c_2">Comfort</label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_2"></input><label for="c_2">Comfort+</label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
-                                                </div>
-                                            </li>
+
+                                            @endforeach
+
                                         </ul>
-                                    </div>
-                                </div>
-                                <div class="model_characteristics">
-                                    <div class="model_title">1.4 6МТ</div>
-                                    <div class="model_characteristics_tab">
-                                        <div class="sort row">
-                                            <div class="complectation_name">Комплектация</div>
-                                            <div class="KPP"><a class="sort_link minmax">КПП</a></div>
-                                            <div class="power"><a class="sort_link minmax">Мощность</a></div>
-                                            <div class="price"><a class="sort_link maxmin">Цена</a></div>
-                                        </div>
-                                        <ul class="sort_results">
-                                            <li>
-                                                <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_1"></input><label for="c_1">Active</label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_2"></input><label for="c_2">Active+ </label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_2"></input><label for="c_2">Comfort</label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_2"></input><label for="c_2">Comfort+</label></div>
-                                                    <div class="KPP">МКПП</div>
-                                                    <div class="power">100 л.с.</div>
-                                                    <div class="price">от <span>520 000<span> руб</div>
-                                                    <div class="buy_link"><a href="" class="btn">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href=""><img src="/images/print_ico.png" /></a></div>
-                                                </div>
-                                            </li>
-                                        </ul>
+
                                         <a href="" class="btn disabled">Сравнить</a>
                                     </div>
+                                        @endif
+                                    @endforeach
+
                                 </div>
+
                             </div>
                             <div class="specialty_content">
                                 <table>
@@ -430,6 +389,13 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function() {
+            jQuery(function($){
+                $(".select2").select2();
+                $(".phone_form").mask("+7 (999) 999 - 99 - 99");
+            });
+        });
+
         $(document).ready(function () {
             $(".select2").select2();
         })
@@ -440,6 +406,12 @@
 
         $(document).ready(function() {
             $(".modalbox").fancybox();
+        });
+
+        $(".modalbox").on("click", function() {
+            $("#inline_credit_complectation").val('');
+            var Complectation  = $(this).attr("data-id");
+            $("#inline_credit_complectation").val(Complectation);
         });
 
         $(document).ready(function() {
@@ -479,6 +451,43 @@
                 "frameWidth" : 800,
                 "frameHeight" : 600
             });
+
+            $("#search_registration").on("change keyup input click", function() {
+                if (this.value.length >= 2){
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/ajax?action=search_registration&registration=' + this.value,
+                        dataType : "json",
+                        success: function(data){
+                            if (data != null && data.item != null) {
+                                var html = '';
+
+                                for(var i=0; i < data.item.length; i++) {
+                                    html += '<li data-item="' + data.item[i].id + '">' + data.item[i].name + '</li>';
+                                }
+
+                                console.log(html);
+
+                                if (html != '')
+                                    $(".search_result_registration").html(html).fadeIn();
+                                else
+                                    $(".search_result_registration").fadeOut();
+                            }
+                        }
+                    })
+                }
+            })
+
+            $(".search_result_registration").hover(function(){
+                $(".who").blur();
+            })
+
+            $(".search_result_registration").on("click", "li", function(){
+                $("#search_registration").val($(this).text());
+                $(".search_result_registration").fadeOut();
+            })
+
         });
 
     </script>

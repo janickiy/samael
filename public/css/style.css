@@ -675,6 +675,7 @@ body.rtl .formError .formErrorArrow {
 
 #wrapper { width: 640px; margin: 0 auto; padding:90px 0 0 0; }
 #inline { display: none;}
+#inline_credit { display: none;}
 
 .txt {
     display: inline-block;

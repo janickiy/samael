@@ -57,7 +57,7 @@
                             '60' => 'Первоначальный взнос 60%',
                             '70' => 'Первоначальный взнос 70%',
                             '80' => 'Первоначальный взнос 80%',
-                            ], 'Первоначальный взнос', ['class' => 'form_control select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'Первоначальный взнос']
+                            ], isset($request->fee) ? $request->fee : 'Первоначальный взнос', ['class' => 'form_control select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'Первоначальный взнос']
                             ) !!}
                         </div>
                         <br/>

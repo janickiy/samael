@@ -443,3 +443,15 @@ function getPrevPrice($id_modification, $id_complectation)
     } else
         return 0;
 }
+
+function getPacks($id_model, $id_modification)
+{
+    if (is_numeric($id_model) && is_numeric($id_modification)) {
+        return \App\CatalogPack::select(['catalog_packs.id_complectation as complectation', 'catalog_packs.price', 'catalog_packs.prev_price', 'catalog_packs.best_price', 'catalog_complectations.name as name'])
+            ->where('catalog_packs.id_modification', $id_modification)
+            ->where('catalog_packs.id_model', $id_model)
+            ->leftJoin('catalog_complectations', 'catalog_complectations.id', '=', 'catalog_packs.id_complectation')
+            ->get()
+            ->toArray();
+    }
+}
