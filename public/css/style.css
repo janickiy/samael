@@ -107,7 +107,7 @@ a.logo {display:inline-block;float:left;}
 .nav_wrapper {background:#25aae1;border-top:1px solid #1182b1;border-bottom:1px solid #1182b1;padding:10px 0;position:relative;}
 .nav_wrapper:after {position:absolute;display:block;content:'';width:100%;height:5px;left:0;bottom:-5px;background:rgba(17, 17, 17, 0.25);}
 .nav_wrapper nav ul {margin-left:-15px;margin-right:-15px;}
-.nav_wrapper nav ul li {float:left;padding: 0 23px 0 25px;position:relative;}
+.nav_wrapper nav ul li {float:left;padding: 0 16px 0 17px;position:relative;}
 .nav_wrapper nav ul li:before {content:'';display:block;width:1px; height:20px;background:url(/images/nav_border.png);position:absolute;    top: 0;left: 0;}
 .nav_wrapper nav ul li:first-of-type {padding-left:17px;}
 .nav_wrapper nav ul li:first-of-type:before  {display:none;}
@@ -440,12 +440,15 @@ a.mobile_nav_ico{position: absolute; top: -2px; left: 10px;}
 .cars_filter {background:transparent;box-shadow:none;padding: 10px;text-align: center;}
 .cars_filter_block {width:100%;margin:0 0 10px;text-align: left;}
 .request_page_content {width:100%;float:none;}
+.request_text {background: rgba(255, 255, 255, 0.75);}
 .request_text p { font-size: 12px;margin-bottom: 10px;}
 .tradein_request_form, .credit_request_form {width: 100%;display: inline-block; padding-right: 0;}
 .presents_block.sidebar.sidebar2 {width: 100%; float: none;}
 .presents_block.sidebar.sidebar2 .present_item_container {width: 50%;float: left;padding: 5px; margin-bottom: 0px;}
 .presents_block.sidebar.sidebar2 .present_item_container .present_item {height: 75px; padding: 5px 10px;}
 .presents_block.sidebar.sidebar2 .present_item_container.present_image_container .present_item {padding: 0px;}
+.sidebar, .mentions_list{ width: 100%; float: none;}
+
 footer {display:none;}
 .footer_mobile {display:block;padding:10px; line-height: 20px;background: #231f20;position:absolute;left:0;bottom:0;width:100%;}
 .footer_mobile img {width: 80px;margin: 10px 0;}

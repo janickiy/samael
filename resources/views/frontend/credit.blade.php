@@ -45,7 +45,7 @@
                             {!! Form::select('complectation', $complectation_options, isset($request->complectation) ? $request->complectation : 'Коплектация', ['class' => 'select2 validate[required]', 'id' => 'complectation', !isset($request->complectation) ? 'disabled' : '']) !!}
                         </div>
 
-                        <br/><br/>
+                        <br/>
                         <div class="select">
                             {!! Form::select('fee', [
                             '0' => 'Первоначальный взнос 0%',
@@ -60,7 +60,7 @@
                             ], 'Первоначальный взнос', ['class' => 'form_control select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'Первоначальный взнос']
                             ) !!}
                         </div>
-                        <br/><br/>
+                        <br/>
 
                         {!! Form::text('name', old('name'), ['class' => 'form_control validate[required]', 'placeholder'=>'Ф.И.О.']) !!}
 

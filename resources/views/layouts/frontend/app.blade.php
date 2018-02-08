@@ -18,6 +18,8 @@
     {!! Html::script('js/jquery-1.11.1.min.js') !!}
 
     {!! Html::script('js/select.js') !!}
+	
+	 {!! Html::script('js/script.js') !!}
 
     {!! Html::script('js/jquery.maskedinput.js') !!}
 
