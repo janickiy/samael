@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 07 2018 г., 16:09
+-- Время создания: Фев 08 2018 г., 10:40
 -- Версия сервера: 10.1.28-MariaDB
 -- Версия PHP: 7.1.10
 
@@ -26084,7 +26084,8 @@ INSERT INTO `menus` (`id`, `title`, `location`, `url`, `status`, `item_order`, `
 (11, 'Trade-in', 'HEADER', 'tradein', 1, 4, '2018-01-23 05:42:47', '2018-01-23 05:42:47'),
 (13, 'Наши клиенты', 'HEADER', 'our_clients', 1, 6, '2018-01-23 05:44:54', '2018-01-23 05:44:54'),
 (14, 'Документы', 'HEADER', 'documents', 1, 7, '2018-01-23 05:45:54', '2018-01-23 05:45:54'),
-(15, 'Контакты', 'HEADER', 'contacts', 1, 8, '2018-01-23 05:46:36', '2018-01-23 05:46:36');
+(15, 'Контакты', 'HEADER', 'contacts', 1, 9, '2018-01-23 05:46:36', '2018-02-08 06:01:51'),
+(16, 'Отзывы', 'HEADER', '/reviews', 1, 8, '2018-02-08 06:01:31', '2018-02-08 06:01:46');
 
 -- --------------------------------------------------------
 
@@ -26195,8 +26196,7 @@ CREATE TABLE `request_credits` (
 --
 
 INSERT INTO `request_credits` (`id`, `name`, `age`, `phone`, `fee`, `ip`, `mark`, `model`, `complectation`, `registration`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Вася Пупкин', 72, '+7 (910) 342-3432', 20, '127.0.0.1', 'Alpina', 'D10, E39', '2.9d MT (245 л.с.)', 'Москва и Московская обл.', 1, '2018-01-11 11:00:14', '2018-01-11 11:21:01'),
-(2, 'Иван Петров', 20, '+7 (765) 675-6756', 20, '127.0.0.1', 'AC', 'Ace', '3.0 MT (223 л.с.)', 'Москва и Московская обл.', 0, '2018-01-17 08:35:25', '2018-01-17 08:35:25');
+(1, 'Вася Пупкин', 19, '+7 (765) 675-6756', 20, '127.0.0.1', 'Hyundai', 'Sandero New', '5', 'Москва и Московская обл.', 0, '2018-02-08 06:22:47', '2018-02-08 06:22:47');
 
 -- --------------------------------------------------------
 
@@ -26611,7 +26611,7 @@ ALTER TABLE `catalog_colors`
 -- AUTO_INCREMENT для таблицы `catalog_complectations`
 --
 ALTER TABLE `catalog_complectations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_marks`
@@ -26689,13 +26689,13 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT для таблицы `image_gallery`
 --
 ALTER TABLE `image_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `pages`
@@ -26707,7 +26707,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT для таблицы `request_credits`
 --
 ALTER TABLE `request_credits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `request_trade_ins`
