@@ -75,8 +75,8 @@ Route::group(['prefix' => ''], function() {
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::any('/', 'FrontendController@index');
-    Route::get('/auto', 'FrontendController@allAuto');
+    Route::get('/', 'FrontendController@index');
+    Route::any('/auto', 'FrontendController@allAuto');
     Route::get('/auto/{mark}', 'FrontendController@mark');
     Route::get('/auto/{mark}/{model}', 'FrontendController@model');
     Route::get('/credit', 'FrontendController@credit');
@@ -147,6 +147,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('callbacks', 'Admin\CallbacksController');
 
         Route::group(['prefix' => 'catalog', 'middleware' => 'admin'], function () {
+
             Route::resource('marks', 'Admin\CatalogmarksController');
             Route::resource('models', 'Admin\CatalogmodelsController');
             Route::resource('modifications', 'Admin\CatalogmodificationsController');
@@ -154,6 +155,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('parametercategories', 'Admin\CatalogparametercategoriesController');
             Route::resource('parametervalues', 'Admin\CatalogparametervaluesController');
             Route::resource('colors', 'Admin\CatalogcolorsController');
+
         });
     });
 

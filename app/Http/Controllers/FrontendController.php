@@ -323,17 +323,50 @@ class FrontendController extends Controller
         return redirect('/reviews')->with(['success' => 'Ваш коментарий отправлен. После проверки модератора он будет доступен!']);
     }
 
-    public function allAuto()
+    /**
+     * @param Request $request
+     * @return $this
+     */
+    public function allAuto(Request $request)
     {
         $marks = CatalogMark::all();
 
-        $newcars = CatalogModel::select(['catalog_models.id', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
-                    ->where('catalog_models.published', 1)
+        if (isset($request->search)) {
+
+            $newcars = null;
+
+            if ((isset($request->price_from) && $request->price_from) and (isset($request->price_to) && $request->price_to)) {
+                $newcars = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.name_rus, catalog_models.slug, catalog_models.image, catalog_marks.name as mark, catalog_marks.slug as mark_slug, catalog_models.slug as model_slug, MIN(catalog_packs.price) as price')
                     ->leftJoin('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+                    ->leftJoin('catalog_packs', 'catalog_packs.id_model', '=', 'catalog_models.id')
+                    ->leftJoin('catalog_modifications', 'catalog_modifications.id_model', '=', 'catalog_models.id')
+                    ->where('catalog_models.published', 1)
+                    ->where('catalog_modifications.gearbox', isset($request->gearbox) && $request->gearbox ? 'like' : 'not like', isset($request->gearbox) && $request->gearbox ? $request->gearbox : '')
+                    ->where('catalog_models.body_type', isset($request->body_type) && $request->body_type ? 'like' : 'not like', isset($request->body_type) && $request->body_type ? $request->body_type : '')
+                    ->whereBetween('catalog_packs.price', [$request->price_from, $request->price_to])
                     ->groupBy('catalog_models.id')
                     ->paginate(8);
+            } else {
+                $newcars = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.name_rus, catalog_models.slug, catalog_models.image, catalog_marks.name as mark, catalog_marks.slug as mark_slug, catalog_models.slug as model_slug, MIN(catalog_packs.price) as price')
+                    ->leftJoin('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+                    ->leftJoin('catalog_packs', 'catalog_packs.id_model', '=', 'catalog_models.id')
+                    ->leftJoin('catalog_modifications', 'catalog_modifications.id_model', '=', 'catalog_models.id')
+                    ->where('catalog_models.published', 1)
+                    ->where('catalog_modifications.gearbox', isset($request->gearbox) && $request->gearbox ? 'like' : 'not like', isset($request->gearbox) && $request->gearbox ? $request->gearbox : '')
+                    ->where('catalog_models.body_type', isset($request->body_type) && $request->body_type ? 'like' : 'not like', isset($request->body_type) && $request->body_type ? $request->body_type : '')
+                    ->groupBy('catalog_models.id')
+                    ->paginate(8);
+            }
+        } else {
+            $newcars = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.name_rus, catalog_models.slug, catalog_models.image, catalog_marks.name as mark, catalog_marks.slug as mark_slug, catalog_models.slug as model_slug, MIN(catalog_packs.price) as price')
+                ->where('catalog_models.published', 1)
+                ->leftJoin('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+                ->leftJoin('catalog_packs', 'catalog_packs.id_model', '=', 'catalog_models.id')
+                ->groupBy('catalog_models.id')
+                ->paginate(8);
+        }
 
-        return view('frontend.auto', compact('marks', 'newcars'))->with('title', 'Новые автомобили');
+        return view('frontend.auto', compact('marks', 'newcars', 'request'))->with('title', 'Новые автомобили');
     }
 
     /**
@@ -492,8 +525,8 @@ class FrontendController extends Controller
     {
         $request->request->remove('agree');
 
-        $mark = CarMark::select(['name'])->where('id', $request->mark)->first()->toArray();
-        $model = CarModel::select(['name'])->where('id', $request->model)->first()->toArray();
+        $mark = CatalogMark::select(['name'])->where('id', $request->mark)->first()->toArray();
+        $model = CatalogModel::select(['name'])->where('id', $request->model)->first()->toArray();
 
         $requestCredit = RequestCredit::create($request->except('_token'));
         $requestCredit->mark = $mark['name'];

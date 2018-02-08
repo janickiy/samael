@@ -169,12 +169,6 @@
                             <i class="fa fa-list"></i> <span>Заявки на автокредит</span>
                         </a>
                     </li>
-
-                    <li class="{{ Request::is('admin/requestusedcarcredits')? 'active': '' }}">
-                        <a href="{{ url('admin/requestusedcarcredits') }}">
-                            <i class="fa fa-list"></i> <span>Заявки на автокредит<br>(автомобили с пробегом)</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
 

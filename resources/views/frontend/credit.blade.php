@@ -12,7 +12,9 @@
 
 
 @section('marks')
+
     @include('layouts.frontend.includes.mark_list')
+
 @endsection
 
 @section('content')
@@ -20,7 +22,9 @@
     <div class="inset_page">
         <div class="main_width">
             @section('breadcrumbs')
+
                 @include('layouts.frontend.includes.breadcrumbs')
+
             @endsection
             <div class="row">
                 <div class="request_page_content">
@@ -81,7 +85,7 @@
                         {!! Form::close() !!}
 
                     </div>
-                    <div class="request_desc">
+                    <div class="request_desc" id="request_desc">
                         <div class="request_text">
                             <h2>Условия кредитования</h2>
                             <ul class="line">
@@ -197,7 +201,6 @@
         </div>
     </div>
 
-
 @endsection
 
 @section('js')
@@ -255,7 +258,7 @@
 
                 if (idModel != null) {
                     var request = $.ajax({
-                        url: './ajax?action=get_modifications&id_car_model=' + idModel,
+                        url: './ajax?action=get_modifications&id_model=' + idModel,
                         method: "GET",
                         dataType: "json"
                     });
@@ -264,18 +267,23 @@
 
                         var html = '<option>Комплектация</option>';
 
-                        for (var i=0; i < data.item.length; i++) {
-                            html += '<option value="' + data.item[i].name + '">' + data.item[i].name + '</option>';
+                        for (var i = 0; i < data.item.length; i++) {
+                            html += '<option value="' + data.item[i].id + '">' + data.item[i].name + '</option>';
                         }
 
                         console.log(html);
 
                         if (data.item.length > 0) {
-                            $('#modification').prop('disabled',false);
-                            $("#modification").html(html).fadeIn();
+                            if (data.image)
+                                $('#request_desc').css('background-image', 'url(' + data.image + ')');
+                            else
+                                $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
+                            $("#complectation").prop('disabled',false);
+                            $("#complectation").html(html).fadeIn();
                         } else {
-                            $("#modification").html(html).fadeIn();
-                            $('#modification').prop('disabled',true);
+                            $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
+                            $("#complectation").html(html).fadeIn();
+                            $("#complectation").prop('disabled',true);
                         }
 
                         $(".select2").select2({
@@ -342,7 +350,6 @@
                     });
                 }
             })
-
 
             $(".form_phone").mask("+7 (999) 999-9999");
 

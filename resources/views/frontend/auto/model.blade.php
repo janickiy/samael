@@ -152,6 +152,19 @@
                                 <option>Вариант</option>
                                 <option>Вариант</option>
                             </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <select class="form_control select2">
                                 <option>Первоначальный взнос</option>
                                 <option>10%</option>

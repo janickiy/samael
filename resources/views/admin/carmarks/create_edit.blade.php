@@ -36,8 +36,11 @@
         </div>
         <div class="box-body">
             <p>* - обязательные поля</p>
+
             {!! Form::open(['url' => isset($carmark) ? URL::to('admin/carmarks/' . $carmark->id )  :  URL::to('admin/carmarks') , 'method' => isset($carmark) ? 'put': 'post', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'id'=>'validate']) !!}
+
             {!! Form::hidden('mark_id', isset($carmark) ? $carmark->id: null) !!}
+
             <div class="col-md-12">
 
                 <div class="form-group">
@@ -64,7 +67,7 @@
 
 @section('js')
 
-        <!-- iCheck 1.0.1 -->
+<!-- iCheck 1.0.1 -->
 {!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
 
 {!! Html::script('assets/plugins/validationengine/languages/jquery.validationEngine-ru.js') !!}

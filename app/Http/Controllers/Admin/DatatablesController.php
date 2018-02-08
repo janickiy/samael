@@ -285,6 +285,12 @@ class DatatablesController extends Controller
                 return $requestCredit->status ? 'да' : 'нет';
             })
 
+            ->addColumn('modification', function ($requestCredit) {
+                $modification = CatalogModification::select(['name'])->where('id', $requestCredit->complectation)->first()->toArray();
+
+                return $modification['name'];
+            })
+
             ->addColumn('actions', function ($requestCredit) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/requestcredits/' . $requestCredit->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/requestcredits/' . $requestCredit->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
