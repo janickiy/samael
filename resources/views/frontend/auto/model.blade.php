@@ -243,11 +243,11 @@
                             <div class="specialty_content active">
                                 <div class="model_characteristics">
 
-                                    @foreach($complectations as $complectation)
+                                    @foreach($modifications as $modification)
 
-                                    @if(count(getPacks($car->id, $complectation['id'])) > 0)
+                                    @if(count(getPacks($car->id, $modification['id'])) > 0)
 
-                                    <div class="model_title">{!! $complectation['name'] !!}</div>
+                                    <div class="model_title">{!! $modification['name'] !!}</div>
                                     <div class="model_characteristics_tab">
                                         <div class="sort row">
                                             <div class="complectation_name">Комплектация</div>
@@ -258,22 +258,81 @@
 
                                         <ul class="sort_results">
 
-                                            @foreach(getPacks($car->id, $complectation['id']) as $row)
+                                            @foreach(getPacks($car->id, $modification['id']) as $row)
 
                                             <li>
                                                 <div class="complectation_item row">
                                                     <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_1"></input><label for="c_1">{!! $row['name'] !!}</label></div>
-                                                    <div class="KPP">{!! gearboxType($complectation['gearbox']) !!}</div>
-                                                    <div class="power">{!! $complectation['power'] !!}</div>
+                                                    <div class="KPP">{!! gearboxType($modification['gearbox']) !!}</div>
+                                                    <div class="power">{!! $modification['power'] !!}</div>
                                                     <div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}<span> руб</div>
                                                     <div class="buy_link"><a href="#inline_credit" data-id="{{ $row['complectation'] }}" class="btn modalbox">Купить в кредит</a></div>
                                                     <div class="print_link"><a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}" title="Распечатать комплектацию" target="_blank" onclick="var popupWin = window.open('{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}', null, 'menubar=no, toolbar=no, location=yes, status=yes, resizable=yes, scrollbars=yes', true); popupWin.focus(); return false;"><img src="/images/print_ico.png" /></a></div>
+
+                                                    <div>
+
+                                                        <ul>
+
+                                                            @foreach($parameter_categories as $parameter_category)
+
+                                                                @if(count(getParameterValues($parameter_category['id'], $row['complectation'])) > 0)
+
+                                                                    <td width="50%">
+                                                                        <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
+                                                                            {!! $parameter_category['name'] !!}
+                                                                        </p>
+
+                                                                        @foreach(getParameterValues($parameter_category['id'], $row['complectation']) as $parameterValue)
+
+                                                                            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
+                                                                                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
+                                                                                {!! $parameterValue['name'] !!}</p>
+
+                                                                        @endforeach
+
+                                                                    </td>
+
+                                                                @endif
+
+                                                            @endforeach
+
+                                                        </ul>
+
+                                                    </div>
                                                 </div>
                                             </li>
 
                                             @endforeach
 
                                         </ul>
+
+                                        <ul>
+
+                                        @foreach($parameter_packs as $parameter_pack)
+
+                                          <li>
+                                                    <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
+
+                                                        {!! $parameter_pack['name'] !!} @if(!empty($parameter_pack['price'])) +{!! number_format($parameter_pack['price'], 0, '', ' ') !!} руб. @endif
+
+                                                    </p>
+
+                                                    @foreach(getPackValue($row['complectation'], $parameter_pack['id']) as $pack)
+
+                                                        <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
+                                                            <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
+                                                            {!! $pack['name'] !!}</p>
+
+
+                                                    @endforeach
+                                          </li>
+
+                                        @endforeach
+
+                                        </ul>
+
+
+
 
                                         <a href="" class="btn disabled">Сравнить</a>
                                     </div>

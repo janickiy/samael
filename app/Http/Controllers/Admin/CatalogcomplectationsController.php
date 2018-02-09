@@ -104,19 +104,15 @@ class CatalogcomplectationsController extends Controller
         foreach (CatalogParameterPack::where('id_complectation', $catalogcomplectation->id)->get()->toArray() as $row) {
             $id_parameter = [];
 
-
-
-               foreach (CatalogParameterPackParameter::where('id_pack', $row['id'])->get()->toArray() as $row2) {
-                   $id_parameter[] = $row2['id_parameter'];
-                }
-
+            foreach (CatalogParameterPackParameter::where('id_pack', $row['id'])->get()->toArray() as $row2) {
+                $id_parameter[] = $row2['id_parameter'];
+            }
 
             $row['equipment'] = $id_parameter;
             $packs[] = $row;
         }
 
         $catalogcomplectation->packs = $packs;
-
 
         //var_dump($packs);
        // exit;

@@ -478,3 +478,18 @@ function getPackValue($id_complectation, $id_pack)
             ->toArray();
     }
 }
+
+function getComplectationValue($id, $key)
+{
+    if (is_numeric($id)) {
+        $complectation = \App\CatalogComplectation::selectRaw('*,catalog_complectations.id as id,catalog_modifications.name as modification, catalog_complectations.name as name,catalog_modifications.id as id_modification,catalog_packs.id as id_catalog_pack')
+            ->where('catalog_complectations.published', 1)
+            ->where('catalog_complectations.id', $id)
+            ->leftJoin('catalog_packs', 'catalog_packs.id_complectation', '=', 'catalog_complectations.id')
+            ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
+            ->first()
+            ->toArray();
+
+        return $complectation[$key];
+    }
+}
