@@ -26,8 +26,8 @@
 @section('content')
 
     <!-- hidden inline form -->
-    <div id="inline">
-        <h2>Отправка сообщения</h2>
+    <div id="inline"  class="popup_form">
+        <h3>Отправка сообщения</h3>
 
         {!! Form::open(['url' => '/callback', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
 
@@ -39,8 +39,9 @@
             {!! Form::text('phone', old('phone'), ['class' => 'form_control form_phone validate[required,custom[phone]]', 'placeholder'=>'Ваше телефон']) !!}
         </div>
 
-        <div class="form_field">
-            Удобное время звонка
+        <div class="form_field call_time">
+			<label>Удобное время звонка:</label>
+				<div class="fl_l">
             {!! Form::select('from_time', [
                 '9:00' => '9:00',
                 '10:00' => '10:00',
@@ -56,7 +57,8 @@
                 ], '9:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
                 )
             !!}
-
+				</div>	
+				<div class="fl_l">
             {!! Form::select('to_time', [
                '9:00' => '9:00',
                '10:00' => '10:00',
@@ -72,7 +74,7 @@
                ], '19:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
                )
            !!}
-
+			</div>	
         </div>
 
         {!! Form::submit('Отправить', ['class'=>'btn']) !!}
@@ -81,8 +83,8 @@
     </div>
 
     <!-- hidden inline form -->
-    <div id="inline_credit">
-        <h2>Узнайте о кредитовании {!! $car->mark !!}</a> - <span>{!! $car->model !!}</h2>
+    <div id="inline_credit" class="popup_form">
+        <h3>Узнайте о кредитовании {!! $car->mark !!}</a> - <span>{!! $car->model !!}</h3>
         <p>Оставьте свои данные и мы попробуем подобрать для Вас лучшие условия по кредиту.</p>
 
         {!! Form::open(['url' => '/buy_in_credit_request', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
@@ -282,7 +284,7 @@
 
                             </div>
                             <div class="specialty_content">
-                                <table>
+                                <table class="characteristics_tab" width="100%" cellpadding="0" cellspacing="0">
                                     <thead>
                                     <tr>
                                         <th> Параметры</th>
@@ -294,7 +296,7 @@
                                     <tbody>
                                     @foreach($options as $key => $value)
                                         <tr>
-                                            <td>{!! $value !!}</td>
+                                            <td><strong>{!! $value !!}</strong></td>
                                             @foreach($modifications as $modification)
                                                 <td>{!! $modification[$key] !!}</td>
                                             @endforeach
@@ -310,7 +312,7 @@
 
                                 @foreach($gallery_pics as $pic)
 
-                                <a class="gallery" rel="group" title="{!! $pic->title !!}" href="{!! PATH_CARS . $pic->image  !!}"><img width="300px" src="{!! PATH_CARS . $pic->image  !!}" /></a>
+                                <a class="gallery" rel="group"  href="{!! PATH_CARS . $pic->image  !!}"><img width="300px" src="{!! PATH_CARS . $pic->image  !!}" /></a>
 
                                 @endforeach
 
@@ -438,7 +440,8 @@
                 "overlayShow" : true,
                 "overlayOpacity" : 0.8,
                 "hideOnContentClick" :false,
-                "centerOnScroll" : false
+                "centerOnScroll" : false,
+				"titleShow" : false
             });
 
             $("#menu a, .anim").hover( function() {

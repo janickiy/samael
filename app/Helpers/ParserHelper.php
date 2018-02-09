@@ -455,3 +455,26 @@ function getPacks($id_model, $id_modification)
             ->toArray();
     }
 }
+
+function getParameterValues($id_category, $id_complectation)
+{
+    if (is_numeric($id_category) && is_numeric($id_complectation)) {
+        return \App\CatalogParameterValue::where('catalog_parameter_values.id_category', $id_category)
+            ->where('catalog_parameter_complectation.id_complectation', $id_complectation)
+            ->leftJoin('catalog_parameter_complectation', 'catalog_parameter_complectation.id_parameter', '=', 'catalog_parameter_values.id')
+            ->groupBy('catalog_parameter_values.id')
+            ->get()
+            ->toArray();
+    }
+}
+
+function getPackValue($id_complectation, $id_pack)
+{
+    if (is_numeric($id_complectation) && is_numeric($id_pack)) {
+        return \App\CatalogParameterPackParameter::where('id_parameter', $id_complectation)
+            ->where('id_pack', $id_pack)
+            ->join('catalog_parameter_values', 'catalog_parameter_values.id', '=', 'catalog_parameter_pack_parameter.id_parameter')
+            ->get()
+            ->toArray();
+    }
+}

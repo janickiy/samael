@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\CatalogColor;
 use App\CatalogComplectation;
 use App\CatalogPack;
+use App\CatalogParameterCategory;
+use App\CatalogParameterPack;
 use App\CatalogParameterValue;
 use App\ImageGallery;
 use Illuminate\Http\Request;
@@ -723,7 +725,7 @@ class FrontendController extends Controller
                 'trailer_mass' => 'Допустимая масса прицепа без тормозов, кг',
             ];
 
-            $complectation = CatalogComplectation::selectRaw('*,catalog_modifications.name as modification, catalog_complectations.name as name')
+            $complectation = CatalogComplectation::selectRaw('*,catalog_complectations.id as id,catalog_modifications.name as modification, catalog_complectations.name as name,catalog_modifications.id as id_modification,catalog_packs.id as id_catalog_pack')
                 ->where('catalog_complectations.published', 1)
                 ->where('catalog_complectations.id', $id)
                 ->leftJoin('catalog_packs', 'catalog_packs.id_complectation', '=', 'catalog_complectations.id')
@@ -731,7 +733,12 @@ class FrontendController extends Controller
                 ->first()
                 ->toArray();
 
-            return view('frontend.print.complectation', compact('car', 'complectation', 'options'), ['title' => $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
+            $parameter_categories = CatalogParameterCategory::get()->toArray();
+
+            $parameter_packs = $complectation['id'] ? CatalogParameterPack::where('id_complectation', $complectation['id'])->get()->toArray() : null;
+
+
+            return view('frontend.print.complectation', compact('car', 'complectation', 'options', 'parameter_categories', 'parameter_packs'), ['title' => $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
 
         }
 

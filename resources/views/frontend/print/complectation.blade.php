@@ -77,83 +77,60 @@
 
             @endforeach
 
-
-
-        </td>
-    </tr><tr>
-        <td width="50%">
-            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
-                Экстерьер
-            </p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Передние и задние брызговики</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Стальные диски 15&quot; с шинами 185/65 R15</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Наружные зеркала и ручки дверей в цвет кузова</p>
-        </td>
-        <td width="50%">
-            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
-                Интерьер
-            </p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Электростеклоподъемники передние с подсветкой кнопок</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Датчик наружной температуры</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Складываемый задний ряд сидений 60:40</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Воздуховоды к ногам задних пассажиров</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Макияжные зеркальца в солнцезащитных козырьках с крышками</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Карманы в задних дверях</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Аудиоподготовка 4 динамика, антенна</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Внутренняя обшивка крышки багажника</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Воздушный фильтр салона</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Две розетки 12В на центральной консоли</p>
-        </td>
-    </tr><tr>
-        <td width="50%">
-            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
-                Комфорт
-            </p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Тройное мигание поворотников при неполном нажатии рычага</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Регулировка сиденья водителя по высоте</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Карман в спинке кресла переднего пассажира</p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Полноразмерное запасное колесо </p>
-            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                Увеличенный до 160мм дорожный просвет</p>
         </td>
     </tr>
+
     <tr>
+
+        @foreach($parameter_categories as $parameter_category)
+
+        @if(count(getParameterValues($parameter_category['id'], $complectation['id'])) > 0)
+
+        <td width="50%">
+            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
+                {!! $parameter_category['name'] !!}
+            </p>
+
+            @foreach(getParameterValues($parameter_category['id'], $complectation['id']) as $parameterValue)
+
+            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
+                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
+                {!! $parameterValue['name'] !!}</p>
+
+            @endforeach
+
+        </td>
+
+        @endif
+
+        @endforeach
     </tr>
+
+
+    @foreach($parameter_packs as $parameter_pack)
+
+    <tr>
+        <td width="50%">
+            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
+
+               {!! $parameter_pack['name'] !!} @if(!empty($parameter_pack['price'])) +{!! number_format($parameter_pack['price'], 0, '', ' ') !!} руб. @endif
+
+            </p>
+
+            @foreach(getPackValue($complectation['id'], $parameter_pack['id']) as $pack)
+
+                <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
+                    <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
+                    {!! $pack['name'] !!}</p>
+
+
+            @endforeach
+
+        </td>
+    </tr>
+    @endforeach
+
+
     </tbody>
 </table>
 
