@@ -406,7 +406,7 @@ class FrontendController extends Controller
     {
         $marks = CatalogMark::all();
 
-        $car = CatalogModel::select(['catalog_models.id', 'catalog_models.body_type', 'catalog_marks.id as id_car_mark', 'catalog_models.annotation', 'catalog_models.bannerText', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+        $car = CatalogModel::select(['catalog_models.meta_title', 'catalog_models.meta_keywords', 'catalog_models.meta_description', 'catalog_models.id', 'catalog_models.body_type', 'catalog_marks.id as id_car_mark', 'catalog_models.annotation', 'catalog_models.bannerText', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
             ->where('catalog_models.slug', $model)
             ->where('catalog_models.published', 1)
             ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
@@ -488,9 +488,7 @@ class FrontendController extends Controller
 
             $gallery_pics = ImageGallery::where('id_model', $car->id)->get();
 
-
-
-            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'))->with('title', $car->name);
+            return view('frontend.auto.model', compact('marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'),['title' => $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }
 
         abort(404);
@@ -667,9 +665,77 @@ class FrontendController extends Controller
         return redirect('/tradein')->with('success', 'Ваша заявка на Trade-In отправлена. Мы свяжемся с Вами в ближайшее время!');
     }
 
+    /**
+     * @return $this
+     */
     public function contact()
     {
         $marks = CatalogMark::all();
         return view('frontend.contact', compact('marks'))->with('title', 'Контакты');
+    }
+
+    /**
+     * @param $mark
+     * @param $model
+     * @param $id
+     * @return $this
+     */
+    public function printModel($mark, $model, $id)
+    {
+        $car = CatalogModel::select(['catalog_models.meta_title', 'catalog_models.meta_keywords', 'catalog_models.meta_description', 'catalog_models.id', 'catalog_models.body_type', 'catalog_marks.id as id_car_mark', 'catalog_models.annotation', 'catalog_models.bannerText', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+            ->where('catalog_models.slug', $model)
+            ->where('catalog_models.published', 1)
+            ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+            ->first();
+
+        if ($car) {
+
+            $options = ['length' => 'Длина, мм',
+                'width' => 'Ширина, мм',
+                'height' => 'Высота, мм',
+                'wheel_base' => 'Колесная база, мм',
+                'front_rut' => 'Передняя колея колес, мм',
+                'back_rut' => 'Задняя колея колес, мм',
+                'front_overhang' => 'Передний свес, мм',
+                'back_overhang' => 'Задний свес, мм',
+                'trunk_volume_min' => 'Минимальный объем багажного отделения, л',
+                'trunk_volume_max' => 'Максимальный объем багажного отделения, л',
+                'tank_volume' => 'Объем топливного бака, л',
+                'front_brakes' => 'Передние тормоза (тип, размер)',
+                'back_brakes' => 'Задние тормоза (тип, размер)',
+                'front_suspension' => 'Передняя подвеска',
+                'back_suspension' => 'Задняя подвеска',
+                'engine_displacement' => 'Объем двигателя, л',
+                'engine_displacement_working_value' => 'Рабочий объем двигателя, см3',
+                'engine_type' => 'Тип двигателя',
+                'gearbox' => 'Коробка передач',
+                'gears' => 'Количество передач',
+                'drive' => 'Тип привода',
+                'power' => 'Мощность, л.с.',
+                'consume_city' => 'Расход топлива в городе, л/100 км',
+                'consume_track' => 'Расход топлива на трассе, л/100 км',
+                'consume_mixed' => 'Смешанный расход топлива, л/100 км',
+                'acceleration_100km' => 'Разгон от 0 до 100 км/ч, сек.',
+                'max_speed' => 'Максимальная скорость, км/ч',
+                'clearance' => 'Дорожный просвет, мм',
+                'min_mass' => 'Минимальная масса, кг',
+                'max_mass' => 'Максимальная масса, кг',
+                'trailer_mass' => 'Допустимая масса прицепа без тормозов, кг',
+            ];
+
+
+            $complectation = CatalogComplectation::selectRaw('*,catalog_modifications.name as modification, catalog_complectations.name as name')
+                ->where('catalog_complectations.published', 1)
+                ->where('catalog_complectations.id', $id)
+                ->leftJoin('catalog_packs', 'catalog_packs.id_complectation', '=', 'catalog_complectations.id')
+                ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
+                ->first()
+                ->toArray();
+
+            return view('frontend.print.complectation', compact('car', 'complectation', 'options'), ['title' => $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
+
+        }
+
+        abort(404);
     }
 }
