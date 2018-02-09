@@ -723,7 +723,6 @@ class FrontendController extends Controller
                 'trailer_mass' => 'Допустимая масса прицепа без тормозов, кг',
             ];
 
-
             $complectation = CatalogComplectation::selectRaw('*,catalog_modifications.name as modification, catalog_complectations.name as name')
                 ->where('catalog_complectations.published', 1)
                 ->where('catalog_complectations.id', $id)
