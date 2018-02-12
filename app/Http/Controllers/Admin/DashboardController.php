@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Callback;
 use App\CatalogModel;
 use App\CatalogPack;
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use Illuminate\Http\Request;
 use App\Page;
 use App\User;
 use App\UserReview;
@@ -15,6 +15,7 @@ use App\RequestCredit;
 use App\RequestTradeIn;
 use App\CarMark;
 use App\CarModel;
+use App\CatalogParameterValue;
 
 class DashboardController extends Controller
 {
@@ -206,7 +207,7 @@ class DashboardController extends Controller
 
                     if (is_numeric($request->id_model) && is_numeric($request->id_modification) && is_numeric($request->id_complectation)) {
                         if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->get()->count() > 0) {
-                            if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->update(['prev_price' => trim($request->prev_price)])) {
+                            if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->update(['best_price' => $request->input('best_price') ? 1 : 0])) {
                                 return response()->json(['success' => 'Данные обнавлены']);
                             } else {
                                 return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
@@ -215,7 +216,7 @@ class DashboardController extends Controller
                             $input['id_model'] = $request->id_model;
                             $input['id_modification'] = $request->id_modification;
                             $input['id_complectation'] = $request->id_complectation;
-                            $input['prev_price'] = trim($request->prev_price);
+                            $input['best_price'] = $request->prev_price;
 
                             if (CatalogPack::create($input)) {
                                 return response()->json(['success' => 'Данные обнавлены']);
@@ -224,6 +225,18 @@ class DashboardController extends Controller
                             }
                         }
                     }
+
+                    break;
+
+                case 'complectation':
+
+                    $json = [];
+
+                    foreach (CatalogParameterValue::where('name', 'like', '%' .  $request->q . '%')->get()->toArray() as $parameterValue) {
+                        $json[] = ['id' => $parameterValue['id'], 'text' => $parameterValue['name']];
+                    }
+
+                    return response()->json($json);
 
                     break;
 

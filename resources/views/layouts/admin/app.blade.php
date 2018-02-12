@@ -94,6 +94,7 @@
 
         {!! Html::script('css/fancybox/jquery.fancybox.min.js') !!}
 
+
         @yield('js')
 
     </body>

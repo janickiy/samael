@@ -448,6 +448,19 @@ function getPrevPrice($id_modification, $id_complectation)
         return 0;
 }
 
+function bestPrice($id_modification, $id_complectation)
+{
+    if (is_numeric($id_modification) && is_numeric($id_complectation)) {
+        $row = \App\CatalogPack::where('id_modification', $id_modification)->where('id_complectation', $id_complectation)->first();
+
+        if ($row)
+            return $row->best_price;
+        else
+            return 0;
+    } else
+        return 0;
+}
+
 function getPacks($id_model, $id_modification)
 {
     if (is_numeric($id_model) && is_numeric($id_modification)) {

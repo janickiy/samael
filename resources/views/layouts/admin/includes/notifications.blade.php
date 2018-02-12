@@ -17,13 +17,15 @@
         <div class="noti-alert pad no-print">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                <h4><i class="icon fa fa-check"></i> Success</h4>
                 <ul>
                     <li>{{ session('success') }}</li>
                 </ul>
             </div>
         </div>
         @endif
+
+        <div id="alert_msg_block"></div>
+
     </div>
 </div>
 

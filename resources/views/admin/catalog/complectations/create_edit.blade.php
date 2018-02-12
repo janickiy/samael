@@ -24,6 +24,10 @@
     </ol>
 </section>
 
+
+
+
+
 <!-- Main content -->
 <section class="content">
 
@@ -60,7 +64,9 @@
                 <div class="form-group">
                     {!! Form::label('name', 'Стандартные параметры *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
-                        {!! Form::select('equipment[]', $equipment_options, isset($catalogcomplectation) ? $catalogcomplectation->equipment : null, ['class' => 'select2 form-control validate[required]','multiple' => true, 'id' => 'equipment',]) !!}
+                        {!! Form::select('equipment[]', $equipment_options, isset($catalogcomplectation) ? $catalogcomplectation->equipment : null, ['class' => 'itemName form-control validate[required]','multiple' => true, 'id' => 'equipment']) !!}
+
+
                     </div>
 
                 </div>
@@ -134,6 +140,7 @@
 
 {!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
 
+
 <script type="text/javascript">
 
     $(document).on( "click", '#add_field', function() {
@@ -162,7 +169,8 @@
         html += '</div>';
 
         $('#headerslist').prepend(html);
-        $(".select2").select2();
+
+
 
         var prefix = 's2id_';
         $("form[id^='validate']").validationEngine('attach',
@@ -176,7 +184,6 @@
     $(document).on( "click", '#add_field_pack', function() {
 
         var lengthBlock = $('div.row_block').length;
-
 
         var html = '<div class="additional_field"><div class="form-group">';
         html += '<div class="col-lg-12">';
@@ -194,7 +201,7 @@
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
         html += '{!! Form::label('parameter_pack[]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}';
-        html += '<div class="col-lg-7">{!! Form::select("parameter_pack[]", $equipment_options, null, ['class' => 'form_control select2 validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>';
+        html += '<div class="col-lg-7">{!! Form::select("parameter_pack[]", $equipment_options, null, ['class' => 'form_control itemName validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>';
         html += '<div class="col-lg-2"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>';
         html += '</div>';
         html += '</div>';
@@ -203,8 +210,19 @@
 
         $('#packlist').prepend(html);
 
-        $(".select2").select2({
-            width: '100%'
+        $('.itemName').select2({
+            placeholder: 'Select an item',
+            ajax: {
+                url: "{!! url('admin/ajax?action=complectation') !!}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
         });
 
         var prefix = 's2id_';
@@ -235,18 +253,48 @@
             checkboxClass: 'icheckbox_minimal-blue'
         });
 
-        //Initialize Select2 Elements
-        $(".select2").select2();
+        $('.itemName').select2({
+            placeholder: 'Select an item',
+            ajax: {
+                url: "{!! url('admin/ajax?action=complectation') !!}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
+        });
+
 
         // Validation Engine init
         var prefix = 's2id_';
         $("form[id^='validate']").validationEngine('attach',
-                {
-                    promptPosition: "bottomRight", scroll: false,
-                    prettySelect: true,
-                    usePrefix: prefix
-                });
+            {
+                promptPosition: "bottomRight", scroll: false,
+                prettySelect: true,
+                usePrefix: prefix
+            });
     });
+
+
+    $('.itemName').select2({
+        placeholder: 'Select an item',
+        ajax: {
+            url: "{!! url('admin/ajax?action=complectation') !!}",
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
+    });
+
 
 </script>
 @endsection		
