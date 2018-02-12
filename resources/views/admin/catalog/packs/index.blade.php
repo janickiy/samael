@@ -11,6 +11,8 @@
 
 {!! Html::style('assets/dist/css/datatable/dataTablesCustom.css') !!}
 
+{!! Html::style('css/tablesaw.css') !!}
+
 @endsection
 
 
@@ -41,10 +43,10 @@
         </div>
 
         <div class="box-body">
-            <table id="data_table" class="table datatable dt-responsive" style="width:100%;">
+            <table class="table datatable dt-responsive tablesaw tablesaw-swipe" data-tablesaw-mode="swipe" style="width:100%;">
                 <thead>
                 <tr>
-                    <th>Комлектация</th>
+                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Комлектация</th>
 
                     @foreach($modifications as $modification)
 
@@ -64,9 +66,9 @@
                     @foreach($modifications as $modification)
 
                         <th>
-                            Цена <input type="text" class="price" name="price" data-modification="{!! $modification->id !!}" data-complectation="{!! $complectation->id !!}" value="{!! @getPrice($modification->id, $complectation->id) !!}"> <br>
-                            Старая цена <input type="text" class="prev_price" name="prev_price" value="{!! getPrevPrice($modification->id, $complectation->id) !!}"> <br>
-                            Лучшая цена <input type="checkbox" name="best_price">
+                            Цена <input type="text" class="price form-control" name="price" data-modification="{!! $modification->id !!}" data-complectation="{!! $complectation->id !!}" value="{!! @getPrice($modification->id, $complectation->id) !!}"> <br>
+                            Старая цена <input type="text" class="prev_price form-control" name="prev_price" data-modification="{!! $modification->id !!}" data-complectation="{!! $complectation->id !!}"  value="{!! getPrevPrice($modification->id, $complectation->id) !!}"> <br>
+                            <input type="checkbox" class="best_price" @if($modification->getOriginal('best_price') == 1) checked="checked" @endif data-modification="{!! $modification->id !!}" data-complectation="{!! $complectation->id !!}"  name="best_price"> Лучшая цена
                         </th>
 
                     @endforeach
@@ -95,57 +97,76 @@
 
 {!! Html::script('assets/dist/js/datatable/responsive.bootstrap.min.js') !!}
 
+
+
 <script type="text/javascript">
 
-    $(document).ready(function() {
-        $(".price").change(function() {
-            var Price = $(this).val();
-            var idModification = $(this).attr('data-modification');
-            var idComplectation = $(this).attr('data-complectation');
 
-            $.ajax({
-                url: "{!! url('admin/ajax?action=price') !!}",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "id_modification" : idModification,
-                    "id_complectation" : idComplectation,
-                    "price" : Price,
-                    "id_model" : "{!! $id !!}"
-                },
-                success: function(data) {
+    $(document).on( "change", ".price", function() {
+        var Price = $(this).val();
+        var idComplectation = $(this).attr('data-complectation');
+        var idModification = $(this).attr('data-modification');
 
-                },
-                fail: function() {
-
-                }
-            });
+        $.ajax({
+            url: "{!! url('admin/ajax?action=price') !!}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "id_modification" : idModification,
+                "id_complectation" : idComplectation,
+                "price" : Price,
+                "id_model" : "{!! $id !!}"
+            },
 
         });
+    });
 
-        $(".prev_price").change(function() {
-            var prevPrice = $(this).val();
-            var idModification = $(this).attr('data-modification');
-            var idComplectation = $(this).attr('data-complectation');
+    $(document).on( "change", ".prev_price", function() {
+        var prevPrice = $(this).val();
+        var idModification = $(this).attr('data-modification');
+        var idComplectation = $(this).attr('data-complectation');
 
-            $.ajax({
-                url: "{!! url('admin/ajax?action=prev_price') !!}",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "id_modification" : idModification,
-                    "id_complectation" : idComplectation,
-                    "prev_price" : prevPrice,
-                    "id_model" : "{!! $id !!}"
-                },
-                success: function(data) {
+        $.ajax({
+            url: "{!! url('admin/ajax?action=prev_price') !!}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "id_modification" : idModification,
+                "id_complectation" : idComplectation,
+                "prev_price" : prevPrice,
+                "id_model" : "{!! $id !!}"
+            },
+            success: function(data) {
 
-                },
-                fail: function() {
+            },
+            fail: function() {
 
-                }
-            });
+            }
+        });
+    });
 
+    $(document).on( "change", ".best_price", function() {
+        var val = $(this).prop("checked");
+        val = val == false ? 0 : 1;
+        var idModification = $(this).attr('data-modification');
+        var idComplectation = $(this).attr('data-complectation');
+
+        $.ajax({
+            url: "{!! url('admin/ajax?action=best_price') !!}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "id_modification" : idModification,
+                "id_complectation" : idComplectation,
+                "val" : val,
+                "id_model" : "{!! $id !!}"
+            },
+            success: function(data) {
+
+            },
+            fail: function() {
+
+            }
         });
     });
 

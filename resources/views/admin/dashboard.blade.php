@@ -126,6 +126,39 @@
                             </div>
                         </div><!-- ./col -->
 
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- small box -->
+                            <div class="small-box bg-blue">
+                                <div class="inner">
+                                    <h3>{{ $callbacks }}</h3>
+                                    <p>Заявки на обратный звонок </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-phone-square "></i>
+                                </div>
+                                <a href="{{ url('admin/callbacks') }}" class="small-box-footer">подробно
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div><!-- ./col -->
+
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- small box -->
+                            <div class="small-box bg-orange">
+                                <div class="inner">
+                                    <h3>{{ $cars }}</h3>
+                                    <p>Автомобили </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-automobile"></i>
+                                </div>
+                                <a href="{{ url('admin/catalog/marks') }}" class="small-box-footer">подробно
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div><!-- ./col -->
+
+
                     </div><!-- /.row -->
                 </div><!-- /.box-body -->
                 <div class="box-footer">

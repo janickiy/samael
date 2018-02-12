@@ -140,35 +140,29 @@
                 </ul>
             </li>
 
-            <li class="treeview {{ Request::is('admin/callback*')? 'active': '' }}">
-                <a href="#">
-                    <i class="fa fa-photo"></i> <span>Заявки на обратный звонок</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ Request::is('admin/callbacks')? 'active': '' }}">
-                        <a href="{{ url('admin/callbacks') }}">
-                            <i class="fa fa-list"></i> <span>Администрирование</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="treeview {{ Request::is('admin/requesttradein*') || Request::is('admin/requestcredit*') ||  Request::is('admin/requestusedcarcredit*') ? 'active': '' }}">
+            <li class="treeview {{ Request::is('admin/requesttradein*') || Request::is('admin/requestcredit*') ||  Request::is('admin/requestusedcarcredit*') ? 'active': '' ||  Request::is('admin/callback*') ? 'active': '' }}">
                 <a href="#">
                     <i class="fa fa-bell-o"></i> <span>Заявки</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/requesttradeins')? 'active': '' }}">
                         <a href="{{ url('admin/requesttradeins') }}">
-                            <i class="fa fa-list"></i> <span>Заявки на Trade-in</span>
+                            <i class="fa fa-list"></i> <span>на Trade-in</span>
                         </a>
                     </li>
 
                     <li class="{{ Request::is('admin/requestcredits')? 'active': '' }}">
                         <a href="{{ url('admin/requestcredits') }}">
-                            <i class="fa fa-list"></i> <span>Заявки на автокредит</span>
+                            <i class="fa fa-list"></i> <span>на автокредит</span>
                         </a>
                     </li>
+
+                    <li class="{{ Request::is('admin/callbacks')? 'active': '' }}">
+                        <a href="{{ url('admin/callbacks') }}">
+                            <i class="fa fa-list"></i> <span>на обратный звонок</span>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
 

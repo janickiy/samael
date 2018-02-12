@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Callback;
+use App\CatalogModel;
 use App\CatalogPack;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -37,8 +39,10 @@ class DashboardController extends Controller
         $requesttradeins = RequestTradeIn::all()->count();
         $reviews = UserReview::all()->count();
         $carmarks = CarMark::all()->count();
+        $callbacks = Callback::all()->count();
+        $cars = CatalogModel::all()->count();
 
-        return view('admin.dashboard')->with(compact('users', 'packages', 'features', 'pages', 'posts', 'reviews', 'images', 'requestcredits', 'requesttradeins', 'carmarks'));
+        return view('admin.dashboard')->with(compact('users', 'pages', 'reviews', 'requestcredits', 'requesttradeins', 'carmarks', 'callbacks', 'cars'));
     }
 
     /**
@@ -151,20 +155,24 @@ class DashboardController extends Controller
                 case 'price':
 
                     if (is_numeric($request->id_model) && is_numeric($request->id_modification) && is_numeric($request->id_complectation)) {
-                       if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->get()->count() > 0) {
-                           CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->update(['price' => trim($request->price)]);
-                       } else {
-                           $input['id_model'] = $request->id_model;
-                           $input['id_modification'] = $request->id_modification;
-                           $input['id_complectation'] = $request->id_complectation;
-                           $input['price'] = trim($request->price);
+                        if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->get()->count() > 0) {
+                            if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->update(['price' => trim($request->price)])) {
+                                return response()->json(['success' => 'Данные обнавлены']);
+                            } else {
+                                return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
+                            }
+                        } else {
+                            $input['id_model'] = $request->id_model;
+                            $input['id_modification'] = $request->id_modification;
+                            $input['id_complectation'] = $request->id_complectation;
+                            $input['price'] = trim($request->price);
 
-                           if (CatalogPack::create($input)) {
-                               return response()->json(['success' => 'Данные обнавлены']);
-                           } else {
-                               return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
-                           }
-                       }
+                            if (CatalogPack::create($input)) {
+                                return response()->json(['success' => 'Данные обнавлены']);
+                            } else {
+                                return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
+                            }
+                        }
                     }
 
                     break;
@@ -173,7 +181,11 @@ class DashboardController extends Controller
 
                     if (is_numeric($request->id_model) && is_numeric($request->id_modification) && is_numeric($request->id_complectation)) {
                         if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->get()->count() > 0) {
-                            CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->update(['prev_price' => trim($request->prev_price)]);
+                            if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->update(['prev_price' => trim($request->prev_price)])) {
+                                return response()->json(['success' => 'Данные обнавлены']);
+                            } else {
+                                return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
+                            }
                         } else {
                             $input['id_model'] = $request->id_model;
                             $input['id_modification'] = $request->id_modification;
@@ -186,12 +198,34 @@ class DashboardController extends Controller
                                 return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
                             }
                         }
-
                     }
 
                     break;
 
+                case 'best_price':
 
+                    if (is_numeric($request->id_model) && is_numeric($request->id_modification) && is_numeric($request->id_complectation)) {
+                        if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->get()->count() > 0) {
+                            if (CatalogPack::where('id_modification', $request->id_modification)->where('id_complectation', $request->id_complectation)->where('id_model', $request->id_model)->update(['prev_price' => trim($request->prev_price)])) {
+                                return response()->json(['success' => 'Данные обнавлены']);
+                            } else {
+                                return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
+                            }
+                        } else {
+                            $input['id_model'] = $request->id_model;
+                            $input['id_modification'] = $request->id_modification;
+                            $input['id_complectation'] = $request->id_complectation;
+                            $input['prev_price'] = trim($request->prev_price);
+
+                            if (CatalogPack::create($input)) {
+                                return response()->json(['success' => 'Данные обнавлены']);
+                            } else {
+                                return response()->json(['error' => 'Ошибка веб приложения! Действия не были выполнены.']);
+                            }
+                        }
+                    }
+
+                    break;
 
             }
         }
