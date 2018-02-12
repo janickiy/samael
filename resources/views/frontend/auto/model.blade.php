@@ -262,72 +262,69 @@
 
                                             <li>
                                                 <div class="complectation_item row">
-                                                    <div class="complectation_name"><input type="checkbox" class="checkbox" id="c_1"></input><label for="c_1">{!! $row['name'] !!}</label></div>
-                                                    <div class="KPP">{!! gearboxType($modification['gearbox']) !!}</div>
-                                                    <div class="power">{!! $modification['power'] !!}</div>
-                                                    <div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}<span> руб</div>
-                                                    <div class="buy_link"><a href="#inline_credit" data-id="{{ $row['complectation'] }}" class="btn modalbox">Купить в кредит</a></div>
-                                                    <div class="print_link"><a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}" title="Распечатать комплектацию" target="_blank" onclick="var popupWin = window.open('{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}', null, 'menubar=no, toolbar=no, location=yes, status=yes, resizable=yes, scrollbars=yes', true); popupWin.focus(); return false;"><img src="/images/print_ico.png" /></a></div>
-
-                                                    <div>
-
-                                                        <ul>
+													<div class="row">
+														<div class="complectation_name"><input type="checkbox" class="checkbox" id="c_1"></input><label for="c_1"></label><span trigerID="dop_info" class="show_info">{!! $row['name'] !!}</span></div>
+														<div class="KPP">{!! gearboxType($modification['gearbox']) !!}</div>
+														<div class="power">{!! $modification['power'] !!}</div>
+														<div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}<span> руб</div>
+														<div class="buy_link"><a href="#inline_credit" data-id="{{ $row['complectation'] }}" class="btn modalbox">Купить в кредит</a></div>
+														<div class="print_link"><a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}" title="Распечатать комплектацию" target="_blank" onclick="var popupWin = window.open('{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}', null, 'menubar=no, toolbar=no, location=yes, status=yes, resizable=yes, scrollbars=yes', true); popupWin.focus(); return false;"><img src="/images/print_ico.png" /></a></div>
+													</div>
+                                                    <div class="row dop_info disp_n"  containerID="dop_info">
 
                                                             @foreach($parameter_categories as $parameter_category)
 
                                                                 @if(count(getParameterValues($parameter_category['id'], $row['complectation'])) > 0)
 
-                                                                    <td width="50%">
-                                                                        <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
-                                                                            {!! $parameter_category['name'] !!}
-                                                                        </p>
+                                                                    <div>
+                                                                        <div class="dop_info_title">{!! $parameter_category['name'] !!}</div>
 
-                                                                        @foreach(getParameterValues($parameter_category['id'], $row['complectation']) as $parameterValue)
+																		<ul class="disk">
+																			@foreach(getParameterValues($parameter_category['id'], $row['complectation']) as $parameterValue)
 
-                                                                            <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                                                                                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                                                                                {!! $parameterValue['name'] !!}</p>
+																				<li>
+																					{!! $parameterValue['name'] !!}
+																				</li>
 
-                                                                        @endforeach
-
-                                                                    </td>
+																			@endforeach
+																		</ul>	
+                                                                    </div>
 
                                                                 @endif
 
                                                             @endforeach
+															<div class="row pack_info">
+																<ul>
 
-                                                        </ul>
+																@foreach($parameter_packs as $parameter_pack)
+
+																  <li>
+																			<div class="pack_title">
+																				{!! $parameter_pack['name'] !!} @if(!empty($parameter_pack['price'])) +{!! number_format($parameter_pack['price'], 0, '', ' ') !!} руб. @endif
+
+																			</div>
+
+																			@foreach(getPackValue($row['complectation'], $parameter_pack['id']) as $pack)
+
+																				<p>
+																					<span>—</span>
+																					{!! $pack['name'] !!}
+																				</p>
+
+
+																			@endforeach
+																  </li>
+
+																@endforeach
+
+																</ul>
+															</div>
 
                                                     </div>
                                                 </div>
                                             </li>
 
                                             @endforeach
-
-                                        </ul>
-
-                                        <ul>
-
-                                        @foreach($parameter_packs as $parameter_pack)
-
-                                          <li>
-                                                    <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
-
-                                                        {!! $parameter_pack['name'] !!} @if(!empty($parameter_pack['price'])) +{!! number_format($parameter_pack['price'], 0, '', ' ') !!} руб. @endif
-
-                                                    </p>
-
-                                                    @foreach(getPackValue($row['complectation'], $parameter_pack['id']) as $pack)
-
-                                                        <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                                                            <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
-                                                            {!! $pack['name'] !!}</p>
-
-
-                                                    @endforeach
-                                          </li>
-
-                                        @endforeach
 
                                         </ul>
 

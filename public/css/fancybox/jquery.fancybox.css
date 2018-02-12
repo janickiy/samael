@@ -75,7 +75,7 @@
 	max-height: 100%;
 }
 
-#fancybox-loading, .fancybox-prev span, .fancybox-next span {
+#fancybox-loading {
 	background-image: url('fancybox_sprite.png');
 }
 
@@ -139,14 +139,21 @@
 	z-index: 8040;
 	visibility: hidden;
 }
-
+.fancybox-nav span:before{ font-family: FontAwesome;
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: #26aae2;
+    font-size: 35px;
+    font-weight: bold;}
+.fancybox-prev span:before {content: "\f104";}
+.fancybox-next span:before {content: "\f105";}
 .fancybox-prev span {
 	left: 10px;
 	background-position: 0 -36px;
 }
-
 .fancybox-next span {
-	right: 10px;
+	right: -10px;
 	background-position: 0 -72px;
 }
 
@@ -202,7 +209,7 @@
 }
 
 .fancybox-opened .fancybox-title {
-	visibility: visible;
+	visibility: hidden;
 }
 
 .fancybox-title-float-wrap {

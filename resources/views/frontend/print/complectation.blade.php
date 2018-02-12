@@ -38,7 +38,7 @@
 <table width="100%">
     <tr>
         <td style="border-bottom: none;">
-            <a href="/"><img src="/images/logo.png"></a>
+            <a href="/" style="margin-bottom:10px;"><img src="/images/logo.png"></a>
             <h2>{!! $car->mark !!}</h2>
             <h3>{!! $car->model !!} 1.4 6МТ (100 л.с.)</h3>
         </td>
@@ -63,14 +63,14 @@
     <tr>
     <tr>
         <td width="50%">
-            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
+            <p style="border-bottom: 1px solid #C3C3C3; color: #25aae1; font-weight: bold; margin-bottom: 1em;">
                 Характеристики
             </p>
 
             @foreach($options as $key => $value)
 
             <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
+                <span style="color: #25aae1; position: absolute; left: 0; top: 0;">—</span>
                 {!! $value !!}:
                 {!! $complectation[$key] !!}
             </p>
@@ -87,14 +87,14 @@
         @if(count(getParameterValues($parameter_category['id'], $complectation['id'])) > 0)
 
         <td width="50%">
-            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
+            <p style="border-bottom: 1px solid #C3C3C3; color: #25aae1; font-weight: bold; margin-bottom: 1em;">
                 {!! $parameter_category['name'] !!}
             </p>
 
             @foreach(getParameterValues($parameter_category['id'], $complectation['id']) as $parameterValue)
 
             <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
+                <span style="color: #25aae1; position: absolute; left: 0; top: 0;">—</span>
                 {!! $parameterValue['name'] !!}</p>
 
             @endforeach
@@ -111,7 +111,7 @@
 
     <tr>
         <td width="50%">
-            <p style="border-bottom: 1px solid #C3C3C3; color: #356BB2; font-weight: bold; margin-bottom: 1em;">
+            <p style="border-bottom: 1px solid #C3C3C3; color: #25aae1; font-weight: bold; margin-bottom: 1em;">
 
                {!! $parameter_pack['name'] !!} @if(!empty($parameter_pack['price'])) +{!! number_format($parameter_pack['price'], 0, '', ' ') !!} руб. @endif
 
@@ -120,7 +120,7 @@
             @foreach(getPackValue($complectation['id'], $parameter_pack['id']) as $pack)
 
                 <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
-                    <span style="color: #356BB2; position: absolute; left: 0; top: 0;">—</span>
+                    <span style="color: #25aae1; position: absolute; left: 0; top: 0;">—</span>
                     {!! $pack['name'] !!}</p>
 
 
