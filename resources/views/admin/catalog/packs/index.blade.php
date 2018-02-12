@@ -45,23 +45,32 @@
                 <thead>
                 <tr>
                     <th>Комлектация</th>
+
                     @foreach($modifications as $modification)
+
                         <th>{!! $modification->name !!}</th>
+
                     @endforeach
+
                 </tr>
                 </thead>
                 <tbody>
 
                 @foreach($complectations as $complectation)
+
                 <tr>
                     <td class="title">{!! $complectation->name !!}</td>
+
                     @foreach($modifications as $modification)
+
                         <th>
-                            Цена <input type="text" name="price" value="{!! getPrice($modification->id, $complectation->id) !!}"> <br>
-                            Старая цена <input type="text" name="prev_price" value="{!! getPrevPrice($modification->id, $complectation->id) !!}"> <br>
+                            Цена <input type="text" class="price" name="price" data-modification="{!! $modification->id !!}" data-complectation="{!! $complectation->id !!}" value="{!! @getPrice($modification->id, $complectation->id) !!}"> <br>
+                            Старая цена <input type="text" class="prev_price" name="prev_price" value="{!! getPrevPrice($modification->id, $complectation->id) !!}"> <br>
                             Лучшая цена <input type="checkbox" name="best_price">
                         </th>
+
                     @endforeach
+
                 </tr>
                 @endforeach
                 </tbody>
@@ -80,7 +89,6 @@
 
 <!-- DataTables -->
 
-
 {!! Html::script('assets/dist/js/datatable/dataTables.bootstrap.min.js') !!}
 
 {!! Html::script('assets/dist/js/datatable/dataTables.responsive.min.js') !!}
@@ -88,6 +96,58 @@
 {!! Html::script('assets/dist/js/datatable/responsive.bootstrap.min.js') !!}
 
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        $(".price").change(function() {
+            var Price = $(this).val();
+            var idModification = $(this).attr('data-modification');
+            var idComplectation = $(this).attr('data-complectation');
+
+            $.ajax({
+                url: "{!! url('admin/ajax?action=price') !!}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id_modification" : idModification,
+                    "id_complectation" : idComplectation,
+                    "price" : Price,
+                    "id_model" : "{!! $id !!}"
+                },
+                success: function(data) {
+
+                },
+                fail: function() {
+
+                }
+            });
+
+        });
+
+        $(".prev_price").change(function() {
+            var prevPrice = $(this).val();
+            var idModification = $(this).attr('data-modification');
+            var idComplectation = $(this).attr('data-complectation');
+
+            $.ajax({
+                url: "{!! url('admin/ajax?action=prev_price') !!}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id_modification" : idModification,
+                    "id_complectation" : idComplectation,
+                    "prev_price" : prevPrice,
+                    "id_model" : "{!! $id !!}"
+                },
+                success: function(data) {
+
+                },
+                fail: function() {
+
+                }
+            });
+
+        });
+    });
 
 </script>
 @endsection

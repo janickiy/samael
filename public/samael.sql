@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 02 2018 г., 16:20
+-- Время создания: Фев 08 2018 г., 10:40
 -- Версия сервера: 10.1.28-MariaDB
 -- Версия PHP: 7.1.10
 
@@ -38,6 +38,15 @@ CREATE TABLE `callbacks` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `callbacks`
+--
+
+INSERT INTO `callbacks` (`id`, `name`, `phone`, `from_time`, `to_time`, `ip`, `created_at`, `updated_at`) VALUES
+(1, 'ewqe', '+7 (322) 432-4324', '11:00', '16:00', '127.0.0.1', '2018-02-07 09:44:10', '2018-02-07 06:44:10'),
+(2, 'rewrwe', '+7 (343) 243-2423', '13:00', '19:00', '127.0.0.1', '2018-02-07 09:50:55', '2018-02-07 06:50:55'),
+(3, 'werwr we', '+7 (234) 235-2345', '13:00', '19:00', '127.0.0.1', '2018-02-07 09:52:10', '2018-02-07 06:52:10');
 
 -- --------------------------------------------------------
 
@@ -6100,20 +6109,56 @@ CREATE TABLE `catalog_cars` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `catalog_colors`
+--
+
+CREATE TABLE `catalog_colors` (
+  `id` int(11) NOT NULL,
+  `id_model` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `hex` varchar(16) NOT NULL,
+  `image` text NOT NULL,
+  `published` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_colors`
+--
+
+INSERT INTO `catalog_colors` (`id`, `id_model`, `name`, `hex`, `image`, `published`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Marina Blue', '325488', '/uploads/color/azFJTgLeiGGQWfZ4gMjb.png', 1, '2018-02-06 07:46:42', '2018-02-06 07:46:43'),
+(2, 1, 'Sleek Silver', 'cfcfcf', '/uploads/color/FfyowaQ6yU3dLNuMUos1.png', 1, '2018-02-06 08:12:46', '2018-02-06 08:14:01'),
+(3, 1, 'Fiery Red', 'c64040', '/uploads/color/fTgJACZDIrGnDdXjMLus.png', 1, '2018-02-06 08:14:26', '2018-02-06 08:14:26'),
+(4, 1, 'Phantom Black', '08090b', '/uploads/color/YlEPBQmiumnnm0l81uhI.png', 1, '2018-02-06 08:14:56', '2018-02-06 08:14:56'),
+(5, 1, 'Crystal White', 'f0f0f0', '/uploads/color/SkWk9OqRO1Rr3xZQX92O.png', 1, '2018-02-06 08:15:21', '2018-02-06 08:15:22'),
+(6, 1, 'Sunset Orange', 'd87c5a', '/uploads/color/EMdlrmFptjDZCXeoEVeq.png', 1, '2018-02-06 08:15:46', '2018-02-06 08:15:46'),
+(7, 1, 'Urban Gray', '7f7f7f', '/uploads/color/DAtDBVUqPFyK7Sa7ce1L.png', 1, '2018-02-06 08:16:09', '2018-02-06 08:16:09');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `catalog_complectations`
 --
 
 CREATE TABLE `catalog_complectations` (
   `id` int(11) NOT NULL,
   `id_model` int(11) NOT NULL,
-  `id_modification` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `equipment` text NOT NULL,
-  `pack` text NOT NULL,
   `published` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_complectations`
+--
+
+INSERT INTO `catalog_complectations` (`id`, `id_model`, `name`, `published`, `created_at`, `updated_at`) VALUES
+(10, 1, 'Access ', 1, '2018-02-05 11:37:32', '2018-02-05 11:37:32'),
+(11, 1, 'Confort', 1, '2018-02-05 12:04:29', '2018-02-05 12:04:29'),
+(12, 1, 'Privilege', 1, '2018-02-05 12:04:39', '2018-02-05 12:04:59');
 
 -- --------------------------------------------------------
 
@@ -6129,6 +6174,7 @@ CREATE TABLE `catalog_marks` (
   `logo` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `annotation` varchar(255) DEFAULT NULL,
   `content` text,
+  `bannerText` text,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `meta_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -6141,29 +6187,29 @@ CREATE TABLE `catalog_marks` (
 -- Дамп данных таблицы `catalog_marks`
 --
 
-INSERT INTO `catalog_marks` (`id`, `name`, `name_rus`, `slug`, `logo`, `annotation`, `content`, `published`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, 'Hyundai', 'Xёндай', 'hyundai', '/uploads/mark/24EGjqTnNPFCcX1JhzTI.png', '', '', 1, 'Hyundai', '', '', '2018-01-25 11:09:09', '2018-01-26 10:47:55'),
-(2, 'Renault', 'Рено', 'renault', '/uploads/mark/k12GrvyWF6BD7tbnNx16.png', '', '', 1, 'Renault', '', '', '2018-01-25 11:24:00', '2018-01-26 10:50:00'),
-(3, 'Lada', 'Лада', 'lada', '/uploads/mark/VekYKNc1UxWHqrtELcUV.png', '', '', 1, 'Lada', '', '', '2018-01-25 11:26:07', '2018-01-26 10:51:08'),
-(4, 'Kia', 'Киа', 'kia', '/uploads/mark/IheE5DIkvEWkJzByn8AI.png', NULL, NULL, 1, 'Kia', '', '', '2018-01-25 11:27:23', '2018-01-25 11:27:23'),
-(5, 'Nissan', 'Ниссан', 'nissan', '/uploads/mark/WcxPKssnnlyZrRS9vo1T.png', '', '', 1, 'Nissan', '', '', '2018-01-25 11:28:42', '2018-01-26 10:49:45'),
-(6, 'Toyota', 'Тойота', 'toyota', '/uploads/mark/HSoawzGBrxQ5xgmcEnNM.png', NULL, NULL, 1, 'Toyota', '', '', '2018-01-25 11:29:44', '2018-01-25 11:29:44'),
-(7, 'Skoda', 'Шкода', 'skoda', '/uploads/mark/6wXHqXd4CUlZelfyaiKl.png', '', '', 1, 'Skoda', '', '', '2018-01-25 11:31:19', '2018-01-26 10:50:53'),
-(8, 'Datsun', 'Датсун', 'datsun', '/uploads/mark/mPGfQdmNZ6PC9Wg5EyQz.png', '', '', 1, 'Datsun', '', '', '2018-01-25 11:33:53', '2018-01-26 10:50:42'),
-(9, 'Mitsubishi', 'Мицубиси', 'mitsubishi', '/uploads/mark/mpH90MVIWuWpiJqr0SS3.png', '', '', 1, 'Mitsubishi', '', '', '2018-01-25 11:35:06', '2018-01-26 10:50:31'),
-(10, 'Lifan', 'Лифан', 'lifan', '/uploads/mark/AkppWyx4yaR7EEzajUwC.png', '', '', 1, 'Lifan', '', '', '2018-01-25 11:35:55', '2018-01-26 10:50:23'),
-(11, 'Ssangyong', 'Санйонг', 'ssangyong', '/uploads/mark/JHkDLLDx3e5AXvwmn1Kc.png', '', '', 1, 'Ssangyong', '', '', '2018-01-25 11:37:32', '2018-01-26 10:50:11'),
-(12, 'UAZ', 'УАЗ', 'uaz', '/uploads/mark/9G19kvaWw0Q8rwURZBHL.png', '', '', 1, 'UAZ', '', '', '2018-01-25 11:38:34', '2018-01-26 10:49:26'),
-(13, 'Great Wall', 'Грейт уолл', 'great_wall', '/uploads/mark/Zv5jiuxfgnKMnegVu6zF.png', '', '', 1, 'Great Wall', '', '', '2018-01-25 11:39:40', '2018-01-26 10:49:31'),
-(14, 'Ravon', 'Равон', 'ravon', '/uploads/mark/P4aCVE0uIo3ljebppr7E.png', '', '', 1, 'Ravon', '', '', '2018-01-25 11:40:41', '2018-01-26 10:49:36'),
-(15, 'Geely', 'Джили', 'geely', '/uploads/mark/sJ79Tg1imP7vUI4qHDSK.png', '', '', 1, 'Geely', '', '', '2018-01-25 11:42:26', '2018-01-26 10:48:32'),
-(16, 'Ford', 'Форд', 'ford', '/uploads/mark/m3oVQyPMh0YZjzY6YB73.png', '', '', 1, 'Ford', '', '', '2018-01-25 11:43:22', '2018-01-26 10:48:39'),
-(17, 'Mazda', 'Мазда', 'mazda', '/uploads/mark/bAJCItidCZhibrW4AHoQ.png', NULL, NULL, 1, 'Mazda', '', '', '2018-01-25 11:44:43', '2018-01-25 11:44:43'),
-(18, 'Haval', 'Хавейл', 'haval', '/uploads/mark/UnyTss7h4eqE7AsKIlSl.png', '', '', 1, 'Haval', '', '', '2018-01-25 11:45:54', '2018-01-26 10:48:48'),
-(19, 'Suzuki', 'Cудзуки', 'suzuki', '/uploads/mark/QGm8GLb57q5L8CGxJt2w.png', '', '', 1, 'Suzuki', '', '', '2018-01-25 11:47:41', '2018-01-26 10:48:59'),
-(20, 'Chery', 'Чери', 'chery', '/uploads/mark/STAafLIs4kW5wiNKeBbB.png', '', '', 1, 'Chery', '', '', '2018-01-25 11:49:38', '2018-01-26 10:49:04'),
-(21, 'Changan', 'Чендэн', 'changan', '/uploads/mark/UinImTP5ZUiMUMYVfzVU.png', '', '', 1, 'Changan', '', '', '2018-01-25 11:52:12', '2018-01-26 10:49:11'),
-(22, 'Volksvagen', 'Фольксваген', 'volksvagen', '/uploads/mark/M6JKRmAaK7H1p9rVLqgP.png', '', '', 1, 'Volksvagen', '', '', '2018-01-25 11:53:19', '2018-01-26 10:51:17');
+INSERT INTO `catalog_marks` (`id`, `name`, `name_rus`, `slug`, `logo`, `annotation`, `content`, `bannerText`, `published`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 'Hyundai', 'Xёндай', 'hyundai', '/uploads/mark/24EGjqTnNPFCcX1JhzTI.png', '', '', '<div>Скидка <span>до</span> 123 000 <span>руб.</span> <span class=\"fs14\">до 12 февраля</span></div>', 1, 'Hyundai', '', '', '2018-01-25 11:09:09', '2018-02-07 08:37:37'),
+(2, 'Renault', 'Рено', 'renault', '/uploads/mark/k12GrvyWF6BD7tbnNx16.png', '', '', NULL, 1, 'Renault', '', '', '2018-01-25 11:24:00', '2018-01-26 10:50:00'),
+(3, 'Lada', 'Лада', 'lada', '/uploads/mark/VekYKNc1UxWHqrtELcUV.png', '', '', NULL, 1, 'Lada', '', '', '2018-01-25 11:26:07', '2018-01-26 10:51:08'),
+(4, 'Kia', 'Киа', 'kia', '/uploads/mark/IheE5DIkvEWkJzByn8AI.png', NULL, NULL, NULL, 1, 'Kia', '', '', '2018-01-25 11:27:23', '2018-01-25 11:27:23'),
+(5, 'Nissan', 'Ниссан', 'nissan', '/uploads/mark/WcxPKssnnlyZrRS9vo1T.png', '', '', NULL, 1, 'Nissan', '', '', '2018-01-25 11:28:42', '2018-01-26 10:49:45'),
+(6, 'Toyota', 'Тойота', 'toyota', '/uploads/mark/HSoawzGBrxQ5xgmcEnNM.png', NULL, NULL, NULL, 1, 'Toyota', '', '', '2018-01-25 11:29:44', '2018-01-25 11:29:44'),
+(7, 'Skoda', 'Шкода', 'skoda', '/uploads/mark/6wXHqXd4CUlZelfyaiKl.png', '', '', NULL, 1, 'Skoda', '', '', '2018-01-25 11:31:19', '2018-01-26 10:50:53'),
+(8, 'Datsun', 'Датсун', 'datsun', '/uploads/mark/mPGfQdmNZ6PC9Wg5EyQz.png', '', '', NULL, 1, 'Datsun', '', '', '2018-01-25 11:33:53', '2018-01-26 10:50:42'),
+(9, 'Mitsubishi', 'Мицубиси', 'mitsubishi', '/uploads/mark/mpH90MVIWuWpiJqr0SS3.png', '', '', NULL, 1, 'Mitsubishi', '', '', '2018-01-25 11:35:06', '2018-01-26 10:50:31'),
+(10, 'Lifan', 'Лифан', 'lifan', '/uploads/mark/AkppWyx4yaR7EEzajUwC.png', '', '', NULL, 1, 'Lifan', '', '', '2018-01-25 11:35:55', '2018-01-26 10:50:23'),
+(11, 'Ssangyong', 'Санйонг', 'ssangyong', '/uploads/mark/JHkDLLDx3e5AXvwmn1Kc.png', '', '', NULL, 1, 'Ssangyong', '', '', '2018-01-25 11:37:32', '2018-01-26 10:50:11'),
+(12, 'UAZ', 'УАЗ', 'uaz', '/uploads/mark/9G19kvaWw0Q8rwURZBHL.png', '', '', NULL, 1, 'UAZ', '', '', '2018-01-25 11:38:34', '2018-01-26 10:49:26'),
+(13, 'Great Wall', 'Грейт уолл', 'great_wall', '/uploads/mark/Zv5jiuxfgnKMnegVu6zF.png', '', '', NULL, 1, 'Great Wall', '', '', '2018-01-25 11:39:40', '2018-01-26 10:49:31'),
+(14, 'Ravon', 'Равон', 'ravon', '/uploads/mark/P4aCVE0uIo3ljebppr7E.png', '', '', NULL, 1, 'Ravon', '', '', '2018-01-25 11:40:41', '2018-01-26 10:49:36'),
+(15, 'Geely', 'Джили', 'geely', '/uploads/mark/sJ79Tg1imP7vUI4qHDSK.png', '', '', NULL, 1, 'Geely', '', '', '2018-01-25 11:42:26', '2018-01-26 10:48:32'),
+(16, 'Ford', 'Форд', 'ford', '/uploads/mark/m3oVQyPMh0YZjzY6YB73.png', '', '', NULL, 1, 'Ford', '', '', '2018-01-25 11:43:22', '2018-01-26 10:48:39'),
+(17, 'Mazda', 'Мазда', 'mazda', '/uploads/mark/bAJCItidCZhibrW4AHoQ.png', NULL, NULL, NULL, 1, 'Mazda', '', '', '2018-01-25 11:44:43', '2018-01-25 11:44:43'),
+(18, 'Haval', 'Хавейл', 'haval', '/uploads/mark/UnyTss7h4eqE7AsKIlSl.png', '', '', NULL, 1, 'Haval', '', '', '2018-01-25 11:45:54', '2018-01-26 10:48:48'),
+(19, 'Suzuki', 'Cудзуки', 'suzuki', '/uploads/mark/QGm8GLb57q5L8CGxJt2w.png', '', '', NULL, 1, 'Suzuki', '', '', '2018-01-25 11:47:41', '2018-01-26 10:48:59'),
+(20, 'Chery', 'Чери', 'chery', '/uploads/mark/STAafLIs4kW5wiNKeBbB.png', '', '', NULL, 1, 'Chery', '', '', '2018-01-25 11:49:38', '2018-01-26 10:49:04'),
+(21, 'Changan', 'Чендэн', 'changan', '/uploads/mark/UinImTP5ZUiMUMYVfzVU.png', '', '', NULL, 1, 'Changan', '', '', '2018-01-25 11:52:12', '2018-01-26 10:49:11'),
+(22, 'Volksvagen', 'Фольксваген', 'volksvagen', '/uploads/mark/M6JKRmAaK7H1p9rVLqgP.png', '', '', NULL, 1, 'Volksvagen', '', '', '2018-01-25 11:53:19', '2018-01-26 10:51:17');
 
 -- --------------------------------------------------------
 
@@ -6176,12 +6222,15 @@ CREATE TABLE `catalog_models` (
   `id_car_mark` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_rus` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `body_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `annotation` text COLLATE utf8_unicode_ci,
   `content` text COLLATE utf8_unicode_ci,
   `parametersContent` text COLLATE utf8_unicode_ci,
   `galleryContent` text COLLATE utf8_unicode_ci,
+  `bannerText` text COLLATE utf8_unicode_ci,
+  `special` tinyint(1) NOT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `meta_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -6194,8 +6243,8 @@ CREATE TABLE `catalog_models` (
 -- Дамп данных таблицы `catalog_models`
 --
 
-INSERT INTO `catalog_models` (`id`, `id_car_mark`, `name`, `name_rus`, `slug`, `image`, `annotation`, `content`, `parametersContent`, `galleryContent`, `published`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Sandero New', 'Сандеро', 'sandero_new', '/uploads/model/f1n5neUayDfPyGuJdKFo.png', '', '<h1>Купить новый Рено Сандеро (Renault Sandero) у официального дилера в Москве</h1>\r\n\r\n<p><strong>Автомобиль, который лаконично вписывается в ритмы шумного мегаполиса и оживленных трасс загородом.</strong> С вместительным и аккуратным хэтчбэком любые препятствия легко преодолеваются. В «ПИК-Авто» вы сможете купить новый Рено Сандеро в кредит в его обновленной версии. Изящный и компактный, с потрясающими эксплуатационными качествами, он обязательно впечатлит вас.</p>\r\n\r\n<p><strong>Новый авто Рено Сандеро: цены и комплектации</strong><br />\r\nУже в своей стандартной модификации автомобиль оснащен многофункциональным мультимедийным комплексом и современной роботизированной коробкой передач. Вашему вниманию представляется подробная таблица с описанием каждой версии авто.</p>\r\n\r\n<p>Напомним, какие бы комплектации Рено Сандеро в нашем автосалоне вы ни выбрали, мы подарим вам ценные подарки. Это и полезное оборудование, и страховка, и билет до Москвы для всех жителей регионов РФ.</p>\r\n\r\n<h2>Цена на Рено Сандеро в кредит</h2>\r\n\r\n<p>1993 – год начала деятельности «ПИК-Авто». Заключая договоры с теми или иными производителями, мы активно снижаем прайс. Поэтому у нас вы найдете самые оптимальные расценки на любые товарные позиции. Что касается подарков и бонусов, то официальный дилер Renault Sandero в Москве «ПИК-Авто» компенсирует следующие расходы.</p>\r\n\r\n<p><strong>За счет нашего автосалона:</strong></p>\r\n\r\n<ul>\r\n	<li>билет до Москвы;</li>\r\n	<li>страховка ОСАГО или КАСКО;</li>\r\n	<li>полезные приборы.</li>\r\n</ul>\r\n\r\n<p>В качестве последних предложены парктроники, система навигации, зимние шины, сигнализация и многое другое на выбор клиента. Информация относительного того, что еще включено в указанную цену на Renault Sandero в кредит, доступна в разделе «<a href=\"/gifts\">подарки</a>».</p>', '<h2>Автомобиль Рено Сандеро: отзывы</h2>\r\n\r\n<p>Если проанализировать отзывы владельцев нового Рено Сандеро, можно прийти к следующим выводам. Автомобиль прекрасно адаптирован для езды в наших условиях. Высокий результат достижим благодаря энергоемкой надежной подвеске, высокому клиренсу и другим решениям производителя.</p>\r\n\r\n<p><strong>Компактность и экономичность</strong><br />\r\nВ первую очередь, примечательна компактность машины. Небольшие габариты позволят легко и уверенно перемещаться по городу или за его пределами. Это, естественно, положительно влияет на экономичность. Производитель предлагает широкий ассортимент бензиновых двигателей на выбор от 1,2 литров. К слову, каждый из них полностью соответствует установленным стандартам ЕВРО5.</p>\r\n\r\n<p><strong>Безопасность</strong><br />\r\nУверенное движение обеспечивается усовершенствованной серией дисков и пружин. Особую защиту создают накладки на колесных арках и порогах. Даже в базовой версии машина комплектуется подушками безопасности для водителя и пассажиров, системой распределения тормозных усилий и многим другим.</p>\r\n\r\n<p><strong>Комфорт</strong><br />\r\nОб оптимальной температуре в салоне позаботиться новейшая система климат-контроля. А о развлечении пассажиров и водителя – современная аудиосистема с возможностью подключения любого гаджета.</p>', '<p><strong>Уникальный облик</strong><br />\r\n<em><strong>Дизайн.</strong></em> Авто Renault Sandero в новой версии имеет более удлиненные габариты. Небольшое удлинение не сказалось на компактности, однако добавило больше простора в салоне.</p>\r\n\r\n<p><span style=\"font-size:16px;\"><strong>!</strong></span> Если дизайн не понравился, предлагаем взглянуть на решения других производителей. Мы являемся <a href=\"/auto/datsun\">официальным дилером Датсун</a> и ряда других автомобилестроительных марок. В нашем обширном каталоге обязательно найдется модель по вашим вкусовым предпочтениям.</p>', 1, '', '', '', '2018-01-29 08:16:52', '2018-01-29 08:56:07');
+INSERT INTO `catalog_models` (`id`, `id_car_mark`, `name`, `name_rus`, `body_type`, `slug`, `image`, `annotation`, `content`, `parametersContent`, `galleryContent`, `bannerText`, `special`, `published`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Sandero New', 'Сандеро', 'hatchback_5', 'sandero_new', '/uploads/model/f1n5neUayDfPyGuJdKFo.png', '', '<h1>Купить новый Рено Сандеро (Renault Sandero) у официального дилера в Москве</h1>\r\n\r\n<p><strong>Автомобиль, который лаконично вписывается в ритмы шумного мегаполиса и оживленных трасс загородом.</strong> С вместительным и аккуратным хэтчбэком любые препятствия легко преодолеваются. В «ПИК-Авто» вы сможете купить новый Рено Сандеро в кредит в его обновленной версии. Изящный и компактный, с потрясающими эксплуатационными качествами, он обязательно впечатлит вас.</p>\r\n\r\n<p><strong>Новый авто Рено Сандеро: цены и комплектации</strong><br />\r\nУже в своей стандартной модификации автомобиль оснащен многофункциональным мультимедийным комплексом и современной роботизированной коробкой передач. Вашему вниманию представляется подробная таблица с описанием каждой версии авто.</p>\r\n\r\n<p>Напомним, какие бы комплектации Рено Сандеро в нашем автосалоне вы ни выбрали, мы подарим вам ценные подарки. Это и полезное оборудование, и страховка, и билет до Москвы для всех жителей регионов РФ.</p>\r\n\r\n<h2>Цена на Рено Сандеро в кредит</h2>\r\n\r\n<p>1993 – год начала деятельности «ПИК-Авто». Заключая договоры с теми или иными производителями, мы активно снижаем прайс. Поэтому у нас вы найдете самые оптимальные расценки на любые товарные позиции. Что касается подарков и бонусов, то официальный дилер Renault Sandero в Москве «ПИК-Авто» компенсирует следующие расходы.</p>\r\n\r\n<p><strong>За счет нашего автосалона:</strong></p>\r\n\r\n<ul>\r\n	<li>билет до Москвы;</li>\r\n	<li>страховка ОСАГО или КАСКО;</li>\r\n	<li>полезные приборы.</li>\r\n</ul>\r\n\r\n<p>В качестве последних предложены парктроники, система навигации, зимние шины, сигнализация и многое другое на выбор клиента. Информация относительного того, что еще включено в указанную цену на Renault Sandero в кредит, доступна в разделе «<a href=\"/gifts\">подарки</a>».</p>', '<h2>Автомобиль Рено Сандеро: отзывы</h2>\r\n\r\n<p>Если проанализировать отзывы владельцев нового Рено Сандеро, можно прийти к следующим выводам. Автомобиль прекрасно адаптирован для езды в наших условиях. Высокий результат достижим благодаря энергоемкой надежной подвеске, высокому клиренсу и другим решениям производителя.</p>\r\n\r\n<p><strong>Компактность и экономичность</strong><br />\r\nВ первую очередь, примечательна компактность машины. Небольшие габариты позволят легко и уверенно перемещаться по городу или за его пределами. Это, естественно, положительно влияет на экономичность. Производитель предлагает широкий ассортимент бензиновых двигателей на выбор от 1,2 литров. К слову, каждый из них полностью соответствует установленным стандартам ЕВРО5.</p>\r\n\r\n<p><strong>Безопасность</strong><br />\r\nУверенное движение обеспечивается усовершенствованной серией дисков и пружин. Особую защиту создают накладки на колесных арках и порогах. Даже в базовой версии машина комплектуется подушками безопасности для водителя и пассажиров, системой распределения тормозных усилий и многим другим.</p>\r\n\r\n<p><strong>Комфорт</strong><br />\r\nОб оптимальной температуре в салоне позаботиться новейшая система климат-контроля. А о развлечении пассажиров и водителя – современная аудиосистема с возможностью подключения любого гаджета.</p>', '<p><strong>Уникальный облик</strong><br />\r\n<em><strong>Дизайн.</strong></em> Авто Renault Sandero в новой версии имеет более удлиненные габариты. Небольшое удлинение не сказалось на компактности, однако добавило больше простора в салоне.</p>\r\n\r\n<p><span style=\"font-size:16px;\"><strong>!</strong></span> Если дизайн не понравился, предлагаем взглянуть на решения других производителей. Мы являемся <a href=\"/auto/datsun\">официальным дилером Датсун</a> и ряда других автомобилестроительных марок. В нашем обширном каталоге обязательно найдется модель по вашим вкусовым предпочтениям.</p>', 'Скидка в феврале<br/>до <span>123 000</span> руб.', 1, 1, '', '', '', '2018-01-29 08:16:52', '2018-02-07 06:15:33');
 
 -- --------------------------------------------------------
 
@@ -6207,7 +6256,6 @@ CREATE TABLE `catalog_modifications` (
   `id` int(11) NOT NULL,
   `id_model` int(11) NOT NULL COMMENT 'модель',
   `name` varchar(255) NOT NULL COMMENT 'название',
-  `body_type` varchar(255) NOT NULL,
   `length` int(11) NOT NULL COMMENT 'Длина, мм',
   `width` int(11) NOT NULL COMMENT 'Ширина, мм',
   `height` int(11) NOT NULL COMMENT 'Высота, мм',
@@ -6248,10 +6296,11 @@ CREATE TABLE `catalog_modifications` (
 -- Дамп данных таблицы `catalog_modifications`
 --
 
-INSERT INTO `catalog_modifications` (`id`, `id_model`, `name`, `body_type`, `length`, `width`, `height`, `wheel_base`, `front_rut`, `back_rut`, `front_overhang`, `back_overhang`, `trunk_volume_min`, `trunk_volume_max`, `tank_volume`, `front_brakes`, `back_brakes`, `front_suspension`, `back_suspension`, `engine_displacement`, `engine_displacement_working_value`, `engine_type`, `gearbox`, `gears`, `drive`, `power`, `consume_city`, `consume_track`, `consume_mixed`, `acceleration_100km`, `max_speed`, `clearance`, `min_mass`, `max_mass`, `trailer_mass`, `published`, `created_at`, `updated_at`) VALUES
-(1, 1, '1.6 РКП5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, '', '', '', '', 2, 1598, 'petrol', 'rgt', 5, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 0, 1, '2018-01-30 09:00:29', '2018-01-30 09:00:29'),
-(2, 1, '1.6 РКП5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, '', '', '', '', 2, 1598, 'petrol', 'rgt', 5, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 0, 1, '2018-01-30 09:00:48', '2018-01-30 09:00:48'),
-(3, 1, '1.6 РКП5 (82 л.с.)', 'hatchback_5', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, '', '', '', '', 2, 1598, 'petrol', 'rgt', 5, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 0, 1, '2018-01-30 09:02:38', '2018-01-30 09:02:38');
+INSERT INTO `catalog_modifications` (`id`, `id_model`, `name`, `length`, `width`, `height`, `wheel_base`, `front_rut`, `back_rut`, `front_overhang`, `back_overhang`, `trunk_volume_min`, `trunk_volume_max`, `tank_volume`, `front_brakes`, `back_brakes`, `front_suspension`, `back_suspension`, `engine_displacement`, `engine_displacement_working_value`, `engine_type`, `gearbox`, `gears`, `drive`, `power`, `consume_city`, `consume_track`, `consume_mixed`, `acceleration_100km`, `max_speed`, `clearance`, `min_mass`, `max_mass`, `trailer_mass`, `published`, `created_at`, `updated_at`) VALUES
+(4, 1, '1.6 РКП5 (82 л.с.)', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1598, 'petrol', 'mt', 0, 'front', 82, 9, 5.7, 6.9, 12.4, 164, 155, 1117, 1550, 555, 1, '2018-02-05 11:17:01', '2018-02-05 11:17:01'),
+(5, 1, '1.6 МТ5 (82 л.с.)', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1598, 'petrol', 'mt', 5, 'front', 82, 9.8, 5.8, 7.2, 11.9, 172, 155, 1560, 1560, 565, 1, '2018-02-05 11:21:02', '2018-02-05 11:21:02'),
+(6, 1, '1.6 АКП4 (102 л.с.)', 4057, 1733, 1523, 2589, 1497, 1486, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1594, 'petrol', 'mt', 4, 'front', 102, 10.9, 6.6, 8.3, 11.7, 171, 155, 1151, 1590, 0, 1, '2018-02-05 11:24:10', '2018-02-05 11:24:10'),
+(7, 1, '1.6 МКП5 (113 л.с.)', 4057, 1733, 1523, 2589, 1497, 0, 0, 0, 320, 0, 50, 'Дисковые вентилируемые', 'Барабанные, 8 дюймов', 'Независимая, пружинная, типа Макферсон, со стабилизатором поперечной устойчивости', 'Полузависимая, пружинная с телескопическими гидравлическими амортизаторами и стабилизатором поперечной устойчивости', 2, 1598, 'petrol', 'mt', 0, 'front', 113, 8.5, 5.6, 6.6, 10.7, 177, 155, 1119, 1525, 0, 1, '2018-02-05 11:27:19', '2018-02-05 11:27:19');
 
 -- --------------------------------------------------------
 
@@ -6261,6 +6310,7 @@ INSERT INTO `catalog_modifications` (`id`, `id_model`, `name`, `body_type`, `len
 
 CREATE TABLE `catalog_packs` (
   `id` int(11) NOT NULL,
+  `id_model` int(11) NOT NULL,
   `id_modification` int(11) NOT NULL,
   `id_complectation` int(11) NOT NULL,
   `price` int(11) NOT NULL,
@@ -6269,6 +6319,13 @@ CREATE TABLE `catalog_packs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_packs`
+--
+
+INSERT INTO `catalog_packs` (`id`, `id_model`, `id_modification`, `id_complectation`, `price`, `prev_price`, `best_price`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 11, 12300, 1345, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -6307,6 +6364,72 @@ CREATE TABLE `catalog_parameter_complectation` (
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `catalog_parameter_complectation`
+--
+
+INSERT INTO `catalog_parameter_complectation` (`id`, `id_complectation`, `id_parameter`, `price`) VALUES
+(1, 1, 1, 0),
+(2, 1, 28, 0),
+(3, 1, 32, 0),
+(4, 2, 1, 0),
+(5, 2, 28, 0),
+(6, 2, 32, 0),
+(7, 3, 1, 0),
+(8, 3, 28, 0),
+(9, 3, 32, 0),
+(10, 4, 1, 0),
+(11, 4, 28, 0),
+(12, 4, 32, 0),
+(13, 6, 2, 0),
+(14, 6, 4, 0),
+(15, 7, 2, 0),
+(16, 7, 4, 0),
+(17, 8, 1, 0),
+(18, 9, 1, 0),
+(19, 9, 3, 0),
+(20, 9, 4, 0),
+(21, 10, 1, 0),
+(22, 10, 2, 0),
+(23, 10, 3, 0),
+(24, 10, 4, 0),
+(25, 10, 5, 0),
+(26, 10, 6, 0),
+(27, 10, 7, 0),
+(28, 10, 8, 0),
+(29, 10, 13, 0),
+(30, 10, 14, 0),
+(31, 10, 19, 0),
+(32, 10, 20, 0),
+(33, 10, 21, 0),
+(34, 10, 23, 0),
+(35, 10, 25, 0),
+(36, 10, 28, 0),
+(37, 10, 31, 0),
+(38, 10, 32, 0),
+(39, 10, 35, 0),
+(40, 11, 1, 0),
+(41, 11, 2, 0),
+(42, 11, 4, 0),
+(43, 11, 14, 0),
+(44, 11, 15, 0),
+(45, 11, 16, 0),
+(46, 11, 17, 0),
+(47, 12, 1, 0),
+(48, 12, 2, 0),
+(49, 12, 4, 0),
+(50, 12, 14, 0),
+(51, 12, 15, 0),
+(52, 12, 16, 0),
+(53, 12, 17, 0),
+(54, 13, 1, 0),
+(55, 13, 2, 0),
+(56, 13, 4, 0),
+(57, 13, 14, 0),
+(58, 13, 15, 0),
+(59, 13, 16, 0),
+(60, 13, 17, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -6321,6 +6444,14 @@ CREATE TABLE `catalog_parameter_pack` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_parameter_pack`
+--
+
+INSERT INTO `catalog_parameter_pack` (`id`, `id_complectation`, `name`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Пакет безопасности:', 15000, '2018-02-05 05:27:41', '2018-02-05 05:27:41'),
+(2, 11, 'Пакет \"Зимний\" для двигателя 1.6', 14000, '2018-02-05 12:04:30', '2018-02-05 12:04:30');
 
 -- --------------------------------------------------------
 
@@ -25903,6 +26034,31 @@ CREATE TABLE `images` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `image_gallery`
+--
+
+CREATE TABLE `image_gallery` (
+  `id` int(11) NOT NULL,
+  `id_model` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `image_gallery`
+--
+
+INSERT INTO `image_gallery` (`id`, `id_model`, `title`, `image`, `created_at`, `updated_at`) VALUES
+(1, 1, '1', '1517921076.jpeg', '2018-02-06 09:44:36', '2018-02-06 09:44:36'),
+(2, 1, '2', '1517921257.jpeg', '2018-02-06 09:47:37', '2018-02-06 09:47:37'),
+(3, 1, '3', '1517921268.jpeg', '2018-02-06 09:47:48', '2018-02-06 09:47:48'),
+(4, 1, '4', '1517921277.jpeg', '2018-02-06 09:47:57', '2018-02-06 09:47:57');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `menus`
 --
 
@@ -25928,7 +26084,8 @@ INSERT INTO `menus` (`id`, `title`, `location`, `url`, `status`, `item_order`, `
 (11, 'Trade-in', 'HEADER', 'tradein', 1, 4, '2018-01-23 05:42:47', '2018-01-23 05:42:47'),
 (13, 'Наши клиенты', 'HEADER', 'our_clients', 1, 6, '2018-01-23 05:44:54', '2018-01-23 05:44:54'),
 (14, 'Документы', 'HEADER', 'documents', 1, 7, '2018-01-23 05:45:54', '2018-01-23 05:45:54'),
-(15, 'Контакты', 'HEADER', 'contacts', 1, 8, '2018-01-23 05:46:36', '2018-01-23 05:46:36');
+(15, 'Контакты', 'HEADER', 'contacts', 1, 9, '2018-01-23 05:46:36', '2018-02-08 06:01:51'),
+(16, 'Отзывы', 'HEADER', '/reviews', 1, 8, '2018-02-08 06:01:31', '2018-02-08 06:01:46');
 
 -- --------------------------------------------------------
 
@@ -26039,8 +26196,7 @@ CREATE TABLE `request_credits` (
 --
 
 INSERT INTO `request_credits` (`id`, `name`, `age`, `phone`, `fee`, `ip`, `mark`, `model`, `complectation`, `registration`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Вася Пупкин', 72, '+7 (910) 342-3432', 20, '127.0.0.1', 'Alpina', 'D10, E39', '2.9d MT (245 л.с.)', 'Москва и Московская обл.', 1, '2018-01-11 11:00:14', '2018-01-11 11:21:01'),
-(2, 'Иван Петров', 20, '+7 (765) 675-6756', 20, '127.0.0.1', 'AC', 'Ace', '3.0 MT (223 л.с.)', 'Москва и Московская обл.', 0, '2018-01-17 08:35:25', '2018-01-17 08:35:25');
+(1, 'Вася Пупкин', 19, '+7 (765) 675-6756', 20, '127.0.0.1', 'Hyundai', 'Sandero New', '5', 'Москва и Московская обл.', 0, '2018-02-08 06:22:47', '2018-02-08 06:22:47');
 
 -- --------------------------------------------------------
 
@@ -26063,6 +26219,13 @@ CREATE TABLE `request_trade_ins` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `request_trade_ins`
+--
+
+INSERT INTO `request_trade_ins` (`id`, `name`, `phone`, `ip`, `mark`, `model`, `year`, `mileage`, `trade_in_mark`, `trade_in_model`, `trade_in_complectation`, `created_at`, `updated_at`) VALUES
+(1, 'Вася Пупкин', '+7 (676) 575-6756', '127.0.0.1', 'AC', 'Cobra, Mk IV', 2017, 3234234, 1, 1, 4, '2018-02-07 09:26:19', '2018-02-07 09:26:19');
 
 -- --------------------------------------------------------
 
@@ -26232,12 +26395,18 @@ ALTER TABLE `catalog_cars`
   ADD KEY `model` (`model`);
 
 --
+-- Индексы таблицы `catalog_colors`
+--
+ALTER TABLE `catalog_colors`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_model` (`id_model`);
+
+--
 -- Индексы таблицы `catalog_complectations`
 --
 ALTER TABLE `catalog_complectations`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_model` (`id_model`),
-  ADD KEY `id_modification` (`id_modification`);
+  ADD KEY `id_model` (`id_model`);
 
 --
 -- Индексы таблицы `catalog_marks`
@@ -26343,6 +26512,13 @@ ALTER TABLE `images`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `image_gallery`
+--
+ALTER TABLE `image_gallery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_model` (`id_model`);
+
+--
 -- Индексы таблицы `menus`
 --
 ALTER TABLE `menus`
@@ -26405,7 +26581,7 @@ ALTER TABLE `user_reviews`
 -- AUTO_INCREMENT для таблицы `callbacks`
 --
 ALTER TABLE `callbacks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `car_marks`
@@ -26426,10 +26602,16 @@ ALTER TABLE `catalog_cars`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT для таблицы `catalog_colors`
+--
+ALTER TABLE `catalog_colors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT для таблицы `catalog_complectations`
 --
 ALTER TABLE `catalog_complectations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_marks`
@@ -26447,13 +26629,13 @@ ALTER TABLE `catalog_models`
 -- AUTO_INCREMENT для таблицы `catalog_modifications`
 --
 ALTER TABLE `catalog_modifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_packs`
 --
 ALTER TABLE `catalog_packs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_categories`
@@ -26462,10 +26644,16 @@ ALTER TABLE `catalog_parameter_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT для таблицы `catalog_parameter_complectation`
+--
+ALTER TABLE `catalog_parameter_complectation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
 -- AUTO_INCREMENT для таблицы `catalog_parameter_pack`
 --
 ALTER TABLE `catalog_parameter_pack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_values`
@@ -26498,10 +26686,16 @@ ALTER TABLE `images`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT для таблицы `image_gallery`
+--
+ALTER TABLE `image_gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT для таблицы `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `pages`
@@ -26513,13 +26707,13 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT для таблицы `request_credits`
 --
 ALTER TABLE `request_credits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `request_trade_ins`
 --
 ALTER TABLE `request_trade_ins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`

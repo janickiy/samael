@@ -79,9 +79,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::any('/auto', 'FrontendController@allAuto');
     Route::get('/auto/{mark}', 'FrontendController@mark');
     Route::get('/auto/{mark}/{model}', 'FrontendController@model');
-
     Route::get('/auto/{mark}/{model}/pack/{id}/print', 'FrontendController@printModel');
-
     Route::get('/credit', 'FrontendController@credit');
     Route::post('/request-credit', 'FrontendController@requestCredit');
     Route::post('/request-credit-quick', 'FrontendController@requestCreditQuick');
