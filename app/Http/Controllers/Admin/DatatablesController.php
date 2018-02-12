@@ -334,7 +334,6 @@ class DatatablesController extends Controller
                 return  $carmark;
             })
 
-
             ->addColumn('status', function ($catalogMarks) {
                 return $catalogMarks->published ? 'опубликован' : 'не опубликован';
             })

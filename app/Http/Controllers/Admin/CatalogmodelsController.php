@@ -178,7 +178,7 @@ class CatalogmodelsController extends Controller
      */
     public function packs($id)
     {
-        $modifications = CatalogModification::select(['name','body_type', 'id'])->where('id_model', $id)->get();
+        $modifications = CatalogModification::select(['name','id'])->where('id_model', $id)->get();
         $complectations = CatalogComplectation::where('id_model', $id)->get();
 
         return view('admin.catalog.packs.index', compact('modifications', 'complectations'))->with('id', $id);
