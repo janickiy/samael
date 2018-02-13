@@ -220,21 +220,30 @@ class FrontendController extends Controller
 
                     break;
 
-                case 'get_modifications':
+                case 'get_complectations':
 
-                    $modifications = CatalogModification::where('id_model', $request->id_model)->get();
-                    $model = CatalogModel::select(['image'])->where('id', $request->id_model)->where('published', 1)->first();
+                    if (is_numeric($request->id_model)) {
+                        $model = CatalogModel::select(['image'])->where('id', $request->id_model)->where('published', 1)->first();
 
-                    $rows = [];
+                        $complectations = CatalogPack::select(['catalog_modifications.name as modification','catalog_modifications.power', 'catalog_complectations.name as complectation', 'catalog_packs.price', 'catalog_complectations.id as id'])
+                            ->where('catalog_packs.id_model', $request->id_model)
+                            ->where('catalog_modifications.published', 1)
+                            ->where('catalog_complectations.published', 1)
+                            ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
+                            ->leftJoin('catalog_complectations', 'catalog_complectations.id', '=', 'catalog_packs.id_complectation')
+                            ->get();
 
-                    foreach($modifications as $modification) {
-                        $rows[] = [
-                            "id" => $modification->id,
-                            "name" => $modification->name,
-                        ];
+                        $rows = [];
+
+                        foreach ($complectations  as $complectation) {
+                            $rows[] = [
+                                "id" => $complectation->id,
+                                "name" => $complectation->modification . '  ' . $complectation->complectation . '(' . number_format($complectation->price,0,'',' ') . ' руб.)',
+                            ];
+                        }
+
+                        return response()->json(['item' => $rows, 'image' => $model->image]);
                     }
-
-                    return response()->json(['item' => $rows, 'image' => $model->image]);
 
                     break;
 

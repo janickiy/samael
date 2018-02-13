@@ -171,7 +171,7 @@
 
                 if (idModel != null) {
                     var request = $.ajax({
-                        url: './ajax?action=get_modifications&id_model=' + idModel,
+                        url: './ajax?action=get_complectations&id_model=' + idModel,
                         method: "GET",
                         dataType: "json"
                     });
