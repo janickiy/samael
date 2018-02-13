@@ -45,6 +45,7 @@
                     <th>Марка</th>
                     <th>Модель</th>
                     <th>Комплектация</th>
+                    <th>Есть автомобиль<br>в Trade-In</th>
                     <th>Первоначальный взнос</th>
                     <th>ФИО</th>
                     <th>Телефон</th>
@@ -76,7 +77,8 @@
 
 
 @section('js')
-        <!-- DataTables -->
+
+<!-- DataTables -->
 {!! Html::script('assets/dist/js/datatable/jquery.dataTables.min.js') !!}
 {!! Html::script('assets/dist/js/datatable/dataTables.bootstrap.min.js') !!}
 {!! Html::script('assets/dist/js/datatable/dataTables.responsive.min.js') !!}
@@ -92,7 +94,8 @@
                 {data: 'id', name: 'id'},
                 {data: 'mark', name: 'mark'},
                 {data: 'model', name: 'model'},
-                {data: 'modification', name: 'modification'},
+                {data: 'complectation', name: 'complectation'},
+                {data: 'tradein_available', name: 'tradein_available'},
                 {data: 'fee', name: 'fee'},
                 {data: 'name', name: 'name'},
                 {data: 'phone', name: 'phone'},

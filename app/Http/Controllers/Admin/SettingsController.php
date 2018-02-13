@@ -164,5 +164,4 @@ class SettingsController extends Controller {
     public function fileDownload(Setting $setting) {
         return response()->download($setting->value);
     }
-
 }

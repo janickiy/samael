@@ -31,6 +31,9 @@
 <section class="content">
     <p><a class="btn btn-success" href="{{ url('/admin/catalog/complectations/create/' . $id) }}"> + Добавить комплектацию </a></p>
     <!-- Default box -->
+
+    <a href="{!! url('/admin/catalog/models/mark/' . $id) !!}">назад</a>
+
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Комплектации</h3>

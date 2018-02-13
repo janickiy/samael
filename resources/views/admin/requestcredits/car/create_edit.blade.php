@@ -3,7 +3,7 @@
 @section('title', 'Заявка на автокредит')
 
 @section('css')
-        <!-- iCheck for checkboxes and radio inputs -->
+<!-- iCheck for checkboxes and radio inputs -->
 {!! Html::style('assets/plugins/iCheck/all.css') !!}
 @endsection
 
@@ -38,26 +38,12 @@
             <p>* - обязательные поля</p>
             {!! Form::open(['url' => isset($requestcredit) ? URL::to('admin/requestcredits/' . $requestcredit->id )  :  URL::to('admin/requestcredits') , 'method' => isset($requestcredit) ? 'put': 'post', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
             <div class="col-md-12">
-                <div class="form-group">
-                    {!! Form::label('mark', 'Марка *', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('mark', old('mark', isset($requestcredit) ? $requestcredit->mark : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Марка автомобиля']) !!}
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    {!! Form::label('model', 'Модель *', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('model', old('model', isset($requestcredit) ? $requestcredit->model : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Модель автомобиля']) !!}
-                    </div>
-                </div>
+                {!! Form::hidden('mark', $requestcredit->mark) !!}
 
-                <div class="form-group">
-                    {!! Form::label('modification', 'Комплектация *', ['class' => 'control-label col-md-2']) !!}
-                    <div class="col-md-4">
-                        {!! Form::text('modification', old('modification', isset($requestcredit) ? $requestcredit->modification : null), ['class' => 'form-control validate[required]', 'placeholder'=>'Комплектация автомобиля']) !!}
-                    </div>
-                </div>
+                {!! Form::hidden('model', $requestcredit->model) !!}
+
+                {!! Form::hidden('complectation', $requestcredit->complectation) !!}
 
                 <div class="form-group">
                     {!! Form::label('fee', 'Первоначальный взнос *', ['class' => 'control-label col-md-2']) !!}

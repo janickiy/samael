@@ -49,9 +49,6 @@ class RequestCreditsController extends Controller
         $requestCredit->age = $request->input('age');
         $requestCredit->phone = trim($request->input('phone'));
         $requestCredit->registration = trim($request->input('registration'));
-        $requestCredit->mark = trim($request->input('mark'));
-        $requestCredit->model = trim($request->input('model'));
-        $requestCredit->complectation = trim($request->input('complectation'));
         $requestCredit->fee = $request->input('fee');
         $requestCredit->updated_at = \Carbon::now();
 

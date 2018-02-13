@@ -119,24 +119,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::any('carmodels/create/{id}', 'Admin\CarmodelsController@create');
         Route::get('carmarks/import', 'Admin\CarmarksController@import');
         Route::post('carmarks/imporcarmarks', 'Admin\CarmarksController@importCarmarks');
-        Route::get('catalog/models/mark/{id}', 'Admin\CatalogmodelsController@catalogmark');
-        Route::any('catalog/models/create/{id}', 'Admin\CatalogmodelsController@create');
-        Route::get('catalog/models/model/{id}/modifications', 'Admin\CatalogmodelsController@modifications');
-        Route::get('catalog/models/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
-        Route::get('catalog/models/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
-        Route::get('catalog/models/model/{id}/colors', 'Admin\CatalogmodelsController@colors');
-        Route::get('catalog/modifications/create/{id}', 'Admin\CatalogmodificationsController@create');
-        Route::get('catalog/colors/create/{id}', 'Admin\CatalogcolorsController@create');
-        Route::get('catalog/parametervalues/category/{id}', 'Admin\CatalogparametervaluesController@category');
-        Route::any('catalog/parametervalues/create/{id}', 'Admin\CatalogparametervaluesController@create');
-        Route::any('catalog/complectations/create/{id}', 'Admin\CatalogcolorsController@create');
         Route::any('/ajax', 'Admin\DashboardController@ajax');
         Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
         Route::get('settings/download/{settings}', ['as' => 'admin.settings.download', 'uses' => 'Admin\SettingsController@fileDownload']);
-        Route::get('catalog/image-gallery/model/{id}', 'Admin\ImageGalleryController@index');
-        Route::post('catalog/image-gallery', 'Admin\ImageGalleryController@upload');
-        Route::delete('catalog/image-gallery/{id}', 'Admin\ImageGalleryController@destroy');
 
         Route::resource('settings', 'Admin\SettingsController');
         Route::resource('roles', 'Admin\RolesController');
@@ -150,6 +136,21 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('callbacks', 'Admin\CallbacksController');
 
         Route::group(['prefix' => 'catalog', 'middleware' => 'admin'], function () {
+
+            Route::get('models/mark/{id}', 'Admin\CatalogmodelsController@catalogmark');
+            Route::any('models/create/{id}', 'Admin\CatalogmodelsController@create');
+            Route::get('models/model/{id}/modifications', 'Admin\CatalogmodelsController@modifications');
+            Route::get('models/model/{id}/complectations', 'Admin\CatalogmodelsController@complectations');
+            Route::get('models/model/{id}/packs', 'Admin\CatalogmodelsController@packs');
+            Route::get('models/model/{id}/colors', 'Admin\CatalogmodelsController@colors');
+            Route::get('modifications/create/{id}', 'Admin\CatalogmodificationsController@create');
+            Route::get('colors/create/{id}', 'Admin\CatalogcolorsController@create');
+            Route::get('parametervalues/category/{id}', 'Admin\CatalogparametervaluesController@category');
+            Route::any('parametervalues/create/{id}', 'Admin\CatalogparametervaluesController@create');
+            Route::any('complectations/create/{id}', 'Admin\CatalogcomplectationsController@create');
+            Route::get('image-gallery/model/{id}', 'Admin\ImageGalleryController@index');
+            Route::post('image-gallery', 'Admin\ImageGalleryController@upload');
+            Route::delete('image-gallery/{id}', 'Admin\ImageGalleryController@destroy');
 
             Route::resource('marks', 'Admin\CatalogmarksController');
             Route::resource('models', 'Admin\CatalogmodelsController');

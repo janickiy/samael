@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Комплектации')
+@section('title', isset($catalogmark) ? 'Редактирование комплектации' : 'Добавление комплектации')
 
 @section('css')
 
@@ -23,9 +23,6 @@
         </li>
     </ol>
 </section>
-
-
-
 
 
 <!-- Main content -->
@@ -52,6 +49,8 @@
 
             {!! Form::hidden('id_model', $id_model) !!}
 
+            {!! Form::hidden('id_complectation', isset($catalogcomplectation) ? $catalogcomplectation->id: null) !!}
+
             <div class="col-md-12">
 
                 <div class="form-group">
@@ -65,10 +64,7 @@
                     {!! Form::label('name', 'Стандартные параметры *', ['class' => 'control-label col-md-2']) !!}
                     <div class="col-md-4">
                         {!! Form::select('equipment[]', $equipment_options, isset($catalogcomplectation) ? $catalogcomplectation->equipment : null, ['class' => 'itemName form-control validate[required]','multiple' => true, 'id' => 'equipment']) !!}
-
-
                     </div>
-
                 </div>
 
                 <div class="form-group">
@@ -101,8 +97,8 @@
                                         </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            {!! Form::label('parameter_pack[]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}
-                                            <div class="col-lg-7">{!! Form::select('parameter_pack[][]', $equipment_options, isset($pack['equipment']) ? $pack['equipment'] : null , ['class' => 'form_control select2 validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>
+                                            {!! Form::label('parameter_pack[0][]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}
+                                            <div class="col-lg-7">{!! Form::select('parameter_pack[0][]', $equipment_options, isset($pack['equipment']) ? $pack['equipment'] : null , ['class' => 'form_control itemName validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>
                                             <div class="col-lg-2"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>
                                         </div>
                                     </div>
@@ -117,6 +113,19 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
+                    <div class="col-md-4">
+                        <label class="check">
+                            @if(isset($catalogmark))
+                                {!! Form::checkbox('published',1,  old('published' , (isset($catalogcomplectation) && ($catalogcomplectation->getOriginal('published') == 1) ) ? true : false ) ,['class'=>'minimal']) !!}
+                            @else
+                                {!! Form::checkbox('published',1,  old('published' , true),['class'=>'minimal']) !!}
+                            @endif
+
+                            Да</label>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-2">
                         {!! Form::submit( (isset($catalogcomplectation) ? 'Обновить': 'Добавить') . '', ['class'=>'btn btn-primary']) !!}
@@ -140,28 +149,27 @@
 
 {!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
 
-
 <script type="text/javascript">
 
     $(document).on( "click", '#add_field', function() {
         var html = '<div class="additional_field"><div class="form-group">';
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
-        html += '{!! Form::label('newparameters_category[]', 'Категория', ['class' => 'col-lg-2 control-label']) !!}';
+        html += '<label for="newparameters_category[]" class="col-lg-2 control-label">Категория</label>';
         html += '<div class="col-lg-7">';
-        html +=  '{!! Form::select('newparameters_category[]', $category_options, 'Категория', ['class' => 'form_control select2']) !!}';
+        html +=  '<select class="form_control select2" id="newparameters_category[]" name="newparameters_category[]"><option value="">Категория</option><option value="1">Безопасность</option><option value="2">Интерьер</option><option value="3">Экстерьер</option><option value="4">Комфорт</option><option value="5">Аудио</option></select>';
         html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
-        html += '{!! Form::label('newparameters_name[]', 'Название', ['class' => 'col-lg-2 control-label']) !!}';
-        html += '<div class="col-lg-7"> {!! Form::text('newparameters_name[]', null, ['class' => 'form-control', 'placeholder'=>'Название']) !!} </div>';
+        html += '<label for="newparameters_name[]" class="col-lg-2 control-label">Название</label>';
+        html += '<div class="col-lg-7"> <input class="form-control" placeholder="Название" name="newparameters_name[]" type="text" id="newparameters_name[]"> </div>';
         html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
-        html += '{!! Form::label('newparameters_price[]', 'Цена', ['class' => 'col-lg-2 control-label']) !!}';
-        html += '<div class="col-lg-7"> {!! Form::text('newparameters_price[]', null, ['class' => 'form-control validate[custom[onlyNumberSp]]', 'placeholder'=>'Цена']) !!} </div>';
+        html += '<label for="newparameters_price[]" class="col-lg-2 control-label">Цена</label>';
+        html += '<div class="col-lg-7"> <input class="form-control validate[custom[onlyNumberSp]]" placeholder="Цена" name="newparameters_price[]" type="text" id="newparameters_price[]"> </div>';
         html += '<div class="col-lg-3"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>';
         html += '</div>';
         html += '</div>';
@@ -169,8 +177,6 @@
         html += '</div>';
 
         $('#headerslist').prepend(html);
-
-
 
         var prefix = 's2id_';
         $("form[id^='validate']").validationEngine('attach',
@@ -183,25 +189,26 @@
 
     $(document).on( "click", '#add_field_pack', function() {
 
-        var lengthBlock = $('div.row_block').length;
-
-        var html = '<div class="additional_field"><div class="form-group">';
+        var lengthBlock = $('div.additional_field').length;
+        var html = '<div class="additional_field">';
+        html += '<input type="hidden" name="pack_key[]" value="' + lengthBlock + '">';
+        html += '<div class="form-group">';
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
-        html += '{!! Form::label('pack_name[]', 'Название *', ['class' => 'col-lg-3 control-label']) !!}';
-        html += '<div class="col-lg-7"> {!! Form::text('pack_name[]', null, ['class' => 'pack_field form-control validate[required]', 'placeholder'=>'Название']) !!} </div>';
-        html += '</div>';
-        html += '</div>';
-        html += '<div class="col-lg-12">';
-        html += '<div class="form-group">';
-        html += '{!! Form::label('pack_price[]', 'Цена *', ['class' => 'col-lg-3 control-label']) !!}';
-        html += '<div class="col-lg-7"> {!! Form::text('pack_price[]', null, ['class' => 'form-control validate[required,custom[onlyNumberSp]]', 'placeholder'=>'Цена']) !!} </div>';
+        html += '<label for="pack_name[]" class="col-lg-3 control-label">Название *</label>';
+        html += '<div class="col-lg-7"> <input class="pack_field form-control validate[required]" placeholder="Название" name="pack_name[]" type="text" id="pack_name[]"> </div>';
         html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12">';
         html += '<div class="form-group">';
-        html += '{!! Form::label('parameter_pack[]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}';
-        html += '<div class="col-lg-7">{!! Form::select("parameter_pack[]", $equipment_options, null, ['class' => 'form_control itemName validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>';
+        html += '<label for="pack_price[]" class="col-lg-3 control-label">Цена *</label>';
+        html += '<div class="col-lg-7"> <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="Цена" name="pack_price[]" type="text" id="pack_price[]"> </div>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12">';
+        html += '<div class="form-group">';
+        html += '<label for="parameter_pack[' + lengthBlock + '][]" class="col-lg-3 control-label">Параметры *</label>';
+        html += '<div class="col-lg-7"><select class="form_control itemName validate[required]" multiple="1" id="parameter_pack[' + lengthBlock + '][]" name="parameter_pack[' + lengthBlock + '][]"></select></div>';
         html += '<div class="col-lg-2"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>';
         html += '</div>';
         html += '</div>';
@@ -211,7 +218,8 @@
         $('#packlist').prepend(html);
 
         $('.itemName').select2({
-            placeholder: 'Select an item',
+            width: '100%',
+            placeholder: 'Выберите пункт',
             ajax: {
                 url: "{!! url('admin/ajax?action=complectation') !!}",
                 dataType: 'json',
@@ -232,17 +240,14 @@
                 prettySelect: true,
                 usePrefix: prefix
             });
-
     });
 
     $(document).on( "click", '.removeBlock', function() {
         var parent = $(this).closest('div[class^="additional_field"]');
         parent.remove();
-
     });
 
     $(document).ready(function () {
-
 
         $('#equipment').on('select2:opening select2:closing', function( event ) {
             var $searchfield = $(this).parent().find('.select2-search__field');
@@ -254,7 +259,8 @@
         });
 
         $('.itemName').select2({
-            placeholder: 'Select an item',
+            width: '100%',
+            placeholder: 'Выберите пункт',
             ajax: {
                 url: "{!! url('admin/ajax?action=complectation') !!}",
                 dataType: 'json',
@@ -268,7 +274,6 @@
             }
         });
 
-
         // Validation Engine init
         var prefix = 's2id_';
         $("form[id^='validate']").validationEngine('attach',
@@ -279,9 +284,9 @@
             });
     });
 
-
     $('.itemName').select2({
-        placeholder: 'Select an item',
+        width: '100%',
+        placeholder: 'Выберите пункт',
         ajax: {
             url: "{!! url('admin/ajax?action=complectation') !!}",
             dataType: 'json',
@@ -294,7 +299,6 @@
             cache: true
         }
     });
-
 
 </script>
 @endsection		

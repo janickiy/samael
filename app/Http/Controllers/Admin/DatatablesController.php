@@ -14,7 +14,6 @@ use App\UserReview;
 use App\CarMark;
 use App\CarModel;
 use App\CatalogModel;
-use App\Image;
 use App\RequestTradeIn;
 use App\RequestCredit;
 use App\CatalogMark;
@@ -232,27 +231,6 @@ class DatatablesController extends Controller
     /**
      * @return mixed
      */
-    public function getImages()
-    {
-        $image = Image::all();
-
-        return Datatables::of($image)
-
-            ->addColumn('image', function ($image) {
-                return '<img width="200px" src="' . url('uploads/images/small/' . $image->img) . '">';
-            })
-
-            ->addColumn('actions', function ($image) {
-                $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/images/' . $image->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
-                $deleteBtn = '&nbsp;<a href="' . url('admin/images/' . $image->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
-                return $editBtn . $deleteBtn;
-            })
-            ->make(true);
-    }
-
-    /**
-     * @return mixed
-     */
     public function getRequesttradeins()
     {
         $requestTradeIn = RequestTradeIn::all();
@@ -285,10 +263,17 @@ class DatatablesController extends Controller
                 return $requestCredit->status ? 'да' : 'нет';
             })
 
-            ->addColumn('modification', function ($requestCredit) {
-                $modification = CatalogModification::select(['name'])->where('id', $requestCredit->complectation)->first()->toArray();
+            ->addColumn('complectation', function ($requestCredit) {
+                $modification = CatalogComplectation::select(['catalog_complectations.id as id', 'catalog_complectations.name as complectation', 'catalog_modifications.name as modification'])
+                    ->leftJoin('catalog_packs', 'catalog_packs.id_complectation', '=', 'catalog_complectations.id')
+                    ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
+                    ->first();
 
-                return $modification['name'];
+                return $modification->modification . ' ' . $modification->complectation;
+            })
+
+            ->addColumn('tradein_available', function ($requestCredit) {
+                return $requestCredit->tradein_available ? 'да' : 'нет';
             })
 
             ->addColumn('actions', function ($requestCredit) {

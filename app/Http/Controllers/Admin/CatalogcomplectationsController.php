@@ -131,18 +131,22 @@ class CatalogcomplectationsController extends Controller
         $pack_names = $request->pack_name;
         $pack_prices = $request->pack_price;
         $parameter_packs = $request->parameter_pack;
+        $pack_key =  $request->pack_key;
 
         $request->request->remove('equipment');
         $request->request->remove('pack_name');
         $request->request->remove('pack_price');
         $request->request->remove('parameter_pack');
+        $request->request->remove('pack_key');
 
-        $carComplectation = CatalogComplectation::create($request->except('_token'));
+        $catalogComplectation->id_model = $request->input('id_model');
+        $catalogComplectation->name = trim($request->input('name'));
+        $catalogComplectation->published = $request->input('published');
 
-        if ($carComplectation->save()) {
+        if ($catalogComplectation->save()) {
             foreach ($equipments as $equipment) {
                 $parameterComplectation = new CatalogParameterComplectation;
-                $parameterComplectation->id_complectation = $carComplectation->id;
+                $parameterComplectation->id_complectation = $request->input('id_complectation');
                 $parameterComplectation->id_parameter = $equipment;
                 $parameterComplectation->save();
             }
@@ -154,7 +158,7 @@ class CatalogcomplectationsController extends Controller
             $parameters = $parameter_packs[$i];
 
             $parameterPack = new CatalogParameterPack;
-            $parameterPack->id_complectation = $carComplectation->id;
+            $parameterPack->id_complectation = $request->input('id_complectation');
             $parameterPack->name = trim($name);
             $parameterPack->price = trim($price);
 
@@ -188,7 +192,8 @@ class CatalogcomplectationsController extends Controller
             for($i = 0; $i < count($pack_names); $i++) {
                 $name = $pack_names[$i];
                 $price = $pack_prices[$i];
-                $parameters = $parameter_packs[$i];
+                $key = $pack_key[$i];
+                $parameters = $parameter_packs[$key];
 
                 $parameterPack = new CatalogParameterPack;
                 $parameterPack->id_complectation = $id_complectation;
@@ -219,13 +224,21 @@ class CatalogcomplectationsController extends Controller
         $pack_names = $request->pack_name;
         $pack_prices = $request->pack_price;
         $parameter_packs = $request->parameter_pack;
+        $pack_key =  $request->pack_key;
 
         $request->request->remove('equipment');
         $request->request->remove('pack_name');
         $request->request->remove('pack_price');
         $request->request->remove('parameter_pack');
+        $request->request->remove('pack_key');
 
         $carComplectation = CatalogComplectation::create($request->except('_token'));
+
+        $carComplectation->published = 0;
+
+        if ($request->input('published')) {
+            $carComplectation->published = 1;
+        }
 
         if ($carComplectation->save()) {
             foreach ($equipments as $equipment) {
@@ -239,7 +252,8 @@ class CatalogcomplectationsController extends Controller
         for($i = 0; $i < count($pack_names); $i++) {
             $name = $pack_names[$i];
             $price = $pack_prices[$i];
-            $parameters = $parameter_packs[$i];
+            $key = $pack_key[$i];
+            $parameters = $parameter_packs[$key];
 
             $parameterPack = new CatalogParameterPack;
             $parameterPack->id_complectation = $carComplectation->id;
@@ -247,7 +261,6 @@ class CatalogcomplectationsController extends Controller
             $parameterPack->price = trim($price);
 
             if ($parameterPack->save()) {
-
                 foreach ($parameters as $parameter) {
                     $packParameter = new CatalogParameterPackParameter;
                     $packParameter->id_parameter = $parameter;
@@ -268,6 +281,13 @@ class CatalogcomplectationsController extends Controller
     public function destroy(Request $request, CatalogComplectation $catalogComplectation)
     {
         if ($request->ajax()) {
+
+            CatalogParameterComplectation::where('id_complectation', $catalogComplectation->id)->delete();
+
+            CatalogParameterPack::where('catalog_parameter_pack.id_complectation', $catalogComplectation->id)
+                ->leftJoin('catalog_parameter_pack_parameter', 'catalog_parameter_pack_parameter.id_pack', '=', 'catalog_parameter_pack.id')
+                ->delete();
+
             $catalogComplectation->delete();
             return response()->json(['success' => 'Комплектация удалена']);
         } else {
