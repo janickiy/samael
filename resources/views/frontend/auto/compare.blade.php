@@ -1,13 +1,12 @@
 @extends('layouts.frontend.app')
 
-@section('title', 'Контакт')
+@section('title', 'Сравнение комплектаций')
 
 @section('meta_desc', '')
 
 @section('meta_keywords', '')
 
 @section('css')
-
 
     {!! Html::style('css/tablesaw.css') !!}
 
@@ -18,7 +17,6 @@
 @endsection
 
 @section('content')
-
 
 
     <div class="inset_page white_bg contacts">
