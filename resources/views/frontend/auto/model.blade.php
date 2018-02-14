@@ -263,14 +263,14 @@
                                             <li>
                                                 <div class="complectation_item row">
 													<div class="row">
-														<div class="complectation_name"><input type="checkbox" class="checkbox" id="c_1"></input><label for="c_1"></label><span trigerID="dop_info" class="show_info">{!! $row['name'] !!}</span></div>
+														<div class="complectation_name"><input type="checkbox" class="checkbox" id="{{ $modification['id'] }}_{{ $row['complectation'] }}"></input><label for="{{ $modification['id'] }}_{{ $row['complectation'] }}"></label><span trigerID="{{ $modification['id'] }}_{{ $row['complectation'] }}" class="show_info">{!! $row['name'] !!}</span></div>
 														<div class="KPP">{!! gearboxType($modification['gearbox']) !!}</div>
 														<div class="power">{!! $modification['power'] !!}</div>
 														<div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}<span> руб</div>
 														<div class="buy_link"><a href="#inline_credit" data-id="{{ $row['complectation'] }}" class="btn modalbox">Купить в кредит</a></div>
 														<div class="print_link"><a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}" title="Распечатать комплектацию" target="_blank" onclick="var popupWin = window.open('{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}', null, 'menubar=no, toolbar=no, location=yes, status=yes, resizable=yes, scrollbars=yes', true); popupWin.focus(); return false;"><img src="/images/print_ico.png" /></a></div>
 													</div>
-                                                    <div class="row dop_info disp_n"  containerID="dop_info">
+                                                    <div class="row dop_info disp_n"  containerID="{{ $modification['id'] }}_{{ $row['complectation'] }}">
 
                                                             @foreach($parameter_categories as $parameter_category)
 

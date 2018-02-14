@@ -84,6 +84,7 @@
 
                             <div class="additional_field">
                                 <input type="hidden" name="pack_key[]" value="{!! $i !!}">
+                                @if(isset($packs[$i]['id']) && $packs[$i]['id']) <input type="hidden" name="pack_id[]" value="{!! $packs[$i]['id'] !!}"> @endif
                                 <div class="form-group">
                                     <div class="col-lg-12">
                                         <div class="form-group">

@@ -131,6 +131,7 @@ class CatalogcomplectationsController extends Controller
         $pack_names = $request->pack_name;
         $pack_prices = $request->pack_price;
         $parameter_packs = $request->parameter_pack;
+        $pack_id = $request->pack_id;
         $pack_key = $request->pack_key;
         $newparameters_name = $request->newparameters_name;
         $newparameters_category = $request->newparameters_category;
@@ -144,12 +145,16 @@ class CatalogcomplectationsController extends Controller
         $request->request->remove('newparameters_name');
         $request->request->remove('newparameters_category');
         $request->request->remove('newparameters_price');
+        $request->request->remove('pack_id');
 
         $catalogComplectation->id_model = $request->input('id_model');
         $catalogComplectation->name = trim($request->input('name'));
         $catalogComplectation->published = $request->input('published');
+        $catalogComplectation->updated_at = \Carbon::now();
 
         if ($catalogComplectation->save()) {
+
+            CatalogParameterComplectation::where('id_complectation', $request->input('id_complectation'))->delete();
 
             foreach ($equipments as $equipment) {
                 $parameterComplectation = new CatalogParameterComplectation;
@@ -158,67 +163,24 @@ class CatalogcomplectationsController extends Controller
                 $parameterComplectation->save();
             }
 
-            for($i = 0; $i < count($newparameters_name); $i++) {
-                $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
-
-                if ($id_parameter) {
-                    $parameterComplectation = new CatalogParameterComplectation;
-                    $parameterComplectation->id_complectation = $request->input('id_complectation');
-                    $parameterComplectation->id_parameter = $id_parameter;
-                    $parameterComplectation->save();
-                }
-            }
-        }
-
-        for($i = 0; $i < count($pack_names); $i++) {
-            $name = $pack_names[$i];
-            $price = $pack_prices[$i];
-            $parameters = $parameter_packs[$i];
-
-            $parameterPack = new CatalogParameterPack;
-            $parameterPack->id_complectation = $request->input('id_complectation');
-            $parameterPack->name = trim($name);
-            $parameterPack->price = trim($price);
-
-            if ($parameterPack->save()) {
-                foreach ($parameters as $parameter) {
-                    $packParameter = new CatalogParameterPackParameter;
-                    $packParameter->id_parameter = $parameter;
-                    $packParameter->id_pack = $parameterPack->id;
-                    $packParameter->save();
-                }
-            }
-        }
-
-        $catalogComplectation->name = trim($request->input('name'));
-        $catalogComplectation->id_model = $request->input('id_model');
-        $catalogComplectation->updated_at = \Carbon::now();
-        $id_complectation = $request->input('id_complectation');
-
-        if ($catalogComplectation->save()) {
-
-            CatalogParameterComplectation::query()->where('id_complectation', $id_complectation)->delete();
-            CatalogParameterPack::query()->join('catalog_parameter_pack_parameter', 'catalog_parameter_pack_parameter.id_pack', '=', 'catalog_parameter_pack.id')->where('catalog_parameter_pack.id_complectation', $id_complectation)->delete();
-
-            foreach ($equipments as $equipment) {
-                $parameterComplectation = new CatalogParameterComplectation;
-                $parameterComplectation->id_complectation =  $id_complectation;
-                $parameterComplectation->id_parameter = $equipment;
-                $parameterComplectation->save();
-            }
+            CatalogParameterPack::where('id_complectation', $request->input('id_complectation'))->delete();
 
             for($i = 0; $i < count($pack_names); $i++) {
-                $name = $pack_names[$i];
-                $price = $pack_prices[$i];
+                $name = trim($pack_names[$i]);
+                $price = trim($pack_prices[$i]);
                 $key = $pack_key[$i];
                 $parameters = $parameter_packs[$key];
+                $id = isset($pack_id[$i]) ? $pack_id[$i] : null;
 
                 $parameterPack = new CatalogParameterPack;
-                $parameterPack->id_complectation = $id_complectation;
+                $parameterPack->id_complectation = $request->input('id_complectation');
                 $parameterPack->name = trim($name);
                 $parameterPack->price = trim($price);
 
                 if ($parameterPack->save()) {
+
+                   if ($id) CatalogParameterPackParameter::where('id_pack', $id)->delete();
+
                     foreach ($parameters as $parameter) {
                         $packParameter = new CatalogParameterPackParameter;
                         $packParameter->id_parameter = $parameter;
@@ -282,37 +244,37 @@ class CatalogcomplectationsController extends Controller
                 $parameterComplectation->id_parameter = $equipment;
                 $parameterComplectation->save();
             }
-        }
 
-        for($i = 0; $i < count($pack_names); $i++) {
-            $name = $pack_names[$i];
-            $price = $pack_prices[$i];
-            $key = $pack_key[$i];
-            $parameters = $parameter_packs[$key];
+            for($i = 0; $i < count($pack_names); $i++) {
+                $name = $pack_names[$i];
+                $price = $pack_prices[$i];
+                $key = $pack_key[$i];
+                $parameters = $parameter_packs[$key];
 
-            $parameterPack = new CatalogParameterPack;
-            $parameterPack->id_complectation = $carComplectation->id;
-            $parameterPack->name = trim($name);
-            $parameterPack->price = trim($price);
+                $parameterPack = new CatalogParameterPack;
+                $parameterPack->id_complectation = $carComplectation->id;
+                $parameterPack->name = trim($name);
+                $parameterPack->price = trim($price);
 
-            if ($parameterPack->save()) {
-                foreach ($parameters as $parameter) {
-                    $packParameter = new CatalogParameterPackParameter;
-                    $packParameter->id_parameter = $parameter;
-                    $packParameter->id_pack = $parameterPack->id;
-                    $packParameter->save();
+                if ($parameterPack->save()) {
+                    foreach ($parameters as $parameter) {
+                        $packParameter = new CatalogParameterPackParameter;
+                        $packParameter->id_parameter = $parameter;
+                        $packParameter->id_pack = $parameterPack->id;
+                        $packParameter->save();
+                    }
                 }
             }
-        }
 
-        for($i = 0; $i < count($newparameters_name); $i++) {
-            $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
+            for($i = 0; $i < count($newparameters_name); $i++) {
+                $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
 
-            if ($id_parameter) {
-                $parameterComplectation = new CatalogParameterComplectation;
-                $parameterComplectation->id_complectation = $request->input('id_complectation');
-                $parameterComplectation->id_parameter = $id_parameter;
-                $parameterComplectation->save();
+                if ($id_parameter) {
+                    $parameterComplectation = new CatalogParameterComplectation;
+                    $parameterComplectation->id_complectation = $carComplectation->id;
+                    $parameterComplectation->id_parameter = $id_parameter;
+                    $parameterComplectation->save();
+                }
             }
         }
 

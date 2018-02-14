@@ -270,15 +270,16 @@ a.logo {display:inline-block;float:left;}
 .sort a.sort_link:after {content:'';border-style: solid;height: 0;right:-15px;margin-top: -2px;position: absolute;top: 50%; width: 0;}
 .sort a.sort_link.minmax:after{border-color: #25aae1  transparent transparent transparent;border-width: 5px 5px 0 5px;}
 .sort a.sort_link.maxmin:after {border-color: transparent transparent #25aae1 transparent;border-width: 0 5px 5px 5px;}
-.model_characteristics_tab .complectation_name {width:140px;float:left;padding:5px;font-family:RobotoBold;}
+.model_characteristics_tab {margin-bottom: 20px;}
+.model_characteristics_tab .complectation_name {width:130px;float:left;padding:5px;font-family:RobotoBold;}
 .model_characteristics_tab .complectation_name span.show_info {cursor:pointer;}
 .model_characteristics_tab .complectation_name span.show_info:after{content: "\f0d7";font-family:FontAwesome;margin-left: 5px;}
 .model_characteristics_tab .complectation_name span.show_info.info_open:after {content: "\f0d8";}
 .model_characteristics_tab .complectation_name .checkbox:not(checked) + label:before {border:1px solid #7a7a7a;width:10px;height:10px; top: 3px;}
 .model_characteristics_tab .complectation_name .checkbox:not(checked) + label:after {top: 5px;width: 8px;height: 8px;}
 .model_characteristics_tab .KPP {width:110px;float:left;padding:5px;}
-.model_characteristics_tab .power {width:110px;float:left;padding:5px;}
-.model_characteristics_tab .price {width:130px;float:left;padding:5px;color:#25aae1;}
+.model_characteristics_tab .power {width:95px;float:left;padding:5px;}
+.model_characteristics_tab .price {width:150px;float:left;padding:5px;color:#25aae1;}
 .model_characteristics_tab .buy_link {width:150px;float:left;padding:5px;}
 .model_characteristics_tab .print_link {width:40px;float:left;padding:5px;}
 .model_characteristics_tab .buy_link .btn {width:100%;font-size:14px;line-height:28px;}
