@@ -485,6 +485,20 @@ function getParameterValues($id_category, $id_complectation)
     }
 }
 
+function getParameterValuesByCategoryId($id_category)
+{
+    if (is_numeric($id_category)) {
+        return \App\CatalogParameterValue::where('id_category', $id_category)
+            ->get()
+            ->toArray();
+    }
+}
+
+function checkParameterComplectation($id_complectation, $id_parameter)
+{
+    return \App\CatalogParameterComplectation::where('id_complectation', $id_complectation)->where('id_parameter', $id_parameter)->count();
+}
+
 function getPackValue($id_pack)
 {
     if (is_numeric($id_pack)) {

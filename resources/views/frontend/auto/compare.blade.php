@@ -8,7 +8,8 @@
 
 @section('css')
 
-    {!! Html::style('css/fancybox/jquery.fancybox.css') !!}
+
+    {!! Html::style('css/tablesaw.css') !!}
 
 @endsection
 
@@ -20,7 +21,6 @@
 
 
 
-
     <div class="inset_page white_bg contacts">
         <div class="main_width">
             @section('breadcrumbs')
@@ -29,6 +29,48 @@
             <div class="page_content">
                 <h1>Сравнение комплектаций</h1>
 
+                <table border=1 class="table datatable dt-responsive tablesaw tablesaw-swipe" data-tablesaw-mode="swipe"
+                       style="width:100%;">
+                    <thead>
+                    <tr>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"></th>
+
+                        @foreach($complectations as $complectation)
+
+                            <th>{!!  $complectation->modification !!} {!! $complectation->complectation !!}</th>
+
+                        @endforeach
+
+                    </tr>
+                    </thead>
+
+                    @for($i = 0; $i < count($parameterCategories["category"]); $i++)
+
+                        <tr>
+                            <td colspan="{!! count($complectations) + 1 !!}">{!! $parameterCategories["category"][$i] !!}</td>
+                        </tr>
+
+                        @foreach(getParameterValuesByCategoryId($parameterCategories["id"][$i]) as $value)
+                            <tr>
+                                <td>{!! $value['name'] !!}</td>
+
+                                @foreach($complectations as $complectation)
+
+                                    <td>@if( checkParameterComplectation($complectation->id, $value['id']))
+                                            + @endif </td>
+
+                                @endforeach
+
+                            </tr>
+
+                        @endforeach
+
+                    @endfor
+
+                    <tbody>
+                    </tbody>
+
+                </table>
 
             </div>
         </div>
@@ -38,9 +80,21 @@
 
 @section('js')
 
+    {!! Html::script('js/tablesaw.jquery.js') !!}
+    {!! Html::script('js/tablesaw-init.js') !!}
 
     <script type="text/javascript">
 
+        var TablesawConfig = {
+            i18n: {
+                swipePreviousColumn: "прокрутить назад",
+                swipeNextColumn: "прокрутить вперед"
+            },
+            swipe: {
+                horizontalThreshold: 45,
+                verticalThreshold: 45
+            }
+        };
 
     </script>
 

@@ -113,8 +113,8 @@
 
         var TablesawConfig = {
             i18n: {
-                swipePreviousColumn: "The column before",
-                swipeNextColumn: "The column after"
+                swipePreviousColumn: "прокрутить назад",
+                swipeNextColumn: "прокрутить вперед"
             },
             swipe: {
                 horizontalThreshold: 45,

@@ -761,10 +761,8 @@ class FrontendController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function compare($mark, $model)
+    public function compare($mark, $model, Request $request)
     {
-
-
         $car = CatalogModel::select(['catalog_models.meta_title', 'catalog_models.meta_keywords', 'catalog_models.meta_description', 'catalog_models.id', 'catalog_models.body_type', 'catalog_marks.id as id_car_mark', 'catalog_models.annotation', 'catalog_models.bannerText', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
             ->where('catalog_models.slug', $model)
             ->where('catalog_models.published', 1)
@@ -774,7 +772,41 @@ class FrontendController extends Controller
         if ($car) {
             $marks = CatalogMark::all();
 
-            return view('frontend.auto.compare', compact('car', 'marks'), ['title' => 'Сравнение комплектаций ' . $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
+            if (count($request->complectation) > 0) {
+
+                $temp = [];
+
+                foreach ($request->complectation as $complectation) {
+                    if (is_numeric($complectation))
+                        $temp[] = $complectation;
+                }
+
+                $complectations = CatalogPack::select(['catalog_modifications.name as modification', 'catalog_modifications.power', 'catalog_complectations.name as complectation', 'catalog_packs.price', 'catalog_complectations.id as id'])
+                    ->where('catalog_packs.id_model', $car->id)
+                    ->whereIn('catalog_packs.id_complectation', $temp)
+                    ->where('catalog_complectations.published', 1)
+                    ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
+                    ->leftJoin('catalog_complectations', 'catalog_complectations.id', '=', 'catalog_packs.id_complectation')
+                    ->get();
+
+            } else {
+                $complectations = CatalogPack::select(['catalog_modifications.name as modification', 'catalog_modifications.power', 'catalog_complectations.name as complectation', 'catalog_packs.price', 'catalog_complectations.id as id'])
+                    ->where('catalog_packs.id_model', $car->id)
+                    ->where('catalog_complectations.published', 1)
+                    ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
+                    ->leftJoin('catalog_complectations', 'catalog_complectations.id', '=', 'catalog_packs.id_complectation')
+                    ->get();
+            }
+
+            $parameterCategories = [];
+
+            foreach (CatalogParameterCategory::all() as $row) {
+                $parameterCategories['category'][] = $row->name;
+                $parameterCategories['id'][] = $row->id;
+                $parameterCategories['value'][] = CatalogParameterValue::where('id_category', $row->id)->get()->toArray();
+            }
+
+            return view('frontend.auto.compare', compact('car', 'marks', 'complectations', 'parameterCategories'), ['title' => 'Сравнение комплектаций ' . $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }
 
         abort(404);

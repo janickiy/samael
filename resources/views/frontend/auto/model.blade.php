@@ -251,7 +251,7 @@
                             <div class="specialty_content active">
                                 <div class="model_characteristics">
 
-                                    {!! Form::open(['url' => '/auto/' . $car->mark_slug . '/' . $car->model_slug . '/compare', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
+                                    {!! Form::open(['url' => '/auto/' . $car->mark_slug . '/' . $car->model_slug . '/compare', 'method' => 'post']) !!}
 
                                     @foreach($modifications as $modification)
 
@@ -274,10 +274,13 @@
                                                         <li>
                                                             <div class="complectation_item row">
                                                                 <div class="row">
-                                                                    <div class="complectation_name"><input
-                                                                                type="checkbox" class="checkbox"
-                                                                                id="{{ $modification['id'] }}_{{ $row['complectation'] }}"></input><label
-                                                                                for="{{ $modification['id'] }}_{{ $row['complectation'] }}"></label><span
+                                                                    <div class="complectation_name">
+
+                                                                        {!! Form::checkbox('complectation[]', $row['complectation'], null, ['class' => 'checkbox', 'id' => $modification['id'] . '_' . $row['complectation']]) !!}
+
+                                                                        <label
+                                                                                for="{{ $modification['id'] }}_{{ $row['complectation'] }}"></label>
+                                                                        <span
                                                                                 trigerID="{{ $modification['id'] }}_{{ $row['complectation'] }}"
                                                                                 class="show_info">{!! $row['name'] !!}</span>
                                                                     </div>
@@ -483,7 +486,7 @@
         $(document).ready(function () {
             jQuery(function ($) {
                 $(".select2").select2();
-                $(".phone_form").mask("+7 (999) 999 - 99 - 99");
+                $(".phone_form").mask("+7 (999) 999-99-99");
             });
         });
 
@@ -492,7 +495,7 @@
         })
 
         $(function () {
-            $(".form_phone").mask("+7 (999) 999-9999");
+            $(".form_phone").mask("+7 (999) 999-99-99");
         })
 
         $(document).ready(function () {
