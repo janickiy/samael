@@ -25,10 +25,10 @@
 
     <div class="inset_page">
         <div class="main_width">
-
-            <a href="/">Главная</a> - <a href="{!! url('/auto') !!}">Новые автомобили</a> - <a
-                    href="{!! url('/auto/' . $mark->slug) !!}">{!! $mark->name !!}</a>
-
+			<div class="breadcrumbs">
+				<a href="/">Главная</a> - <a href="{!! url('/auto') !!}">Новые автомобили</a> - <span
+                    href="{!! url('/auto/' . $mark->slug) !!}">{!! $mark->name !!}</span>
+			</div>
             <div class="auto_page_content mark_page">
                 <div class="row mark_page_title">
                     <h1>{!! $mark->name !!}</h1>

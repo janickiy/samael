@@ -78,9 +78,9 @@
 
     <div class="inset_page white_bg contacts">
         <div class="main_width">
-            @section('breadcrumbs')
-                @include('layouts.frontend.includes.breadcrumbs')
-            @endsection
+			<div class="breadcrumbs">
+                    <a href="/">Главная</a>  - <span>Контакты</span>
+                </div>
             <div class="page_content">
                 <h1>Контакты</h1>
                 <div class="row">

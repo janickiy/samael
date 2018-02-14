@@ -374,29 +374,30 @@
 
                             </div>
                             <div class="specialty_content">
-                                <table class="characteristics_tab" width="100%" cellpadding="0" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                                        <th> Параметры</th>
-                                        @foreach($modifications as $modification)
-                                            <th>{!! $modification['name'] !!}</th>
-                                        @endforeach
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($options as $key => $value)
-                                        <tr>
-                                            <td><strong>{!! $value !!}</strong></td>
-                                            @foreach($modifications as $modification)
-                                                <td>{!! $modification[$key] !!}</td>
-                                            @endforeach
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-
-                                {!! $car->parametersContent !!}
-
+								<div class="characteristics_tab_wrapper">
+									<table class="characteristics_tab" width="100%" cellpadding="0" cellspacing="0">
+										<thead>
+										<tr>
+											<th> Параметры</th>
+											@foreach($modifications as $modification)
+												<th>{!! $modification['name'] !!}</th>
+											@endforeach
+										</tr>
+										</thead>
+										<tbody>
+										@foreach($options as $key => $value)
+											<tr>
+												<td><strong>{!! $value !!}</strong></td>
+												@foreach($modifications as $modification)
+													<td>{!! $modification[$key] !!}</td>
+												@endforeach
+											</tr>
+										@endforeach
+										</tbody>
+									</table>
+									</div>
+									{!! $car->parametersContent !!}
+								
                             </div>
                             <div class="specialty_content">
 

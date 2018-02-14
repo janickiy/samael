@@ -7,22 +7,18 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-md-6">
-            <h4> Сбросить пароль :</h4>
-            <br/>
+    <div class="row auth_page">
+		<div class="main_width">
+			<div class="auth_form request_form">
+           <div class="form_title">Сбросить пароль</div>
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
                 {!! csrf_field() !!}
 
                 <input type="hidden" name="token" value="{{ $token }}">
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label class="col-md-3 control-label">E-Mail Address *</label>
-
-                    <div class="col-md-9">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            <input type="email" class="form-control" name="email"
+                            <input type="email" class="form_control" name="email"
                                    value="{{ $email or old('email') }}">
                         </div>
                         @if ($errors->has('email'))
@@ -30,48 +26,39 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                         @endif
-                    </div>
+
                 </div>
 
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label class="col-md-3 control-label">пароль *</label>
 
-                    <div class="col-md-9">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="password">
+                            <input type="password" class="form_control" name="password" placeholder="Новый пароль">
                         </div>
                         @if ($errors->has('password'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>
                             </span>
                         @endif
-                    </div>
                 </div>
 
                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                    <label class="col-md-3 control-label">Подтверждение *</label>
-                    <div class="col-md-9">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="password_confirmation">
+                            <input type="password" class="form_control" name="password_confirmation" placeholder="Подтверждение пароля">
                         </div>
                         @if ($errors->has('password_confirmation'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
                             </span>
                         @endif
-                    </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-9 col-md-offset-3">
-                        <button type="submit" class="btn btn-primary">
+                <div class="form-group row">
+                      <button type="submit" class="btn btn-primary" style="width:100%;margin:10px 0 0;">
                             <i class="fa fa-btn fa-refresh"></i>Сброс пароля
                         </button>
-                    </div>
                 </div>
             </form>
         </div>
     </div>
+  </div>	
 @endsection

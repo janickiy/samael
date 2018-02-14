@@ -160,6 +160,10 @@ a.logo {display:inline-block;float:left;}
 .eTimer.custom_timer .etUnit .etSign {font-size:22px;font-family: OpenSans-SemiboldItalic;}
 .eTimer.custom_timer .etTitle {display:none;}
 
+.auth_page {padding:20px 0;}
+.auth_form {width: 400px;margin: 0 auto;}
+.request_form.auth_form .btn {width: 48%;float: left;margin:1%;}
+
 .inset_page {padding:10px 0;}
 .inset_page.white_bg {background:#fff;padding-bottom:0;}
 .breadcrumbs {font-size:12px;color:#545454;margin-bottom:10px;}
@@ -460,6 +464,7 @@ a.mobile_nav_ico{position: absolute; top: -2px; left: 10px;}
 .model_characteristics_tab .buy_link {width: 30%;}
 .model_characteristics_tab .buy_link .btn {width: 100%;font-size: 10px;line-height: 20px;}
 .model_characteristics_tab>.btn {display:none;}
+.characteristics_tab_wrapper {    width: 100%; overflow-x: scroll;}
 .documents_block {float:none;width:100%;padding: 0 40px;font-size:12px;}
 .documents_block .btn {width:100%;font-size: 12px;}
 .credits ul li {width: 33%;}

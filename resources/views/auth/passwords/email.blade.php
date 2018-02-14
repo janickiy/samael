@@ -7,9 +7,10 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-md-6">
-            <h4> Забыли пароль, не беспокойтесь <strong>{{ getSetting('SITE_TITLE') }} :</strong></h4>
+    <div class="row auth_page">
+		<div class="main_width">
+			<div class="auth_form request_form">
+				<div class="form_title"> Забыли пароль, не беспокойтесь:</strong></div>
             <br/>
             @if (session('status'))
                 <div class="alert alert-success">
@@ -21,29 +22,23 @@
                 {!! csrf_field() !!}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label class="col-md-3 control-label">E-Mail адрес *</label>
-
-                    <div class="col-md-9">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                            <input type="email" class="form_control" name="email" value="{{ old('email') }}"  placeholder="E-Mail">
                         </div>
                         @if ($errors->has('email'))
                             <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                         @endif
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-md-9 col-md-offset-3">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-btn fa-envelope"></i> Отправить ссылку сбросить пароль
+                </div>
+                <div class="form-group row">
+                        <button type="submit" class="btn btn-primary" style="width:100%;margin:10px 0 0;">
+                            Отправить ссылку и сбрость пароль
                         </button>
-                    </div>
                 </div>
             </form>
+			</div>
         </div>
     </div>
 @endsection
