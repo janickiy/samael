@@ -54,7 +54,7 @@ class DashboardController extends Controller
     public function ajax(Request $request, UserReview $userReview)
     {
         if (isset($request->action)) {
-            switch($request->action) {
+            switch ($request->action) {
                 case 'approve':
                     $userReview->id = $request->id;
                     $userReview->exists = true;
@@ -77,7 +77,7 @@ class DashboardController extends Controller
 
                     $rows = [];
 
-                    foreach($marks as $mark) {
+                    foreach ($marks as $mark) {
                         $rows[] = [
                             "id" => $mark->id,
                             "name" => $mark->name,
@@ -100,9 +100,9 @@ class DashboardController extends Controller
 
                     $rows = [];
 
-                    foreach($models as $model) {
+                    foreach ($models as $model) {
                         $rows[] = [
-                            "id"   => $model->id,
+                            "id" => $model->id,
                             "name" => $model->name,
                             "name_rus" => $model->name_rus,
                             "slug" => $model->slug,
@@ -116,10 +116,10 @@ class DashboardController extends Controller
                 case 'get_modifications':
 
                     $modifications = CarModification::where('id_car_model', $request->id_car_model)
-                                    ->get();
+                        ->get();
                     $rows = [];
 
-                    foreach($modifications as $modification) {
+                    foreach ($modifications as $modification) {
                         $rows[] = [
                             "id" => $modification->id,
                             "name" => $modification->name,
@@ -140,9 +140,9 @@ class DashboardController extends Controller
 
                     $rows = [];
 
-                    foreach($models as $model) {
+                    foreach ($models as $model) {
                         $rows[] = [
-                            "id"   => $model->id,
+                            "id" => $model->id,
                             "name" => $model->name,
                             "name_rus" => $model->name_rus,
                             "slug" => $model->slug,
@@ -232,7 +232,7 @@ class DashboardController extends Controller
 
                     $json = [];
 
-                    foreach (CatalogParameterValue::where('name', 'like', '%' .  $request->q . '%')->get()->toArray() as $parameterValue) {
+                    foreach (CatalogParameterValue::where('name', 'like', '%' . $request->q . '%')->get()->toArray() as $parameterValue) {
                         $json[] = ['id' => $parameterValue['id'], 'text' => $parameterValue['name']];
                     }
 

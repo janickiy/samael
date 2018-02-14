@@ -102,25 +102,25 @@
                 <div class="presents_block sidebar sidebar2 sidebar3">
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="/images/p_1.png" /></div>
+                            <div><img src="/images/p_1.png"/></div>
                             <div>Зимняя резина<br/>в подарок</div>
                         </div>
                     </div>
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="/images/p_2.png" /></div>
+                            <div><img src="/images/p_2.png"/></div>
                             <div>Дорога<br/>до Москвы<br/>за наш счет</div>
                         </div>
                     </div>
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="/images/p_3.png" /></div>
+                            <div><img src="/images/p_3.png"/></div>
                             <div>КАСКО<br/>в подарок</div>
                         </div>
                     </div>
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="/images/p_4.png" /></div>
+                            <div><img src="/images/p_4.png"/></div>
                             <div>Распродажа<br/>авто 2016</div>
                         </div>
                     </div>
@@ -129,33 +129,34 @@
             <div class="credits">
                 <h2>Вашу заявку на кредит рассмотрят наши банки-партнеры:</h2>
                 <ul class="row">
-                    <li><img src="/images/banks/1.png" /></li>
-                    <li><img src="/images/banks/2.png" /></li>
-                    <li><img src="/images/banks/3.png" /></li>
-                    <li><img src="/images/banks/4.png" /></li>
-                    <li><img src="/images/banks/5.png" /></li>
-                    <li><img src="/images/banks/6.png" /></li>
-                    <li><img src="/images/banks/7.png" /></li>
-                    <li><img src="/images/banks/8.png" /></li>
-                    <li><img src="/images/banks/9.png" /></li>
+                    <li><img src="/images/banks/1.png"/></li>
+                    <li><img src="/images/banks/2.png"/></li>
+                    <li><img src="/images/banks/3.png"/></li>
+                    <li><img src="/images/banks/4.png"/></li>
+                    <li><img src="/images/banks/5.png"/></li>
+                    <li><img src="/images/banks/6.png"/></li>
+                    <li><img src="/images/banks/7.png"/></li>
+                    <li><img src="/images/banks/8.png"/></li>
+                    <li><img src="/images/banks/9.png"/></li>
                 </ul>
                 <ul class="row">
-                    <li><img src="/images/banks/10.png" /></li>
-                    <li><img src="/images/banks/11.png" /></li>
-                    <li><img src="/images/banks/12.png" /></li>
-                    <li><img src="/images/banks/13.png" /></li>
-                    <li><img src="/images/banks/14.png" /></li>
-                    <li><img src="/images/banks/15.png" /></li>
-                    <li><img src="/images/banks/16.png" /></li>
-                    <li><img src="/images/banks/17.png" /></li>
-                    <li><img src="/images/banks/18.png" /></li>
+                    <li><img src="/images/banks/10.png"/></li>
+                    <li><img src="/images/banks/11.png"/></li>
+                    <li><img src="/images/banks/12.png"/></li>
+                    <li><img src="/images/banks/13.png"/></li>
+                    <li><img src="/images/banks/14.png"/></li>
+                    <li><img src="/images/banks/15.png"/></li>
+                    <li><img src="/images/banks/16.png"/></li>
+                    <li><img src="/images/banks/17.png"/></li>
+                    <li><img src="/images/banks/18.png"/></li>
                 </ul>
             </div>
         </div>
         <div class="attantion_block">
             <div class="main_width">
                 <div class="fs16">Внимание!</div>
-                К сожалению, банки не кредитуют регионы: Республика Кабардино-Балкария, Республика Чечня, Республика Дагестан, Республика Ингушетия, Республика Карачаево-Черкесия, Магадан.
+                К сожалению, банки не кредитуют регионы: Республика Кабардино-Балкария, Республика Чечня, Республика
+                Дагестан, Республика Ингушетия, Республика Карачаево-Черкесия, Магадан.
             </div>
         </div>
         <div class="main_width">
@@ -166,7 +167,7 @@
                         <li>
                             <div class="list_item">
                                 <a href="">
-                                    <div class="item_image"><img src="/images/m_c_1.png" /></div>
+                                    <div class="item_image"><img src="/images/m_c_1.png"/></div>
                                     <div class="item_name">Государственная программа автокредитования</div>
                                 </a>
                             </div>
@@ -174,7 +175,7 @@
                         <li>
                             <div class="list_item">
                                 <a href="">
-                                    <div class="item_image"><img src="/images/m_c_2.png" /></div>
+                                    <div class="item_image"><img src="/images/m_c_2.png"/></div>
                                     <div class="item_name">Автокредит“ Первый автомобиль”</div>
                                 </a>
                             </div>
@@ -182,7 +183,7 @@
                         <li>
                             <div class="list_item">
                                 <a href="">
-                                    <div class="item_image"><img src="/images/m_c_3.png" /></div>
+                                    <div class="item_image"><img src="/images/m_c_3.png"/></div>
                                     <div class="item_name">Программа кредитования “Семейный авто”</div>
                                 </a>
                             </div>
@@ -190,7 +191,7 @@
                         <li>
                             <div class="list_item">
                                 <a href="">
-                                    <div class="item_image"><img src="/images/m_c_4.png" /></div>
+                                    <div class="item_image"><img src="/images/m_c_4.png"/></div>
                                     <div class="item_name">Программа автокредитования “Стандарт”</div>
                                 </a>
                             </div>
@@ -215,13 +216,13 @@
             });
         })
 
-        $(function(){
+        $(function () {
 
-            $("#mark").on("change keyup input click", function() {
+            $("#mark").on("change keyup input click", function () {
 
                 var idMark = this.value;
 
-                if(idMark != null) {
+                if (idMark != null) {
 
                     var request = $.ajax({
                         url: './ajax?action=get_models&id_car_mark=' + idMark,
@@ -239,11 +240,11 @@
                         console.log(html);
 
                         if (data.item.length > 0) {
-                            $('#model').prop('disabled',false);
+                            $('#model').prop('disabled', false);
                             $("#model").html(html).fadeIn();
                         } else {
                             $("#model").html(html).fadeIn();
-                            $('#model').prop('disabled',true);
+                            $('#model').prop('disabled', true);
                         }
 
                         $(".select2").select2({
@@ -253,7 +254,7 @@
                 }
             })
 
-            $(document).on('change keyup input click','#model',function(){
+            $(document).on('change keyup input click', '#model', function () {
                 var idModel = this.value;
 
                 if (idModel != null) {
@@ -278,12 +279,12 @@
                                 $('#request_desc').css('background-image', 'url(' + data.image + ')');
                             else
                                 $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
-                            $("#complectation").prop('disabled',false);
+                            $("#complectation").prop('disabled', false);
                             $("#complectation").html(html).fadeIn();
                         } else {
                             $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $("#complectation").html(html).fadeIn();
-                            $("#complectation").prop('disabled',true);
+                            $("#complectation").prop('disabled', true);
                         }
 
                         $(".select2").select2({
@@ -293,18 +294,18 @@
                 }
             })
 
-            $("#search_registration").on("change keyup input click", function() {
-                if (this.value.length >= 2){
+            $("#search_registration").on("change keyup input click", function () {
+                if (this.value.length >= 2) {
 
                     $.ajax({
                         type: 'GET',
                         url: '/ajax?action=search_registration&registration=' + this.value,
-                        dataType : "json",
-                        success: function(data){
+                        dataType: "json",
+                        success: function (data) {
                             if (data != null && data.item != null) {
                                 var html = '';
 
-                                for(var i=0; i < data.item.length; i++) {
+                                for (var i = 0; i < data.item.length; i++) {
                                     html += '<li data-item="' + data.item[i].id + '">' + data.item[i].name + '</li>';
                                 }
 
@@ -320,20 +321,20 @@
                 }
             })
 
-            $(".search_result_registration").hover(function(){
+            $(".search_result_registration").hover(function () {
                 $(".who").blur();
             })
 
-            $(".search_result_registration").on("click", "li", function(){
+            $(".search_result_registration").on("click", "li", function () {
                 $("#search_registration").val($(this).text());
                 $(".search_result_registration").fadeOut();
             })
 
-            $("#trade_in_model").on("change keyup input click", function() {
+            $("#trade_in_model").on("change keyup input click", function () {
 
                 var idModel = this.value;
 
-                if(idModel != null) {
+                if (idModel != null) {
 
                     var request = $.ajax({
                         url: './ajax?action=get_model_info&id=' + idModel,

@@ -4,45 +4,46 @@
 
 @section('css')
 
-<!-- iCheck for checkboxes and radio inputs -->
+    <!-- iCheck for checkboxes and radio inputs -->
 
-{!! Html::style('assets/plugins/iCheck/all.css') !!}
+    {!! Html::style('assets/plugins/iCheck/all.css') !!}
 
 @endsection
 
 @section('content')
-        <!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>
-        <i class="fa fa-list-alt"></i> {{ isset($carmodel) ? 'Редактировать' : 'Добавить' }} модель
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
-        <li><a href="{{ url('admin/carmodels') }}"><i class="fa fa-list-alt"></i> Модели</a></li>
-        <li class="active"><i class="fa {{ isset($carmodel) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($carmodel) ? 'Редактировать' : 'Добавить' }}
-            модель
-        </li>
-    </ol>
-</section>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-list-alt"></i> {{ isset($carmodel) ? 'Редактировать' : 'Добавить' }} модель
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
+            <li><a href="{{ url('admin/carmodels') }}"><i class="fa fa-list-alt"></i> Модели</a></li>
+            <li class="active"><i
+                        class="fa {{ isset($carmodel) ? 'fa-pencil' : 'fa-plus' }}"></i> {{ isset($carmodel) ? 'Редактировать' : 'Добавить' }}
+                модель
+            </li>
+        </ol>
+    </section>
 
 
-<!-- Main content -->
-<section class="content">
-    <a href="{{ url('/admin/carmodels/carmark/' . (isset($carmodel->id_car_mark) ? $carmodel->id_car_mark : $id_car_mark)) }}">Назад
+    <!-- Main content -->
+    <section class="content">
+        <a href="{{ url('/admin/carmodels/carmark/' . (isset($carmodel->id_car_mark) ? $carmodel->id_car_mark : $id_car_mark)) }}">Назад
 
-        <!-- Default box -->
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Форма данных модели</h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-            </div>
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Форма данных модели</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
 
-        </div>
+                </div>
 
-       </a>
+        </a>
         <div class="box-body">
             <p>* - обязательные поля</p>
             {!! Form::open(['url' => isset($carmodel) ? URL::to('admin/carmodels/' . $carmodel->id )  :  URL::to('admin/carmodels') , 'method' => isset($carmodel) ? 'put': 'post', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal', 'id'=>'validate']) !!}
@@ -68,39 +69,39 @@
         </div><!-- /.box-body -->
         <div class="box-footer">
         </div><!-- /.box-footer-->
-    </div><!-- /.box -->
-</section><!-- /.content -->
+        </div><!-- /.box -->
+    </section><!-- /.content -->
 @endsection
 
 
 @section('js')
 
-<!-- iCheck 1.0.1 -->
+    <!-- iCheck 1.0.1 -->
 
-{!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
+    {!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
 
-{!! Html::script('assets/plugins/validationengine/languages/jquery.validationEngine-ru.js') !!}
+    {!! Html::script('assets/plugins/validationengine/languages/jquery.validationEngine-ru.js') !!}
 
-{!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
+    {!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
 
-<script type="text/javascript">
-    $(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-        $('input[type="checkbox"].minimal').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue'
-        });
+            $('input[type="checkbox"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue'
+            });
 
-        //Initialize Select2 Elements
-        $(".select2").select2();
+            //Initialize Select2 Elements
+            $(".select2").select2();
 
-        // Validation Engine init
-        var prefix = 's2id_';
-        $("form[id^='validate']").validationEngine('attach',
+            // Validation Engine init
+            var prefix = 's2id_';
+            $("form[id^='validate']").validationEngine('attach',
                 {
                     promptPosition: "bottomRight", scroll: false,
                     prettySelect: true,
                     usePrefix: prefix
                 });
-    });
-</script>
+        });
+    </script>
 @endsection		

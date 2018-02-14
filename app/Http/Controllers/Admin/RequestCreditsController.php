@@ -54,7 +54,7 @@ class RequestCreditsController extends Controller
 
         $requestCredit->status = 0;
 
-        if($request->input('status')) {
+        if ($request->input('status')) {
             $requestCredit->status = 1;
         }
 

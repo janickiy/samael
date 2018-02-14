@@ -115,7 +115,7 @@ class CatalogcomplectationsController extends Controller
         $catalogcomplectation->packs = $packs;
 
         //var_dump($packs);
-       // exit;
+        // exit;
 
         return view('admin.catalog.complectations.create_edit')->with(compact('catalogcomplectation', 'category_options', 'modification_options', 'equipment_options', 'id_model', 'packs'));
     }
@@ -165,7 +165,7 @@ class CatalogcomplectationsController extends Controller
 
             CatalogParameterPack::where('id_complectation', $request->input('id_complectation'))->delete();
 
-            for($i = 0; $i < count($pack_names); $i++) {
+            for ($i = 0; $i < count($pack_names); $i++) {
                 $name = trim($pack_names[$i]);
                 $price = trim($pack_prices[$i]);
                 $key = $pack_key[$i];
@@ -179,7 +179,7 @@ class CatalogcomplectationsController extends Controller
 
                 if ($parameterPack->save()) {
 
-                   if ($id) CatalogParameterPackParameter::where('id_pack', $id)->delete();
+                    if ($id) CatalogParameterPackParameter::where('id_pack', $id)->delete();
 
                     foreach ($parameters as $parameter) {
                         $packParameter = new CatalogParameterPackParameter;
@@ -190,7 +190,7 @@ class CatalogcomplectationsController extends Controller
                 }
             }
 
-            for($i = 0; $i < count($newparameters_name); $i++) {
+            for ($i = 0; $i < count($newparameters_name); $i++) {
                 $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
 
                 if ($id_parameter) {
@@ -215,7 +215,7 @@ class CatalogcomplectationsController extends Controller
         $pack_names = $request->pack_name;
         $pack_prices = $request->pack_price;
         $parameter_packs = $request->parameter_pack;
-        $pack_key =  $request->pack_key;
+        $pack_key = $request->pack_key;
         $newparameters_name = $request->newparameters_name;
         $newparameters_category = $request->newparameters_category;
         $newparameters_price = $request->newparameters_price;
@@ -245,7 +245,7 @@ class CatalogcomplectationsController extends Controller
                 $parameterComplectation->save();
             }
 
-            for($i = 0; $i < count($pack_names); $i++) {
+            for ($i = 0; $i < count($pack_names); $i++) {
                 $name = $pack_names[$i];
                 $price = $pack_prices[$i];
                 $key = $pack_key[$i];
@@ -266,7 +266,7 @@ class CatalogcomplectationsController extends Controller
                 }
             }
 
-            for($i = 0; $i < count($newparameters_name); $i++) {
+            for ($i = 0; $i < count($newparameters_name); $i++) {
                 $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
 
                 if ($id_parameter) {

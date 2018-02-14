@@ -73,7 +73,7 @@ class CatalogmodelsController extends Controller
             $image_path = public_path() . PATH_MODEL;
             $image = $request->file('image');
 
-            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ? : 'png';
+            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ?: 'png';
             $img = ImageInt::make($image);
 
             $img->resize(600, null, function ($constraint) {
@@ -117,7 +117,7 @@ class CatalogmodelsController extends Controller
             $image_path = public_path() . PATH_MODEL;
             $image = $request->file('image');
 
-            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ? : 'png';
+            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ?: 'png';
             $img = ImageInt::make($image);
 
             $img->resize(600, null, function ($constraint) {
@@ -158,7 +158,7 @@ class CatalogmodelsController extends Controller
     public function modifications($id)
     {
         $modifications = CatalogModification::where('id_model', $id)
-                        ->get();
+            ->get();
 
         return view('admin.catalog.modifications.index', compact('modifications'))->with('id', $id);
     }
@@ -178,7 +178,7 @@ class CatalogmodelsController extends Controller
      */
     public function packs($id)
     {
-        $modifications = CatalogModification::select(['name','id'])->where('id_model', $id)->get();
+        $modifications = CatalogModification::select(['name', 'id'])->where('id_model', $id)->get();
         $complectations = CatalogComplectation::where('id_model', $id)->get();
 
         return view('admin.catalog.packs.index', compact('modifications', 'complectations'))->with('id', $id);

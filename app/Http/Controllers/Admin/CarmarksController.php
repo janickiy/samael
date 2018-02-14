@@ -110,7 +110,7 @@ class CarmarksController extends Controller
                 CarModel::query()->truncate();
             }
 
-            foreach($xml->mark as $row_mark) {
+            foreach ($xml->mark as $row_mark) {
                 if ($row_mark->code) {
                     $carMarks = new CarMark;
                     $carMarks->name = formatMarkNames($row_mark->code);
@@ -118,7 +118,7 @@ class CarmarksController extends Controller
                     if ($carMarks->save()) {
                         $id_car_mark = $carMarks->id;
 
-                        foreach($row_mark->folder as $row_folder){
+                        foreach ($row_mark->folder as $row_folder) {
                             $carModel = new CarModel;
                             $carModel->id_car_mark = $id_car_mark;
                             $carModel->name = $row_folder[0]['name'];

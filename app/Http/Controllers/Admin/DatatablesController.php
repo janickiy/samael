@@ -155,11 +155,9 @@ class DatatablesController extends Controller
         $carMarks = CarMark::all();
 
         return Datatables::of($carMarks)
-
             ->addColumn('carmodel', function ($carMarks) {
-                return '<a href="' . url('admin/carmodels/carmark/' . $carMarks->id . '/') .'">' . $carMarks->name . '</a>';
+                return '<a href="' . url('admin/carmodels/carmark/' . $carMarks->id . '/') . '">' . $carMarks->name . '</a>';
             })
-
             ->addColumn('status', function ($carMarks) {
                 return $carMarks->published ? 'опубликован' : 'не опубликован';
             })
@@ -179,7 +177,6 @@ class DatatablesController extends Controller
         $carModels = CarModel::all();
 
         return Datatables::of($carModels)
-
             ->addColumn('actions', function ($carModels) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/carmodels/' . $carModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/carmodels/' . $carModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -197,11 +194,9 @@ class DatatablesController extends Controller
         $carModels = CarModel::where('id_car_mark', $id)->get();
 
         return Datatables::of($carModels)
-
             ->addColumn('modification', function ($carModels) {
                 return $carModels->name;
             })
-
             ->addColumn('actions', function ($carModels) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/carmodels/' . $carModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/carmodels/' . $carModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -242,7 +237,6 @@ class DatatablesController extends Controller
 
                 return $mark['name'] . ' ' . $model['name'];
             })
-
             ->addColumn('actions', function ($requestTradeIn) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/requesttradeins/' . $requestTradeIn->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/requesttradeins/' . $requestTradeIn->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -258,11 +252,9 @@ class DatatablesController extends Controller
         $requestCredit = RequestCredit::all();
 
         return Datatables::of($requestCredit)
-
             ->addColumn('status', function ($requestCredit) {
                 return $requestCredit->status ? 'да' : 'нет';
             })
-
             ->addColumn('complectation', function ($requestCredit) {
                 $modification = CatalogComplectation::select(['catalog_complectations.id as id', 'catalog_complectations.name as complectation', 'catalog_modifications.name as modification'])
                     ->leftJoin('catalog_packs', 'catalog_packs.id_complectation', '=', 'catalog_complectations.id')
@@ -271,11 +263,9 @@ class DatatablesController extends Controller
 
                 return $modification->modification . ' ' . $modification->complectation;
             })
-
             ->addColumn('tradein_available', function ($requestCredit) {
                 return $requestCredit->tradein_available ? 'да' : 'нет';
             })
-
             ->addColumn('actions', function ($requestCredit) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/requestcredits/' . $requestCredit->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/requestcredits/' . $requestCredit->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -291,11 +281,9 @@ class DatatablesController extends Controller
         $callBack = Callback::all();
 
         return Datatables::of($callBack)
-
             ->addColumn('time', function ($callBack) {
                 return $callBack->from_time . ' - ' . $callBack->to_time;
             })
-
             ->addColumn('actions', function ($callBack) {
                 $deleteBtn = '&nbsp;<a href="' . url('admin/callbacks/' . $callBack->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
                 return $deleteBtn;
@@ -310,19 +298,16 @@ class DatatablesController extends Controller
         $catalogMarks = CatalogMark::all();
 
         return Datatables::of($catalogMarks)
-
             ->addColumn('carmark', function ($catalogMarks) {
-                $carmark = '<a href="' . url('admin/catalog/models/mark/' . $catalogMarks->id . '/') .'">' . $catalogMarks->name . '</a>';
+                $carmark = '<a href="' . url('admin/catalog/models/mark/' . $catalogMarks->id . '/') . '">' . $catalogMarks->name . '</a>';
 
                 if (file_exists(public_path() . $catalogMarks->logo)) $carmark .= ' <img height="23" src="' . $catalogMarks->logo . '">';
 
-                return  $carmark;
+                return $carmark;
             })
-
             ->addColumn('status', function ($catalogMarks) {
                 return $catalogMarks->published ? 'опубликован' : 'не опубликован';
             })
-
             ->addColumn('actions', function ($catalogMarks) {
 
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/marks/' . $catalogMarks->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
@@ -342,15 +327,12 @@ class DatatablesController extends Controller
         $catalogModels = CatalogModel::where('id_car_mark', $id)->get();
 
         return Datatables::of($catalogModels)
-
             ->addColumn('image', function ($catalogModels) {
-                return file_exists(public_path() . $catalogModels->image) ? '<a class="btn btn-default btn-xs" target="_blank" href="' . url($catalogModels->image). '" title="Просмотр"><span class="fa fa-eye"></span></a>' : '';
+                return file_exists(public_path() . $catalogModels->image) ? '<a class="btn btn-default btn-xs" target="_blank" href="' . url($catalogModels->image) . '" title="Просмотр"><span class="fa fa-eye"></span></a>' : '';
             })
-
             ->addColumn('status', function ($catalogModels) {
                 return $catalogModels->published ? 'опубликован' : 'не опубликован';
             })
-
             ->addColumn('actions', function ($catalogModels) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/models/' . $catalogModels->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/models/' . $catalogModels->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -375,11 +357,9 @@ class DatatablesController extends Controller
         $catalogModifications = CatalogModification::where('id_model', $id)->get();
 
         return Datatables::of($catalogModifications)
-
             ->addColumn('status', function ($catalogModifications) {
                 return $catalogModifications->published ? 'опубликован' : 'не опубликован';
             })
-
             ->addColumn('actions', function ($catalogModifications) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/modifications/' . $catalogModifications->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/modifications/' . $catalogModifications->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -397,11 +377,9 @@ class DatatablesController extends Controller
         $catalogComplectations = CatalogComplectation::where('id_model', $id)->get();
 
         return Datatables::of($catalogComplectations)
-
             ->addColumn('status', function ($catalogComplectations) {
                 return $catalogComplectations->published ? 'опубликован' : 'не опубликован';
             })
-
             ->addColumn('actions', function ($catalogComplectations) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/complectations/' . $catalogComplectations->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/complectations/' . $catalogComplectations->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -418,11 +396,9 @@ class DatatablesController extends Controller
         $parameterCategories = CatalogParameterCategory::all();
 
         return Datatables::of($parameterCategories)
-
             ->addColumn('parameter', function ($parameterCategories) {
-                return '<a href="' . url('admin/catalog/parametervalues/category/' . $parameterCategories->id . '/') .'">' . $parameterCategories->name . '</a>';
+                return '<a href="' . url('admin/catalog/parametervalues/category/' . $parameterCategories->id . '/') . '">' . $parameterCategories->name . '</a>';
             })
-
             ->addColumn('actions', function ($parameterCategories) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/parametercategories/' . $parameterCategories->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/parametercategories/' . $parameterCategories->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -440,7 +416,6 @@ class DatatablesController extends Controller
         $catalogParameterValues = CatalogParameterValue::where('id_category', $id)->get();
 
         return Datatables::of($catalogParameterValues)
-
             ->addColumn('actions', function ($catalogParameterValues) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/parametervalues/' . $catalogParameterValues->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/parametervalues/' . $catalogParameterValues->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';
@@ -458,19 +433,15 @@ class DatatablesController extends Controller
         $catalogColors = CatalogColor::where('id_model', $id)->get();
 
         return Datatables::of($catalogColors)
-
             ->addColumn('status', function ($catalogColors) {
                 return $catalogColors->published ? 'опубликован' : 'не опубликован';
             })
-
             ->addColumn('color', function ($catalogColors) {
                 return '<span style="background:#' . $catalogColors->hex . '; width: 34px; height: 34px; border: 2px solid transparent;"></span>';
             })
-
             ->addColumn('pic', function ($catalogColors) {
-                return file_exists(public_path() . $catalogColors->image) ? '<a class="btn btn-default btn-xs" target="_blank" href="' . url($catalogColors->image). '" title="Просмотр"><span class="fa fa-eye"></span></a>' : '';
+                return file_exists(public_path() . $catalogColors->image) ? '<a class="btn btn-default btn-xs" target="_blank" href="' . url($catalogColors->image) . '" title="Просмотр"><span class="fa fa-eye"></span></a>' : '';
             })
-
             ->addColumn('actions', function ($catalogColors) {
                 $editBtn = '<a style="margin-right: 0.2em;" href="' . url('admin/catalog/colors/' . $catalogColors->id . '/edit/') . '"  title="Редактировать"><i class="fa fa-2 fa-pencil"></i></a>';
                 $deleteBtn = '&nbsp;<a href="' . url('admin/catalog/colors/' . $catalogColors->id) . '" class="message_box text-danger" data-box="#message-box-delete" data-action="DELETE" title="Удалить навсегда"><i class="fa fa-2 fa-remove"></i></a>';

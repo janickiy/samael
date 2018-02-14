@@ -31,7 +31,7 @@
             <div class="inset_page_content">
                 <h1>Отзывы</h1>
                 <div class="row mentions">
-					  <div class="sidebar">
+                    <div class="sidebar">
                         <div class="feedback_form request_form">
                             <div class="form_title">Напишите свой отзыв</div>
 
@@ -81,8 +81,8 @@
 
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
 
 @endsection
 

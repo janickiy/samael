@@ -20,13 +20,16 @@
         <div class="main_marks row">
             <table width="100%">
 
-            <?php $i=0; ?>
-            @foreach($marks as $mark)
-                @if($i == 0) <tr> @endif
-                    <td><a href="{!! url('/auto/used/' .  $mark->slug) !!}">{!! $mark->name !!}</a><span> {!! $mark->countusedcars !!} </span></td>
-                    <?php $i++; ?>
-                    @if($i == 6) </tr> <?php $i=0; ?> @endif
-            @endforeach
+                <?php $i = 0; ?>
+                @foreach($marks as $mark)
+                    @if($i == 0)
+                        <tr> @endif
+                            <td>
+                                <a href="{!! url('/auto/used/' .  $mark->slug) !!}">{!! $mark->name !!}</a><span> {!! $mark->countusedcars !!} </span>
+                            </td>
+                            <?php $i++; ?>
+                            @if($i == 6) </tr> <?php $i = 0; ?> @endif
+                @endforeach
 
             </table>
 

@@ -90,31 +90,31 @@
 
                     @if(count($newcars) > 0)
 
-                    <ul class="row item_list container">
+                        <ul class="row item_list container">
 
-                        @foreach($newcars as $car)
+                            @foreach($newcars as $car)
 
-                        <li>
-                            <div class="list_item">
-                                <a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug) !!}">
-                                    <div class="item_image"><img src="{!! $car->image !!}"></div>
-                                    <div class="item_name">{!! $car->mark !!} {{ $car->model }}</div>
-                                    <div class="item_price">от <span>{!! $car->price !!}</span> руб.</div>
-                                </a>
-                            </div>
-                        </li>
+                                <li>
+                                    <div class="list_item">
+                                        <a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug) !!}">
+                                            <div class="item_image"><img src="{!! $car->image !!}"></div>
+                                            <div class="item_name">{!! $car->mark !!} {{ $car->model }}</div>
+                                            <div class="item_price">от <span>{!! $car->price !!}</span> руб.</div>
+                                        </a>
+                                    </div>
+                                </li>
 
-                        @endforeach
+                            @endforeach
 
-                    </ul>
+                        </ul>
 
-                    <div class="pager">
+                        <div class="pager">
 
-                       {{ $newcars->render() }}
+                            {{ $newcars->render() }}
 
-                    </div>
+                        </div>
 
-                   @else
+                    @else
 
                         @if(isset($request->search) && !empty($request->search))
 
@@ -122,10 +122,9 @@
 
                         @endif
 
-                   @endif
+                    @endif
 
                 </div>
-
 
 
             </div>

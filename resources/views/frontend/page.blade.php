@@ -17,7 +17,7 @@
 @section('marks')
 
     @include('layouts.frontend.includes.mark_list')
-    
+
 @endsection
 
 
@@ -26,7 +26,7 @@
     <div class="inset_page">
         <div class="main_width">
 
-           @include('layouts.frontend.includes.breadcrumbs')
+            @include('layouts.frontend.includes.breadcrumbs')
 
             <div class="inset_page_content">
                 <h1>{{ $page->title }}</h1>
@@ -41,7 +41,7 @@
 
 @section('bottom_page_content')
 
-   @include('layouts.frontend.includes.bottom_page_content')
+    @include('layouts.frontend.includes.bottom_page_content')
 
 @endsection
 

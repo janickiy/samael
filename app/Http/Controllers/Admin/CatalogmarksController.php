@@ -64,7 +64,7 @@ class CatalogmarksController extends Controller
             $logo_path = public_path() . PATH_MARK;
             $logo = $request->file('logo');
 
-            $filename = str_random(20) . '.' . $logo->getClientOriginalExtension() ? : 'png';
+            $filename = str_random(20) . '.' . $logo->getClientOriginalExtension() ?: 'png';
             $img = ImageInt::make($logo);
 
             $img->resize(300, null, function ($constraint) {
@@ -99,7 +99,7 @@ class CatalogmarksController extends Controller
             $logo_path = public_path() . PATH_MARK;
             $logo = $request->file('logo');
 
-            $filename = str_random(20) . '.' . $logo->getClientOriginalExtension() ? : 'png';
+            $filename = str_random(20) . '.' . $logo->getClientOriginalExtension() ?: 'png';
             $img = ImageInt::make($logo);
 
             $img->resize(300, null, function ($constraint) {

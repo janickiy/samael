@@ -43,7 +43,7 @@ class FrontendController extends Controller
         $reviews = UserReview::where('published', 1)->take(3)->get();
 
         $specialoffers = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.slug as model_slug, catalog_marks.slug as mark_slug, catalog_models.image, catalog_marks.name as mark, catalog_models.body_type, MIN(catalog_packs.price) as price')
-        ->where('catalog_models.published', 1)
+            ->where('catalog_models.published', 1)
             ->where('catalog_models.special', 1)
             ->leftJoin('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
             ->leftJoin('catalog_packs', 'catalog_packs.id_model', '=', 'catalog_models.id')
@@ -176,18 +176,18 @@ class FrontendController extends Controller
     public function ajax(Request $request)
     {
         if (isset($request->action)) {
-            switch($request->action) {
+            switch ($request->action) {
                 case 'search_mark':
 
                     $search_mark = trim(strip_tags(stripcslashes(htmlspecialchars($request->mark))));
 
                     $marks = CarMark::where('published', 1)
-                            ->where('name', 'LIKE', '%' . $search_mark . '%')
-                            ->get();
+                        ->where('name', 'LIKE', '%' . $search_mark . '%')
+                        ->get();
 
                     $rows = [];
 
-                    foreach($marks as $mark) {
+                    foreach ($marks as $mark) {
                         $rows[] = [
                             "id" => $mark->id,
                             "name" => $mark->name,
@@ -209,9 +209,9 @@ class FrontendController extends Controller
 
                     $rows = [];
 
-                    foreach($models as $model) {
+                    foreach ($models as $model) {
                         $rows[] = [
-                            "id"   => $model->id,
+                            "id" => $model->id,
                             "name" => $model->name,
                         ];
                     }
@@ -225,7 +225,7 @@ class FrontendController extends Controller
                     if (is_numeric($request->id_model)) {
                         $model = CatalogModel::select(['image'])->where('id', $request->id_model)->where('published', 1)->first();
 
-                        $complectations = CatalogPack::select(['catalog_modifications.name as modification','catalog_modifications.power', 'catalog_complectations.name as complectation', 'catalog_packs.price', 'catalog_complectations.id as id'])
+                        $complectations = CatalogPack::select(['catalog_modifications.name as modification', 'catalog_modifications.power', 'catalog_complectations.name as complectation', 'catalog_packs.price', 'catalog_complectations.id as id'])
                             ->where('catalog_packs.id_model', $request->id_model)
                             ->where('catalog_modifications.published', 1)
                             ->where('catalog_complectations.published', 1)
@@ -235,10 +235,10 @@ class FrontendController extends Controller
 
                         $rows = [];
 
-                        foreach ($complectations  as $complectation) {
+                        foreach ($complectations as $complectation) {
                             $rows[] = [
                                 "id" => $complectation->id,
-                                "name" => $complectation->modification . '  ' . $complectation->complectation . '(' . number_format($complectation->price,0,'',' ') . ' руб.)',
+                                "name" => $complectation->modification . '  ' . $complectation->complectation . '(' . number_format($complectation->price, 0, '', ' ') . ' руб.)',
                             ];
                         }
 
@@ -255,9 +255,9 @@ class FrontendController extends Controller
 
                     $rows = [];
 
-                    foreach($models as $model) {
+                    foreach ($models as $model) {
                         $rows[] = [
-                            "id"   => $model->id,
+                            "id" => $model->id,
                             "name" => $model->name,
                             "name_rus" => $model->name_rus,
                             "slug" => $model->slug,
@@ -273,14 +273,14 @@ class FrontendController extends Controller
                     $search_region = trim(strip_tags(stripcslashes(htmlspecialchars($request->registration))));
 
                     $regions = GeoRegion::where('id_country', 149)
-                        ->where('name_ru', 'LIKE', '%' .  $search_region . '%')
+                        ->where('name_ru', 'LIKE', '%' . $search_region . '%')
                         ->get();
 
                     $rows = [];
 
-                    foreach($regions as $region) {
+                    foreach ($regions as $region) {
                         $rows[] = [
-                            "id"   => $region->id,
+                            "id" => $region->id,
                             "name" => $region->name_ru,
                         ];
                     }
@@ -295,16 +295,16 @@ class FrontendController extends Controller
 
                     $rows = [];
 
-                    foreach($models as $model) {
+                    foreach ($models as $model) {
                         $rows[] = [
-                            "id"   => $model->id,
+                            "id" => $model->id,
                             "name" => $model->name,
                         ];
                     }
 
                     return response()->json(['item' => $rows]);
 
-                break;
+                    break;
 
             }
         }
@@ -318,7 +318,7 @@ class FrontendController extends Controller
         $marks = CatalogMark::all();
         $reviews = UserReview::where('published', 1)->paginate(5);
 
-        return view('frontend.reviews', compact('marks','reviews'))->with(['title' => 'Отзывы']);
+        return view('frontend.reviews', compact('marks', 'reviews'))->with(['title' => 'Отзывы']);
     }
 
     /**
@@ -421,7 +421,7 @@ class FrontendController extends Controller
 
         if ($car) {
 
-           $complectations = CatalogPack::select(['catalog_modifications.name as modification','catalog_modifications.power', 'catalog_complectations.name as complectation', 'catalog_packs.price', 'catalog_complectations.id as id'])
+            $complectations = CatalogPack::select(['catalog_modifications.name as modification', 'catalog_modifications.power', 'catalog_complectations.name as complectation', 'catalog_packs.price', 'catalog_complectations.id as id'])
                 ->where('catalog_packs.id_model', $car->id)
                 ->where('catalog_modifications.published', 1)
                 ->where('catalog_complectations.published', 1)
@@ -432,8 +432,8 @@ class FrontendController extends Controller
 
             $complectation_options[null] = 'Комплектация';
 
-            foreach ($complectations  as $complectation) {
-                $complectation_options[$complectation['id']] = $complectation['modification'] . '  ' . $complectation['complectation'] . '(' . number_format($complectation['price'],0,'',' ') . ' руб.)';
+            foreach ($complectations as $complectation) {
+                $complectation_options[$complectation['id']] = $complectation['modification'] . '  ' . $complectation['complectation'] . '(' . number_format($complectation['price'], 0, '', ' ') . ' руб.)';
             }
 
             $colors = CatalogColor::where('id_model', $car->id)->get()->toArray();
@@ -454,37 +454,37 @@ class FrontendController extends Controller
             $modifications = CatalogModification::where('published', 1)->where('id_model', $car->id)->get()->toArray();
 
             $options = ['length' => 'Длина, мм',
-                        'width' => 'Ширина, мм',
-                        'height' => 'Высота, мм',
-                        'wheel_base' => 'Колесная база, мм',
-                        'front_rut' => 'Передняя колея колес, мм',
-                        'back_rut' => 'Задняя колея колес, мм',
-                        'front_overhang' => 'Передний свес, мм',
-                        'back_overhang' => 'Задний свес, мм',
-                        'trunk_volume_min' => 'Минимальный объем багажного отделения, л',
-                        'trunk_volume_max' => 'Максимальный объем багажного отделения, л',
-                        'tank_volume' => 'Объем топливного бака, л',
-                        'front_brakes' => 'Передние тормоза (тип, размер)',
-                        'back_brakes' => 'Задние тормоза (тип, размер)',
-                        'front_suspension' => 'Передняя подвеска',
-                        'back_suspension' => 'Задняя подвеска',
-                        'engine_displacement' => 'Объем двигателя, л',
-                        'engine_displacement_working_value' => 'Рабочий объем двигателя, см3',
-                        'engine_type' => 'Тип двигателя',
-                        'gearbox' => 'Коробка передач',
-                        'gears' => 'Количество передач',
-                        'drive' => 'Тип привода',
-                        'power' => 'Мощность, л.с.',
-                        'consume_city' => 'Расход топлива в городе, л/100 км',
-                        'consume_track' => 'Расход топлива на трассе, л/100 км',
-                        'consume_mixed' => 'Смешанный расход топлива, л/100 км',
-                        'acceleration_100km' => 'Разгон от 0 до 100 км/ч, сек.',
-                        'max_speed' => 'Максимальная скорость, км/ч',
-                        'clearance' => 'Дорожный просвет, мм',
-                        'min_mass' => 'Минимальная масса, кг',
-                        'max_mass' => 'Максимальная масса, кг',
-                        'trailer_mass' => 'Допустимая масса прицепа без тормозов, кг',
-                        ];
+                'width' => 'Ширина, мм',
+                'height' => 'Высота, мм',
+                'wheel_base' => 'Колесная база, мм',
+                'front_rut' => 'Передняя колея колес, мм',
+                'back_rut' => 'Задняя колея колес, мм',
+                'front_overhang' => 'Передний свес, мм',
+                'back_overhang' => 'Задний свес, мм',
+                'trunk_volume_min' => 'Минимальный объем багажного отделения, л',
+                'trunk_volume_max' => 'Максимальный объем багажного отделения, л',
+                'tank_volume' => 'Объем топливного бака, л',
+                'front_brakes' => 'Передние тормоза (тип, размер)',
+                'back_brakes' => 'Задние тормоза (тип, размер)',
+                'front_suspension' => 'Передняя подвеска',
+                'back_suspension' => 'Задняя подвеска',
+                'engine_displacement' => 'Объем двигателя, л',
+                'engine_displacement_working_value' => 'Рабочий объем двигателя, см3',
+                'engine_type' => 'Тип двигателя',
+                'gearbox' => 'Коробка передач',
+                'gears' => 'Количество передач',
+                'drive' => 'Тип привода',
+                'power' => 'Мощность, л.с.',
+                'consume_city' => 'Расход топлива в городе, л/100 км',
+                'consume_track' => 'Расход топлива на трассе, л/100 км',
+                'consume_mixed' => 'Смешанный расход топлива, л/100 км',
+                'acceleration_100km' => 'Разгон от 0 до 100 км/ч, сек.',
+                'max_speed' => 'Максимальная скорость, км/ч',
+                'clearance' => 'Дорожный просвет, мм',
+                'min_mass' => 'Минимальная масса, кг',
+                'max_mass' => 'Максимальная масса, кг',
+                'trailer_mass' => 'Допустимая масса прицепа без тормозов, кг',
+            ];
 
             $similarcars = CatalogModel::selectRaw('catalog_models.id, catalog_models.name as model, catalog_models.slug as model_slug, catalog_marks.slug as mark_slug, catalog_models.image, catalog_marks.name as mark, catalog_models.body_type, MIN(catalog_packs.price) as price')
                 ->where('catalog_models.published', 1)
@@ -502,7 +502,7 @@ class FrontendController extends Controller
             $parameter_categories = CatalogParameterCategory::get()->toArray();
             $parameter_packs = $complectation['id'] ? CatalogParameterPack::where('id_complectation', $complectation['id'])->get()->toArray() : null;
 
-            return view('frontend.auto.model', compact('parameter_categories', 'parameter_packs', 'marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'),['title' => $car->meta_title ? $car->meta_title : $car->model, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
+            return view('frontend.auto.model', compact('parameter_categories', 'parameter_packs', 'marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'), ['title' => $car->meta_title ? $car->meta_title : $car->model, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }
 
         abort(404);
@@ -524,7 +524,7 @@ class FrontendController extends Controller
 
         $mark_options[null] = 'Марка';
 
-        foreach ($mark_search  as $mark) {
+        foreach ($mark_search as $mark) {
             $mark_options[$mark['id']] = $mark['name'];
         }
 
@@ -536,7 +536,7 @@ class FrontendController extends Controller
                 ->get()
                 ->toArray();
 
-            foreach ($models_search  as $model) {
+            foreach ($models_search as $model) {
                 $model_options[$model['id']] = $model['name'];
             }
         }
@@ -617,7 +617,7 @@ class FrontendController extends Controller
 
         $trade_in_mark_options[null] = 'Марка';
 
-        foreach ($mark_search  as $mark) {
+        foreach ($mark_search as $mark) {
             $trade_in_mark_options[$mark['id']] = $mark['name'];
         }
 
@@ -629,7 +629,7 @@ class FrontendController extends Controller
                 ->get()
                 ->toArray();
 
-            foreach ($models_search  as $model) {
+            foreach ($models_search as $model) {
                 $trade_in_model_options[$model['id']] = $model['name'];
             }
         }
@@ -643,7 +643,7 @@ class FrontendController extends Controller
 
         $mark_options[null] = 'Марка';
 
-        foreach ($mark_search  as $mark) {
+        foreach ($mark_search as $mark) {
             $mark_options[$mark['id']] = $mark['name'];
         }
 
@@ -654,7 +654,7 @@ class FrontendController extends Controller
                 ->get()
                 ->toArray();
 
-            foreach ($models_search  as $model) {
+            foreach ($models_search as $model) {
                 $model_options[$model['id']] = $model['name'];
             }
         }
@@ -750,6 +750,31 @@ class FrontendController extends Controller
 
             return view('frontend.print.complectation', compact('car', 'complectation', 'options', 'parameter_categories', 'parameter_packs'), ['title' => $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
 
+        }
+
+        abort(404);
+    }
+
+    /**
+     * @param $mark
+     * @param $model
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function compare($mark, $model)
+    {
+
+
+        $car = CatalogModel::select(['catalog_models.meta_title', 'catalog_models.meta_keywords', 'catalog_models.meta_description', 'catalog_models.id', 'catalog_models.body_type', 'catalog_marks.id as id_car_mark', 'catalog_models.annotation', 'catalog_models.bannerText', 'catalog_models.parametersContent', 'catalog_models.galleryContent', 'catalog_models.name as model', 'catalog_models.name_rus', 'catalog_models.slug', 'catalog_models.image', 'catalog_marks.name as mark', 'catalog_marks.slug as mark_slug', 'catalog_models.slug as model_slug'])
+            ->where('catalog_models.slug', $model)
+            ->where('catalog_models.published', 1)
+            ->join('catalog_marks', 'catalog_marks.id', '=', 'catalog_models.id_car_mark')
+            ->first();
+
+        if ($car) {
+            $marks = CatalogMark::all();
+
+            return view('frontend.auto.compare', compact('car', 'marks'), ['title' => 'Сравнение комплектаций ' . $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }
 
         abort(404);

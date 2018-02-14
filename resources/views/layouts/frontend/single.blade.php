@@ -11,13 +11,14 @@
     <![endif]-->
     <title> {{ getSetting('SITE_TITLE') }} | @yield('title') </title>
     <!-- Bootstrap 3.3.5 -->
-    {!! Html::style('assets/bootstrap/css/bootstrap.min.css') !!}
-            <!-- Font Awesome -->
+{!! Html::style('assets/bootstrap/css/bootstrap.min.css') !!}
+<!-- Font Awesome -->
     {!! Html::style('assets/dist/css/font-awesome.min.css') !!}
 
     {!! Html::style('assets/dist/css/animate.min.css') !!}
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet'
+          type='text/css'>
 
     {!! Html::style('assets/dist/css/frontend.css') !!}
 
@@ -38,11 +39,11 @@
 @include('layouts.frontend.includes.header')
 
 @yield('content')
-        <!-- CONTENT-WRAPPER SECTION END-->
+<!-- CONTENT-WRAPPER SECTION END-->
 @include('layouts.frontend.includes.footer')
-        <!-- jQuery 2.1.4 -->
+<!-- jQuery 2.1.4 -->
 {!! Html::script('assets/plugins/jQuery/jQuery-2.1.4.min.js') !!}
-        <!-- Bootstrap 3.3.5 -->
+<!-- Bootstrap 3.3.5 -->
 {!! Html::script('assets/bootstrap/js/bootstrap.min.js') !!}
 
 {!! Html::script('assets/dist/js/jquery.singlePageNav.min.js') !!}

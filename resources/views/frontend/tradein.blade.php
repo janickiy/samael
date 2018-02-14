@@ -73,37 +73,38 @@
                             <p>Перед выкупом авто менеджер проводит осмотр Вашего автомобиля.</p>
                             <p>Эксперт по оценке автомобилей предлагает цену за Ваш автомобиль.</p>
                             <p>Мы оформляем все необходимые документы. Вы получаете деньги наличными.</p>
-                            <p>Вы получаете скидку в размере стоимости Вашего старого автомобиля и дополнительную скидку от нашего салона.</p>
+                            <p>Вы получаете скидку в размере стоимости Вашего старого автомобиля и дополнительную скидку
+                                от нашего салона.</p>
                         </div>
                     </div>
                 </div>
                 <div class="presents_block sidebar sidebar2">
                     <div class="present_item_container present_image_container">
                         <div class="present_item">
-                            <img src="images/present.jpg" />
+                            <img src="images/present.jpg"/>
                         </div>
                     </div>
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="images/p_1.png" /></div>
+                            <div><img src="images/p_1.png"/></div>
                             <div>Зимняя резина<br/>в подарок</div>
                         </div>
                     </div>
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="images/p_1.png" /></div>
+                            <div><img src="images/p_1.png"/></div>
                             <div>Зимняя резина<br/>в подарок</div>
                         </div>
                     </div>
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="images/p_2.png" /></div>
+                            <div><img src="images/p_2.png"/></div>
                             <div>Дорога<br/>до Москвы<br/>за наш счет</div>
                         </div>
                     </div>
                     <div class="present_item_container">
                         <div class="present_item">
-                            <div><img src="images/p_3.png" /></div>
+                            <div><img src="images/p_3.png"/></div>
                             <div>КАСКО<br/>в подарок</div>
                         </div>
                     </div>
@@ -125,13 +126,13 @@
             });
         })
 
-        $(function(){
+        $(function () {
 
-            $("#trade_in_mark").on("change keyup input click", function() {
+            $("#trade_in_mark").on("change keyup input click", function () {
 
                 var idMark = this.value;
 
-                if(idMark != null) {
+                if (idMark != null) {
 
                     var request = $.ajax({
                         url: './ajax?action=get_models&id_car_mark=' + idMark,
@@ -150,13 +151,13 @@
 
                         if (data.item.length > 0) {
                             $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
-                            $("#trade_in_model").prop('disabled',false);
+                            $("#trade_in_model").prop('disabled', false);
                             $("#trade_in_model").html(html).fadeIn();
                         } else {
                             $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $("#trade_in_model").html(html).fadeIn();
-                            $("#trade_in_model").prop('disabled',true);
+                            $("#trade_in_model").prop('disabled', true);
                         }
 
                         $(".select2").select2({
@@ -166,7 +167,7 @@
                 }
             })
 
-            $(document).on('change keyup input click','#trade_in_model',function(){
+            $(document).on('change keyup input click', '#trade_in_model', function () {
                 var idModel = this.value;
 
                 if (idModel != null) {
@@ -191,12 +192,12 @@
                                 $('#request_desc').css('background-image', 'url(' + data.image + ')');
                             else
                                 $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
-                            $("#trade_in_complectation").prop('disabled',false);
+                            $("#trade_in_complectation").prop('disabled', false);
                             $("#trade_in_complectation").html(html).fadeIn();
                         } else {
                             $('#request_desc').css('background-image', 'url("/images/tradein_bg.png")');
                             $("#trade_in_complectation").html(html).fadeIn();
-                            $("#trade_in_complectation").prop('disabled',true);
+                            $("#trade_in_complectation").prop('disabled', true);
                         }
 
                         $(".select2").select2({
@@ -206,11 +207,11 @@
                 }
             })
 
-            $("#mark").on("change keyup input click", function() {
+            $("#mark").on("change keyup input click", function () {
 
                 var idMark = this.value;
 
-                if(idMark != null) {
+                if (idMark != null) {
 
                     var request = $.ajax({
                         url: './ajax?action=get_car_models&id_car_mark=' + idMark,
@@ -228,11 +229,11 @@
                         console.log(html);
 
                         if (data.item.length > 0) {
-                            $("#model").prop('disabled',false);
+                            $("#model").prop('disabled', false);
                             $("#model").html(html).fadeIn();
                         } else {
                             $("#model").html(html).fadeIn();
-                            $("#model").prop('disabled',true);
+                            $("#model").prop('disabled', true);
                         }
 
                         $(".select2").select2({

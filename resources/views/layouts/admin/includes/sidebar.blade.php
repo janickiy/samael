@@ -38,10 +38,12 @@
                         </a>
                     </li>
                     <li class="{{ Request::is('admin/role*')? 'active': '' }}">
-                        <a href="#"><i class="fa fa-key"></i> Настройки ролей <i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class="fa fa-key"></i> Настройки ролей <i
+                                    class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li class="{{ Request::is('admin/roles')? 'active': '' }}"><a
-                                        href="{{ url('admin/roles') }}"><i class="fa fa-list"></i> Управление ролями</a></li>
+                                        href="{{ url('admin/roles') }}"><i class="fa fa-list"></i> Управление ролями</a>
+                            </li>
                             <li class="{{ Request::is('admin/roles/create')? 'active': '' }}"><a
                                         href="{{ url('admin/roles/create') }}"><i class="fa fa-plus"></i> Добавить роль</a>
                             </li>
@@ -52,7 +54,8 @@
 
             <li class="treeview {{ Request::is('admin/carmark*') ? 'active': '' || Request::is('admin/carmodel*') ? 'active': '' || Request::is('admin/carmodification*') ? 'active': '' || Request::is('admin/parametercategories*') ? 'active': '' }}">
                 <a href="#">
-                    <i class="fa fa-folder-open-o"></i> <span>Каталог производителей<br> и моделей</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-folder-open-o"></i> <span>Каталог производителей<br> и моделей</span> <i
+                            class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/carmarks') ? 'active': '' }}">
@@ -82,28 +85,33 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/catalog/mark*')? 'active': '' }}">
-                        <a href="#"><i class="fa fa-key"></i> Список производителей <i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class="fa fa-key"></i> Список производителей <i
+                                    class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li class="{{ Request::is('admin/catalog/marks')? 'active': '' }}"><a
-                                        href="{{ url('admin/catalog/marks') }}"><i class="fa fa-list"></i> Администрирование</a></li>
+                                        href="{{ url('admin/catalog/marks') }}"><i class="fa fa-list"></i>
+                                    Администрирование</a></li>
                             <li class="{{ Request::is('admin/catalog/marks/create')? 'active' : '' }}"><a
-                                        href="{{ url('admin/catalog/marks/create') }}"><i class="fa fa-plus"></i> Добавить производителя</a>
+                                        href="{{ url('admin/catalog/marks/create') }}"><i class="fa fa-plus"></i>
+                                    Добавить производителя</a>
                             </li>
                         </ul>
                     </li>
 
 
                     <li class="{{ Request::is('admin/catalog/parametercategories*')? 'active': '' }}">
-                        <a href="#"><i class="fa fa-gear"></i> Категории параметров <i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class="fa fa-gear"></i> Категории параметров <i
+                                    class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li class="{{ Request::is('admin/catalog/parametercategories')? 'active': '' }}"><a
-                                        href="{{ url('admin/catalog/parametercategories') }}"><i class="fa fa-list"></i> Администрирование</a></li>
+                                        href="{{ url('admin/catalog/parametercategories') }}"><i class="fa fa-list"></i>
+                                    Администрирование</a></li>
                             <li class="{{ Request::is('admin/catalog/parametercategories/create')? 'active' : '' }}"><a
-                                        href="{{ url('admin/catalog/parametercategories/create') }}"><i class="fa fa-plus"></i> Добавить категорию</a>
+                                        href="{{ url('admin/catalog/parametercategories/create') }}"><i
+                                            class="fa fa-plus"></i> Добавить категорию</a>
                             </li>
                         </ul>
                     </li>
-
 
 
                 </ul>
@@ -169,8 +177,10 @@
             <li class="treeview {{ Request::is('admin/menu*')? 'active': '' }}">
                 <a href="#"><i class="fa fa-list-alt"></i> Меню <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li class="{{ Request::is('admin/menus')? 'active': '' }}"><a href="{{ url('admin/menus') }}"><i class="fa fa-list"></i> Управление меню</a></li>
-                    <li class="{{ Request::is('admin/menus/create')? 'active': '' }}"><a href="{{ url('admin/menus/create') }}"><i class="fa fa-plus"></i> Добавить меню</a></li>
+                    <li class="{{ Request::is('admin/menus')? 'active': '' }}"><a href="{{ url('admin/menus') }}"><i
+                                    class="fa fa-list"></i> Управление меню</a></li>
+                    <li class="{{ Request::is('admin/menus/create')? 'active': '' }}"><a
+                                href="{{ url('admin/menus/create') }}"><i class="fa fa-plus"></i> Добавить меню</a></li>
                 </ul>
             </li>
             <li class="treeview {{ Request::is('admin/setting*')? 'active': '' }}">

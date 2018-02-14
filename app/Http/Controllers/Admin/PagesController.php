@@ -45,21 +45,20 @@ class PagesController extends Controller
      */
     public function store(PageRequest $request)
     {
-        $page = new Page($request->except('_token', 'page_id','published'));
-		$page->published = 0;
-		
-		if($request->input('published'))
-		{
-			$page->published = 1;
-		}
-        
-		if ($page->published) {
+        $page = new Page($request->except('_token', 'page_id', 'published'));
+        $page->published = 0;
+
+        if ($request->input('published')) {
+            $page->published = 1;
+        }
+
+        if ($page->published) {
             $page->published_at = \Carbon::now();;
         }
 
         $page->save();
 
-        return redirect('admin/pages')->with('success', 'Раздел ' .$page->title . ' создан');
+        return redirect('admin/pages')->with('success', 'Раздел ' . $page->title . ' создан');
     }
 
     /**

@@ -19,9 +19,9 @@
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle"  data-toggle="dropdown">
-						<span class="hidden-xs">Добро пожаловать {{ Auth::user()->name }} !</span>
-						<span class="caret"></span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs">Добро пожаловать {{ Auth::user()->name }} !</span>
+                        <span class="caret"></span>
                         <img src="{{ asset(Auth::user()->avatar) }}" class="user-image" alt="аватар"/>
                     </a>
                     <ul class="dropdown-menu">
@@ -37,10 +37,12 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ url('admin/users/'.Auth::user()->id) }}" class="btn btn-default btn-flat"><i class="fa fa-btn fa-user"></i> Профиль</a>
+                                <a href="{{ url('admin/users/'.Auth::user()->id) }}" class="btn btn-default btn-flat"><i
+                                            class="fa fa-btn fa-user"></i> Профиль</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" data-box="#mb-signout" class="btn btn-danger btn-flat mb-control"><i class="fa fa-btn fa-sign-out"></i> Выйти</a>
+                                <a href="#" data-box="#mb-signout" class="btn btn-danger btn-flat mb-control"><i
+                                            class="fa fa-btn fa-sign-out"></i> Выйти</a>
                             </div>
                         </li>
                     </ul>

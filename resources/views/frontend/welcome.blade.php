@@ -9,10 +9,10 @@
             font-family: Sans-Serif;
         }
     </style>
-    @endsection
+@endsection
 
-    @section('content')
-            <!-- start home -->
+@section('content')
+    <!-- start home -->
 
     <!-- end home -->
     <!-- start divider -->
@@ -87,46 +87,47 @@
     </section>
     <!-- end feature1 -->
     @if(Auth::guest())
-    <!-- start pricing -->
-    <section id="pricing">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 wow bounceIn">
-                    <h2 class="text-uppercase">Our Pricing</h2>
-                </div>
+        <!-- start pricing -->
+        <section id="pricing">
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        @foreach($packages as $package)
-                            <div class="vpt_plan-container col-md-3 no-margin {{ $package->featured }}">
-                                <ul class="vpt_plan drop-shadow {{ $package->featured=='featured'?'bootstrap-vtp-orange':'bootstrap-vpt-green' }} hover-animate-position {{ $package->featured }}">
-                                    <li class="vpt_plan-name"><strong>{{ $package->name }}</strong></li>
-                                    <li class="vpt_plan-price"><span class="vpt_year"><i
-                                                    class="fa fa-{{ getSetting('DEFAULT_CURRENCY') }}"></i></span>{{ $package->cost }}
-                                        <span
-                                                class="vpt_year"
-                                                style="vertical-align:bottom">{{ $package->cost_per }}</span></li>
-                                    <li class="vpt_plan-footer"><a href="{{ url('/register') }}" class="pricing-select">Subscribe
-                                            Now</a></li>
-                                    <?php $i = 1; ?>
-                                    @foreach($package->features as $feature)
-                                        @if($feature->isActive())
-                                            @if($i%2)
-                                                <li>{{ $feature->pivot->spec }}</li>
-                                            @else
-                                                <li class="vptbg">{{ $feature->pivot->spec  }}</li>
+                    <div class="col-md-12 wow bounceIn">
+                        <h2 class="text-uppercase">Our Pricing</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @foreach($packages as $package)
+                                <div class="vpt_plan-container col-md-3 no-margin {{ $package->featured }}">
+                                    <ul class="vpt_plan drop-shadow {{ $package->featured=='featured'?'bootstrap-vtp-orange':'bootstrap-vpt-green' }} hover-animate-position {{ $package->featured }}">
+                                        <li class="vpt_plan-name"><strong>{{ $package->name }}</strong></li>
+                                        <li class="vpt_plan-price"><span class="vpt_year"><i
+                                                        class="fa fa-{{ getSetting('DEFAULT_CURRENCY') }}"></i></span>{{ $package->cost }}
+                                            <span
+                                                    class="vpt_year"
+                                                    style="vertical-align:bottom">{{ $package->cost_per }}</span></li>
+                                        <li class="vpt_plan-footer"><a href="{{ url('/register') }}"
+                                                                       class="pricing-select">Subscribe
+                                                Now</a></li>
+                                        <?php $i = 1; ?>
+                                        @foreach($package->features as $feature)
+                                            @if($feature->isActive())
+                                                @if($i%2)
+                                                    <li>{{ $feature->pivot->spec }}</li>
+                                                @else
+                                                    <li class="vptbg">{{ $feature->pivot->spec  }}</li>
+                                                @endif
+                                                <?php $i++; ?>
                                             @endif
-                                            <?php $i++; ?>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endforeach
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- end pricing -->
+        </section>
+        <!-- end pricing -->
     @endif
     <!-- start contact -->
     <section id="contact">
@@ -189,16 +190,17 @@
             };
             var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
         }
+
         google.maps.event.addDomListener(window, 'load', initialize);
         $(document).ready(function () {
             // Validation Engine init
             var prefix = 's2id_';
             $("form[id^='validate']").validationEngine('attach',
-                    {
-                        promptPosition: "bottomRight", scroll: false,
-                        prettySelect: true,
-                        usePrefix: prefix
-                    });
+                {
+                    promptPosition: "bottomRight", scroll: false,
+                    prettySelect: true,
+                    usePrefix: prefix
+                });
 
             $(function () {
                 new WOW().init();

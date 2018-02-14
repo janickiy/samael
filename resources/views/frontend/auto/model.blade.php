@@ -20,13 +20,13 @@
 
     {!! Html::style('css/fancybox/jquery.fancybox.css') !!}
 
-    
+
 @endsection
 
 @section('content')
 
     <!-- hidden inline form -->
-    <div id="inline"  class="popup_form">
+    <div id="inline" class="popup_form">
         <h3>Отправка сообщения</h3>
 
         {!! Form::open(['url' => '/callback', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
@@ -40,41 +40,41 @@
         </div>
 
         <div class="form_field call_time">
-			<label>Удобное время звонка:</label>
-				<div class="fl_l">
-            {!! Form::select('from_time', [
-                '9:00' => '9:00',
-                '10:00' => '10:00',
-                '11:00' => '11:00',
-                '12:00' => '12:00',
-                '13:00' => '13:00',
-                '14:00' => '14:00',
-                '15:00' => '15:00',
-                '16:00' => '16:00',
-                '17:00' => '17:00',
-                '18:00' => '18:00',
-                '19:00' => '19:00',
-                ], '9:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
-                )
-            !!}
-				</div>	
-				<div class="fl_l">
-            {!! Form::select('to_time', [
-               '9:00' => '9:00',
-               '10:00' => '10:00',
-               '11:00' => '11:00',
-               '12:00' => '12:00',
-               '13:00' => '13:00',
-               '14:00' => '14:00',
-               '15:00' => '15:00',
-               '16:00' => '16:00',
-               '17:00' => '17:00',
-               '18:00' => '18:00',
-               '19:00' => '19:00',
-               ], '19:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
-               )
-           !!}
-			</div>	
+            <label>Удобное время звонка:</label>
+            <div class="fl_l">
+                {!! Form::select('from_time', [
+                    '9:00' => '9:00',
+                    '10:00' => '10:00',
+                    '11:00' => '11:00',
+                    '12:00' => '12:00',
+                    '13:00' => '13:00',
+                    '14:00' => '14:00',
+                    '15:00' => '15:00',
+                    '16:00' => '16:00',
+                    '17:00' => '17:00',
+                    '18:00' => '18:00',
+                    '19:00' => '19:00',
+                    ], '9:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
+                    )
+                !!}
+            </div>
+            <div class="fl_l">
+                {!! Form::select('to_time', [
+                   '9:00' => '9:00',
+                   '10:00' => '10:00',
+                   '11:00' => '11:00',
+                   '12:00' => '12:00',
+                   '13:00' => '13:00',
+                   '14:00' => '14:00',
+                   '15:00' => '15:00',
+                   '16:00' => '16:00',
+                   '17:00' => '17:00',
+                   '18:00' => '18:00',
+                   '19:00' => '19:00',
+                   ], '19:00', ['class' => 'select2 validate[required[alertTextCheckboxMultiple]', 'placeholder' => 'От']
+                   )
+               !!}
+            </div>
         </div>
 
         {!! Form::submit('Отправить', ['class'=>'btn']) !!}
@@ -118,7 +118,9 @@
         <div class="model_page row">
             <div class="main_width">
                 <div class="breadcrumbs">
-                    <a href="/">Главная</a> - <a href="{!! url('/auto') !!}">Новые автомобили</a> - <a href="{!! url('/auto/' . $car->mark_slug) !!}">{!! $car->mark !!}</a> - <span>{!! $car->model !!}</span>
+                    <a href="/">Главная</a> - <a href="{!! url('/auto') !!}">Новые автомобили</a> - <a
+                            href="{!! url('/auto/' . $car->mark_slug) !!}">{!! $car->mark !!}</a> -
+                    <span>{!! $car->model !!}</span>
                 </div>
                 <div class="page_content detail_page row">
                     <h1>{!! $car->model !!}</h1>
@@ -129,10 +131,11 @@
 
                                 @for($i=0; $i<count($colors); $i++)
 
-                                <div class="model_sigle_color @if($i == 0) active @endif " >
-                                    <div class="model_image" style="background-image:url({!! $colors[$i]['image'] !!});"></div>
-                                    <div class="color_name">Цвет:<strong>{!! $colors[$i]['name'] !!}</strong></div>
-                                </div>
+                                    <div class="model_sigle_color @if($i == 0) active @endif ">
+                                        <div class="model_image"
+                                             style="background-image:url({!! $colors[$i]['image'] !!});"></div>
+                                        <div class="color_name">Цвет:<strong>{!! $colors[$i]['name'] !!}</strong></div>
+                                    </div>
 
                                 @endfor
 
@@ -142,21 +145,22 @@
 
                         @if (isset($colors))
 
-                        <ul class="colors_block row">
+                            <ul class="colors_block row">
 
-                             @for($i=0; $i<count($colors); $i++)
+                                @for($i=0; $i<count($colors); $i++)
 
-                                <li @if($i == 0) class="active" @endif id="color_{!! $colors[$i]['id'] !!}"><span style="background:#{!! $colors[$i]['hex'] !!}"></span></li>
+                                    <li @if($i == 0) class="active" @endif id="color_{!! $colors[$i]['id'] !!}"><span
+                                                style="background:#{!! $colors[$i]['hex'] !!}"></span></li>
 
-                            @endfor
+                                @endfor
 
-                        </ul>
+                            </ul>
 
                         @endif
                         <script>
-                            (function($) {
-                                $(function() {
-                                    $('ul.colors_block').on('click', 'li:not(.active)', function() {
+                            (function ($) {
+                                $(function () {
+                                    $('ul.colors_block').on('click', 'li:not(.active)', function () {
                                         $(this)
                                             .addClass('active').siblings().removeClass('active')
                                             .closest('div.model_colors_block').find('div.model_sigle_color').removeClass('active').eq($(this).index()).addClass('active');
@@ -168,9 +172,13 @@
                     </div>
                     <div class="price_block">
                         Цена:
-                        @if($prev_price)<div class="old_price"><del>от <span>{!! number_format($prev_price,0,'',' ') !!}</span> руб.</del></div>@endif
+                        @if($prev_price)
+                            <div class="old_price">
+                                <del>от <span>{!! number_format($prev_price,0,'',' ') !!}</span> руб.</del>
+                            </div>@endif
                         <div class="new_price">от <span>{!! number_format($price,0,'',' ') !!}</span> руб.</div>
-                        @if(isset($car->bannerText) && !empty($car->bannerText))<div class="discount">{!! $car->bannerText !!}</div>@endif
+                        @if(isset($car->bannerText) && !empty($car->bannerText))
+                            <div class="discount">{!! $car->bannerText !!}</div>@endif
                     </div>
                     <div class="request_form_block">
                         <div class="request_form">
@@ -236,102 +244,128 @@
                             <li>Характеристики</li>
                             <li>Фотогалерея</li>
                         </ul>
-                        <div class="tradein_banner"><img src="/images/tradein_banner.png" /></div>
+                        <div class="tradein_banner"><img src="/images/tradein_banner.png"/></div>
                     </div>
                     <div class="row">
                         <div class="specialty_content_block">
                             <div class="specialty_content active">
                                 <div class="model_characteristics">
 
+                                    {!! Form::open(['url' => '/auto/' . $car->mark_slug . '/' . $car->model_slug . '/compare', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'validate']) !!}
+
                                     @foreach($modifications as $modification)
 
-                                    @if(count(getPacks($car->id, $modification['id'])) > 0)
+                                        @if(count(getPacks($car->id, $modification['id'])) > 0)
 
-                                    <div class="model_title">{!! $modification['name'] !!}</div>
-                                    <div class="model_characteristics_tab">
-                                        <div class="sort row">
-                                            <div class="complectation_name">Комплектация</div>
-                                            <div class="KPP"><a class="sort_link minmax">КПП</a></div>
-                                            <div class="power"><a class="sort_link minmax">Мощность</a></div>
-                                            <div class="price"><a class="sort_link maxmin">Цена</a></div>
-                                        </div>
+                                            <div class="model_title">{!! $modification['name'] !!}</div>
 
-                                        <ul class="sort_results">
+                                            <div class="model_characteristics_tab">
+                                                <div class="sort row">
+                                                    <div class="complectation_name">Комплектация</div>
+                                                    <div class="KPP"><a class="sort_link minmax">КПП</a></div>
+                                                    <div class="power"><a class="sort_link minmax">Мощность</a></div>
+                                                    <div class="price"><a class="sort_link maxmin">Цена</a></div>
+                                                </div>
 
-                                            @foreach(getPacks($car->id, $modification['id']) as $row)
+                                                <ul class="sort_results">
 
-                                            <li>
-                                                <div class="complectation_item row">
-													<div class="row">
-														<div class="complectation_name"><input type="checkbox" class="checkbox" id="{{ $modification['id'] }}_{{ $row['complectation'] }}"></input><label for="{{ $modification['id'] }}_{{ $row['complectation'] }}"></label><span trigerID="{{ $modification['id'] }}_{{ $row['complectation'] }}" class="show_info">{!! $row['name'] !!}</span></div>
-														<div class="KPP">{!! gearboxType($modification['gearbox']) !!}</div>
-														<div class="power">{!! $modification['power'] !!}</div>
-														<div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}<span> руб</div>
-														<div class="buy_link"><a href="#inline_credit" data-id="{{ $row['complectation'] }}" class="btn modalbox">Купить в кредит</a></div>
-														<div class="print_link"><a href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}" title="Распечатать комплектацию" target="_blank" onclick="var popupWin = window.open('{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}', null, 'menubar=no, toolbar=no, location=yes, status=yes, resizable=yes, scrollbars=yes', true); popupWin.focus(); return false;"><img src="/images/print_ico.png" /></a></div>
-													</div>
-                                                    <div class="row dop_info disp_n"  containerID="{{ $modification['id'] }}_{{ $row['complectation'] }}">
+                                                    @foreach(getPacks($car->id, $modification['id']) as $row)
 
-                                                            @foreach($parameter_categories as $parameter_category)
+                                                        <li>
+                                                            <div class="complectation_item row">
+                                                                <div class="row">
+                                                                    <div class="complectation_name"><input
+                                                                                type="checkbox" class="checkbox"
+                                                                                id="{{ $modification['id'] }}_{{ $row['complectation'] }}"></input><label
+                                                                                for="{{ $modification['id'] }}_{{ $row['complectation'] }}"></label><span
+                                                                                trigerID="{{ $modification['id'] }}_{{ $row['complectation'] }}"
+                                                                                class="show_info">{!! $row['name'] !!}</span>
+                                                                    </div>
+                                                                    <div class="KPP">{!! gearboxType($modification['gearbox']) !!}</div>
+                                                                    <div class="power">{!! $modification['power'] !!}</div>
+                                                                    <div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}
+                                                                            <span> руб</div>
+                                                                    <div class="buy_link"><a href="#inline_credit"
+                                                                                             data-id="{{ $row['complectation'] }}"
+                                                                                             class="btn modalbox">Купить
+                                                                            в кредит</a></div>
+                                                                    <div class="print_link"><a
+                                                                                href="{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}"
+                                                                                title="Распечатать комплектацию"
+                                                                                target="_blank"
+                                                                                onclick="var popupWin = window.open('{!! url('/auto/' . $car->mark_slug . '/' . $car->model_slug . '/pack/' . $row['complectation'] . '/print') !!}', null, 'menubar=no, toolbar=no, location=yes, status=yes, resizable=yes, scrollbars=yes', true); popupWin.focus(); return false;"><img
+                                                                                    src="/images/print_ico.png"/></a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row dop_info disp_n"
+                                                                     containerID="{{ $modification['id'] }}_{{ $row['complectation'] }}">
 
-                                                                @if(count(getParameterValues($parameter_category['id'], $row['complectation'])) > 0)
+                                                                    @foreach($parameter_categories as $parameter_category)
 
-                                                                    <div>
-                                                                        <div class="dop_info_title">{!! $parameter_category['name'] !!}</div>
+                                                                        @if(count(getParameterValues($parameter_category['id'], $row['complectation'])) > 0)
 
-																		<ul class="disk">
-																			@foreach(getParameterValues($parameter_category['id'], $row['complectation']) as $parameterValue)
+                                                                            <div>
+                                                                                <div class="dop_info_title">{!! $parameter_category['name'] !!}</div>
 
-																				<li>
-																					{!! $parameterValue['name'] !!}
-																				</li>
+                                                                                <ul class="disk">
 
-																			@endforeach
-																		</ul>	
+                                                                                    @foreach(getParameterValues($parameter_category['id'], $row['complectation']) as $parameterValue)
+
+                                                                                        <li>{!! $parameterValue['name'] !!}</li>
+
+                                                                                    @endforeach
+
+                                                                                </ul>
+                                                                            </div>
+
+                                                                        @endif
+
+                                                                    @endforeach
+                                                                    <div class="row pack_info">
+                                                                        <ul>
+
+                                                                            @foreach($parameter_packs as $parameter_pack)
+
+                                                                                <li>
+                                                                                    <div class="pack_title">
+
+                                                                                        {!! $parameter_pack['name'] !!} @if(!empty($parameter_pack['price']))
+                                                                                            +{!! number_format($parameter_pack['price'], 0, '', ' ') !!}
+                                                                                            руб. @endif
+
+                                                                                    </div>
+
+                                                                                    @foreach(getPackValue($parameter_pack['id']) as $pack)
+
+                                                                                        <p>
+                                                                                            <span>-</span>
+                                                                                            {!! $pack['name'] !!}
+                                                                                        </p>
+
+                                                                                    @endforeach
+
+                                                                                </li>
+
+                                                                            @endforeach
+
+                                                                        </ul>
                                                                     </div>
 
-                                                                @endif
+                                                                </div>
+                                                            </div>
+                                                        </li>
 
-                                                            @endforeach
-															<div class="row pack_info">
-																<ul>
+                                                    @endforeach
 
-																@foreach($parameter_packs as $parameter_pack)
+                                                </ul>
 
-																  <li>
-																			<div class="pack_title">
-																				{!! $parameter_pack['name'] !!} @if(!empty($parameter_pack['price'])) +{!! number_format($parameter_pack['price'], 0, '', ' ') !!} руб. @endif
-
-																			</div>
-
-																			@foreach(getPackValue($parameter_pack['id']) as $pack)
-
-																				<p>
-																					<span>—</span>
-																					{!! $pack['name'] !!}
-																				</p>
-
-
-																			@endforeach
-																  </li>
-
-																@endforeach
-
-																</ul>
-															</div>
-
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                            @endforeach
-
-                                        </ul>
-
-                                        <a href="" class="btn disabled">Сравнить</a>
-                                    </div>
+                                            </div>
                                         @endif
                                     @endforeach
+
+                                    {!! Form::submit('Сравнить', ['class'=>'btn']) !!}
+
+                                    {!! Form::close() !!}
 
                                 </div>
 
@@ -365,7 +399,8 @@
 
                                 @foreach($gallery_pics as $pic)
 
-                                <a class="gallery" rel="group"  href="{!! PATH_CARS . $pic->image  !!}"><img width="300px" src="{!! PATH_CARS . $pic->image  !!}" /></a>
+                                    <a class="gallery" rel="group" href="{!! PATH_CARS . $pic->image  !!}"><img
+                                                width="300px" src="{!! PATH_CARS . $pic->image  !!}"/></a>
 
                                 @endforeach
 
@@ -374,11 +409,12 @@
                         </div>
                         <div class="inform_banner">
                             <div class="banner_logo">
-                                <img src="/images/logo.png" />
+                                <img src="/images/logo.png"/>
                             </div>
                             <div class="banner_phones">
                                 <a href="tel:{!! getSetting('TELEPHONE_1') !!}">{!! getSetting('TELEPHONE_1') !!}</a>
-                                <a href="tel:{!! getSetting('TELEPHONE_2') !!}" class="free_phone">{!! getSetting('TELEPHONE_2') !!}</a>
+                                <a href="tel:{!! getSetting('TELEPHONE_2') !!}"
+                                   class="free_phone">{!! getSetting('TELEPHONE_2') !!}</a>
                                 <b>(Звонок по России бесплатный)</b>
                             </div>
                             <div class="banner_info">
@@ -390,9 +426,9 @@
                     </div>
                 </div>
                 <script>
-                    (function($) {
-                        $(function() {
-                            $('ul.tabs').on('click', 'li:not(.active)', function() {
+                    (function ($) {
+                        $(function () {
+                            $('ul.tabs').on('click', 'li:not(.active)', function () {
                                 $(this)
                                     .addClass('active').siblings().removeClass('active')
                                     .closest('div.specialty_tabs').find('div.specialty_content').removeClass('active').eq($(this).index()).addClass('active');
@@ -405,26 +441,26 @@
 
             @if(isset($similarcars) && count($similarcars) > 0)
 
-            <div class="specials_block row">
-                <h2>Похожие предложения</h2>
-                <ul class="row item_list container">
+                <div class="specials_block row">
+                    <h2>Похожие предложения</h2>
+                    <ul class="row item_list container">
 
-                    @foreach($similarcars as $similarcar)
+                        @foreach($similarcars as $similarcar)
 
-                    <li>
-                        <div class="list_item">
-                            <a href="{!! url('/auto/' . $similarcar->mark_slug . '/' . $similarcar->model_slug) !!}">
-                                <div class="item_image"><img src="{!! $similarcar->image !!}" /></div>
-                                <div class="item_name">{!! $similarcar->mark !!} {!! $similarcar->model !!} {!! $similarcar->body_type !!}</div>
-                                <div class="item_price">от <span>{!! $similarcar->price !!}</span> руб.</div>
-                            </a>
-                        </div>
-                    </li>
+                            <li>
+                                <div class="list_item">
+                                    <a href="{!! url('/auto/' . $similarcar->mark_slug . '/' . $similarcar->model_slug) !!}">
+                                        <div class="item_image"><img src="{!! $similarcar->image !!}"/></div>
+                                        <div class="item_name">{!! $similarcar->mark !!} {!! $similarcar->model !!} {!! $similarcar->body_type !!}</div>
+                                        <div class="item_price">от <span>{!! $similarcar->price !!}</span> руб.</div>
+                                    </a>
+                                </div>
+                            </li>
 
-                    @endforeach
+                        @endforeach
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
 
             @endif
 
@@ -444,8 +480,8 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function() {
-            jQuery(function($){
+        $(document).ready(function () {
+            jQuery(function ($) {
                 $(".select2").select2();
                 $(".phone_form").mask("+7 (999) 999 - 99 - 99");
             });
@@ -455,71 +491,73 @@
             $(".select2").select2();
         })
 
-        $(function(){
+        $(function () {
             $(".form_phone").mask("+7 (999) 999-9999");
         })
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(".modalbox").fancybox();
         });
 
-        $(".modalbox").on("click", function() {
+        $(".modalbox").on("click", function () {
             $("#inline_credit_complectation").val('');
-            var Complectation  = $(this).attr("data-id");
+            var Complectation = $(this).attr("data-id");
             $("#inline_credit_complectation").val(Complectation);
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("a.gallery, a.iframe").fancybox();
 
-            url = $("a.modalbox").attr('href').replace("for_spider","content2");
+            url = $("a.modalbox").attr('href').replace("for_spider", "content2");
             $("a.modalbox").attr("href", url);
             $("a.modalbox").fancybox(
-            {
-                "frameWidth" : 400,
-                "frameHeight" : 400
-            });
+                {
+                    "frameWidth": 400,
+                    "frameHeight": 400
+                });
 
             $("a.gallery2").fancybox(
-            {
-                "padding" : 20,
-                "imageScale" : false,
-                "zoomOpacity" : false,
-                "zoomSpeedIn" : 1000,
-                "zoomSpeedOut" : 1000,
-                "zoomSpeedChange" : 1000,
-                "frameWidth" : 700,
-                "frameHeight" : 600,
-                "overlayShow" : true,
-                "overlayOpacity" : 0.8,
-                "hideOnContentClick" :false,
-                "centerOnScroll" : false,
-				"titleShow" : false
-            });
+                {
+                    "padding": 20,
+                    "imageScale": false,
+                    "zoomOpacity": false,
+                    "zoomSpeedIn": 1000,
+                    "zoomSpeedOut": 1000,
+                    "zoomSpeedChange": 1000,
+                    "frameWidth": 700,
+                    "frameHeight": 600,
+                    "overlayShow": true,
+                    "overlayOpacity": 0.8,
+                    "hideOnContentClick": false,
+                    "centerOnScroll": false,
+                    "titleShow": false
+                });
 
-            $("#menu a, .anim").hover( function() {
-                $(this).animate({"paddingLeft" : "10px"}, 300)},
-                function() {$(this).animate({"paddingLeft" : "0"}, 300);
-            });
+            $("#menu a, .anim").hover(function () {
+                    $(this).animate({"paddingLeft": "10px"}, 300)
+                },
+                function () {
+                    $(this).animate({"paddingLeft": "0"}, 300);
+                });
 
             $("a.iframe").fancybox(
-            {
-                "frameWidth" : 800,
-                "frameHeight" : 600
-            });
+                {
+                    "frameWidth": 800,
+                    "frameHeight": 600
+                });
 
-            $("#search_registration").on("change keyup input click", function() {
-                if (this.value.length >= 2){
+            $("#search_registration").on("change keyup input click", function () {
+                if (this.value.length >= 2) {
 
                     $.ajax({
                         type: 'GET',
                         url: '/ajax?action=search_registration&registration=' + this.value,
-                        dataType : "json",
-                        success: function(data){
+                        dataType: "json",
+                        success: function (data) {
                             if (data != null && data.item != null) {
                                 var html = '';
 
-                                for(var i=0; i < data.item.length; i++) {
+                                for (var i = 0; i < data.item.length; i++) {
                                     html += '<li data-item="' + data.item[i].id + '">' + data.item[i].name + '</li>';
                                 }
 
@@ -535,11 +573,11 @@
                 }
             })
 
-            $(".search_result_registration").hover(function(){
+            $(".search_result_registration").hover(function () {
                 $(".who").blur();
             })
 
-            $(".search_result_registration").on("click", "li", function(){
+            $(".search_result_registration").on("click", "li", function () {
                 $("#search_registration").val($(this).text());
                 $(".search_result_registration").fadeOut();
             })

@@ -62,7 +62,7 @@ class CatalogcolorsController extends Controller
             $image_path = public_path() . PATH_COLOR;
             $image = $request->file('image');
 
-            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ? : 'png';
+            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ?: 'png';
             $img = ImageInt::make($image);
 
             $img->resize(600, null, function ($constraint) {
@@ -95,7 +95,7 @@ class CatalogcolorsController extends Controller
             $image_path = public_path() . PATH_COLOR;
             $image = $request->file('image');
 
-            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ? : 'png';
+            $filename = str_random(20) . '.' . $image->getClientOriginalExtension() ?: 'png';
             $img = ImageInt::make($image);
 
             $img->resize(600, null, function ($constraint) {

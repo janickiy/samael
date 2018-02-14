@@ -2,11 +2,11 @@
 <html>
 <head>
 
-    {!! Html::style('css/style.css') !!}
+{!! Html::style('css/style.css') !!}
 
-    {!! Html::style('assets/plugins/select2/select2.min.css') !!}
+{!! Html::style('assets/plugins/select2/select2.min.css') !!}
 
-    <!-- iCheck for checkboxes and radio inputs -->
+<!-- iCheck for checkboxes and radio inputs -->
     {!! Html::style('assets/plugins/iCheck/all.css') !!}
 
     <meta charset="utf-8">
@@ -18,8 +18,8 @@
     {!! Html::script('js/jquery-1.11.1.min.js') !!}
 
     {!! Html::script('js/select.js') !!}
-	
-	 {!! Html::script('js/script.js') !!}
+
+    {!! Html::script('js/script.js') !!}
 
     {!! Html::script('js/jquery.maskedinput.js') !!}
 

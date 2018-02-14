@@ -1,3 +1,3 @@
 <footer class="main-footer">
-	{!! getSetting('FOOTER') !!}
+    {!! getSetting('FOOTER') !!}
 </footer>

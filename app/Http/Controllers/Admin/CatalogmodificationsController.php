@@ -52,7 +52,7 @@ class CatalogmodificationsController extends Controller
      */
     public function update(CatalogModificationsRequest $request, CatalogModification $catalogModification)
     {
-       // $modification = CarModification::where('id', $carModification->id)->first();
+        // $modification = CarModification::where('id', $carModification->id)->first();
 
         $catalogModification->name = $request->input('name');
         $catalogModification->id_model = $request->input('id_model');

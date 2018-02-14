@@ -13,7 +13,7 @@
             <i class="fa fa-download"></i> Импорт
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель  управления</a></li>
+            <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
             <li class="active"><i class="fa fa-download"></i> Импорт</li>
         </ol>
     </section>
@@ -25,7 +25,8 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Импорт</h3>
                 <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i
+                                class="fa fa-minus"></i></button>
                 </div>
             </div>
             <div class="box-body">
@@ -54,7 +55,7 @@
 @endsection
 
 @section('js')
-<script type="text/javascript">
+    <script type="text/javascript">
 
-</script>
+    </script>
 @endsection

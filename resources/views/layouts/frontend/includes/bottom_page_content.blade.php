@@ -7,14 +7,14 @@
 
                     @foreach($news as $new)
 
-                    <li>
-                        <div class="article row">
-                            <a href="{{ url('/news/' . $new->slug) }}">
-                                <div class="cs_mark"></div>
-                                <p>{!! $new->content !!}</p>
-                            </a>
-                        </div>
-                    </li>
+                        <li>
+                            <div class="article row">
+                                <a href="{{ url('/news/' . $new->slug) }}">
+                                    <div class="cs_mark"></div>
+                                    <p>{!! $new->content !!}</p>
+                                </a>
+                            </div>
+                        </li>
 
                     @endforeach
 
@@ -27,13 +27,13 @@
 
                     @foreach($reviews as $review)
 
-                    <li>
-                        <div class="review_item row">
-                            <div class="user_name">{!! $review->author !!}</div>
-                            <div class="review_date">{!! $review->published_at !!}</div>
-                             <p>{!! $review->message !!}</p>
-                        </div>
-                    </li>
+                        <li>
+                            <div class="review_item row">
+                                <div class="user_name">{!! $review->author !!}</div>
+                                <div class="review_date">{!! $review->published_at !!}</div>
+                                <p>{!! $review->message !!}</p>
+                            </div>
+                        </li>
 
                     @endforeach
 

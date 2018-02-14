@@ -47,8 +47,8 @@ Route::model('roles', Role::class);
 Route::model('pages', Page::class);
 Route::model('menus', Menu::class);
 Route::model('reviews', UserReview::class);
-Route::model('carmarks',CarMark::class);
-Route::model('carmodels',CarModel::class);
+Route::model('carmarks', CarMark::class);
+Route::model('carmodels', CarModel::class);
 Route::model('requestcredits', RequestCredit::class);
 Route::model('requesttradeins', RequestTradeIn::class);
 Route::model('marks', CatalogMark::class);
@@ -60,17 +60,17 @@ Route::model('parametervalues', CatalogParameterValue::class);
 Route::model('colors', CatalogColor::class);
 Route::model('callbacks', Callback::class);
 
-Route::group(['prefix' => ''], function() {
-    define('PATH_AVATARS','/uploads/avatars');
-    define('PATH_SMALL_IMAGES','/uploads/images/small/');
-    define('PATH_BIG_IMAGES','/uploads/images/big/');
-    define('PATH_MARK','/uploads/mark/');
-    define('PATH_MODEL','/uploads/model/');
-    define('PATH_SETTINGS','/uploads/settings');
-    define('PATH_SMALL_TRADEIN','/uploads/tardein/small/');
-    define('PATH_BIG_TRADEIN','/uploads/tardein/big/');
-    define('PATH_COLOR','/uploads/color/');
-    define('PATH_CARS','/uploads/cars/');
+Route::group(['prefix' => ''], function () {
+    define('PATH_AVATARS', '/uploads/avatars');
+    define('PATH_SMALL_IMAGES', '/uploads/images/small/');
+    define('PATH_BIG_IMAGES', '/uploads/images/big/');
+    define('PATH_MARK', '/uploads/mark/');
+    define('PATH_MODEL', '/uploads/model/');
+    define('PATH_SETTINGS', '/uploads/settings');
+    define('PATH_SMALL_TRADEIN', '/uploads/tardein/small/');
+    define('PATH_BIG_TRADEIN', '/uploads/tardein/big/');
+    define('PATH_COLOR', '/uploads/color/');
+    define('PATH_CARS', '/uploads/cars/');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -80,6 +80,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/auto/{mark}', 'FrontendController@mark');
     Route::get('/auto/{mark}/{model}', 'FrontendController@model');
     Route::get('/auto/{mark}/{model}/pack/{id}/print', 'FrontendController@printModel');
+    Route::any('/auto/{mark}/{model}/compare', 'FrontendController@compare');
     Route::get('/credit', 'FrontendController@credit');
     Route::post('/request-credit', 'FrontendController@requestCredit');
     Route::post('/request-credit-quick', 'FrontendController@requestCreditQuick');
@@ -120,10 +121,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('carmarks/import', 'Admin\CarmarksController@import');
         Route::post('carmarks/imporcarmarks', 'Admin\CarmarksController@importCarmarks');
         Route::any('/ajax', 'Admin\DashboardController@ajax');
-        Route::resource('users', 'Admin\UsersController');
         Route::get('settings/create/{type}', ['as' => 'admin.settings.create.type', 'uses' => 'Admin\SettingsController@createForm']);
         Route::get('settings/download/{settings}', ['as' => 'admin.settings.download', 'uses' => 'Admin\SettingsController@fileDownload']);
 
+        Route::resource('users', 'Admin\UsersController');
         Route::resource('settings', 'Admin\SettingsController');
         Route::resource('roles', 'Admin\RolesController');
         Route::resource('pages', 'Admin\PagesController');
@@ -172,34 +173,33 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/profile/edit', ['as' => 'member.profile.edit', 'uses' => 'MemberController@editProfile']);
         Route::put('/profile/edit', ['as' => 'member.profile.update', 'uses' => 'MemberController@updateProfile']);
     });
-	
-	Route::get('sitemap', function(){
 
-		// create new sitemap object
-		$sitemap = App::make("sitemap");
+    Route::get('sitemap', function () {
 
-		// set cache key (string), duration in minutes (Carbon|Datetime|int), turn on/off (boolean)
-		// by default cache is disabled
-		$sitemap->setCache('laravel.sitemap', 1440);
+        // create new sitemap object
+        $sitemap = App::make("sitemap");
 
-		// check if there is cached sitemap and build new only if is not
-		if (!$sitemap->isCached()) {
-			 $posts = DB::table('pages')->orderBy('created_at', 'desc')->get();
+        // set cache key (string), duration in minutes (Carbon|Datetime|int), turn on/off (boolean)
+        // by default cache is disabled
+        $sitemap->setCache('laravel.sitemap', 1440);
 
-			 // add every post to the sitemap
-			 foreach ($posts as $post)
-			 {
-				if ($post->blog_post ) {
-					$slug = "blog/".$post->slug;
-				} else {
-					$slug = "page/".$post->slug;
-				}
-				$sitemap->add(URL::to($slug), $post->updated_at,'0.9', 'daily');
-			 }
-		}
+        // check if there is cached sitemap and build new only if is not
+        if (!$sitemap->isCached()) {
+            $posts = DB::table('pages')->orderBy('created_at', 'desc')->get();
 
-		return $sitemap->render('xml');
+            // add every post to the sitemap
+            foreach ($posts as $post) {
+                if ($post->blog_post) {
+                    $slug = "blog/" . $post->slug;
+                } else {
+                    $slug = "page/" . $post->slug;
+                }
+                $sitemap->add(URL::to($slug), $post->updated_at, '0.9', 'daily');
+            }
+        }
 
-	});
+        return $sitemap->render('xml');
+
+    });
 
 });
