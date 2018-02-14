@@ -27,7 +27,7 @@
             <div class="page_content">
                 <h1>Сравнение комплектаций</h1>
 
-                <table border=1 class="table datatable dt-responsive tablesaw tablesaw-swipe" data-tablesaw-mode="swipe"
+                <table border=1 class="table datatable dt-responsive tablesaw tablesaw-swipe compare_tab" data-tablesaw-mode="swipe"
                        style="width:100%;">
                     <thead>
                     <tr>
@@ -45,7 +45,7 @@
                     @for($i = 0; $i < count($parameterCategories["category"]); $i++)
 
                         <tr>
-                            <td colspan="{!! count($complectations) + 1 !!}">{!! $parameterCategories["category"][$i] !!}</td>
+                            <td colspan="{!! count($complectations) + 1 !!}" class="row_td">{!! $parameterCategories["category"][$i] !!}</td>
                         </tr>
 
                         @foreach(getParameterValuesByCategoryId($parameterCategories["id"][$i]) as $value)
@@ -55,7 +55,7 @@
                                 @foreach($complectations as $complectation)
 
                                     <td>@if( checkParameterComplectation($complectation->id, $value['id']))
-                                            + @endif </td>
+                                            <span class="yes"></span> @endif </td>
 
                                 @endforeach
 

@@ -353,6 +353,15 @@ a.gallery {display: inline-block;text-align: center;padding: 5px;}
 .more_credits .item_name{font-family: RobotoBold;color: #25aae1;}
 .more_credits .list_item .item_image {height: 90px;padding-bottom:0px;vertical-align: middle;}
 
+.compare_tab {margin-bottom:20px;}
+.compare_tab th{font-size:12px;min-width: 80px;color: #25aae1;}
+.compare_tab .row_td {text-align:center;font-family:RobotoBold;background:#fff;}
+.compare_tab .tablesaw-swipe-cellpersist {font-family:RobotoBold;}
+.compare_tab tr:nth-child(even) {  background: #f8f8f8;}
+.compare_tab tr td+td {text-align:center;}
+.compare_tab span.yes:before{content: "\f00c";font-family:FontAwesome;  color: #25aae1;}
+
+
 footer {padding:15px 0; line-height: 20px;background:#231f20;color:#808890;position:absolute;bottom:0px;left:0px;width:100%;}
 footer a.default_phone{color:#808890;}
 
