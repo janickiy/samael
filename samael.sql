@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 14 2018 г., 08:10
+-- Время создания: Фев 14 2018 г., 10:22
 -- Версия сервера: 10.1.28-MariaDB
 -- Версия PHP: 7.1.10
 
@@ -6157,9 +6157,9 @@ CREATE TABLE `catalog_complectations` (
 --
 
 INSERT INTO `catalog_complectations` (`id`, `id_model`, `name`, `published`, `created_at`, `updated_at`) VALUES
-(10, 1, 'Access ', 1, '2018-02-05 11:37:32', '2018-02-05 11:37:32'),
-(11, 1, 'Confort', 1, '2018-02-05 12:04:29', '2018-02-05 12:04:29'),
-(12, 1, 'Privilege', 1, '2018-02-05 12:04:39', '2018-02-05 12:04:59');
+(10, 1, 'Access', 1, '2018-02-05 11:37:32', '2018-02-14 04:39:07'),
+(11, 1, 'Comfort', 1, '2018-02-05 12:04:29', '2018-02-14 06:20:22'),
+(12, 1, 'Privilege', 1, '2018-02-05 12:04:39', '2018-02-14 06:16:08');
 
 -- --------------------------------------------------------
 
@@ -6401,46 +6401,46 @@ INSERT INTO `catalog_parameter_complectation` (`id`, `id_complectation`, `id_par
 (18, 9, 1, 0),
 (19, 9, 3, 0),
 (20, 9, 4, 0),
-(21, 10, 1, 0),
-(22, 10, 2, 0),
-(23, 10, 3, 0),
-(24, 10, 4, 0),
-(25, 10, 5, 0),
-(26, 10, 6, 0),
-(27, 10, 7, 0),
-(28, 10, 8, 0),
-(29, 10, 13, 0),
-(30, 10, 14, 0),
-(31, 10, 19, 0),
-(32, 10, 20, 0),
-(33, 10, 21, 0),
-(34, 10, 23, 0),
-(35, 10, 25, 0),
-(36, 10, 28, 0),
-(37, 10, 31, 0),
-(38, 10, 32, 0),
-(39, 10, 35, 0),
-(40, 11, 1, 0),
-(41, 11, 2, 0),
-(42, 11, 4, 0),
-(43, 11, 14, 0),
-(44, 11, 15, 0),
-(45, 11, 16, 0),
-(46, 11, 17, 0),
-(47, 12, 1, 0),
-(48, 12, 2, 0),
-(49, 12, 4, 0),
-(50, 12, 14, 0),
-(51, 12, 15, 0),
-(52, 12, 16, 0),
-(53, 12, 17, 0),
 (54, 13, 1, 0),
 (55, 13, 2, 0),
 (56, 13, 4, 0),
 (57, 13, 14, 0),
 (58, 13, 15, 0),
 (59, 13, 16, 0),
-(60, 13, 17, 0);
+(60, 13, 17, 0),
+(184, 10, 1, 0),
+(185, 10, 2, 0),
+(186, 10, 3, 0),
+(187, 10, 4, 0),
+(188, 10, 5, 0),
+(189, 10, 6, 0),
+(190, 10, 7, 0),
+(191, 10, 8, 0),
+(192, 10, 13, 0),
+(193, 10, 14, 0),
+(194, 10, 19, 0),
+(195, 10, 20, 0),
+(196, 10, 21, 0),
+(197, 10, 23, 0),
+(198, 10, 25, 0),
+(199, 10, 28, 0),
+(200, 10, 31, 0),
+(201, 10, 32, 0),
+(202, 10, 35, 0),
+(392, 12, 1, 0),
+(393, 12, 2, 0),
+(394, 12, 4, 0),
+(395, 12, 14, 0),
+(396, 12, 15, 0),
+(397, 12, 16, 0),
+(398, 12, 17, 0),
+(420, 11, 1, 0),
+(421, 11, 2, 0),
+(422, 11, 4, 0),
+(423, 11, 14, 0),
+(424, 11, 15, 0),
+(425, 11, 16, 0),
+(426, 11, 17, 0);
 
 -- --------------------------------------------------------
 
@@ -6462,8 +6462,11 @@ CREATE TABLE `catalog_parameter_pack` (
 --
 
 INSERT INTO `catalog_parameter_pack` (`id`, `id_complectation`, `name`, `price`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Пакет безопасности:', 15000, '2018-02-05 05:27:41', '2018-02-05 05:27:41'),
-(2, 11, 'Пакет \"Зимний\" для двигателя 1.6', 14000, '2018-02-05 12:04:30', '2018-02-05 12:04:30');
+(22, 12, 'Пакет безопасности:', 15000, '2018-02-14 06:16:08', '2018-02-14 06:16:08'),
+(31, 11, 'Пакет \"Зимний\" для двигателя 1.6', 14000, '2018-02-14 06:20:23', '2018-02-14 06:20:23'),
+(32, 11, 'Пакет \"Зимний\" для двигателя 1.2', 11000, '2018-02-14 06:20:23', '2018-02-14 06:20:23'),
+(33, 11, 'Пакет \"Мультимедиа\"', 14000, '2018-02-14 06:20:23', '2018-02-14 06:20:23'),
+(34, 11, 'Пакет \"Аудио\"', 9000, '2018-02-14 06:20:23', '2018-02-14 06:20:23');
 
 -- --------------------------------------------------------
 
@@ -6475,6 +6478,61 @@ CREATE TABLE `catalog_parameter_pack_parameter` (
   `id_parameter` int(11) NOT NULL,
   `id_pack` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `catalog_parameter_pack_parameter`
+--
+
+INSERT INTO `catalog_parameter_pack_parameter` (`id_parameter`, `id_pack`) VALUES
+(5, 21),
+(32, 3),
+(32, 7),
+(32, 11),
+(37, 3),
+(37, 4),
+(37, 7),
+(37, 8),
+(37, 11),
+(37, 12),
+(37, 31),
+(37, 32),
+(38, 3),
+(38, 4),
+(38, 7),
+(38, 8),
+(38, 11),
+(38, 12),
+(38, 31),
+(38, 32),
+(39, 3),
+(39, 7),
+(39, 11),
+(39, 31),
+(40, 4),
+(40, 8),
+(40, 12),
+(40, 31),
+(40, 32),
+(41, 5),
+(41, 9),
+(41, 13),
+(41, 33),
+(42, 5),
+(42, 6),
+(42, 9),
+(42, 10),
+(42, 13),
+(42, 14),
+(42, 33),
+(42, 34),
+(43, 1),
+(43, 2),
+(43, 19),
+(43, 22),
+(44, 1),
+(44, 2),
+(44, 19),
+(44, 22);
 
 -- --------------------------------------------------------
 
@@ -6530,7 +6588,15 @@ INSERT INTO `catalog_parameter_values` (`id`, `id_category`, `name`, `created_at
 (33, 4, 'Защита картера двигателя', '2018-02-02 09:03:22', '2018-02-02 09:03:22'),
 (34, 4, 'Спинка заднего сиденья, раскладывающаяся в соотношении 1/3-2/3', '2018-02-02 09:03:30', '2018-02-02 09:03:30'),
 (35, 4, 'Подогрев заднего стекла', '2018-02-02 09:03:37', '2018-02-02 09:03:37'),
-(36, 4, 'Индикатор переключения передач', '2018-02-02 09:03:46', '2018-02-02 09:03:46');
+(36, 4, 'Индикатор переключения передач', '2018-02-02 09:03:46', '2018-02-02 09:03:46'),
+(37, 4, 'Подогрев передних сидений', '2018-02-14 04:14:25', '2018-02-14 04:14:25'),
+(38, 4, 'Датчик внешней температуры', '2018-02-14 04:15:09', '2018-02-14 04:15:09'),
+(39, 4, 'Обогрев лобового стекла', '2018-02-14 04:15:46', '2018-02-14 04:15:46'),
+(40, 4, 'Боковые зеркала с электроприводом и обогревом', '2018-02-14 04:16:16', '2018-02-14 04:16:16'),
+(41, 5, 'Мультимедийная навигационная система Media NAV', '2018-02-14 04:18:41', '2018-02-14 04:18:41'),
+(42, 5, 'Аудиосистема с CD-MP3 + AUX, USB, Bluetooth + подрулевой джойстик', '2018-02-14 04:19:01', '2018-02-14 04:19:01'),
+(43, 1, 'ESP', '2018-02-14 04:21:52', '2018-02-14 04:21:52'),
+(44, 1, 'Задние датчики парковки', '2018-02-14 04:22:22', '2018-02-14 04:22:22');
 
 -- --------------------------------------------------------
 
@@ -26031,21 +26097,6 @@ INSERT INTO `geo_regions` (`id`, `id_country`, `name_ru`, `name_en`, `sort`) VAL
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `images`
---
-
-CREATE TABLE `images` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `category` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `image_gallery`
 --
 
@@ -26437,7 +26488,8 @@ ALTER TABLE `catalog_marks`
 ALTER TABLE `catalog_models`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`),
-  ADD KEY `id_car_mark` (`id_car_mark`);
+  ADD KEY `id_car_mark` (`id_car_mark`),
+  ADD KEY `name` (`name`);
 
 --
 -- Индексы таблицы `catalog_modifications`
@@ -26452,7 +26504,8 @@ ALTER TABLE `catalog_modifications`
 ALTER TABLE `catalog_packs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_modification` (`id_modification`),
-  ADD KEY `id_complectation` (`id_complectation`);
+  ADD KEY `id_complectation` (`id_complectation`),
+  ADD KEY `id_model` (`id_model`);
 
 --
 -- Индексы таблицы `catalog_parameter_categories`
@@ -26520,12 +26573,6 @@ ALTER TABLE `geo_regions`
   ADD KEY `country_id` (`id_country`),
   ADD KEY `name_ru` (`name_ru`),
   ADD KEY `name_en` (`name_en`);
-
---
--- Индексы таблицы `images`
---
-ALTER TABLE `images`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `image_gallery`
@@ -26664,19 +26711,19 @@ ALTER TABLE `catalog_parameter_categories`
 -- AUTO_INCREMENT для таблицы `catalog_parameter_complectation`
 --
 ALTER TABLE `catalog_parameter_complectation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=427;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_pack`
 --
 ALTER TABLE `catalog_parameter_pack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_parameter_values`
 --
 ALTER TABLE `catalog_parameter_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT для таблицы `geo_cities`
@@ -26695,12 +26742,6 @@ ALTER TABLE `geo_countries`
 --
 ALTER TABLE `geo_regions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1612;
-
---
--- AUTO_INCREMENT для таблицы `images`
---
-ALTER TABLE `images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `image_gallery`
