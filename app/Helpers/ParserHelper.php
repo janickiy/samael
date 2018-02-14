@@ -485,11 +485,10 @@ function getParameterValues($id_category, $id_complectation)
     }
 }
 
-function getPackValue($id_complectation, $id_pack)
+function getPackValue($id_pack)
 {
-    if (is_numeric($id_complectation) && is_numeric($id_pack)) {
-        return \App\CatalogParameterPackParameter::where('id_parameter', $id_complectation)
-            ->where('id_pack', $id_pack)
+    if (is_numeric($id_pack)) {
+        return \App\CatalogParameterPackParameter::where('catalog_parameter_pack_parameter.id_pack', $id_pack)
             ->join('catalog_parameter_values', 'catalog_parameter_values.id', '=', 'catalog_parameter_pack_parameter.id_parameter')
             ->get()
             ->toArray();

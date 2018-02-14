@@ -304,7 +304,7 @@
 
 																			</div>
 
-																			@foreach(getPackValue($row['complectation'], $parameter_pack['id']) as $pack)
+																			@foreach(getPackValue($parameter_pack['id']) as $pack)
 
 																				<p>
 																					<span>—</span>
@@ -327,9 +327,6 @@
                                             @endforeach
 
                                         </ul>
-
-
-
 
                                         <a href="" class="btn disabled">Сравнить</a>
                                     </div>

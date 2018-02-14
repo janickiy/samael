@@ -78,7 +78,9 @@
 				@foreach(getParameterValues($parameter_category['id'], $complectation['id']) as $parameterValue)
 
 					<li>
-						{!! $parameterValue['name'] !!}</p>
+
+						{!! $parameterValue['name'] !!}
+
 					</li>
 				@endforeach
 			</ul>
@@ -100,12 +102,12 @@
 
             </p>
 
-            @foreach(getPackValue($complectation['id'], $parameter_pack['id']) as $pack)
+            @foreach(getPackValue($parameter_pack['id']) as $pack)
 
                 <p style="font-size: 12px; padding: 0 0 0.5em 2em; position: relative;">
                     <span style="color: #25aae1; position: absolute; left: 0; top: 0;">—</span>
-                    {!! $pack['name'] !!}</p>
-
+                    {!! $pack['name'] !!}
+                </p>
 
             @endforeach
 

@@ -306,10 +306,6 @@ class FrontendController extends Controller
 
                 break;
 
-                case 'get_parameters':
-
-
-                break;
             }
         }
     }
@@ -506,7 +502,7 @@ class FrontendController extends Controller
             $parameter_categories = CatalogParameterCategory::get()->toArray();
             $parameter_packs = $complectation['id'] ? CatalogParameterPack::where('id_complectation', $complectation['id'])->get()->toArray() : null;
 
-            return view('frontend.auto.model', compact('parameter_categories', 'parameter_packs', 'marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'),['title' => $car->meta_title, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
+            return view('frontend.auto.model', compact('parameter_categories', 'parameter_packs', 'marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'),['title' => $car->meta_title ? $car->meta_title : $car->model, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }
 
         abort(404);

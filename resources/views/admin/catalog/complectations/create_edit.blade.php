@@ -80,37 +80,43 @@
 
                         @if(isset($packs))
 
-                        @foreach($packs as $pack)
+                        @for($i=0; $i<count($packs); $i++)
+
                             <div class="additional_field">
+                                <input type="hidden" name="pack_key[]" value="{!! $i !!}">
                                 <div class="form-group">
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             {!! Form::label('pack_name[]', 'Название *', ['class' => 'col-lg-3 control-label']) !!}
-                                            <div class="col-lg-7"> {!! Form::text('pack_name[]', $pack['name'], ['class' => 'form-control validate[required]', 'placeholder'=>'Название']) !!} </div>
+                                            <div class="col-lg-7"> {!! Form::text('pack_name[]', $packs[$i]['name'], ['class' => 'form-control validate[required]', 'placeholder'=>'Название']) !!} </div>
                                             </div>
                                         </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             {!! Form::label('pack_price[]', 'Цена *', ['class' => 'col-lg-3 control-label']) !!}
-                                            <div class="col-lg-7"> {!! Form::text('pack_price[]', $pack['price'], ['class' => 'form-control validate[required,custom[onlyNumberSp]]', 'placeholder'=>'Цена']) !!} </div>
+                                            <div class="col-lg-7"> {!! Form::text('pack_price[]', $packs[$i]['price'], ['class' => 'form-control validate[required,custom[onlyNumberSp]]', 'placeholder'=>'Цена']) !!} </div>
                                             </div>
                                         </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            {!! Form::label('parameter_pack[0][]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}
-                                            <div class="col-lg-7">{!! Form::select('parameter_pack[0][]', $equipment_options, isset($pack['equipment']) ? $pack['equipment'] : null , ['class' => 'form_control itemName validate[required]','multiple' => true, 'id' => 'parameter_pack']) !!}</div>
+                                            {!! Form::label('parameter_pack[' . $i . '][]', 'Параметры *', ['class' => 'col-lg-3 control-label']) !!}
+                                            <div class="col-lg-7">{!! Form::select('parameter_pack[' . $i . '][]', $equipment_options, isset($packs[$i]['equipment']) ? $packs[$i]['equipment'] : null , ['class' => 'form_control itemName validate[required]','multiple' => true]) !!}</div>
                                             <div class="col-lg-2"><a class="btn  btn-danger removeBlock" title="Удалить"> - </a></div>
                                         </div>
                                     </div>
                                  </div>
                             </div>
 
-                        @endforeach
+                        @endfor
 
                         @endif
 
-                        <input class="btn btn-default" id="add_field_pack" type="button" value="+ Добавить поле">
                     </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-2"><input class="btn btn-default" id="add_field_pack" type="button" value="+ Добавить поле"></div>
                 </div>
 
                 <div class="form-group">
@@ -157,7 +163,7 @@
         html += '<div class="form-group">';
         html += '<label for="newparameters_category[]" class="col-lg-2 control-label">Категория</label>';
         html += '<div class="col-lg-7">';
-        html +=  '<select class="form_control select2" id="newparameters_category[]" name="newparameters_category[]"><option value="">Категория</option><option value="1">Безопасность</option><option value="2">Интерьер</option><option value="3">Экстерьер</option><option value="4">Комфорт</option><option value="5">Аудио</option></select>';
+        html += '{!! Form::select('newparameters_category[]', $category_options, null , ['class' => 'form_control itemName2 validate[required]']) !!}</div>';
         html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12">';
@@ -177,6 +183,8 @@
         html += '</div>';
 
         $('#headerslist').prepend(html);
+
+        $('.itemName2').select2({width: '100%'});
 
         var prefix = 's2id_';
         $("form[id^='validate']").validationEngine('attach',
@@ -215,7 +223,7 @@
         html += '</div>';
         html += '</div>';
 
-        $('#packlist').prepend(html);
+        $('#packlist').append(html);
 
         $('.itemName').select2({
             width: '100%',
@@ -299,6 +307,8 @@
             cache: true
         }
     });
+
+    $('.itemName2').select2({width: '100%'});
 
 </script>
 @endsection		

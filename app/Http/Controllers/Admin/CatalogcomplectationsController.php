@@ -131,24 +131,42 @@ class CatalogcomplectationsController extends Controller
         $pack_names = $request->pack_name;
         $pack_prices = $request->pack_price;
         $parameter_packs = $request->parameter_pack;
-        $pack_key =  $request->pack_key;
+        $pack_key = $request->pack_key;
+        $newparameters_name = $request->newparameters_name;
+        $newparameters_category = $request->newparameters_category;
+        $newparameters_price = $request->newparameters_price;
 
         $request->request->remove('equipment');
         $request->request->remove('pack_name');
         $request->request->remove('pack_price');
         $request->request->remove('parameter_pack');
         $request->request->remove('pack_key');
+        $request->request->remove('newparameters_name');
+        $request->request->remove('newparameters_category');
+        $request->request->remove('newparameters_price');
 
         $catalogComplectation->id_model = $request->input('id_model');
         $catalogComplectation->name = trim($request->input('name'));
         $catalogComplectation->published = $request->input('published');
 
         if ($catalogComplectation->save()) {
+
             foreach ($equipments as $equipment) {
                 $parameterComplectation = new CatalogParameterComplectation;
                 $parameterComplectation->id_complectation = $request->input('id_complectation');
                 $parameterComplectation->id_parameter = $equipment;
                 $parameterComplectation->save();
+            }
+
+            for($i = 0; $i < count($newparameters_name); $i++) {
+                $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
+
+                if ($id_parameter) {
+                    $parameterComplectation = new CatalogParameterComplectation;
+                    $parameterComplectation->id_complectation = $request->input('id_complectation');
+                    $parameterComplectation->id_parameter = $id_parameter;
+                    $parameterComplectation->save();
+                }
             }
         }
 
@@ -209,6 +227,17 @@ class CatalogcomplectationsController extends Controller
                     }
                 }
             }
+
+            for($i = 0; $i < count($newparameters_name); $i++) {
+                $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
+
+                if ($id_parameter) {
+                    $parameterComplectation = new CatalogParameterComplectation;
+                    $parameterComplectation->id_complectation = $request->input('id_complectation');
+                    $parameterComplectation->id_parameter = $id_parameter;
+                    $parameterComplectation->save();
+                }
+            }
         }
 
         return redirect('admin/catalog/models/model/' . $catalogComplectation->id_model . '/complectations')->with('success', 'Данные обнавлены');
@@ -225,12 +254,18 @@ class CatalogcomplectationsController extends Controller
         $pack_prices = $request->pack_price;
         $parameter_packs = $request->parameter_pack;
         $pack_key =  $request->pack_key;
+        $newparameters_name = $request->newparameters_name;
+        $newparameters_category = $request->newparameters_category;
+        $newparameters_price = $request->newparameters_price;
 
         $request->request->remove('equipment');
         $request->request->remove('pack_name');
         $request->request->remove('pack_price');
         $request->request->remove('parameter_pack');
         $request->request->remove('pack_key');
+        $request->request->remove('newparameters_name');
+        $request->request->remove('newparameters_category');
+        $request->request->remove('newparameters_price');
 
         $carComplectation = CatalogComplectation::create($request->except('_token'));
 
@@ -270,6 +305,17 @@ class CatalogcomplectationsController extends Controller
             }
         }
 
+        for($i = 0; $i < count($newparameters_name); $i++) {
+            $id_parameter = $this->addParameter($newparameters_category[$i], $newparameters_name[$i]);
+
+            if ($id_parameter) {
+                $parameterComplectation = new CatalogParameterComplectation;
+                $parameterComplectation->id_complectation = $request->input('id_complectation');
+                $parameterComplectation->id_parameter = $id_parameter;
+                $parameterComplectation->save();
+            }
+        }
+
         return redirect('admin/catalog/models/model/' . $request->id_model . '/complectations')->with('success', 'Комплектация добавлена');
     }
 
@@ -292,6 +338,31 @@ class CatalogcomplectationsController extends Controller
             return response()->json(['success' => 'Комплектация удалена']);
         } else {
             return 'Ошибка веб приложения! Действия не были выполнены.';
+        }
+    }
+
+    /**
+     * @param $id_category
+     * @param $name
+     * @return mixed
+     */
+    public function addParameter($id_category, $name)
+    {
+        if (is_numeric($id_category)) {
+            $name = trim($name);
+
+            if (CatalogParameterValue::where('id_category', $id_category)->where('name', 'like', $name)->count() > 0) {
+                $parameterValue = CatalogParameterValue::where('id_category', $id_category)->where('name', 'like', $name)->first();
+
+                return $parameterValue->id;
+            } else {
+                $parameterValue = new CatalogParameterValue();
+                $parameterValue->id_category = $id_category;
+                $parameterValue->name = $name;
+                $parameterValue->save();
+
+                return $parameterValue->id;
+            }
         }
     }
 }
