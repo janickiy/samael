@@ -15,7 +15,7 @@ class ImageGalleryController extends Controller
      */
     public function index($id)
     {
-        $images = ImageGallery::get();
+        $images = ImageGallery::where('id_model', $id)->get();
         return view('admin.catalog.image-gallery.index', compact('images'))->with('id_model', $id);
     }
 
