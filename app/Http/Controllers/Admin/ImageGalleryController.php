@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\CatalogMark;
 use App\ImageGallery;
 
 class ImageGalleryController extends Controller
@@ -15,8 +16,9 @@ class ImageGalleryController extends Controller
      */
     public function index($id)
     {
+        $mark = CatalogMark::select(['catalog_marks.id'])->join('catalog_models', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
         $images = ImageGallery::where('id_model', $id)->get();
-        return view('admin.catalog.image-gallery.index', compact('images'))->with('id_model', $id);
+        return view('admin.catalog.image-gallery.index', compact('images', 'mark'))->with('id_model', $id);
     }
 
     /**
@@ -34,7 +36,7 @@ class ImageGalleryController extends Controller
         $input['image'] = str_random(20) . '.' . $request->image->getClientOriginalExtension();
         $request->image->move(public_path() . PATH_CARS, $input['image']);
         $input['title'] = trim($request->title);
-        $input['id_model'] = $request->id_model;
+        $input['id_model'] = $request->input('id_model');
 
         ImageGallery::create($input);
 

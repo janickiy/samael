@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogMark;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CatalogColorsRequest;
@@ -16,6 +17,7 @@ class CatalogcolorsController extends Controller
      */
     public function index($id)
     {
+
         return view('admin.catalog.colors.index')->with('id_model', $id);
     }
 
@@ -43,7 +45,8 @@ class CatalogcolorsController extends Controller
     public function edit(CatalogColor $catalogcolor)
     {
         $id_model = $catalogcolor->id_model;
-        return view('admin.catalog.colors.create_edit')->with(compact('catalogcolor', 'id_model'));
+        $mark = CatalogMark::select(['catalog_marks.id'])->join('catalog_models', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id_model)->first()->toArray();
+        return view('admin.catalog.colors.create_edit')->with(compact('catalogcolor', 'id_model', 'mark'));
     }
 
     /**

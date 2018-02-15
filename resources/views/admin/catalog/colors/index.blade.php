@@ -33,7 +33,7 @@
         <!-- Default box -->
         <p><a class="btn btn-success" href="{{ url('admin/catalog/colors/create/' . $id) }}"> + Добавить цвет </a></p>
 
-        <a href="{!! url('admin/catalog/models/mark/' . $id) !!}">назад</a>
+        <a href="{!! url('admin/catalog/models/mark/' . $mark['id']) !!}">назад</a>
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Цвета</h3>

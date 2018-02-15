@@ -32,7 +32,7 @@
                 модификацию </a></p>
         <!-- Default box -->
 
-        <a href="{!! url('/admin/catalog/models/mark/' . $id) !!}">назад</a>
+        <a href="{!! url('/admin/catalog/models/mark/' . $mark['id']) !!}">назад</a>
 
         <div class="box">
             <div class="box-header with-border">
