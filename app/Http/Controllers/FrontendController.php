@@ -500,7 +500,7 @@ class FrontendController extends Controller
             $gallery_pics = ImageGallery::where('id_model', $car->id)->get();
 
             $parameter_categories = CatalogParameterCategory::get()->toArray();
-            $parameter_packs = $complectation['id'] ? CatalogParameterPack::where('id_complectation', $complectation['id'])->get()->toArray() : null;
+            $parameter_packs = CatalogParameterPack::get()->toArray();
 
             return view('frontend.auto.model', compact('parameter_categories', 'parameter_packs', 'marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'), ['title' => $car->meta_title ? $car->meta_title : $car->model, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }
