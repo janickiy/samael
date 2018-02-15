@@ -398,7 +398,7 @@ class FrontendController extends Controller
                 ->orderBy('catalog_models.id')
                 ->paginate(10);
 
-            return view('frontend.auto.mark', compact('marks', 'models_list', 'mark'))->with('title', '');
+            return view('frontend.auto.mark', compact('marks', 'models_list', 'mark'))->with('title', $mark->name);
         }
 
         abort(404);
