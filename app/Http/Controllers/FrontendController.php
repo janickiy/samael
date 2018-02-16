@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Http\Requests;
 use App\CatalogColor;
 use App\CatalogComplectation;
 use App\CatalogPack;
@@ -9,8 +11,6 @@ use App\CatalogParameterCategory;
 use App\CatalogParameterPack;
 use App\CatalogParameterValue;
 use App\ImageGallery;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Requests\RequestCreditsRequest;
 use App\Http\Requests\RequestTradeInsRequest;
 use App\Http\Requests\UserReviewsRequest;
