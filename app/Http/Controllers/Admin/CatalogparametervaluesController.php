@@ -70,7 +70,7 @@ class CatalogparametervaluesController extends Controller
         $catalogParameterValue->updated_at = \Carbon::now();
         $catalogParameterValue->save();
 
-        return redirect('admin/catalog/models/' . $catalogParameterValue->id . '/edit')->with('success', 'Данные обнавлены');
+        return redirect('admin/catalog/parametervalues/category/' . $request->input('id_category'))->with('success', 'Данные обнавлены');
     }
 
     /**
