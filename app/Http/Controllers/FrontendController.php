@@ -500,7 +500,16 @@ class FrontendController extends Controller
             $gallery_pics = ImageGallery::where('id_model', $car->id)->get();
 
             $parameter_categories = CatalogParameterCategory::get()->toArray();
-            $parameter_packs = CatalogParameterPack::get()->toArray();
+
+            $complectation = CatalogComplectation::selectRaw('*,catalog_complectations.id as id,catalog_modifications.name as modification, catalog_complectations.name as name,catalog_modifications.id as id_modification,catalog_packs.id as id_catalog_pack')
+                ->where('catalog_complectations.published', 1)
+                ->where('catalog_complectations.id', $car->id)
+                ->leftJoin('catalog_packs', 'catalog_packs.id_complectation', '=', 'catalog_complectations.id')
+                ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
+                ->first()
+                ->toArray();
+
+            $parameter_packs = $complectation['id'] ? CatalogParameterPack::where('id_complectation', $complectation['id'])->get()->toArray() : null;
 
             return view('frontend.auto.model', compact('parameter_categories', 'parameter_packs', 'marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'), ['title' => $car->meta_title ? $car->meta_title : $car->model, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }
