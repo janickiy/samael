@@ -217,7 +217,7 @@
 
                             <div class="tradein_check">
 
-                                {!! Form::checkbox('tradein_available', null, null, ['class' => 'checkbox validate[required[alertTextCheckboxe]]', 'id' => 'tradein_check']) !!}
+                                {!! Form::checkbox('tradein_available', null, null, ['class' => 'checkbox', 'id' => 'tradein_check']) !!}
 
                                 {!! Form::label('tradein_check', 'Есть автомобиль в Trade-In') !!}
 
