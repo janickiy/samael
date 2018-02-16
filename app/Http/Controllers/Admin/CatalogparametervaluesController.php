@@ -39,13 +39,13 @@ class CatalogparametervaluesController extends Controller
     }
 
     /**
-     * @param CatalogParameterValue $catalogparametervalue
+     * @param CatalogParameterValue $parametervalue
      * @return $this
      */
-    public function edit(CatalogParameterValue $catalogparametervalue)
+    public function edit(CatalogParameterValue $parametervalue)
     {
-        $id_category = $catalogparametervalue->id_category;
-        return view('admin.catalog.parametervalues.create_edit')->with(compact('catalogparametervalue', 'id_category'));
+        $id_category = $parametervalue->id_category;
+        return view('admin.catalog.parametervalues.create_edit')->with(compact('parametervalue', 'id_category'));
     }
 
     /**
