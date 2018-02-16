@@ -31,7 +31,7 @@
     <!-- Main content -->
     <section class="content">
 
-        <a href="{!! url('admin/catalog/models/mark/' . $id) !!}">назад</a>
+        <a href="{!! url('admin/catalog/models/mark/' . $mark->id) !!}">назад</a>
 
         <!-- Default box -->
         <div class="box">
