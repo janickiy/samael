@@ -64,7 +64,7 @@ class Page extends BaseModel
      */
     public function getSlugAttribute()
     {
-        return ($this->attributes['blog_post'] ? 'blog/' : 'page/') . $this->attributes['slug'];
+        return ($this->attributes['blog_post'] ? 'news/' : 'page/') . $this->attributes['slug'];
     }
 
     /**

@@ -54,11 +54,12 @@
                             @endforeach
 
                         </ul>
-                    </div>
-
-                    <div class="pager">
+						<div class="pager">
                         {{ $models_list->render() }}
                     </div>
+                    </div>
+
+                    
 
                     <div class="presents_block sidebar">
 

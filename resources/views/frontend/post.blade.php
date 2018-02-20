@@ -11,13 +11,10 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
+    <div class="">
+        <div class="main_width">
             <h2 class="page-head-line">{{ $post->title }}</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
+       
             {!! $post->content !!}
         </div>
     </div>

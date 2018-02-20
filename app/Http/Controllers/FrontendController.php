@@ -129,11 +129,11 @@ class FrontendController extends Controller
     {
         $marks = CatalogMark::all();
         $news = Page::published()->post()->take(3)->get();
-
+        $reviews = UserReview::where('published', 1)->take(3)->get();
         $page = Page::whereSlug($slug)->published()->page()->get()->first();
 
         if ($page) {
-            return view('frontend.page', compact('page', 'marks', 'news'))->with('title', $page->title);
+            return view('frontend.page', compact('page', 'marks', 'news', 'reviews'))->with('title', $page->title);
         }
 
         abort(404);
@@ -506,10 +506,9 @@ class FrontendController extends Controller
                 ->where('catalog_complectations.id', $car->id)
                 ->leftJoin('catalog_packs', 'catalog_packs.id_complectation', '=', 'catalog_complectations.id')
                 ->leftJoin('catalog_modifications', 'catalog_modifications.id', '=', 'catalog_packs.id_modification')
-                ->first()
-                ->toArray();
+                ->first();
 
-            $parameter_packs = $complectation['id'] ? CatalogParameterPack::where('id_complectation', $complectation['id'])->get()->toArray() : null;
+            $parameter_packs = isset($complectation->id) ? CatalogParameterPack::where('id_complectation', $complectation->id)->get()->toArray() : null;
 
             return view('frontend.auto.model', compact('parameter_categories', 'parameter_packs', 'marks', 'car', 'colors', 'price', 'prev_price', 'modifications', 'options', 'similarcars', 'gallery_pics', 'complectation_options', 'complectations'), ['title' => $car->meta_title ? $car->meta_title : $car->model, 'meta_desc' => $car->meta_description, 'keywords' => $car->meta_keywords]);
         }

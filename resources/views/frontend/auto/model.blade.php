@@ -327,6 +327,8 @@
                                                                     <div class="row pack_info">
                                                                         <ul>
 
+                                                                            @if($parameter_packs)
+
                                                                             @foreach($parameter_packs as $parameter_pack)
 
                                                                                 <li>
@@ -350,6 +352,8 @@
                                                                                 </li>
 
                                                                             @endforeach
+
+                                                                            @endif
 
                                                                         </ul>
                                                                     </div>

@@ -50,7 +50,7 @@
 
                 {!! Form::hidden('id_model', $id_model) !!}
 
-                {!! Form::hidden('id_complectation', isset($catalogcomplectation) ? $catalogcomplectation->id: null) !!}
+                {!! Form::hidden('id_complectation', isset($catalogcomplectation) ? $catalogcomplectation->id: null, ['id' => 'id_complectation']) !!}
 
                 <div class="col-md-12">
 
@@ -67,6 +67,12 @@
                             {!! Form::select('equipment[]', $equipment_options, isset($catalogcomplectation) ? $catalogcomplectation->equipment : null, ['class' => 'itemName form-control validate[required]','multiple' => true, 'id' => 'equipment']) !!}
                         </div>
                     </div>
+
+
+                    {!! Form::textarea('list', null, ['id' => 'list']) !!}
+
+
+                    <a id="add_field2" href="#">ses</a>
 
                     <div class="form-group">
                         {!! Form::label('name', 'Новые параметры*', ['class' => 'control-label col-md-2']) !!}
@@ -162,6 +168,24 @@
     {!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
 
     <script type="text/javascript">
+
+        $(document).on("click", '#add_field2', function () {
+            $.ajax({
+                url: "{!! url('admin/ajax?action=list_complectation') !!}",
+                type: "post",
+                data: { "_token": "{{ csrf_token() }}", "id_complectation": $("#id_complectation").val(), "list" : $("#list").val() },
+                success: function (response) {
+                    // you will get response from your php page (what you echo or print)
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+
+
+            });
+        });
+
 
         $(document).on("click", '#add_field', function () {
             var html = '<div class="additional_field"><div class="form-group">';

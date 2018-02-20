@@ -23,16 +23,15 @@
 
 @section('content')
 
-    <div class="inset_page">
+    <div class="">
         <div class="main_width">
 
             @include('layouts.frontend.includes.breadcrumbs')
 
             <div class="inset_page_content">
                 <div class="row">
-                    <div class="col-md-12">
                         @foreach($news as $new)
-                            <div class="col-md-11">
+                            <div>
                                 <h4><a href="{{ url($new->slug) }}">{{ $new->title }}</a></h4>
                                 <div class="post-content">
                                     {!! $new->excerpt()  !!}
@@ -43,8 +42,6 @@
                                 <hr/>
                             </div>
                         @endforeach
-                    </div>
-                    <div class="col-md-12">
                         <div class="text-center">
                             {!! $news->links() !!}
                         </div>
@@ -53,7 +50,6 @@
 
             </div>
         </div>
-    </div>
 
 @endsection
 

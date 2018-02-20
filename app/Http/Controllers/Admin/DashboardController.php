@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogParameterComplectation;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -237,6 +238,38 @@ class DashboardController extends Controller
                     }
 
                     return response()->json($json);
+
+                    break;
+
+                case 'list_complectation':
+
+                    $list = explode( "\n",  $request->list);
+
+                    foreach ($list as $parameter) {
+                        $parameter = trim($parameter);
+
+
+                       if(CatalogParameterValue::where('name', 'like', $parameter)->count() > 0)
+                       {
+
+
+                           $row = CatalogParameterValue::where('name', 'like', $parameter)->first()->toArray();
+
+
+                           if ($row['id']) {
+                               if (CatalogParameterComplectation::where('id_complectation', $request->id_complectation)->where('id_parameter', $row['id'])->count() == 0)  {
+
+                                   var_dump($row);
+                                   $ParameterComplectation = new CatalogParameterComplectation;
+                                   $ParameterComplectation->id_complectation = $request->id_complectation;
+                                   $ParameterComplectation->id_parameter = $row['id'];
+                                   $ParameterComplectation->save();
+                               }
+                           }
+
+
+                       }
+                    }
 
                     break;
 

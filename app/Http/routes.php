@@ -190,7 +190,7 @@ Route::group(['middleware' => 'web'], function () {
             // add every post to the sitemap
             foreach ($posts as $post) {
                 if ($post->blog_post) {
-                    $slug = "blog/" . $post->slug;
+                    $slug = "news/" . $post->slug;
                 } else {
                     $slug = "page/" . $post->slug;
                 }
