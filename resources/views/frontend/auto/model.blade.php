@@ -275,16 +275,20 @@
                                                             <div class="complectation_item row">
                                                                 <div class="row">
                                                                     <div class="complectation_name">
-
+																		<div class="complectation_name_tab">
                                                                         {!! Form::checkbox('complectation[]', $row['complectation'], null, ['class' => 'checkbox', 'id' => $modification['id'] . '_' . $row['complectation']]) !!}
 
                                                                         <label
                                                                                 for="{{ $modification['id'] }}_{{ $row['complectation'] }}"></label>
-                                                                        <span
-                                                                                trigerID="{{ $modification['id'] }}_{{ $row['complectation'] }}"
-                                                                                class="show_info">{!! $row['name'] !!}</span>
+																				
+																		</div>
+																		<div class="complectation_name_tab">																		
+																			<span
+																					trigerID="{{ $modification['id'] }}_{{ $row['complectation'] }}"
+																					class="show_info">{!! $row['name'] !!}</span>
+																		</div>
                                                                     </div>
-                                                                    <div class="KPP">{!! gearboxType($modification['gearbox']) !!}</div>
+                                                                    <div class="KPP">{!! gearboxTypeShort($modification['gearbox']) !!}</div>
                                                                     <div class="power">{!! $modification['power'] !!}</div>
                                                                     <div class="price">от <span>{!! number_format($row['price'],0,'',' ') !!}
                                                                             <span> руб</div>

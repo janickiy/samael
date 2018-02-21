@@ -220,6 +220,24 @@ function gearboxType($str)
     else
         return $str;
 }
+function gearboxTypeShort($str)
+{
+    $types = [
+        'mt' => 'МКПП',
+        'at' => 'АКПП',
+        'rgt' => 'РКПП',
+        'cvt' => 'Вариатор',
+        'amt' => 'АMКПП'
+    ];
+
+    $str = trim(strtolower($str));
+
+    if ($str != '' && isset($types[$str]))
+        return $types[$str];
+    else
+        return $str;
+}
+
 
 function bodyType($str)
 {

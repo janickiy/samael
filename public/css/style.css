@@ -275,13 +275,14 @@ a.logo {display:inline-block;float:left;}
 .sort a.sort_link.minmax:after{border-color: #25aae1  transparent transparent transparent;border-width: 5px 5px 0 5px;}
 .sort a.sort_link.maxmin:after {border-color: transparent transparent #25aae1 transparent;border-width: 0 5px 5px 5px;}
 .model_characteristics_tab {margin-bottom: 20px;}
-.model_characteristics_tab .complectation_name {width:130px;float:left;padding:5px;font-family:RobotoBold;}
-.model_characteristics_tab .complectation_name span.show_info {cursor:pointer;}
+.model_characteristics_tab .complectation_name {width:140px;float:left;padding:5px;font-family:RobotoBold;}
+.complectation_name_tab {display:table-cell;  min-height: 35px; vertical-align: middle;}
+.model_characteristics_tab .complectation_name span.show_info {cursor:pointer;display: inline-block;line-height: 15px;width: 105px;}
 .model_characteristics_tab .complectation_name span.show_info:after{content: "\f0d7";font-family:FontAwesome;margin-left: 5px;}
 .model_characteristics_tab .complectation_name span.show_info.info_open:after {content: "\f0d8";}
 .model_characteristics_tab .complectation_name .checkbox:not(checked) + label:before {border:1px solid #7a7a7a;width:10px;height:10px; top: 3px;}
 .model_characteristics_tab .complectation_name .checkbox:not(checked) + label:after {top: 5px;width: 8px;height: 8px;}
-.model_characteristics_tab .KPP {width:110px;float:left;padding:5px;}
+.model_characteristics_tab .KPP {width:100px;float:left;padding:5px; text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .model_characteristics_tab .power {width:95px;float:left;padding:5px;}
 .model_characteristics_tab .price {width:150px;float:left;padding:5px;color:#25aae1;}
 .model_characteristics_tab .buy_link {width:150px;float:left;padding:5px;}

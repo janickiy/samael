@@ -24,7 +24,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Форма данных пользователя</h3>
+                <p>* - обязательные поля</p>
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <p>* - обязательные поля</p>
+
                 {!! Form::open(['url' =>  isset($user) ? 'admin/users/'.$user->id  :  'admin/users', 'method' => isset($user) ? 'put' : 'post', 'files' => true, 'class' => 'form-horizontal', 'id'=>'validate']) !!}
                 {!! Form::hidden('user_id', isset($user) ? $user->id: null) !!}
                 <fieldset>
