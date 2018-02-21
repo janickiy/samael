@@ -32,6 +32,8 @@
                 модификацию </a></p>
         <!-- Default box -->
 
+        <h2>{!! $mark['mark'] !!} {!! $mark['model'] !!}</h2>
+
         <a href="{!! url('/admin/catalog/models/mark/' . $mark['id']) !!}">назад</a>
 
         <div class="box">

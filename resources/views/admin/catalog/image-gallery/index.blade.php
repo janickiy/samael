@@ -46,7 +46,12 @@
             <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i> Панель управления</a></li>
             <li class="active"><i class="fa fa-list-alt"></i> Фото галлерея</li>
         </ol>
+
+        <h2>{!! $mark['mark'] !!} {!! $mark['model'] !!}</h2>
+
     </section>
+
+
 
     <!-- Main content -->
     <section class="content">

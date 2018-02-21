@@ -31,6 +31,8 @@
     <!-- Main content -->
     <section class="content">
 
+        <h2>{!! $mark['mark'] !!} {!! $mark['model'] !!}</h2>
+
         <a href="{!! url('admin/catalog/models/mark/' . $mark['id']) !!}">назад</a>
 
         <!-- Default box -->

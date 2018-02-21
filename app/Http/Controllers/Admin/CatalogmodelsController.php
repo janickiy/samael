@@ -157,7 +157,7 @@ class CatalogmodelsController extends Controller
      */
     public function modifications($id)
     {
-        $mark = CatalogMark::select(['catalog_marks.id'])->join('catalog_models', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
+        $mark = CatalogModel::select(['catalog_marks.id', 'catalog_marks.name as mark', 'catalog_models.name as model'])->join('catalog_marks', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
         $modifications = CatalogModification::where('id_model', $id)
             ->get();
 
@@ -170,7 +170,7 @@ class CatalogmodelsController extends Controller
      */
     public function complectations($id)
     {
-        $mark = CatalogMark::select(['catalog_marks.id'])->join('catalog_models', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
+        $mark = CatalogModel::select(['catalog_marks.id', 'catalog_marks.name as mark', 'catalog_models.name as model'])->join('catalog_marks', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
         return view('admin.catalog.complectations.index', compact('modifications','mark'))->with('id', $id);
     }
 
@@ -180,7 +180,7 @@ class CatalogmodelsController extends Controller
      */
     public function packs($id)
     {
-        $mark = CatalogMark::select(['catalog_marks.id'])->join('catalog_models', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
+        $mark = CatalogModel::select(['catalog_marks.id', 'catalog_marks.name as mark', 'catalog_models.name as model'])->join('catalog_marks', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
         $modifications = CatalogModification::select(['name', 'id'])->where('id_model', $id)->get();
         $complectations = CatalogComplectation::where('id_model', $id)->get();
 
@@ -193,7 +193,7 @@ class CatalogmodelsController extends Controller
      */
     public function colors($id)
     {
-        $mark = CatalogMark::select(['catalog_marks.id'])->join('catalog_models', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
+        $mark = CatalogModel::select(['catalog_marks.id', 'catalog_marks.name as mark', 'catalog_models.name as model'])->join('catalog_marks', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$id)->first()->toArray();
         return view('admin.catalog.colors.index', compact('mark'))->with('id', $id);
     }
 }

@@ -29,6 +29,10 @@
     <section class="content">
         <!-- Default box -->
 
+        <h2>{!! $mark['mark'] !!} {!! $mark['model'] !!}</h2>
+
+        <a href="{!! url('/admin/catalog/models/model/' . $id_model . '/modifications') !!}">назад</a>
+
         <div class="box">
             <div class="box-header with-border">
                 <p>* - обязательные поля</p>
@@ -56,92 +60,78 @@
                             {!! Form::text('length', old('length', isset($catalogmodification) ? $catalogmodification->length : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Длина, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('width', 'Ширина, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('width', old('width', isset($catalogmodification) ? $catalogmodification->width : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Ширина, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('height', 'Высота, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('height', old('height', isset($catalogmodification) ? $catalogmodification->height : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Высота, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('wheel_base', 'Колесная база, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('wheel_base', old('wheel_base', isset($catalogmodification) ? $catalogmodification->wheel_base : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Высота, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('front_rut', 'Передняя колея колес, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('front_rut', old('front_rut', isset($catalogmodification) ? $catalogmodification->front_rut : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Передняя колея колес, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('back_rut', 'Задняя колея колес, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('back_rut', old('back_rut', isset($catalogmodification) ? $catalogmodification->back_rut : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Задняя колея колес, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('front_overhang', 'Передний свес, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('front_overhang', old('front_overhang', isset($catalogmodification) ? $catalogmodification->front_overhang : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Передний свес, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('back_overhang', 'Задний свес, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('back_overhang', old('back_overhang', isset($catalogmodification) ? $catalogmodification->back_overhang : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Задний свес, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('trunk_volume_min', 'Минимальный объем багажного отделения, л', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('trunk_volume_min', old('trunk_volume_min', isset($catalogmodification) ? $catalogmodification->trunk_volume_min : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Минимальный объем багажного отделения, л']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('trunk_volume_max', 'Максимальный объем багажного отделения, л', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('trunk_volume_max', old('trunk_volume_max', isset($catalogmodification) ? $catalogmodification->trunk_volume_max : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Максимальный объем багажного отделения, л']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('tank_volume', 'Объем топливного бака, л', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('tank_volume', old('tank_volume', isset($catalogmodification) ? $catalogmodification->tank_volume : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Объем топливного бака, л']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('front_brakes', 'Передние тормоза (тип, размер)', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('front_brakes', old('front_brakes', isset($catalogmodification) ? $catalogmodification->front_brakes : null), ['class' => 'form-control', 'placeholder' => 'Передние тормоза (тип, размер)']) !!}
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         {!! Form::label('back_brakes', 'Задние тормоза (тип, размер)', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('back_brakes', old('back_brakes', isset($catalogmodification) ? $catalogmodification->back_brakes : null), ['class' => 'form-control', 'placeholder' => 'Задние тормоза (тип, размер)']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('front_suspension', 'Передняя подвеска', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
@@ -155,14 +145,12 @@
                             {!! Form::text('back_suspension', old('back_suspension', isset($catalogmodification) ? $catalogmodification->back_suspension : null), ['class' => 'form-control', 'placeholder' => 'Задняя подвеска']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('engine_displacement', 'Объем двигателя, л', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('engine_displacement', old('engine_displacement', isset($catalogmodification) ? $catalogmodification->engine_displacement : null), ['class' => 'form-control', 'placeholder' => 'Объем двигателя, л']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('engine_displacement_working_value', 'Рабочий объем двигателя, см3', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
@@ -183,7 +171,6 @@
                             ], isset($catalogmodification) ? $catalogmodification->engine_type : 'petrol', ['class' => 'select2']) }}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('gearbox', 'Коробка передач*', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
@@ -196,14 +183,12 @@
                             ], isset($catalogmodification) ? $catalogmodification->gearbox : 'mt', ['class' => 'select2']) }}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('gears', 'Количество передач', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('gears', old('gears', isset($catalogmodification) ? $catalogmodification->gears : null), ['class' => 'form-control validate[custom[integer],min[1]]', 'placeholder' => 'Количество передач']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('drive', 'Тип привода', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
@@ -214,77 +199,66 @@
                             ], isset($catalogmodification) ? $catalogmodification->drive : 'front', ['class' => 'select2']) }}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('power', 'Мощность, л.с.', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('power', old('power', isset($catalogmodification) ? $catalogmodification->power : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Мощность, л.с.']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('consume_city', 'Расход топлива в городе, л/100 км', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('consume_city', old('consume_city', isset($catalogmodification) ? $catalogmodification->consume_city : null), ['class' => 'form-control', 'placeholder' => 'Расход топлива в городе, л/100 км']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('consume_track', 'Расход топлива на трассе, л/100 км', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('consume_track', old('consume_track', isset($catalogmodification) ? $catalogmodification->consume_track : null), ['class' => 'form-control', 'placeholder' => 'Расход топлива на трассе, л/100 км']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('consume_mixed', 'Смешанный расход топлива, л/100 км', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('consume_mixed', old('consume_mixed', isset($catalogmodification) ? $catalogmodification->consume_mixed : null), ['class' => 'form-control', 'placeholder' => 'Смешанный расход топлива, л/100 км']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('acceleration_100km', 'Разгон от 0 до 100 км/ч, сек.', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('acceleration_100km', old('acceleration_100km', isset($catalogmodification) ? $catalogmodification->acceleration_100km : null), ['class' => 'form-control', 'placeholder' => 'Разгон от 0 до 100 км/ч, сек.']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('max_speed', 'Максимальная скорость, км/ч', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('max_speed', old('max_speed', isset($catalogmodification) ? $catalogmodification->max_speed : null), ['class' => 'form-control', 'placeholder' => 'Максимальная скорость, км/ч']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('clearance', 'Дорожный просвет, мм', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('clearance', old('clearance', isset($catalogmodification) ? $catalogmodification->clearance : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Дорожный просвет, мм']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('min_mass', 'Минимальная масса, кг', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('min_mass', old('min_mass', isset($catalogmodification) ? $catalogmodification->min_mass : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Минимальная масса, кг']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('max_mass', 'Максимальная масса, кг', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('max_mass', old('max_mass', isset($catalogmodification) ? $catalogmodification->max_mass : null), ['class' => 'form-control validate[custom[integer]', 'placeholder' => 'Максимальная масса, кг']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('trailer_mass', 'Допустимая масса прицепа без тормозов, кг', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
                             {!! Form::text('trailer_mass', old('trailer_mass', isset($catalogmodification) ? $catalogmodification->trailer_mass : null), ['class' => 'form-control validate[custom[integer]]', 'placeholder' => 'Допустимая масса прицепа без тормозов, кг']) !!}
                         </div>
                     </div>
-
                     <div class="form-group">
                         {!! Form::label('published', 'Опубликован', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
@@ -297,7 +271,6 @@
                                 Да</label>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-2">
                             {!! Form::submit( (isset($catalogmodification) ? 'Обновить': 'Добавить') . '', ['class'=>'btn btn-primary']) !!}

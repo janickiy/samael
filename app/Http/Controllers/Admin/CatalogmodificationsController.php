@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\CatalogModificationsRequest;
 use App\Http\Controllers\Controller;
 use App\CatalogModification;
+use App\CatalogModel;
 
 class CatalogmodificationsController extends Controller
 {
@@ -15,7 +16,8 @@ class CatalogmodificationsController extends Controller
      */
     public function index($id)
     {
-        return view('admin.catalog.modifications.index')->with('id', $id);
+        $mark = CatalogModel::select(['catalog_marks.id', 'catalog_marks.name as mark', 'catalog_models.name as model'])->join('catalog_marks', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id', $id)->first()->toArray();
+        return view('admin.catalog.modifications.index', compact('mark'))->with('id', $id);
     }
 
     /**
@@ -32,7 +34,8 @@ class CatalogmodificationsController extends Controller
      */
     public function create($id)
     {
-        return view('admin.catalog.modifications.create_edit')->with('id_model', $id);
+        $mark = CatalogModel::select(['catalog_marks.id', 'catalog_marks.name as mark', 'catalog_models.name as model'])->join('catalog_marks', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id', $id)->first()->toArray();
+        return view('admin.catalog.modifications.create_edit', compact('mark'))->with('id_model', $id);
     }
 
     /**
@@ -41,8 +44,9 @@ class CatalogmodificationsController extends Controller
      */
     public function edit(CatalogModification $catalogmodification)
     {
+        $mark = CatalogModel::select(['catalog_marks.id', 'catalog_marks.name as mark', 'catalog_models.name as model'])->join('catalog_marks', 'catalog_models.id_car_mark', '=', 'catalog_marks.id')->where('catalog_models.id',$catalogmodification->id_model)->first()->toArray();
         $id_model = $catalogmodification->id_model;
-        return view('admin.catalog.modifications.create_edit')->with(compact('catalogmodification', 'id_model'));
+        return view('admin.catalog.modifications.create_edit')->with(compact('catalogmodification', 'id_model', 'mark'));
     }
 
     /**
