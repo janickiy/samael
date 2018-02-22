@@ -27,18 +27,22 @@ class ImageGalleryController extends Controller
      */
     public function upload(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'id_model' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
 
-        $input['image'] = str_random(20) . '.' . $request->image->getClientOriginalExtension();
-        $request->image->move(public_path() . PATH_CARS, $input['image']);
-        $input['title'] = trim($request->title);
-        $input['id_model'] = $request->input('id_model');
 
-        ImageGallery::create($input);
+        $file = $request->file('image');
+
+        foreach ($file as $f) {
+            $input = [];
+
+            $input['image'] = str_random(20) . '.' . $f->getClientOriginalExtension();
+            $f->move(public_path() . PATH_CARS, $input['image']);
+            $input['title'] = $f->getClientOriginalName();
+            $input['id_model'] = $request->input('id_model');
+
+            ImageGallery::create($input);
+
+
+        }
 
         return back()->with('success', 'Изображение загруженно');
     }

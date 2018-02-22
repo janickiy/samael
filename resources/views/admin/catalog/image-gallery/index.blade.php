@@ -71,21 +71,15 @@
 
             <div class="box-body">
 
-                {!! Form::open(['url' => 'admin/catalog/image-gallery', 'method' => 'post', 'class' => 'form-image-upload', 'enctype' => 'multipart/form-data']) !!}
+                {!! Form::open(['url' => 'admin/catalog/image-gallery', 'method' => 'post', 'class' => 'form-image-upload', 'enctype' => 'multipart/form-data', 'id'=>'validate']) !!}
 
                 {!! Form::hidden('id_model', $id_model) !!}
 
                 <div class="row">
                     <div class="col-md-5">
-                        <strong>Загаловок:</strong>
-
-                        {!! Form::text('title', old('title', null), ['class' => 'form-control', 'placeholder' => 'Загаловок']) !!}
-
-                    </div>
-                    <div class="col-md-5">
                         <strong>Фото:</strong>
 
-                        {!! Form::file('image',  ['class' => 'form-control']) !!}
+                        {!! Form::file('image[]',  ['class' => 'form-control validate[required]', 'multiple' => true]) !!}
 
                     </div>
                     <div class="col-md-2">
@@ -149,13 +143,34 @@
 
     {!! Html::script('assets/dist/js/datatable/responsive.bootstrap.min.js') !!}
 
+    <!-- iCheck 1.0.1 -->
+    {!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
+
+    {!! Html::script('assets/plugins/validationengine/languages/jquery.validationEngine-ru.js') !!}
+
+    {!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
+
     <script type="text/javascript">
 
         $(document).ready(function () {
+            $('input[type="checkbox"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue'
+            });
+
+
             $(".fancybox").fancybox({
                 openEffect: "none",
                 closeEffect: "none"
             });
+
+            // Validation Engine init
+            var prefix = 's2id_';
+            $("form[id^='validate']").validationEngine('attach',
+                {
+                    promptPosition: "bottomRight", scroll: false,
+                    prettySelect: true,
+                    usePrefix: prefix
+                });
         });
 
     </script>

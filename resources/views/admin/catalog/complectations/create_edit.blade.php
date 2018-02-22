@@ -70,10 +70,7 @@
                     </div>
 
 
-                    {!! Form::textarea('list', null, ['id' => 'list']) !!}
 
-
-                    <a id="add_field2" href="#">ses</a>
 
                     <div class="form-group">
                         {!! Form::label('name', 'Новые параметры*', ['class' => 'control-label col-md-2']) !!}
@@ -176,7 +173,6 @@
                 type: "post",
                 data: { "_token": "{{ csrf_token() }}", "id_complectation": $("#id_complectation").val(), "list" : $("#list").val() },
                 success: function (response) {
-                    // you will get response from your php page (what you echo or print)
 
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -186,7 +182,6 @@
 
             });
         });
-
 
         $(document).on("click", '#add_field', function () {
             var html = '<div class="additional_field"><div class="form-group">';
