@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogParameterComplectation;
+use App\CatalogParameterPackParameter;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CatalogParameterValuesRequest;
@@ -93,7 +95,11 @@ class CatalogparametervaluesController extends Controller
     public function destroy(Request $request, CatalogParameterValue $catalogParameterValue)
     {
         if ($request->ajax()) {
+
+            CatalogParameterPackParameter::where('id_parameter', $catalogParameterValue->id)->delete();
+            CatalogParameterComplectation::where('id_parameter', $catalogParameterValue->id)->delete();
             $catalogParameterValue->delete();
+
             return response()->json(['success' => 'Параметр удален']);
         } else {
             return 'Ошибка веб приложения! Действия не были выполнены.';

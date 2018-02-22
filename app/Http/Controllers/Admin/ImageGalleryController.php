@@ -27,8 +27,6 @@ class ImageGalleryController extends Controller
      */
     public function upload(Request $request)
     {
-
-
         $file = $request->file('image');
 
         foreach ($file as $f) {
@@ -40,8 +38,6 @@ class ImageGalleryController extends Controller
             $input['id_model'] = $request->input('id_model');
 
             ImageGallery::create($input);
-
-
         }
 
         return back()->with('success', 'Изображение загруженно');
