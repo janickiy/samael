@@ -148,7 +148,7 @@
 
     </div>
 
-    <div id="map" style="width: 600px; height: 400px"></div>
+    <div id="map" style="width: 600px; height: 300px"></div>
 
 @endsection
 
