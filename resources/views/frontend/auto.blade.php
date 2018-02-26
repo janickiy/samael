@@ -110,7 +110,15 @@
 
                         <div class="pager">
 
-                            {{ $newcars->render() }}
+                            @if ( isset($request->search) && $request->search == 'Y')
+
+                                {{ $newcars->appends(['search' => 'Y', 'price_from' => $request->price_from, 'price_to' => $request->price_to, 'gearbox' => $request->gearbox, 'body_type' => $request->body_type])->render() }}
+
+                            @else
+
+                               {{ $newcars->render() }}
+
+                            @endif
 
                         </div>
 
