@@ -6,6 +6,9 @@
 
     <!-- iCheck for checkboxes and radio inputs -->
     {!! Html::style('assets/plugins/iCheck/all.css') !!}
+
+    {!! Html::style('css/colorpicker.css') !!}
+
 @endsection
 
 @section('content')
@@ -60,7 +63,7 @@
                     <div class="form-group">
                         {!! Form::label('hex', 'Код *', ['class' => 'control-label col-md-2']) !!}
                         <div class="col-md-4">
-                            {!! Form::text('hex', old('hexe', isset($catalogcolor) ? $catalogcolor->hex : null), ['class' => 'form-control validate[required]', 'placeholder' => 'Код']) !!}
+                            {!! Form::text('hex', old('hexe', isset($catalogcolor) ? $catalogcolor->hex : null), ['class' => 'form-control validate[required]', 'placeholder' => 'Код', 'id' => 'colorpickerField1']) !!}
                         </div>
                     </div>
 
@@ -115,6 +118,9 @@
 
     {!! Html::script('assets/plugins/validationengine/jquery.validationEngine.js') !!}
 
+    {!! Html::script('js/colorpicker.js') !!}
+
+
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -134,6 +140,20 @@
                     prettySelect: true,
                     usePrefix: prefix
                 });
+        });
+
+        $('#colorpickerField1').ColorPicker({
+            onSubmit: function(hsb, hex, rgb, el) {
+                $(el).val(hex);
+                $(el).ColorPickerHide();
+            },
+            onBeforeShow: function () {
+                $(this).ColorPickerSetColor(this.value);
+            }
+        })
+
+        .bind('keyup', function(){
+             $(this).ColorPickerSetColor(this.value);
         });
 
     </script>
