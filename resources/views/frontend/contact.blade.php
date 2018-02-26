@@ -168,8 +168,8 @@
             });
 
             myPlacemark = new ymaps.Placemark([{!! getSetting('MAP_LONGITUDE') !!}, {!! getSetting('MAP_LATITUDE') !!}], {
-                hintContent: 'Москва!',
-                balloonContent: 'Столица России'
+                hintContent: '{!! getSetting('FRONTEND_ADDRESS') !!}',
+                balloonContent: '{!! getSetting('SITE_TITLE') !!}'
             });
 
             myMap.geoObjects.add(myPlacemark);
