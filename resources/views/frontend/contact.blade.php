@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-
+				 <div id="map" style="width: 100%; height: 300px;margin-bottom: 20px;"></div>
             </div>
         </div>
     </div>
@@ -144,11 +144,8 @@
         </div>
         <a href="#inline" class="btn recall_link modalbox">Обратный звонок</a>
 
-
-
     </div>
 
-    <div id="map" style="width: 600px; height: 300px"></div>
 
 @endsection
 
