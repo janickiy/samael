@@ -11,11 +11,13 @@
 @endsection
 
 @section('content')
-    <div class="">
+    <div class="inset_page white_bg">
         <div class="main_width">
-            <h2 class="page-head-line">{{ $post->title }}</h2>
-       
-            {!! $post->content !!}
+
+			<h1 class="page-head-line">{{ $post->title }}</h1>
+			<div class="news_detail">
+				<div><p> {!! $post->content !!}</p></div>
+			</div>
         </div>
     </div>
 @endsection

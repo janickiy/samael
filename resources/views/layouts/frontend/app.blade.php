@@ -25,6 +25,8 @@
 
     {!! Html::script('js/jquery.fancybox.js') !!}
 
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
     @yield('css')
 
 </head>
@@ -41,11 +43,9 @@
 
     @yield('marks')
 
-
     @yield('content')
 
     @yield('bottom_page_content')
-
 
     @include('layouts.frontend.includes.footer')
 
@@ -83,7 +83,6 @@
     })
 </script>
 @yield('js')
-
 
 </body>
 </html>

@@ -143,12 +143,39 @@
             </div>
         </div>
         <a href="#inline" class="btn recall_link modalbox">Обратный звонок</a>
+
+
+
     </div>
+
+    <div id="map" style="width: 600px; height: 400px"></div>
+
 @endsection
 
 @section('js')
 
     {!! Html::script('assets/plugins/select2/select2.full.min.js') !!}
+
+    <script type="text/javascript">
+        ymaps.ready(init);
+        var myMap,
+            myPlacemark;
+
+        function init(){
+            myMap = new ymaps.Map("map", {
+                center: [{!! getSetting('MAP_LONGITUDE') !!}, {!! getSetting('MAP_LATITUDE') !!}],
+                zoom: 16
+            });
+
+            myPlacemark = new ymaps.Placemark([{!! getSetting('MAP_LONGITUDE') !!}, {!! getSetting('MAP_LATITUDE') !!}], {
+                hintContent: 'Москва!',
+                balloonContent: 'Столица России'
+            });
+
+            myMap.geoObjects.add(myPlacemark);
+        }
+    </script>
+
 
     <script type="text/javascript">
         $(document).ready(function () {

@@ -23,25 +23,29 @@
 
 @section('content')
 
-    <div class="">
+    <div class="inset_page">
         <div class="main_width">
 
             @include('layouts.frontend.includes.breadcrumbs')
 
             <div class="inset_page_content">
-                <div class="row">
+			<h1>Новости</h1>
+                <div class="row news_list">
+					<ul>
                         @foreach($news as $new)
-                            <div>
-                                <h4><a href="{{ url($new->slug) }}">{{ $new->title }}</a></h4>
-                                <div class="post-content">
-                                    {!! $new->excerpt()  !!}
-                                </div>
-                                <div class="read-more">
-                                    <a href="{{ url($new->slug) }}">подробно &gt;&gt;</a>
-                                </div>
-                                <hr/>
-                            </div>
+                            <li>
+								<div class="news_item row">
+										<div class="row">
+											<div class="news_item_content">
+												<a href="{{ url($new->slug) }}" class="news_item_title">{{ $new->title }}</a>
+												<p>{!! $new->excerpt()  !!}</p>
+											</div>	
+										</div>
+										<a class="btn" href="{{ url($new->slug) }}">Читать полностью</a>
+									</div>
+                            </li>
                         @endforeach
+					</ul>	
                         <div class="text-center">
                             {!! $news->links() !!}
                         </div>
