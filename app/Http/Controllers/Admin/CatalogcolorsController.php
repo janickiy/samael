@@ -122,6 +122,11 @@ class CatalogcolorsController extends Controller
     {
         if ($request->ajax()) {
             $catalogColor->delete();
+
+            if ($catalogColor->image) {
+                if (file_exists(public_path() . $catalogColor->image)) @unlink(public_path() . $catalogColor->image);
+            }
+
             return response()->json(['success' => 'Цвет удален']);
         } else {
             return 'Ошибка веб приложения! Действия не были выполнены.';

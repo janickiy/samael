@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CatalogColor;
 use App\CatalogComplectation;
+use App\CatalogPack;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CatalogModelsRequest;
@@ -143,6 +145,23 @@ class CatalogmodelsController extends Controller
             if ($catalogModel->image) {
                 if (file_exists(public_path() . $catalogModel->image)) @unlink(public_path() . $catalogModel->image);
             }
+
+            $catalogColors = CatalogColor::select(['image'])->where('id_model', $catalogModel->id)->get()->toArray();
+
+            foreach ($catalogColors as $catalogColor) {
+                if (file_exists(public_path() . $catalogColor['image'])) @unlink(public_path() . $catalogColor['image']);
+            }
+
+            CatalogColor::where('id_model', $catalogModel->id)->delete();
+            CatalogComplectation::where('id_model', $catalogModel->id)
+                ->leftJoin('catalog_parameter_complectation', 'catalog_parameter_complectation.id_complectation', '=', 'catalog_complectations.id')
+                ->leftJoin('catalog_parameter_pack', 'catalog_parameter_pack.id_complectation', '=', 'catalog_complectations.id')
+                ->delete();
+
+            CatalogModification::where('id_model', $catalogModel->id)->delete();
+            CatalogPack::where('id_model', $catalogModel->id)
+                ->leftJoin('catalog_parameter_pack_parameter', 'catalog_parameter_pack_parameter.id_pack', '=', 'catalog_packs.id')
+                ->delete();
 
             $catalogModel->delete();
             return response()->json(['success' => 'Модель удалена']);
